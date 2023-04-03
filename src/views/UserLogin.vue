@@ -24,7 +24,7 @@
                   <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
                   <label class="form-check-label" for="form1Example3"> Remember me </label>
                 </div>
-                <router-link to="/forgotpassword">Forgot password?</router-link>
+                <router-link to="/forgotPassword">Forgot password?</router-link>
               </div>
     
               <!-- Submit button -->

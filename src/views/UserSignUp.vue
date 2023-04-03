@@ -115,7 +115,7 @@
     <script>
 
     export default {
-      name:'SignUpView',
+      name:'UserSignUp',
         component:{
         },
       data() {

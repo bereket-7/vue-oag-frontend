@@ -33,7 +33,11 @@ const routes = [
   {
     path: '/forgotPassword',
     name: 'ForgotPassword',
-    component: () => import('../views/User/ForgotPassword.vue')
+    component: () => import('../components/ForgotPassword.vue')
+  }, {
+    path: '/organizationLogin',
+    name: 'OrganizationLogin',
+    component: () => import('../views/Organization/OrganizationLogin.vue')
   }
 ]
 

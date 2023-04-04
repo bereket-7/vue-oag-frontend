@@ -7,15 +7,59 @@
          <i class="bi bi-arrow-up-circle h1"></i>
        </a>
      </div>
+
+<!-- HTML code -->
+<div class="footer-icons">
+  <a href="https://www.facebook.com/" target="blank" class="social-icon" data-target="facebook"></a>
+  <a href="#" class="social-icon" data-target="twitter"><i class="fas fa-twitter"></i></a>
+  <a href="#" class="social-icon" data-target="instagram"><i class="fas fa-instagram"></i></a>
+</div>
+
+
     </footer>
   </template>
   <script>
   export default {
     name: 'FooterView',
-  //class="img-fluid w-40 d-none d-sm-block" <img v-if="imageVisible" :alt="imageAltText" :src="imageSource"
-  }
-  </script>
 
-  <style scoped>
-  
+function() {
+  ('.social-icon').click(function() {
+    var target = (this).data('target');
+    window.open('https://' + target + '.com', '_blank');
+  });
+}
+}
+</script>
+
+    
+
+<style scoped>
+
+/* CSS styling */
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #333;
+  cursor: pointer;
+}
+
   </style>

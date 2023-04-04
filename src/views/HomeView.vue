@@ -3,6 +3,7 @@
   </div>
 
   <CardSlider/>
+  <ArtworkCategory/>
   <section id="questions" class="p-5">
     <div class="container">
       <h2 class="text-center mb-4">Frequently Asked Questions</h2>
@@ -113,11 +114,13 @@
 // @ is an alias to /src
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
+import ArtworkCategory from '@/components/ArtworkCategory.vue'
 export default {
   name: 'HomeView',
   components: {
     FooterView,
-    CardSlider
+    CardSlider,
+    ArtworkCategory
   },
 }
 </script>

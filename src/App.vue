@@ -33,7 +33,7 @@
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link" to="/cart">ShippingCart</router-link>
+          <router-link class="nav-link" to="/artworkDetail">ShippingCart</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/contactUs">Contact</router-link>

@@ -29,6 +29,25 @@
                           <div v-if="formErrors.lastName" class="invalid-feedback">{{ formErrors.lastName }}</div>
                         </div>
                       </div>
+
+                      
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="email" id="email" placeholder="Email" v-model="formData.email" :class="{ 'is-invalid': formErrors.email }" class="form-control" />
+                          <div v-if="formErrors.email" class="invalid-feedback">{{ formErrors.email }}</div>
+                        </div>
+                      </div>
+
+
+                      
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="phone" v-model="formData.phone" :class="{ 'is-invalid': formErrors.phone }" placeholder="Phone" class="form-control" />
+                          <div v-if="formErrors.phone" class="invalid-feedback">{{ formErrors.phone }} </div>
+                        </div>
+                      </div>
     
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-map-marker fa-lg me-3 fa-fw"></i>
@@ -37,26 +56,6 @@
                           <div v-if="formErrors.address" class="invalid-feedback">{{ formErrors.address }}</div>
                         </div>
                       </div>
-    
-    
-                      <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="phone" v-model="formData.phone" :class="{ 'is-invalid': formErrors.phone }" placeholder="Phone" class="form-control" />
-                          <div v-if="formErrors.phone" class="invalid-feedback">{{ formErrors.phone }}</div>
-                        </div>
-                      </div>
-    
-    
-                      <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="email" id="email" placeholder="Email" v-model="formData.email" :class="{ 'is-invalid': formErrors.email }" class="form-control" />
-                          <div v-if="formErrors.email" class="invalid-feedback">{{ formErrors.email }}</div>
-                        </div>
-                      </div>
-    
-    
     
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -81,6 +80,29 @@
                           <div v-if="formErrors.confirmPassword" class="invalid-feedback">{{ formErrors.confirmPassword }}</div>
                         </div>
                       </div>
+
+            
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex"  
+                          id="male" value="male">
+                        <label class="form-check-label" for="male">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" 
+                         id="female" value="female">
+                        <label class="form-check-label" for="female">Female</label>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="number" id="age" v-model="formData.age" :class="{ 'is-invalid':  
+                           formErrors.age }" placeholder="Age" class="form-control" 
+                           name="age" min="15" 
+                           />
+                           <div v-if="formErrors.age" class="invalid-feedback">{{ formErrors.age }} </div>
+
+                        </div>
+                      </div>
     
                       <div class="form-check d-flex justify-content-center mb-5">
                         <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
@@ -92,10 +114,10 @@
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-3">
                         <button type="submit" class="btn btn-success btn-lg">Register</button>
                       </div>
-    
+                
                     </form>
                     <router-link to="/login">already have an account</router-link>
-                  </div>
+                    </div>
                   <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
     
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
@@ -128,7 +150,8 @@
             email: '',
             username: '',
             confirmPassword: '',
-            password: ''
+            password: '',
+            age: ''
           },
           formErrors: {}
         }

@@ -30,18 +30,6 @@
               <!-- Submit button -->
               <button type="submit" class="btn btn-success btn-lg btn-block">Sign in</button>
     
-              <div class="divider d-flex align-items-center my-4">
-                <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-              </div>
-    
-              <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="https://www.facebook.com/" target="blank"
-                role="button">
-                <i class="fab fa-facebook-f me-2"></i>Continue with Facebook
-              </a> <span>     </span>
-              <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="https://www.twitter.com/login/" target="blank"
-                role="button">
-                <i class="fab fa-twitter me-2"></i>Continue with Twitter</a>
-    
             </form>
           </div>
         </div>

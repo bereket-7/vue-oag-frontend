@@ -18,12 +18,12 @@ const routes = [
   {
     path: '/userSignUp',
     name: 'UserSignUp',
-    component: () => import('../views/UserSignUp.vue')
+    component: () => import('../views/User/UserSignUp.vue')
   },
   {
     path: '/userLogin',
     name: 'UserLogin',
-    component: () => import('../views/UserLogin.vue')
+    component: () => import('../views/User/UserLogin.vue')
   },
   {
     path: '/contactUs',

@@ -1,9 +1,8 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 
+  <CardSlider/>
   <section id="questions" class="p-5">
     <div class="container">
       <h2 class="text-center mb-4">Frequently Asked Questions</h2>
@@ -106,17 +105,33 @@
       </div>
     </div>
   </section>
-  
+
+  <FooterView/>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import FooterView from '@/components/FooterView.vue'
+import CardSlider from '@/components/CardSlider.vue'
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
-  }
+    FooterView,
+    CardSlider
+  },
 }
 </script>
+
+
+
+<style scoped>
+   .card {
+  width: 18rem;
+}
+
+@media (max-width: 576px) {
+  .card {
+    width: 100%;
+  }
+}
+</style>

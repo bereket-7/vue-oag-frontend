@@ -14,6 +14,7 @@
         <p class="price">{{ artwork.price }}</p>
       </div>
     </div>
+    <button type="button" id="cart" class="btn btn-danger">Add to Cart</button>
   </div>
 </template>
 
@@ -56,8 +57,16 @@ export default {
   font-weight: bold;
   font-size: 1.3rem;
 }
+#cart {
+  display: block;
+  margin: 0 auto;
+}
+#cart:hover {
+  background-color: green;
+}
 .artist {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
 </style>

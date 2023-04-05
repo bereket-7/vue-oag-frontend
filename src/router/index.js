@@ -48,6 +48,11 @@ const routes = [
     path: '/artworkDetail',
     name: 'Artworkdetail',
     component: () => import('../components/ArtworkDetail.vue')
+  },
+  {
+    path: '/logout',
+    name: 'LogOut',
+    component: () => import('../components/LogOut.vue')
   }
 ]
 

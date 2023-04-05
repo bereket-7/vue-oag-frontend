@@ -1,11 +1,8 @@
 <template>
     <div>
         <div class="nav">
-            <a href="#" class="nav-logo">
-                <img src="../assets/img/face.jpg" alt="">
-            </a>
             <div class="nav-mobile">
-                <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  
+                <i class="fa-solid fa-bars" v-on:click="openMenuMobile()"></i>  
             </div>
         </div>
         <div class="menu" id="menu">
@@ -13,19 +10,16 @@
 				<img src="../assets/img/bekam.jpg" alt="">
 			</div>
             <div class="menu-name">
-                <h2>Rômulo Rodrigues</h2>
+                <h2>Bereket Getachew</h2>
                 <div class="menu-name-social-icons">
                     <a href="">
-                        <i class="fa fa-facebook"></i>
+                        <i class="fa-brands fa-facebook"></i>
                     </a>
                     <a href="">
-                        <i class="fa fa-instagram"></i>
+                        <i class="fa-brands fa-instagram"></i>
                     </a>
                     <a href="">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-pinterest"></i>
+                        <i class="fa-brands fa-twitter"></i>
                     </a>
                 </div>
             </div>
@@ -37,13 +31,13 @@
                     <ul class="dropdown">
                         <a href="#" v-on:click.prevent.stop="openDropdown()" class="dropbtn">Dropdown <i class="fa fa-angle-down"></i></a>
                         <li id="myDropdown" class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href="#">Customers</a>
+                            <a href="#">Managers</a>
+                            <a href="#">Organizations</a>
                         </li>
                     </ul>
                     <li>
-                        <a href="">Lorem ipsum ipsum ipsum</a>
+                        <a href="">Users of the system</a>
                     </li>
                 </ul>
                 <ul>
@@ -82,13 +76,10 @@
                         <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head"><i class="fa fa-user"></i></a>
                         <ul id="myDropdownUser">
                             <li>
-                                <a href=""><i class="fa fa-user"></i> User</a>
+                                <a href=""><i class="fa fa-user" style="color:green"></i>User</a>
                             </li>
                             <li>
-                                <a href=""><i class="fa fa-cogs"></i> Config</a>
-                            </li>
-                            <li>
-                                <a href=""><i class="fa fa-sign-out"></i> Sign out</a>
+                                <a href=""><i class="fa fa-sign-out" style="color:crimson"></i> Sign out</a>
                             </li>
                         </ul>
                     </li>
@@ -99,60 +90,48 @@
             <div class="sidebar-list-item">
                 <router-link to="/">
                     <i class="fa fa-home"></i>
-                    <span class="tooltip">Dashboard</span>
+                    <span class="tooltip" style="color:azure">Dashboard</span>
                 </router-link>
             </div>
             <div class="sidebar-list-item">
                 <router-link to="/about">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-user" style="color:azure"></i>
                     <span class="tooltip">About</span>
                 </router-link>
             </div>
             <div class="sidebar-list-item">
+                <router-link to="/">
+                    <i class="fa fa-download" style="color:azure"></i>
+                    <span class="tooltip">Requests</span>
+                </router-link>
+            </div>
+            <div class="sidebar-list-item">
+            <router-link to="/about">
+                    <i class="fa fa-calendar" style="color:azure"></i>
+                    <span class="tooltip">Artworks</span>
+                </router-link>
+            </div>
+            <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-download"></i>
-                    <span class="tooltip">Download</span>
+                    <i class="fa fa-star" style="color:azure"></i>
+                    <span class="tooltip"></span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-calendar"></i>
-                    <span class="tooltip">Calendar</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-star"></i>
-                    <span class="tooltip">Star</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-shopping-bag"></i>
+                    <i class="fa fa-shopping-bag" style="color:azure"></i>
                     <span class="tooltip">Products</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-clock-o"></i>
-                    <span class="tooltip">Time</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-cogs"></i>
-                    <span class="tooltip">Config</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-sitemap"></i>
+                    <i class="fa fa-sitemap" style="color:azure"></i>
                     <span class="tooltip">Sitemap</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-sign-out"></i>
+                    <i class="fa fa-sign-out" style="color:azure"></i>
                     <span class="tooltip">Sign out</span>
                 </a>
             </div>
@@ -188,20 +167,20 @@ export default {
     width: 80px;
     height: 100%;
     display: inline-block;
-    background-color:#5DAE8B;
+    background-color:#2C3E50  ;
     z-index: 5;
     position: fixed;
 }
 .nav-logo{
     display: flex;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 .nav-logo img{
     width: 50px;
     padding: 10px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 .nav-mobile{
     display: none;
@@ -412,7 +391,7 @@ export default {
 }
 .sidebar-list-item .tooltip{
     visibility: hidden;
-      background-color: black;
+    background-color: black;
     color: #fff;
     text-align: center;
     padding: 5px 20px;
@@ -431,7 +410,7 @@ export default {
     .sidebar-list{
         left: -100%;
         transition: all 300ms ease-in-out;
-        background-color: #5CAD8A;
+        background-color:crimson;
         height: 100%;
     }
     .showSidebar{

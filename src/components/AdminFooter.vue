@@ -21,7 +21,7 @@ export default {
 <style>
     footer{
         width: 100%;
-        background-color: #fff;
+        background-color: #2f4f4f;
         text-align: center;
     }
     footer .footer-content{

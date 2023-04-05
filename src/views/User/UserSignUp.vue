@@ -81,31 +81,48 @@
                         </div>
                       </div>
 
-            
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex"  
-                          id="male" value="male">
-                        <label class="form-check-label" for="male">Male</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex" 
-                         id="female" value="female">
-                        <label class="form-check-label" for="female">Female</label>
-                      </div>
-
                       <div class="d-flex flex-row align-items-center mb-4">
                         <div class="form-outline flex-fill mb-0">
                           <input type="number" id="age" v-model="formData.age" :class="{ 'is-invalid':  
                            formErrors.age }" placeholder="Age" class="form-control" 
                            name="age" min="15" 
                            />
-                           <div v-if="formErrors.age" class="invalid-feedback">{{ formErrors.age }} </div>
-
+                           <div v-if="formErrors.age" class="invalid-feedback">{{ formErrors.age }}     
+                           </div>
                         </div>
                       </div>
-    
+            
+
+                      <div class="col-md-6 mb-4">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="sex" 
+                           id="femaleGender"
+                            value="option1" checked />
+                          <label class="form-check-label" for="female">Female</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="sex" 
+                           id="maleGender"
+                            value="option2" />
+                          <label class="form-check-label" for="male">Male</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                <div class="col-12">
+
+                  <select class="select form-control-md">
+                    <option value="1" disabled>Select Role</option>
+                    <option value="2">Customer</option>
+                    <option value="3">Artist</option>
+                  </select>
+                </div>
+              </div>
+                            
                       <div class="form-check d-flex justify-content-center mb-5">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                        <input class="form-check-input me-2" type="checkbox" value="" 
+                         id="form2Example3c" />
                         <label class="form-check-label" for="form2Example3">
                           I agree all statements in <a href="#!">Terms of service</a>
                         </label>
@@ -200,4 +217,11 @@
     </script>
     
     <style>
+
+@media (min-width: 1025px) {
+.h-custom {
+height: 100vh !important;
+}
+}
+
     </style>

@@ -125,8 +125,6 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
    .card {
   width: 18rem;

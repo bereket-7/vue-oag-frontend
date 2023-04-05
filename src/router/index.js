@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+//import HomeView from '../views/HomeView.vue'
 
 const routes = [
+  //{
+  //path: '/',
+  //name: 'home',
+  //component: HomeView
+  //},
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'DashboardView',
+    // component: Dashboard
+    component: () => import('../views/DashboardView.vue')
   },
   {
     path: '/about',
@@ -53,7 +59,13 @@ const routes = [
     path: '/logout',
     name: 'LogOut',
     component: () => import('../components/LogOut.vue')
+  },
+  {
+    path: '/adminPanel',
+    name: 'AdminPanel',
+    component: () => import('../views/Admin/AdminPanel.vue')
   }
+
 ]
 
 const router = createRouter({

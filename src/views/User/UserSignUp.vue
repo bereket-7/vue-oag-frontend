@@ -111,15 +111,13 @@
 
                       <div class="row">
                 <div class="col-12">
-
                   <select class="select form-control-md">
                     <option value="1" disabled>Select Role</option>
                     <option value="2">Customer</option>
                     <option value="3">Artist</option>
                   </select>
                 </div>
-              </div>
-                            
+              </div>                           
                       <div class="form-check d-flex justify-content-center mb-5">
                         <input class="form-check-input me-2" type="checkbox" value="" 
                          id="form2Example3c" />

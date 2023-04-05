@@ -39,6 +39,10 @@
           <router-link class="nav-link" to="/contactUs">Contact</router-link>
         </li>
 
+        <li class="nav-item">
+          <router-link class="nav-link" to="/uploadArtwork">Submit Artwork</router-link>
+        </li>
+
       </ul>
     </div>
   </div>

@@ -40,6 +40,11 @@ const routes = [
     component: () => import('../views/Organization/OrganizationLogin.vue')
   },
   {
+    path: '/uploadArtwork',
+    name: 'UploadArtwork',
+    component: () => import('../views/Artwork/UploadArtwork.vue')
+  },
+  {
     path: '/artworkDetail',
     name: 'Artworkdetail',
     component: () => import('../components/ArtworkDetail.vue')

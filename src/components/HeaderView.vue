@@ -45,26 +45,15 @@
                         List
                     </li>
                     <li class="menu-list-item-2">
-                        <i class="fa fa-star"></i> <h5>Lorem ipsum Lorem</h5>
+                        <i class="fa fa-star" style="color:darkorange"></i> <h5>Popular Artist</h5>
                     </li>
                     <li class="menu-list-item-2">
-                        <i class="fa fa-cogs"></i> <h5>Lorem ipsum Lorem</h5>
+                        <i class="fa-solid fa-circle-user" style="color:green"></i><h5>Accounts</h5>
                     </li>
                     <li class="menu-list-item-2">
-                        <i class="fa fa-group"></i> <h5>Lorem ipsum Lorem</h5>
+                        <i class="fa-solid fa-building-ngo" style="color:blue"></i><h5>Ogranizations</h5>
                     </li>
-                     <li class="menu-list-item-2">
-                        <i class="fa fa-group"></i> <h5>Lorem ipsum Lorem</h5>
-                    </li>
-                     <li class="menu-list-item-2">
-                        <i class="fa fa-group"></i> <h5>Lorem ipsum Lorem</h5>
-                    </li>
-                    <li class="menu-list-item-2">
-                        <i class="fa fa-group"></i> <h5>Lorem ipsum Lorem</h5>
-                    </li>
-                    <li class="menu-list-item-2">
-                        <i class="fa fa-group"></i> <h5>Lorem ipsum Lorem</h5>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -89,8 +78,8 @@
         <div class="sidebar-list" id="sidebar">
             <div class="sidebar-list-item">
                 <router-link to="/">
-                    <i class="fa fa-home"></i>
-                    <span class="tooltip" style="color:azure">Dashboard</span>
+                    <i class="fa fa-home" style="color:azure"></i>
+                    <span class="tooltip">Dashboard</span>
                 </router-link>
             </div>
             <div class="sidebar-list-item">

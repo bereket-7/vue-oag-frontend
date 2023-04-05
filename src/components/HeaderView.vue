@@ -59,13 +59,13 @@
         </div>
         <div class="header-top">
             <div class="header-top-content">
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="Search user by name">
                 <ul class="options-user">
                     <li>
                         <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head"><i class="fa fa-user"></i></a>
                         <ul id="myDropdownUser">
                             <li>
-                                <a href=""><i class="fa fa-user" style="color:green"></i>User</a>
+                                <a href=""><i class="fa fa-user" style="color:green"></i>Profile</a>
                             </li>
                             <li>
                                 <a href=""><i class="fa fa-sign-out" style="color:crimson"></i> Sign out</a>
@@ -261,7 +261,7 @@ export default {
     width: 100%;
     height: 71px;
     padding: 0rem;
-    background-color: #fff;
+    background-color:#41B883;
     z-index: 1;
     transition: all .2s ease;
     box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
@@ -282,7 +282,7 @@ export default {
     padding: 5px 10px;
 }
 .options-user{
-        padding-right: 25px;
+    padding-right: 25px;
     list-style: none;
 }
 .options-user a.options-user-head{
@@ -290,7 +290,7 @@ export default {
     border: 1px solid #e2e8f5;
     padding: 10px;
     border-radius: 4px;
-    color: #99CDA9;
+    color:#ffffff;
 }
 .options-user ul li{
     position: relative;

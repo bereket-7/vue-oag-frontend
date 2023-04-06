@@ -35,6 +35,8 @@
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
                     <router-link to="/eventRegister" type="button" class="btn btn-success">Create Event</router-link>
+
+                    <router-link to="/createCompetition" type="button" class="btn btn-info">Create Competition</router-link>
                   </div>
 
                 </form>

@@ -12,6 +12,11 @@ const routes = [
     name: 'eventRegister',
     component: () => import('../views/Organization/EventRegister.vue')
   },
+  {
+    path: '/createCompetition',
+    name: 'CreateCompetition',
+    component: () => import('../views/Manager/CreateCompetition.vue')
+  },
   /*{
     path: '/',
     name: 'DashboardView',

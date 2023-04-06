@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5">
-      <h1>Register for the competition</h1>
+      <h1>Create Competition</h1>
       <form>
         <div class="form-group">
           <label for="competitionTitle">Competition Title:</label>
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
           <label for="numberOfCompetitor">Number of Competitors:</label>
-          <input type="number" class="form-control" id="numberOfCompetitor" v-model.number="numberOfCompetitor">
+          <input type="number" min=3 class="form-control" id="numberOfCompetitor" v-model.number="numberOfCompetitor">
         </div>
         <div class="form-group">
           <label for="expiryDate">Expiry Date:</label>
@@ -25,6 +25,7 @@
   
   <script>
   export default {
+    name:'CreateCompetition',
     data() {
       return {
         competitionTitle: '',

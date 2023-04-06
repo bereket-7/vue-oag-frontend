@@ -82,16 +82,27 @@ export default {
         this.artworkPhoto = competitor.target.files[0];
       },
       async  registerCompetitor(){
-      // Submit the form data to the server or perform any other necessary action.
-        console.log({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        phone: this.phone,
-        artDescription: this.artDescription,
-        artworkPhoto: null
-      })
+        const formData = new FormData();
+        formData.append('firstName', this.firstName);
+        formData.append('lastName', this.lastName);
+        formData.append('email', this.email);
+        formData.append('phone', this.phone);
+        formData.append('artDescription', this.artDescription);
+        formData.append('artworkPhoto', this.artworkPhoto);
+        const response = await fetch('/api/registerCompetitor', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
+        // reset form data
+        this.firstName= '';
+        this.lastName= '';
+        this.email= '';
+        this.phone= '';
+        this.artDescription= '';
+        this.artworkPhoto= null;
     },
   },
-}
+};
 </script>

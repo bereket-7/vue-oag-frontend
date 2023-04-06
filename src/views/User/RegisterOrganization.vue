@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-4">
+    <div class="container" style="margin-top: 50px;">
       <div class="row">
         <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
           <div class="card">
@@ -42,6 +42,17 @@
                   <input type="text" class="form-control form-control-md"   
                    placeholder="Enter Password at least 6 character"  id="password" v-model="password">
                 </div>
+
+                <div class="input-group flex-nowrap pt-2 mb-2">
+                  <label class="input-group-text" for="organizationType">Organization Type</label>
+                  <select class="form-select" id="organizationType">
+                    <option value="governmental" selected>Governmental</option>
+                    <option value="private">Private</option>
+                    <option value="NGO">NGO's</option>
+                  </select>
+                </div>
+
+
                 <div class="px-2 py-3">
                     <button type="submit"  @click.prevent="submitForm" 
                     class="btn btn-success btn-lg">Submit</button>
@@ -76,7 +87,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
  /* .container {
     display: flex;
     justify-content: center;

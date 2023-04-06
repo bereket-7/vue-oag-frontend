@@ -1,11 +1,11 @@
 <template>
     <div class="registration-form">
-    <form @submit.prevent="submitForm" class="vh-200">
+    <form @submit.prevent="submitForm" class="vh-300">
     <div class="container h-150">
     <div class="row d-flex justify-content-center align-items-center h-100">
 
      <div class="col-xl-9">
-        <h2 class="text-info mb-4">Schedule Event</h2>
+        <h2 class="mb-4" style="color:cornflowerblue;">Register Event</h2>
 
         <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
@@ -82,27 +82,7 @@
   };
   </script>
   
-  <style scoped>
-     
-     
-body {
-  font-family: Arial, sans-serif;
-}
-
-form {
-  width: 50%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 5px;
-  margin: 5px 0;
-}
-
+<style scoped>
 button {
   width: 25%;
   padding: 10px;
@@ -115,7 +95,7 @@ button {
 }
 
 button:hover {
-  background-color:rgb(220, 66, 151);
+  background-color:rgb(120, 19, 74);
 }
 
   /* Add any custom styles here */

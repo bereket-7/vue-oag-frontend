@@ -38,6 +38,8 @@
 
                     <router-link to="/createCompetition" type="button" class="btn btn-info">Create Competition</router-link><br><br>
                     <router-link to="/registerCompetitor" type="button" class="btn btn-success">Apply for Competition</router-link>
+
+                    <router-link to="/registerOrganization" type="button" class="btn btn-info">Register Org</router-link>
                   </div>
 
                 </form>

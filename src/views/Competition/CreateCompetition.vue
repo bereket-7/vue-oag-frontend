@@ -58,7 +58,9 @@
       }
     },
     methods: {
+
       registerCompetition() {
+        this.artworkPhoto = event.target.files[0];
         // Submit the form data to the server or perform any other necessary action.
         console.log({
           competitionTitle: this.competitionTitle,

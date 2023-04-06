@@ -38,8 +38,7 @@
                 <h6 for="artist-name" class="mb-0">Artist Name</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <input  id="artist-name" v-model="artistName" placeholder="Bereket" type="text" class="form-control form- 
-                  control-lg" />
+                <input  id="artist-name" v-model="artistName" placeholder="Bereket" type="text" class="form-control form-control-lg" />
               </div>
             </div>
 

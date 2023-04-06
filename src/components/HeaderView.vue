@@ -2,10 +2,10 @@
     <div>
         <div class="nav">
             <div class="nav-mobile">
-                <i class="fa-solid fa-bars" v-on:click="openMenuMobile()"></i>  
+                <i class="fa-solid fa-bars" @click="showMenu = !showMenu"></i>  
             </div>
         </div>
-        <div class="menu" id="menu">
+        <div class="menu" v-show="showMenu" id="menu">
             <div class="menu-logo">
 				<img src="../assets/img/bekam.jpg" alt="">
 			</div>
@@ -75,7 +75,7 @@
                 </ul>
             </div>
         </div>
-        <div class="sidebar-list" id="sidebar">
+        <div class="sidebar-list" id="sidebar" v-show="showMenu">
             <div class="sidebar-list-item">
                 <router-link to="/">
                     <i class="fa fa-home" style="color:azure"></i>
@@ -133,7 +133,8 @@
 export default {
     name: 'HeaderView',
     data(){
-        return{
+        return{    
+    showMenu: true
         }
     },
     methods:{

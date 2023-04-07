@@ -21,12 +21,15 @@
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item" style="color:azure">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
+        <button type="button" class="btn btn-primary position-relative">
+  News
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    5+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-4" type="search" style="color:white" placeholder="Search" 

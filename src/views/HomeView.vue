@@ -50,9 +50,12 @@
           </h2>
           <div id="question-three" class="accordion-collapse collapse" data-bs-parent="#questions">
             <div class="accordion-body">
-              To sign up, first you will need to locate the application form or website for the service or product you
-              are interested in. After that, fill out the required information and follow any instructions set forth by
-              the application. Once you have completed all of the steps, submit your application to get registered and
+              To sign up, first you will need to locate the application form or website for the service 
+               or product you
+              are interested in. After that, fill out the required information and follow any 
+               instructions set forth by
+              the application. Once you have completed all of the steps, submit your application to get 
+               registered and
               receive your login credentials.
             </div>
           </div>
@@ -84,8 +87,10 @@
           <div id="question-five" class="accordion-collapse collapse" data-bs-parent="#questions">
             <div class="accordion-body">
               Yes, we offer custom framing for many of our artworks.
-               You can select the framing option on the artwork's product page and choose from a variety of frames and matting options.
-               If you have any specific framing requests or questions, please contact our customer support team.
+               You can select the framing option on the artwork's product page and choose from a 
+                variety of frames and matting options.
+               If you have any specific framing requests or questions, please contact our customer 
+                support team.
             </div>
           </div>
         </div>
@@ -108,7 +113,6 @@
   </section>
 
   <SearchArtwork/>
-
 
   <FooterView/>
 </template>

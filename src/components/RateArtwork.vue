@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .star {
   display: inline-block;
   color: #f5c518;

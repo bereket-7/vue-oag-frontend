@@ -60,6 +60,10 @@ const routes = [
     path: '/userSignUp',
     name: 'UserSignUp',
     component: () => import('../views/User/UserSignUp.vue')
+  }, {
+    path: '/customerDashboard',
+    name: 'CustomerDashboard',
+    component: () => import('../views/User/CustomerDashboard.vue')
   },
   {
     path: '/userLogin',

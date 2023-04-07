@@ -107,11 +107,14 @@
     </div>
   </section>
 
+  <SearchArtwork/>
+
   <FooterView/>
 </template>
 
 <script>
 // @ is an alias to /src
+import SearchArtwork from '@/components/SearchArtwork.vue'
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
 import ArtworkCategory from '@/components/ArtworkCategory.vue'
@@ -120,7 +123,8 @@ export default {
   components: {
     FooterView,
     CardSlider,
-    ArtworkCategory
+    ArtworkCategory,
+    SearchArtwork
   },
 }
 </script>

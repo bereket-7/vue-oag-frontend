@@ -46,6 +46,8 @@
           <router-link class="nav-link" to="/addStandard">Standard</router-link>
         </li>
 
+        
+
       </ul>
     </div>
   </div>

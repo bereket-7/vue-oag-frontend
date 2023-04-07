@@ -54,8 +54,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/customerDashboard">Customer</router-link>
         </li>
-
-
+        <li class="nav-item">
+          <router-link class="nav-link" to="/artworkList">Artwork List</router-link>
+        </li>
       </ul>
     </div>
   </div>

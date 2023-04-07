@@ -10,9 +10,10 @@
 
 <!-- HTML code -->
 <div class="footer-icons">
-  <a href="https://www.facebook.com/" target="blank" class="social-icon" data-target="facebook"></a>
-  <a href="#" class="social-icon" data-target="twitter"><i class="fas fa-twitter"></i></a>
-  <a href="#" class="social-icon" data-target="instagram"><i class="fas fa-instagram"></i></a>
+  <a href="https://www.facebook.com/" target="blank" class="social-icon" data-target="facebook"><i class="fa-brands fa-facebook" style="color:azure"></i></a>
+  <a href="#" class="social-icon" data-target="twitter" ><i class="fa-brands fa-twitter"></i></a>
+  <a href="#" class="social-icon" data-target="instagram" style="color:crimson"><i class="fa-brands fa-instagram"></i></a>
+  <a href="#" class="social-icon" data-target="telegram" style="color:crimson"><i class="fa-brands fa-telegram"></i></a>
 </div>
 
 
@@ -49,8 +50,7 @@ function() {
   height: 40px;
   margin-right: 10px;
   border-radius: 50%;
-  background-color: #ccc;
-  color: #fff;
+
   text-align: center;
   line-height: 40px;
   font-size: 20px;

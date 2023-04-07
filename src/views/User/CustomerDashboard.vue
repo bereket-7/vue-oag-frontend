@@ -36,6 +36,8 @@
     </div>
   </div>
 </nav>
+
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
@@ -100,7 +102,7 @@
         </div>
       </div>
 
-      <img :src="require('../assets/img/face.jpg')" class="img-fluid" alt="sample">
+      <img src="" class="img-fluid" alt="sample">
 
       </div>
     </div>
@@ -120,7 +122,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card {
   margin-bottom: 30px;
 }

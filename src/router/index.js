@@ -65,10 +65,16 @@ const routes = [
     name: 'CustomerDashboard',
     component: () => import('../views/User/CustomerDashboard.vue')
   },
+
   {
     path: '/userLogin',
     name: 'UserLogin',
     component: () => import('../views/User/UserLogin.vue')
+  },
+  {
+    path: '/artworkList',
+    name: 'ArtworkList',
+    component: () => import('../views/Artwork/ArtworkList.vue')
   },
   {
     path: '/registerOrganization',

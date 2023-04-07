@@ -42,6 +42,21 @@ const routes = [
     component: () => import('../views/Manager/AddStandard.vue')
   },
   {
+    path: '/addStandard',
+    name: 'AddStandard',
+    component: () => import('../views/Manager/AddStandard.vue')
+  },
+  {
+    path: '/requestPage',
+    name: 'RequestPage',
+    component: () => import('../views/Manager/RequestPage.vue')
+  },
+  {
+    path: '/managerPanel',
+    name: 'ManagerPanel',
+    component: () => import('../views/Manager/ManagerPanel.vue')
+  },
+  {
     path: '/userSignUp',
     name: 'UserSignUp',
     component: () => import('../views/User/UserSignUp.vue')

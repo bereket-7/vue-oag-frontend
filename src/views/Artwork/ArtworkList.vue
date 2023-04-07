@@ -38,6 +38,9 @@
     </div>
   </div>
 </div>
+
+<label for="customRange2" class="form-label">price range</label>
+<input type="range" class="form-range" min="0" max="5" id="customRange2">
  
 </template>
 <script>

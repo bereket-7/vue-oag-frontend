@@ -49,7 +49,7 @@
 <table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Id</th>
       <th scope="col">First</th>
       <th scope="col">Last</th>
       <th scope="col">Handle</th>
@@ -89,7 +89,7 @@
   })
   </script>
   
-  <style>
+  <style scoped>
   /* add custom styles here */
   </style>
   

@@ -48,6 +48,10 @@
         </li>
 
         <li class="nav-item">
+          <router-link class="nav-link" to="/showStandard">Rules</router-link>
+        </li>
+
+        <li class="nav-item">
           <router-link class="nav-link" to="/managerPanel">Manager</router-link>
         </li>
 

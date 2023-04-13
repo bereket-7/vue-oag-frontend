@@ -53,7 +53,7 @@
   
   <script>
 
-  import StandardService from '../services/StandardService';
+  import StandardService from '@/services/StandardService.js';
 
   export default {
     name: 'ShowStandard',
@@ -64,16 +64,15 @@
         deletedStandard: null
       }
     },
-    mounted() {
-      // Fetch standards from API
-      this.fetchStandards();
-    },
     methods: {
         getStandards(){
             StandardService.getStandards().then((response) => {
                 this.standards = response.data;   
             });
         },
+        created() {
+        this.getStandards();
+    }
     }
   }
   </script>

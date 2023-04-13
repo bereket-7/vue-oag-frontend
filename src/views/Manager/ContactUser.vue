@@ -17,7 +17,7 @@
           <label for="attachment">Attachment</label>
           <input type="file" id="attachment" @change="onFileSelected">
         </div>
-        <button type="submit">Send</button>
+        <button method=post type="submit">Send</button>
       </form>
     </div>
   </template>
@@ -49,7 +49,7 @@
         }
   
         try {
-          const response = await axios.post('http://localhost:8081/email/sendEmail', formData);
+          const response = await axios.post('http://localhost:8081/email//sendWithAttachment', formData);
           console.log(response.data);
           // TODO: show success message to user
         } catch (error) {

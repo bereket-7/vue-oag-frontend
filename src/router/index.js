@@ -62,6 +62,11 @@ const routes = [
     component: () => import('../views/Manager/ShowStandards.vue')
   },
   {
+    path: '/contactUser',
+    name: 'ContactUser',
+    component: () => import('../views/Manager/ContactUser.vue')
+  },
+  {
     path: '/userSignUp',
     name: 'UserSignUp',
     component: () => import('../views/User/UserSignUp.vue')

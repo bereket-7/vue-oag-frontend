@@ -62,6 +62,15 @@
               </div>
             </div>
 
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 for="price" class="mb-0">Price</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input  id="price" v-model="price" type="number" placeholder="Enter Price" class="form-control form-control-md" />
+              </div>
+            </div>
+
             <div class="row align-items-center py-3">
               <div class="col-md-3 ps-5">
                 <h6 for="artwork-photo" class="mb-0">Artwork Photo</h6>
@@ -102,42 +111,57 @@
 </template>
 
   
-  <script>
-  export default {
-    data() {
-      return {
-        artistName: '',
-        size: '',
-        status: '',
-        artworkPhoto: null,
-        createDate: '',
-      };
+<script>  
+import axios from 'axios';
+ export default {
+  data() {
+    return {
+      artworkName: '',
+      price: 0,
+      createDate: '',
+      status: 'pending',
+      artworkPhoto: null,
+      artworkDescription: '',
+      artworkCategory: ''
+    };
+  },
+  methods: {
+    onFileChange(event) {
+      this.artworkPhoto = event.target.files[0];
     },
-    methods: {
-      handlePhotoUpload(event) {
-        this.artworkPhoto = event.target.files[0];
-      },
-      async submitForm() {
-        const formData = new FormData();
-        formData.append('artistName', this.artistName);
-        formData.append('size', this.size);
-        formData.append('status', this.status);
-        formData.append('artworkPhoto', this.artworkPhoto);
-        formData.append('createDate', this.createDate);
-        const response = await fetch('/api/register-artwork', {
-          method: 'POST',
-          body: formData,
+    async submitForm() {
+      const formData = new FormData();
+      formData.append('artworkName', this.artworkName);
+      formData.append('price', this.price);
+      formData.append('createDate', this.createDate);
+      formData.append('status', this.status);
+      formData.append('artworkPhoto', this.artworkPhoto);
+      formData.append('artworkDescription', this.artworkDescription);
+      formData.append('artworkCategory', this.artworkCategory);
+
+      try {
+        const response = await axios.post('/artwork/saveArtwork', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         });
-        const data = await response.json();
-        console.log(data);
-        // reset form data
-        this.artistName = '';
-        this.size = '';
-        this.status = '';
-        this.artworkPhoto = null;
-        this.createDate = '';
-      },
-    },
-  };
+
+        if (response.status === 200) {
+          // Successful upload, you can clear the form, show a success message, or redirect the user
+          this.$refs.form.reset();
+          alert('Artwork uploaded successfully!');
+        } else {
+          // Handle any errors from the server
+          alert('An error occurred while uploading the artwork.');
+        }
+      } catch (error) {
+        // Handle any errors from the client (network errors, timeouts, etc.)
+        console.error(error);
+        alert('An error occurred while uploading the artwork.');
+      }
+    }
+  }
+};
+
   </script>
   

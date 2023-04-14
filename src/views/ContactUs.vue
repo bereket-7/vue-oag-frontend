@@ -10,11 +10,7 @@
   
     <div class="col-lg-6">
   
-      <div class="row row-cols-2 row-cols-md-4 g-4">
-
-
-     
-       
+      <div class="row row-cols-2 row-cols-md-4 g-4">  
       </div>
   
     </div>

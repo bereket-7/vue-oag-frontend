@@ -153,7 +153,6 @@ import axios from 'axios';
           this.$refs.form.reset();
           alert('Artwork uploaded successfully!');
         } else {
-          // Handle any errors from the server
           alert('An error occurred while uploading the artwork.');
         }
       } catch (error) {

@@ -62,17 +62,6 @@
               </div>
             </div>
 
-            
-            <div class="row align-items-center py-3">
-                <div class="col-md-3 ps-5">
-                  <h6 class="mb-0">Price</h6>
-                </div>
-                <div class="col-md-9 pe-5"></div>
-                <input  name="price" id="price" v-model="formData.price" :class="{ 'is-invalid':  
-                           formErrors.price }" placeholder="Price in ETB" type="number"  class="form-control form-control-lg" />    
-             </div>
-            
-
             <div class="row align-items-center py-3">
               <div class="col-md-3 ps-5">
                 <h6 for="artwork-photo" class="mb-0">Artwork Photo</h6>

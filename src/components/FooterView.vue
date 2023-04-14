@@ -13,7 +13,7 @@
   <a href="https://www.facebook.com/" target="blank" class="social-icon" data-target="facebook"><i class="fa-brands fa-facebook" style="color:azure"></i></a>
   <a href="#" class="social-icon" data-target="twitter" ><i class="fa-brands fa-twitter"></i></a>
   <a href="#" class="social-icon" data-target="instagram" style="color:crimson"><i class="fa-brands fa-instagram"></i></a>
-  <a href="#" class="social-icon" data-target="telegram" style="color:crimson"><i class="fa-brands fa-telegram"></i></a>
+  <a href="#" class="social-icon" data-target="telegram"><i class="fa-brands fa-telegram"></i></a>
 </div>
 
 

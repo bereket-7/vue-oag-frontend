@@ -12,19 +12,19 @@
 
             <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
-                <h6 for="artwork-name" class="mb-0">Artwork Name</h6>
+                <h6 for="artworkName" class="mb-0">Artwork Name</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <input  id="artwork-name" v-model="artworkName" type="text" placeholder="Abstract child face" class="form-control form-control-lg" />
+                <input  id="artworkName" v-model="artworkName" type="text" placeholder="Abstract child face" class="form-control form-control-lg" />
               </div>
             </div>
 
             <div class="row align-items-center pt-4 pb-3">
                 <div class="col-md-3 ps-5">
-                    <h6 for="artwork-category" class="mb-0">Artwork Category</h6>
+                    <h6 for=" artworkCategory" class="mb-0">Artwork Category</h6>
                 </div>
               <div class="col-md-9 pe-5">
-                <select id="artwork-category" placeholder="sculpture" v-model="artworkName" name="artwork-category"  class="form-select form-control-lg" >
+                <select id=" artworkCategory" v-model="artworkCategory" name=" artworkCategory"  class="form-select form-control-lg" >
                 <option value="painting">Painting</option>
                 <option value="sculpture">Sculpture</option>
                 <option value="photography">Photography</option>
@@ -35,10 +35,10 @@
 
             <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
-                <h6 for="artist-name" class="mb-0">Artist Name</h6>
+                <h6 for="artistName" class="mb-0">Artist Name</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <input  id="artist-name" v-model="artistName" placeholder="Bereket" type="text" class="form-control form-control-lg" />
+                <input  id="artistName" v-model="artistName" placeholder="Enter artist name" type="text" class="form-control form-control-lg" />
               </div>
             </div>
 
@@ -55,10 +55,10 @@
 
             <div class="row align-items-center py-3">
               <div class="col-md-3 ps-5">
-                <h6 class="mb-0">Description</h6>
+                <h6 class="mb-0" for=" artworkDescription">Description</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <textarea class="form-control" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
+                <textarea class="form-control" v-model="artworkDescription" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
               </div>
             </div>
 
@@ -73,11 +73,11 @@
 
             <div class="row align-items-center py-3">
               <div class="col-md-3 ps-5">
-                <h6 for="artwork-photo" class="mb-0">Artwork Photo</h6>
+                <h6 for="artworkPhoto" class="mb-0">Artwork Photo</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <input class="form-control form-control-lg" id="artwork-photo" type="file" 
-                 @change="handlePhotoUpload" />
+                <input class="form-control form-control-lg" id="artworkPhoto" type="file" 
+                 @change="onFileChange" />
                 <div class="small text-muted mt-2">Upload Artwork Photo file. Max file
                   size 10 MB</div>
               </div>
@@ -85,11 +85,11 @@
 
             <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
-                <h6 for="create-date" class="mb-0">Date</h6>
+                <h6 for="createDate" class="mb-0">Date</h6>
               </div>
               <div class="col-md-9 pe-5">
                 <input  type="date" class="form-control form- 
-                  control-lg" id="create-date" v-model="createDate" />
+                  control-lg" id="createDate" v-model="createDate" />
               </div>
             </div>
     
@@ -116,6 +116,7 @@ import axios from 'axios';
  export default {
   data() {
     return {
+      artistName:'',
       artworkName: '',
       price: 0,
       createDate: '',
@@ -131,6 +132,7 @@ import axios from 'axios';
     },
     async submitForm() {
       const formData = new FormData();
+      formData.append('artistName', this.artistName);
       formData.append('artworkName', this.artworkName);
       formData.append('price', this.price);
       formData.append('createDate', this.createDate);
@@ -140,7 +142,7 @@ import axios from 'axios';
       formData.append('artworkCategory', this.artworkCategory);
 
       try {
-        const response = await axios.post('/artwork/saveArtwork', formData, {
+        const response = await axios.post('http://localhost:8081/artwork/saveArtwork', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

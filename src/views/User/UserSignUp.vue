@@ -18,7 +18,7 @@
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" class="form-control" placeholder="First Name" id="firstName" v-model="formData.firstName" :class="{ 'is-invalid': formErrors.firstName }">
                         </div>
-                        <div v-if="formErrors.firstName" class="invalid-feedback">{{ formErrors.firstName }}</div>
+                        <div v-if="formErrors.firstName" class="invalid-feedback">{{ formErrors.firstName }}                  </div>
                       </div>
     
                       

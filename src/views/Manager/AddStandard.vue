@@ -16,13 +16,12 @@
 
         <div class="input-group flex-nowrap pt-2 mb-2">
                   <label class="input-group-text" for="standardType">Standard Type</label>
-                  <select class="form-select" id="standardType">
+                  <select class="form-select" id="standardType"  v-model="standardType">
                     <option value="organizational" selected>Organizational</option>
                     <option value="artwork">Artwork</option>
                     <option value="customer">customer</option>
-                    <option value="Transactional">Transactional</option>
                   </select>
-                </div>
+        </div>
 
         <hr class="mx-n3">
         <div class="px-5 py-4">   
@@ -39,51 +38,6 @@
 
 
 <script>
-/*
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      standardDescription: '',
-      standardType: ''
-    };
-  },
-  
-  methods: {
-    registerStandard() {
-
-    },
-    async submitForm() {
-      const formData = new FormData();
-        formData.append('standardDescription', this.standardDescription);
-        formData.append('standardType', this.standardType);
-        try {
-        const response = await axios.post('http://localhost:8081/standard/add', formData, {
-
-        });
-        if (response.status === 200) {
-          // Successful upload, you can clear the form, show a success message, or redirect the user
-          this.standardDescription= '';
-          this.standardType= '';
-          this.$refs.form.reset();
-          alert('Standard uploaded successfully!');
-        } else {
-          // Handle any errors from the server
-          alert('An error occurred while uploading the standard.');
-        }
-      } catch (error) {
-        // Handle any errors from the client (network errors, timeouts, etc.)
-        console.error(error);
-        alert('An error occurred while uploading the standard.');
-      }
-    }
-  }
-};
-*/
-
-
-
 import axios from 'axios';
 
 export default {
@@ -100,16 +54,14 @@ export default {
           standardDescription: this.standardDescription,
           standardType: this.standardType,
         });
-          console.log(response)
+          console.log(response);
           this.standardDescription= '';
           this.standardType= '';
-          this.$refs.form.reset();
           alert('Standard uploaded successfully!');
-        }
+      }
       catch (error) {
-        // Handle any errors from the client (network errors, timeouts, etc.)
         console.error(error);
-        alert('An error occurred while uploading the standard.');
+          alert('Standard uploaded successfully!');
       }
     },
   },

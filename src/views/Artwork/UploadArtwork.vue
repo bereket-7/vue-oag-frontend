@@ -35,15 +35,6 @@
 
             <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
-                <h6 for="artistName" class="mb-0">Artist Name</h6>
-              </div>
-              <div class="col-md-9 pe-5">
-                <input  id="artistName" v-model="artistName" placeholder="Enter artist name" type="text" class="form-control form-control-lg" />
-              </div>
-            </div>
-
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
                 <h6 for="size" class="mb-0">Size</h6>
               </div>
               <div class="col-md-9 pe-5">
@@ -67,7 +58,17 @@
                 <h6 for="price" class="mb-0">Price</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <input  id="price" v-model="price" type="number" placeholder="Enter Price" class="form-control form-control-md" />
+                <input  id="price" v-model="artistId" type="number" placeholder="Enter Price" class="form-control form-control-md" />
+              </div>
+            </div>
+
+            
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 for="artistId" class="mb-0">artist Id</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input  id="artistId" v-model="price" type="number" placeholder="Enter id" class="form-control form-control-md" />
               </div>
             </div>
 
@@ -120,7 +121,6 @@ import axios from 'axios';
       artworkName: '',
       price: 0,
       createDate: '',
-      status: 'pending',
       artworkPhoto: null,
       artworkDescription: '',
       artworkCategory: ''
@@ -132,29 +132,23 @@ import axios from 'axios';
     },
     async submitForm() {
       const formData = new FormData();
-      formData.append('artistName', this.artistName);
       formData.append('artworkName', this.artworkName);
       formData.append('price', this.price);
+      formData.append('artistId', this.artistId);
       formData.append('createDate', this.createDate);
-      formData.append('status', this.status);
       formData.append('artworkPhoto', this.artworkPhoto);
       formData.append('artworkDescription', this.artworkDescription);
       formData.append('artworkCategory', this.artworkCategory);
 
       try {
-        const response = await axios.post('http://localhost:8081/artwork/saveArtwork', formData, {
+        const response = await axios.post('http://localhost:8081/artwork/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
 
-        if (response.status === 200) {
-          // Successful upload, you can clear the form, show a success message, or redirect the user
-          this.$refs.form.reset();
-          alert('Artwork uploaded successfully!');
-        } else {
-          alert('An error occurred while uploading the artwork.');
-        }
+        console.log(response);
+          alert('Standard uploaded successfully!');
       } catch (error) {
         // Handle any errors from the client (network errors, timeouts, etc.)
         console.error(error);

@@ -61,7 +61,7 @@ export default {
       }
       catch (error) {
         console.error(error);
-          alert('Standard uploaded successfully!');
+          alert('error occured while uploading!');
       }
     },
   },

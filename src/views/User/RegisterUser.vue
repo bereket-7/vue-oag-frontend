@@ -1,51 +1,61 @@
 <template>
-  <form>
-    <label for="firstname">First Name</label>
-    <input type="text" id="firstname" v-model="firstName" />
-    <span v-if="!firstName" class="error">Please enter your first name.</span>
-
-    <label for="lastname">Last Name</label>
-    <input type="text" id="lastname" v-model="lastName" />
-    <span v-if="!lastName" class="error">Please enter your last name.</span>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" v-model="email" />
-    <span v-if="!email || !validEmail" class="error">Please enter a valid email address.</span>
-
-    <label for="phone">Phone</label>
-    <input type="text" id="phone" v-model="phone" />
-    <span v-if="!phone" class="error">Please enter your phone number.</span>
-
-    <label for="address">Address</label>
-    <input type="text" id="address" v-model="address" />
-    <span v-if="!address" class="error">Please enter your address.</span>
-
-    <label for="age">Age</label>
-    <input type="number" id="age" v-model="age" />
-    <span v-if="!age" class="error">Please enter your age.</span>
-
-    <label for="sex">Sex</label>
-    <select id="sex" v-model="sex">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-    <span v-if="!sex" class="error">Please select your gender.</span>
-
-    <label for="photo">Photo</label>
-    <input type="file" id="photo"  @change="onFileChange" />
-    <span v-if="!photo" class="error">Please upload a photo.</span>
-
-    <label for="password">Password</label>
-    <input type="password" id="password" v-model="password" />
-    <span v-if="!password" class="error">Please enter a password.</span>
-
-    <button type="submit" @click.prevent="submitForm">Submit</button>
+  <form @submit.prevent="submitForm">
+    <div>
+      <label for="firstname">First Name:</label>
+      <input type="text" id="firstname" v-model="firstname" required>
+      <span v-if="errors.firstname" class="error">{{ errors.firstname }}</span>
+    </div>
+    <div>
+      <label for="lastname">Last Name:</label>
+      <input type="text" id="lastname" v-model="lastname" required>
+      <span v-if="errors.lastname" class="error">{{ errors.lastname }}</span>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="email" required>
+      <span v-if="errors.email" class="error">{{ errors.email }}</span>
+    </div>
+    <div>
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" v-model="phone" required>
+      <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+    </div>
+    <div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" v-model="address" required>
+      <span v-if="errors.address" class="error">{{ errors.address }}</span>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" v-model="age" required>
+      <span v-if="errors.age" class="error">{{ errors.age }}</span>
+    </div>
+    <div>
+      <label for="sex">Sex:</label>
+      <select id="sex" v-model="sex" required>
+        <option value="">Please select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <span v-if="errors.sex" class="error">{{ errors.sex }}</span>
+    </div>
+    <div>
+      <label for="photo">Photo:</label>
+      <input type="file" id="photo" @change="onFileChange" required>
+      <span v-if="errors.photo" class="error">{{ errors.photo }}</span>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="password" required>
+      <span v-if="errors.password" class="error">{{ errors.password }}</span>
+    </div>
+    <button type="submit">Submit</button>
   </form>
 </template>
-
 <script>
 export default {
+  name: 'RegisterUser',
   data() {
     return {
       firstName: '',
@@ -80,3 +90,66 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type='file'] {
+  padding: 0;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+@media only screen and (max-width: 768px) {
+  form {
+    max-width: 100%;
+  }
+}
+
+
+</style>

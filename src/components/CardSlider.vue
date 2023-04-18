@@ -7,16 +7,16 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-        <img :src="require('../assets/img/colorful-book.webp')"   style= "width: 95%;
+        <img :src="require('../assets/img/abstract-landscape-bold.jpg')"   style= "width: 95%;
   height:350px;"
                 alt="Hot Air Balloons">
     </div>
     <div class="carousel-item">
-        <img :src="require('../assets/img/face.jpg')" style="width: 95%;
+        <img :src="require('../assets/img/art-landscape.jpg')" style="width: 95%;
   height:350px;">
     </div>
     <div class="carousel-item">
-        <img :src="require('../assets/img/steel.jpg')" style="width: 95%;
+        <img :src="require('../assets/img/colorful-landscape.jpg')" style="width: 95%;
   height:350px;">
     </div>
   </div>

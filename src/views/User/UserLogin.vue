@@ -1,54 +1,82 @@
 <template>
-    <section class="vh-100">
-      <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center justify-content-center h-100">
-          <div class="col-md-8 col-lg-7 col-xl-6">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-              class="img-fluid" alt="Phone image">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-5 col-lg-4">
+        <div class="card border-0 shadow-sm rounded-lg">
+          <div class="card-header bg-success text-white text-center py-3">
+            <h4 class="mb-0">Kelem Online Art</h4>
           </div>
-          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <div class="card-body">
             <form>
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input type="email" id="form1Example13" placeholder="Username" class="form-control form-control-lg" />
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" v-model="username">
               </div>
-    
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input type="password" id="form1Example23" placeholder="Password" class="form-control form-control-lg" />
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" v-model="password">
               </div>
-    
-              <div class="d-flex justify-content-around align-items-center mb-4">
-                <!-- Checkbox -->
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                  <label class="form-check-label" for="form1Example3"> Remember me </label>
-                </div>
-                <router-link to="/forgotPassword">Forgot password?</router-link>
-              </div>
-    
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-success btn-lg btn-block">Sign in</button>
-    
+              <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
             </form>
+          </div>
+          <div class="card-footer text-muted text-center">
+            <a href="#" class="text-decoration-none">Forgot Password?</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+  <FooterView/>
+</template>
+<script>
+import FooterView from '@/components/FooterView.vue'
+export default {
+  name:'UserLogin',
+  components: {
+    FooterView
+  },
+  data() {
     
-    
-    </template>
-   
-   
-
-
-
-
-   
-    <script>
-    export default {
-        name:'UserLogin',
-        components: { 
-      }
+    return {
+      username: '',
+      password: '',
     }
-    </script>
+  },
+}
+</script>
+
+<style scoped>
+.container {
+  background-color:ghostwhite;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(7px);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+@media only screen and (max-width: 768px) {
+  form {
+    max-width: 80%;
+  }
+}
+</style>

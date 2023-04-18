@@ -18,9 +18,29 @@ const routes = [
     component: () => import('../views/Competition/CreateCompetition.vue')
   },
   {
-    path: '/registerCompetitor',
-    name: 'RegisterCompetitor',
-    component: () => import('../views/Competition/RegisterCompetitor.vue')
+    path: '/createCompetition',
+    name: 'CreateCompetition',
+    component: () => import('../views/Competition/CreateCompetition.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'CheckOut',
+    component: () => import('../views/shopping/CheckOut.vue')
+  },
+  {
+    path: '/cart',
+    name: 'ShoppingCart',
+    component: () => import('../views/shopping/ShoppingCart.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'CheckOut',
+    component: () => import('../views/shopping/WishList.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'CheckOut',
+    component: () => import('../views/shopping/CheckOut.vue')
   },
   /*{
     path: '/',

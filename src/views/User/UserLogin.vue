@@ -60,7 +60,6 @@ export default {
 .card:hover {
   transform: translateY(7px);
 }
-
 .btn-primary {
   background-color: #007bff;
   border-color: #007bff;

@@ -1,49 +1,47 @@
 <template>
   <form @submit.prevent="submitForm">
     <div>
-      <label for="firstname">First Name:</label>
-      <input type="text" id="firstname" v-model="firstname" required>
+      <br>
+      <input type="text" id="firstname" placeholder="First Name" v-model="firstname" required>
       <span v-if="errors.firstname" class="error">{{ errors.firstname }}</span>
     </div>
     <div>
-      <label for="lastname">Last Name:</label>
-      <input type="text" id="lastname" v-model="lastname" required>
+      <input type="text" placeholder="Last Name" id="lastname" v-model="lastname" required>
       <span v-if="errors.lastname" class="error">{{ errors.lastname }}</span>
     </div>
     <div>
-      <label for="email">Email:</label>
-      <input type="email" id="email" v-model="email" required>
+      <input type="email"  placeholder="Email" id="email" v-model="email" required>
       <span v-if="errors.email" class="error">{{ errors.email }}</span>
     </div>
     <div>
-      <label for="phone">Phone:</label>
-      <input type="tel" id="phone" v-model="phone" required>
+      <input type="tel" id="phone"  placeholder="Phone" v-model="phone" required>
       <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
     </div>
     <div>
-      <label for="address">Address:</label>
-      <input type="text" id="address" v-model="address" required>
+      <input type="text" id="address" placeholder="Address" v-model="address" required>
       <span v-if="errors.address" class="error">{{ errors.address }}</span>
     </div>
     <div>
-      <label for="age">Age:</label>
-      <input type="number" id="age" v-model="age" required>
+      <input type="number" id="age"  placeholder="Age" v-model="age" required>
       <span v-if="errors.age" class="error">{{ errors.age }}</span>
     </div>
     <div>
       <label for="sex">Sex:</label>
-      <select id="sex" v-model="sex" required>
+      <select id="sex"  placeholder="Sex" v-model="sex" required>
         <option value="">Please select</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
-        <option value="other">Other</option>
       </select>
       <span v-if="errors.sex" class="error">{{ errors.sex }}</span>
     </div>
     <div>
       <label for="photo">Photo:</label>
-      <input type="file" id="photo" @change="onFileChange" required>
+      <input type="file" id="photo"  placeholder="Upload photo" @change="onFileChange" required>
       <span v-if="errors.photo" class="error">{{ errors.photo }}</span>
+    </div>
+    <div>
+      <input type="text" placeholder="Username" id="username" v-model="username" required>
+      <span v-if="errors.username" class="error">{{ errors.username }}</span>
     </div>
     <div>
       <label for="password">Password:</label>
@@ -51,52 +49,59 @@
       <span v-if="errors.password" class="error">{{ errors.password }}</span>
     </div>
     <button type="submit">Submit</button>
+    <br>
   </form>
 </template>
+
 <script>
 export default {
-  name: 'RegisterUser',
   data() {
     return {
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       email: '',
       phone: '',
       address: '',
       age: '',
       sex: '',
       photo: null,
-      password: ''
-    }
-  },
-  computed: {
-    validEmail() {
-      // regular expression for email validation
-      const emailRegex = /\S+@\S+\.\S+/
-      return emailRegex.test(this.email)
+      username:'',
+      password: '',
+      errors: {}
     }
   },
   methods: {
-    onFileChange(event) {
-      this.photo = event.target.files[0];
-    },
-    submitForm() {
-      if (!this.firstName || !this.lastName || !this.email || !this.validEmail || !this.phone || !this.address || !this.age || !this.sex || !this.photo || !this.password) {
-        alert('Please fill out all required fields.')
-      } else {
-        // submit form data to backend
+    validateForm() {
+      this.errors = {};
+
+      if (!this.firstname) {
+        this.errors.firstname = 'First name is required.';
+      }
+
+      if (!this.lastname) {
+        this.errors.lastname = 'Last name is required.';
+      }
+
+      if (!this.email) {
+        this.errors.email = 'Email is required.';
+      } else if (!this.validEmail(this.email)) {
+        this.errors.email = 'Please enter a valid email address.';
+      }
+
+      if (!this.phone) {
+        this.errors.phone = 'Phone number is required.';
       }
     }
   }
 }
-</script>
+    </script>
+
 
 <style scoped>
-
 form {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  max-width: 350px;
   margin: 0 auto;
 }
 
@@ -147,9 +152,7 @@ button:hover {
 
 @media only screen and (max-width: 768px) {
   form {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
-
-
 </style>

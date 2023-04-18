@@ -10,7 +10,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Product</th>
+              <th>Artwork</th>
               <th>Price</th>
               <th>Quantity</th>
               <th>Total</th>
@@ -51,9 +51,9 @@
     data() {
       return {
         items: [
-          { name: 'Product 1', price: 10, quantity: 2 },
-          { name: 'Product 2', price: 20, quantity: 1 },
-          { name: 'Product 3', price: 30, quantity: 3 },
+          { name: 'artwork 1', price: 10, quantity: 2 },
+          { name: 'artwork 2', price: 20, quantity: 1 },
+          { name: 'artwork 3', price: 30, quantity: 3 },
         ]
       }
     },

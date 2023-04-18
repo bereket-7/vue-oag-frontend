@@ -33,14 +33,19 @@ const routes = [
     component: () => import('../views/shopping/ShoppingCart.vue')
   },
   {
-    path: '/checkout',
+    path: '/wishlist',
     name: 'CheckOut',
     component: () => import('../views/shopping/WishList.vue')
   },
   {
-    path: '/checkout',
-    name: 'CheckOut',
-    component: () => import('../views/shopping/CheckOut.vue')
+    path: '/login',
+    name: 'LoginPage',
+    component: () => import('../views/User/LoginPage.vue')
+  },
+  {
+    path: '/register',
+    name: 'RegisterUser',
+    component: () => import('../views/User/RegisterUser.vue')
   },
   /*{
     path: '/',

@@ -7,5 +7,4 @@ import "bootstrap"
 import "carousel"
 import './assets/style.css'
 import '@fortawesome/fontawesome-free/js/all'
-//Vue.config.productionTip = false
 createApp(App).use(router).mount('#app')

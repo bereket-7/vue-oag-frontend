@@ -42,7 +42,7 @@
           <div class="card bg-dark text-light">
             <div class="card-body text-center">
               <div class="h1 mb-3">
-                <img class="img-fluid w-40 d-none d-sm-block" :src="require('../assets/img/body-painting.jpg')"
+                <img class="img-fluid w-40 d-none d-sm-block" :src="require('../assets/img/dog.jpg')"
                 style="width:400px;height:300px;overflow:hidden;" alt="">
                 <!--<i class="bi bi-people"></i>-->
               </div>

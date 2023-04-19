@@ -112,6 +112,11 @@ const routes = [
     component: () => import('../views/Artwork/ArtworkList.vue')
   },
   {
+    path: '/artworkDetail',
+    name: 'ArtworkDetail',
+    component: () => import('../views/Artwork/ArtworkList.vue')
+  },
+  {
     path: '/registerOrganization',
     name: 'RegisterOrganization',
     component: () => import('../views/User/RegisterOrganization.vue')

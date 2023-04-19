@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name:'ArtworkDetail',
   data() {
     return {
       artwork: {

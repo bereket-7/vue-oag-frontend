@@ -1,6 +1,7 @@
 <template>
 	<div class="container">
-		<h1 class="text-center my-5">Artwork Photo List</h1>
+    <search-artwork/>
+		<h1 class="text-center my-5">Artwork Collections</h1>
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 
 			<div class="col">
@@ -10,7 +11,7 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</a>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
@@ -22,7 +23,7 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal2">Quick View</a>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
@@ -34,7 +35,7 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal3">Quick View</a>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
@@ -51,7 +52,7 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</a>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
@@ -63,7 +64,7 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal2">Quick View</a>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
@@ -75,22 +76,13 @@
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
             <p class="card-text">price</p>
-						<a class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quick-view">Quick View</a>
+						<a class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
 					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-
-  <!-- Modal -->
-
-<!-- Modal -->
-
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Quick View
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,15 +95,17 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <img :src="require('@/assets/img/pickock.jpg')" style="width:410px;height:300px;" class="img-fluid" alt="...">
+            <img :src="require('@/assets/img/two.jpg')" style="width:410px;height:300px;" class="img-fluid" alt="...">
           </div>
-          <div class="col-md-6 align-left">
+
+          <div class="col-md-6">
             <h5><b>Name:</b></h5>
             <hr class="mx-n3">
             <h5>Category:</h5>
             <h5>Description:</h5>
-            <p>Price:</p>
+            <h5>Price:</h5>
             <h5>size:</h5>
+            <hr class="mx-n3">
             <button type="button" class="btn btn-danger">Add to Cart</button>
           </div>
         </div>
@@ -120,9 +114,24 @@
   </div>
 </div>
 
-	<!-- Quick View Modals -->
-	<div class="modal fade" id="quick-view"></div>
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item" ><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item"><a class="page-link" href="#">6</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
 
+<footer-view/>
 </template>
 
 <style scoped>
@@ -153,7 +162,10 @@
 
 
 <script>
+import FooterView from '@/components/FooterView.vue'
+import SearchArtwork from '@/components/SearchArtwork.vue'
 export default {
+  components: { FooterView, SearchArtwork },
     name:'ArtworkList',
     setup() {
         

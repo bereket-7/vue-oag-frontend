@@ -42,18 +42,6 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/uploadArtwork">Submit Artwork</router-link>
         </li>
-        
-        <li class="nav-item">
-          <router-link class="nav-link" to="/addStandard">Standard</router-link>
-        </li>
-
-        <li class="nav-item">
-          <router-link class="nav-link" to="/showStandard">Rules</router-link>
-        </li>
-
-        <li class="nav-item">
-          <router-link class="nav-link" to="/managerPanel">Manager</router-link>
-        </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/customerDashboard">Customer</router-link>
         </li>

@@ -1,105 +1,95 @@
 <template>
-<section class="h-100 gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-10">
-        <div class="card rounded-3 text-black">
-          <div class="row g-0">
-            <div class="col-lg-6">
-              <div class="card-body p-md-5 mx-md-4">
-
-                <div class="text-center">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                    style="width: 185px;" alt="logo">
-                  <h4 class="mt-1 mb-5 pb-1">Sheba Online Art Gallery</h4>
-                </div>
-
-                <form>
-                  <p>Login to your account</p>
-
-                  <div class="form-outline mb-4">
-                    <input type="email" id="form1Example13" placeholder="Username" class="form-control form-control-md" />
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="password" id="password" placeholder="Password" class="form-control" />
-                  </div>
-
-                  <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-success btn-block fa-lg gradient-custom-2 mb-3" type="button">Sign in</button>
-                      <div class="">
-                        <router-link to="/forgotPassword">Forgot password?</router-link>
-                      </div>
-                  </div>
-
-                  <div class="d-flex align-items-center justify-content-center pb-4">
-                    <p class="mb-0 me-2">Don't have an account?</p>
-                    <router-link to="/eventRegister" type="button" class="btn btn-success">Create Event</router-link>
-
-                    <router-link to="/createCompetition" type="button" class="btn btn-info">Create Competition</router-link><br><br>
-                    <router-link to="/registerCompetitor" type="button" class="btn btn-success">Apply for Competition</router-link>
-
-                    <router-link to="/registerOrganization" type="button" class="btn btn-info">Register Org</router-link>
-                  </div>
-
-                </form>
-
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h1 class="text-center mb-4">Login</h1>
+        <div class="card">
+          <div class="card-body">
+            <form @submit.prevent="login">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input v-model="username" type="text" class="form-control" id="username" required>
               </div>
-            </div>
-            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">Unleash Creativity, Inspire Connection</h4>
-                <p class="small mb-0">Welcome to our Online Art Gallery! Log in to access your dashboard, manage your account, and explore exclusive features designed to enhance your experience. Let's get started and manage some events</p>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input v-model="password" type="password" class="form-control" id="password" required>
               </div>
-            </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <br>
-<br>
   </div>
-  <br>
-<br>
-</section>
-<br>
-<br>
 </template>
 
 <script>
-
-
-   export default {
-        name:'OrganizationLogin',
-        components: {
+export default {
+  name:'OrganizationLogin',
+  components: {
    
-}
+  },
+  data() {
+    return {
+      username: '',
+      password: ''
     }
+  },
+  methods: {
+    async login() {
+      // Implement your login logic here using axios or fetch
+    }
+  }
+}
 </script>
 
 <style scoped>
-
-.gradient-custom-2 {
-/* fallback for old browsers */
-background: #fccb90;
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+.container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
 }
-
-@media (min-width: 768px) {
-.gradient-form {
-height: 100vh !important;
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background-color: #fff;
+  max-width: 600px;
+  width: 400px;
 }
+.card-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
 }
-@media (min-width: 769px) {
-.gradient-custom-2 {
-border-top-right-radius: .3rem;
-border-bottom-right-radius: .3rem;
+.form-group {
+  margin-bottom: 1.5rem;
 }
+.form-control {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 1px solid #ced4da;
 }
-
+.form-control:focus {
+  border-color: #36b9cc;
+  box-shadow: 0 0 0 0.25rem rgba(54, 185, 204, 0.25);
+}
+.btn-primary {
+  background-color: #36b9cc;
+  border-color: #36b9cc;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 100%;
+}
+.btn-primary:hover {
+  background-color: #2a96a5;
+  border-color: #2a96a5;
+}
 </style>

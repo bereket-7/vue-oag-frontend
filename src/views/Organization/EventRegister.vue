@@ -5,7 +5,7 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
 
      <div class="col-xl-9">
-        <h2 class="mb-4" style="color:cornflowerblue;">Register Event</h2>
+        <h2 class="mb-4" style="color:#4CAF50;">Register Event</h2>
 
         <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
@@ -25,7 +25,6 @@
               </div>
         </div>
 
-
         <div class="row align-items-center py-3">
               <div class="col-md-3 ps-5">
                 <h6 for="event-photo" class="mb-0">Event Photo</h6>
@@ -37,9 +36,7 @@
                   size 20 MB</div>
               </div>
         </div>
-
-
-        
+     
         <div class="row align-items-center pt-4 pb-3">
               <div class="col-md-3 ps-5">
                 <h6 for="timestamp" class="mb-0">Date</h6>

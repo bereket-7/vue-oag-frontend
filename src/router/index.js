@@ -114,7 +114,7 @@ const routes = [
   {
     path: '/artworkDetail',
     name: 'ArtworkDetail',
-    component: () => import('../views/Artwork/ArtworkList.vue')
+    component: () => import('../components/ArtworkDetail.vue')
   },
   {
     path: '/registerOrganization',

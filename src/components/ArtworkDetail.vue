@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <img :src="artwork.image" alt="Artwork Image">
+      <div class="col-md-3">
+        <img :src="artwork.image" alt="Artwork Image" style="width:400px;height:300px;">
       </div>
       <div class="col-md-8">
         <h3 class="title">{{ artwork.title }}</h3>
@@ -12,9 +12,10 @@
           <span v-for="i in 5" :key="i" :class="{ 'filled-star': i <= artwork.rating }">&#9733;</span>
         </div>
         <p class="price">{{ artwork.price }}</p>
+        <hr class="mx-n3">
+        <button type="button" id="cart" class="btn btn-danger">Add to Cart</button>
       </div>
     </div>
-    <button type="button" id="cart" class="btn btn-danger">Add to Cart</button>
   </div>
 </template>
 
@@ -27,10 +28,10 @@ export default {
         title: 'Abstract Child Face',
         artist: 'Bereket',
         description: 'This is an example artwork description.',
-        rating: 4,
+        rating: 3,
         price: '10000 ETB',
         category: 'water color painting',
-        image: require('../assets/img/face.jpg'),
+        image: require('../assets/img/eye.jpg'),
       }
     }
   }
@@ -45,6 +46,9 @@ export default {
 .artwork-image {
   cursor: pointer;
   margin-right: 1rem;
+}
+.artwork-image:hover{
+  transform: translateY(-7px);
 }
 .artwork-info {
   display: none;
@@ -63,11 +67,17 @@ export default {
   margin: 0 auto;
 }
 #cart:hover {
-  background-color: green;
+  background-color: rgb(196, 33, 4);
 }
 .artist {
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  img {
+    width: 80%;
+  }
 }
 
 </style>

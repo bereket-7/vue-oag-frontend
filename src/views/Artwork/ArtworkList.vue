@@ -4,17 +4,19 @@
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<div class="col">
 				<div class="card">
-          <img class="img-fluid w-40 d-none d-sm-block" :src="require('../assets/img/three.jpg')" style="width:400px;height:300px;overflow:hidden;" alt="">
+          <img class="card-img-top" :src="require('@/assets/img/three.jpg')" style="width:410px;height:300px;" alt="">
 					<div class="card-body">
-						<h5 class="card-title">Artwork 1</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h5 class="card-title">Artwork name</h5>
+            <p class="card-text">Artwork Category</p>
+            <p class="card-text">price</p>
 						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</a>
 					</div>
 				</div>
 			</div>
+
 			<div class="col">
 				<div class="card">
-					<img src="https://via.placeholder.com/350x200" class="card-img-top" alt="...">
+					<img :src="require('@/assets/img/lion.jpg')" class="card-img-top" style="width:410px;height:300px;" alt="...">
 					<div class="card-body">
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
@@ -23,9 +25,10 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col">
 				<div class="card">
-					<img src="https://via.placeholder.com/350x200" class="card-img-top" alt="...">
+					<img :src="require('@/assets/img/kesht.jpg')" style="width:410px;height:300px;" class="card-img-top" alt="...">
 					<div class="card-body">
             <h5 class="card-title">Artwork name</h5>
             <p class="card-text">Artwork Category</p>
@@ -34,7 +37,53 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
+    <br><br><br>
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="col">
+				<div class="card">
+          <img class="card-img-top" :src="require('@/assets/img/acry.jpg')" style="width:410px;height:300px;" alt="">
+					<div class="card-body">
+            <h5 class="card-title">Artwork name</h5>
+            <p class="card-text">Artwork Category</p>
+            <p class="card-text">price</p>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal1">Quick View</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<img :src="require('@/assets/img/two.jpg')" class="card-img-top" style="width:410px;height:300px;" alt="...">
+					<div class="card-body">
+            <h5 class="card-title">Artwork name</h5>
+            <p class="card-text">Artwork Category</p>
+            <p class="card-text">price</p>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal2">Quick View</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card">
+					<img :src="require('@/assets/img/pickock.jpg')" style="width:410px;height:300px;" class="card-img-top" alt="...">
+					<div class="card-body">
+            <h5 class="card-title">Artwork name</h5>
+            <p class="card-text">Artwork Category</p>
+            <p class="card-text">price</p>
+						<a href="#" class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#quickViewModal3">Quick View</a>
+					</div>
+				</div>
+			</div>
+      
+		</div>
+
+    
+
+
 	</div>
 
 	<!-- Quick View Modals -->

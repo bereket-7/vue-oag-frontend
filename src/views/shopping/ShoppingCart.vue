@@ -64,7 +64,7 @@
     },
     methods: {
       formatPrice(price) {
-        return `ETB${price.toFixed(2)}`
+        return `ETB ${price.toFixed(2)}`
       },
       increment(item) {
         item.quantity++

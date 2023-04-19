@@ -32,14 +32,13 @@
           <div class="col-md-4">
             <label for="state" class="form-label">State</label>
             <select id="state" class="form-select" v-model="state">
-              <option selected>Choose...</option>
-              <option value="AL">Alabama</option>
+              <option value="AL">Ethiopia</option>
               <!-- add more options here -->
             </select>
           </div>
           <div class="col-md-2">
             <label for="zip" class="form-label">Zip</label>
-            <input type="text" class="form-control" id="zip" v-model="zip">
+            <input type="text" placeholder="1000" class="form-control" id="zip" v-model="zip">
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

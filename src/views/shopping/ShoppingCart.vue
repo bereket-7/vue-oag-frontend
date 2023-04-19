@@ -40,7 +40,7 @@
         </table>
   
         <div class="text-end">
-          <button class="btn btn-primary" @click="checkout">Checkout</button>
+          <router-link class="btn btn-primary" @click="checkout" to="/checkout">Checkout</router-link>
         </div>
       </div>
     </div>
@@ -51,9 +51,9 @@
     data() {
       return {
         items: [
-          { name: 'artwork 1', price: 10, quantity: 2 },
-          { name: 'artwork 2', price: 20, quantity: 1 },
-          { name: 'artwork 3', price: 30, quantity: 3 },
+          { name: 'artwork 1', price: 10000, quantity: 2 },
+          { name: 'artwork 2', price: 2000, quantity: 1 },
+          { name: 'artwork 3', price: 30000, quantity: 2 },
         ]
       }
     },
@@ -64,7 +64,7 @@
     },
     methods: {
       formatPrice(price) {
-        return `$${price.toFixed(2)}`
+        return `ETB${price.toFixed(2)}`
       },
       increment(item) {
         item.quantity++
@@ -79,7 +79,7 @@
       },
       checkout() {
         // Add your checkout logic here
-        alert('Checkout not implemented yet.')
+        //alert('Checkout not implemented yet.')<router-link to="/checkout">Checkout</router-link>
       }
     }
   }

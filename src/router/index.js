@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/wishlist',
-    name: 'CheckOut',
+    name: 'WishList',
     component: () => import('../views/shopping/WishList.vue')
   },
   {

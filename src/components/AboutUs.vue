@@ -20,10 +20,13 @@
       </div>
     </div>
   </div>
+  <footer-view/>
 </template>
 
 <script>
+import FooterView from './FooterView.vue'
 export default {
+  components: { FooterView },
   name: 'AboutUs'
 }
 </script>

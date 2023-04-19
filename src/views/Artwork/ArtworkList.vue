@@ -1,11 +1,10 @@
 <template>
-
 	<div class="container">
 		<h1 class="text-center my-5">Artwork Photo List</h1>
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<div class="col">
 				<div class="card">
-          <img class="card-img-top" :src="require('../assets/img/abstract-landscape-bold.jpg')" alt="Hot Air Balloons">
+          <img class="img-fluid w-40 d-none d-sm-block" :src="require('../assets/img/three.jpg')" style="width:400px;height:300px;overflow:hidden;" alt="">
 					<div class="card-body">
 						<h5 class="card-title">Artwork 1</h5>
 						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -43,7 +42,7 @@
 
 </template>
 
-<style>
+<style scoped>
 		.card-img-top {
 			transition: transform 0.5s ease;
 		}

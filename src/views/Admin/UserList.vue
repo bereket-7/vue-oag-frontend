@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1>Users</h1>
+      <h1>User</h1>
       <table class="table table-striped">
         <thead>
           <tr>

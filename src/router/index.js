@@ -113,8 +113,13 @@ const routes = [
   },
   {
     path: '/submitReport',
-    name: 'UserReport',
+    name: 'SubmitReport',
     component: () => import('../views/User/SubmitReport.vue')
+  },
+  {
+    path: '/userReport',
+    name: 'UserReport',
+    component: () => import('../views/Manager/UserReport.vue')
   },
   {
     path: '/artworkList',

@@ -53,7 +53,7 @@
   }
   </script>
 
-  <style scoped>
+<style scoped>
     
     .container {
   max-width: 800px;
@@ -108,6 +108,4 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0069d9;
 }
-  
-  </style>
-  
+</style>

@@ -77,7 +77,12 @@ const routes = [
     component: () => import('../views/Manager/VerifyArtwork.vue')
   },
   {
-    path: '/requestPage',
+    path: '/vote',
+    name: 'VoteForArtwork',
+    component: () => import('../views/Artwork/VoteForArtwork.vue')
+  },
+  {
+    path: '/request',
     name: 'RequestPage',
     component: () => import('../views/Manager/RequestPage.vue')
   },

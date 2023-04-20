@@ -1,11 +1,11 @@
 <template>
     <div class="container mt-5">
-      <h1>Artwork List</h1>
+      <h1>New Artworks</h1>
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Photo</th>
+            <th>Artwork Name</th>
+            <th>Artwork Photo</th>
             <th>Action</th>
           </tr>
         </thead>

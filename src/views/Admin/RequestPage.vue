@@ -7,7 +7,7 @@
           <tr>
             <th>#</th>
             <th>User</th>
-            <th>Artwork</th>
+            <th>Name </th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -31,7 +31,7 @@
   </template>
   
   <script>
-  import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
   
   export default defineComponent({
     name: 'RequestPage',

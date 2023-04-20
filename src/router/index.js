@@ -82,9 +82,9 @@ const routes = [
     component: () => import('../views/Artwork/VoteForArtwork.vue')
   },
   {
-    path: '/request',
-    name: 'RequestPage',
-    component: () => import('../views/Manager/RequestPage.vue')
+    path: '/userList',
+    name: 'UserList',
+    component: () => import('../views/Admin/UserList.vue')
   },
   {
     path: '/managerPanel',

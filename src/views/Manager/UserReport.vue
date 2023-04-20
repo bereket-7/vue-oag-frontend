@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-      <h1>Reports</h1>
-      <div class="row">
+      <h1>User Reports</h1>
+      <div class="col">
         <div class="col-md-3" v-for="report in reports" :key="report.id">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ report.reportTitle }}</h5>
+              <h1 class="card-title">{{ report.reportTitle }}</h1>
               <h6 class="card-subtitle mb-2 text-muted">{{ report.reporterName }} - {{ report.reporterEmail }}</h6>
               <p class="card-text">{{ report.reportDetail }}</p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" v-model="selectedReports" :value="report.id">
-                <label class="form-check-label">Select</label>
+                <label class="form-check-label">Check</label>
               </div>
             </div>
           </div>
@@ -24,11 +24,11 @@
     data() {
       return {
         reports: [
-          { id: 1, reportTitle: 'Report 1', reportDetail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', reporterName: 'John Doe', reporterEmail: 'john@example.com' },
-          { id: 2, reportTitle: 'Report 2', reportDetail: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', reporterName: 'Jane Smith', reporterEmail: 'jane@example.com' },
-          { id: 3, reportTitle: 'Report 3', reportDetail: 'Donec interdum tellus at magna commodo cursus.', reporterName: 'Bob Johnson', reporterEmail: 'bob@example.com' },
-          { id: 4, reportTitle: 'Report 4', reportDetail: 'Nulla eu velit eget ex hendrerit efficitur.', reporterName: 'Mary Williams', reporterEmail: 'mary@example.com' },
-          { id: 5, reportTitle: 'Report 5', reportDetail: 'Fusce eget lectus ut massa vehicula porttitor at a massa.', reporterName: 'Tom Brown', reporterEmail: 'tom@example.com' }
+          { id: 1, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
+          { id: 2, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
+          { id: 3, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
+          { id: 4, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
+          { id: 5, reportTitle: 'Accounted blocked', reportDetail: 'My account is disabled without any reason,username:bereketgetachew', reporterName: 'Bereket getachew', reporterEmail: 'beki@example.com' }
         ],
         selectedReports: []
       }
@@ -43,33 +43,41 @@
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 30px;
+  margin-top: 20px;
 }
 
 .card {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  width: 400px;
 }
 
 .card-body {
   padding: 20px;
+  
+}
+.card:hover {
+	transform: scale(1.1);
+    background-color:mintcream;
 }
 
 .card-title {
   font-size: 1.2rem;
   margin-bottom: 10px;
+  color: #f70606;
 }
 
 .card-subtitle {
-  font-size: 1rem;
-  color: #6c757d;
+  font-size: 1.3rem;
+  color: #020b13;
   margin-bottom: 20px;
 }
 
 .card-text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.5;
 }
 
@@ -78,7 +86,7 @@ h1 {
 }
 
 .form-check-input {
-  margin-right: 10px;
+  margin-left: 15px;
 }
 
 @media (min-width: 768px) {
@@ -86,19 +94,20 @@ h1 {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color:rgb(250, 250, 250);
   }
 
   .card-body {
     flex-grow: 1;
   }
 
-  .row-cols-md-4 {
+  .row-cols-md-3 {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
   }
 
-  .col-md-4 {
+  .col-md-3 {
     flex-basis: 25%;
     max-width: 25%;
     padding: 0 15px;

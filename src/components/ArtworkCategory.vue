@@ -5,13 +5,13 @@
       <p class="lead text-center text-black mb-5">
         Main collections in our Gallery
       </p>
-      <div class="row text-center g-4">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <div class="col-md">
           <div class="card bg-dark text-light">
             <div class="card-body text-center">
               <div class="h1 mb-3">
-                <img class="img-fluid w-40 d-none d-sm-block" :src="require('../assets/img/three.jpg')" style="width:400px;height:300px;overflow:hidden;" alt="">
+                <img class="card-img-top" :src="require('@/assets/img/three.jpg')" style="width:400px;height:300px;" alt="">
               </div>
               <h3 class="card-title mb-3">Paintings</h3>
               <p class="card-text">
@@ -31,7 +31,7 @@
               </div>
               <h3 class="card-title mb-3">Cultural</h3>
               <p class="card-text">
-                Cultural paintings are artwork that depict the culture of a particular time or place.
+                Cultural paintings.
               </p>
               <router-link class="btn btn-success" to="/artworks">See more</router-link>
             </div>
@@ -67,5 +67,14 @@ export default {
 </script>
 
 <style scoped>
+
+.card .bg-dark .text-light:hover {
+			transition: transform 0.5s ease;
+		}
+
+		.card .bg-dark .text-light:hover{
+			transform: scale(1.2);
+		}
+
 
 </style>

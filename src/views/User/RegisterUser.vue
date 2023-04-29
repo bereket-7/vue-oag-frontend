@@ -43,12 +43,13 @@
                         </div>
                         <span v-if="errors.sex" class="error">{{ errors.sex }}</span>
                       </div>
-
-    <div>
+<!--
+      <div>
       <label for="password">Profile Photo</label>
       <input name="image" accept="image/png, image/jpeg" type="file" id="image"  placeholder="Upload photo" @change="onFileChange" required>
       <span v-if="errors.image" class="error">{{ errors.image }}</span>
     </div>
+-->
     <div>
       <input type="text" placeholder="Username" id="username" v-model="username" required>
       <span v-if="errors.username" class="error">{{ errors.username }}</span>
@@ -78,7 +79,7 @@ export default {
       address: '',
       age: '',
       sex: '',
-      photo: null,
+      //photo: null,
       username:'',
       confirmPassword:'',
       password: '',

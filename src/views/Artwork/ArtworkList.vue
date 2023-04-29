@@ -59,7 +59,7 @@
 
 	<div v-for="artwork in artworks" :key="artwork.id" class="col">
       <div class="card">
-        <img :src="'/img/artwork-images/' + artwork.artworkPhoto" style="width: 410px; height: 300px;" class="card-img-top" alt="artwork image">
+		<img :src="artwork.artworkPhoto" style="width:410px;height:300px;" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{ artwork.artworkName }}</h5>
           <p class="card-text">{{ artwork.artworkCategory }}</p>
@@ -146,8 +146,6 @@
 
 <footer-view/>
 </template>
-
-
 
 <script>
 import FooterView from '@/components/FooterView.vue'

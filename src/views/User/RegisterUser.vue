@@ -159,6 +159,10 @@ export default {
       if (this.password !== this.confirmPassword) {
         this.passwordError = 'Passwords do not match.';
       }
+      if (this.password.length < 6) {
+    this.passwordError = 'Password should be at least 6 characters long.';
+    return;
+  }
 
       // If there are errors, do not submit the form
       if (Object.keys(this.errors).length || this.passwordError) {

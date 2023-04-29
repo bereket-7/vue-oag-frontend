@@ -57,6 +57,19 @@
 				</div>
 			</div>
 
+	<div v-for="artwork in artworks" :key="artwork.id" class="col">
+      <div class="card">
+        <img :src="'/img/artwork-images/' + artwork.artworkPhoto" style="width: 410px; height: 300px;" class="card-img-top" alt="artwork image">
+        <div class="card-body">
+          <h5 class="card-title">{{ artwork.artworkName }}</h5>
+          <p class="card-text">{{ artwork.artworkCategory }}</p>
+          <p class="card-text">{{ artwork.price }}</p>
+          <a class="btn btn-primary quick-view" data-bs-toggle="modal" data-bs-target="#exampleModal">Quick View</a>
+        </div>
+      </div>
+    </div>
+    
+
 			<div class="col">
 				<div class="card">
 					<img :src="require('@/assets/img/two.jpg')" class="card-img-top" style="width:410px;height:300px;" alt="...">
@@ -134,6 +147,33 @@
 <footer-view/>
 </template>
 
+
+
+<script>
+import FooterView from '@/components/FooterView.vue'
+import SearchArtwork from '@/components/SearchArtwork.vue'
+import axios from 'axios'
+export default {
+	components: { FooterView, SearchArtwork },
+	name:'ArtworkList',
+  data() {
+    return {
+      artworks: [],
+    }
+  },
+
+  mounted() {
+    axios.get('http://localhost:8081/artwork/all')
+      .then(response => {
+        this.artworks = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+}
+</script>
+
 <style scoped>
 		.card-img-top {
 			transition: transform 0.5s ease;
@@ -159,16 +199,3 @@
 			display: block;
 		}
 	</style>
-
-
-<script>
-import FooterView from '@/components/FooterView.vue'
-import SearchArtwork from '@/components/SearchArtwork.vue'
-export default {
-  components: { FooterView, SearchArtwork },
-    name:'ArtworkList',
-    setup() {
-        
-    },
-}
-</script>

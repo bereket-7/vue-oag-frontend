@@ -165,9 +165,9 @@ export default {
   }
 
       // If there are errors, do not submit the form
-      if (Object.keys(this.errors).length || this.passwordError) {
-        return;
-      }
+      //if (Object.keys(this.errors).length || this.passwordError) {
+        //return;
+        //}
 
       // Return true if there are no errors
       return Object.keys(this.errors).length === 0;

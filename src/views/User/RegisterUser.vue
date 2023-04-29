@@ -69,71 +69,97 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phone: '',
-      address: '',
-      age: '',
-      sex: '',
-      //photo: null,
-      username:'',
-      confirmPassword:'',
-      password: '',
-      isFormValid: false,
-      errors: {}
-    }
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone: "",
+      address: "",
+      age: "",
+      sex: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      errors: {},
+      passwordError: "",
+    };
   },
   methods: {
-    validateForm() {
+    submitForm() {
       this.errors = {};
 
       if (!this.firstname) {
-        this.errors.firstname = 'First name is required.';
+        this.errors.firstname = "First name is required.";
       }
-
       if (!this.lastname) {
-        this.errors.lastname = 'Last name is required.';
+        this.errors.lastname = "Last name is required.";
       }
-
       if (!this.email) {
-        this.errors.email = 'Email is required.';
+        this.errors.email = "Email is required.";
       } else if (!this.validEmail(this.email)) {
-        this.errors.email = 'Please enter a valid email address.';
+        this.errors.email = "Invalid email address.";
+      }
+      if (!this.phone) {
+        this.errors.phone = "Phone number is required.";
+      }
+      if (!this.address) {
+        this.errors.address = "Address is required.";
+      }
+      if (!this.age) {
+        this.errors.age = "Age is required.";
+      }
+      if (!this.sex) {
+        this.errors.sex = "Please select your sex.";
+      }
+      if (!this.username) {
+        this.errors.username = "Username is required.";
+      }
+      if (!this.password) {
+        this.errors.password = "Password is required.";
+      }
+      if (!this.confirmPassword) {
+        this.errors.confirmPassword = "Please confirm your password.";
+      } else if (this.password !== this.confirmPassword) {
+        this.passwordError = "Passwords do not match.";
+        return;
       }
 
-      if (!this.phone) {
-        this.errors.phone = 'Phone number is required.';
+      if (Object.keys(this.errors).length === 0) {
+        const user = {
+          firstName: this.firstname,
+          lastName: this.lastname,
+          email: this.email,
+          phone: this.phone,
+          address: this.address,
+          age: this.age,
+          sex: this.sex,
+          username: this.username,
+          password: this.password,
+        };
+        axios
+          .post("http://localhost:8081/user/signup", user)
+          .then((response) => {
+            console.log(response.data);
+            // Do something after successful registration
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            // Handle registration error
+          });
       }
-      if (this.password !== '' && this.confirmPassword !== '') {
-        this.isFormValid = true;
-      } 
-      else {
-        this.isFormValid = false;
-      }      
-    },    
-    validatePassword() {
-      // Password must contain at least 8 characters including at least one uppercase letter, one lowercase letter, and one number
-      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-      if (!regex.test(this.password)) {
-        console.log('Password does not meet the requirements');
-        return;
-      }
-      this.validateForm();
     },
-    validateConfirmPassword() {
-      if (this.password !== this.confirmPassword) {
-        console.log('Passwords do not match');
-        return;
-      }
-      this.validateForm();
-    }
-  }
-}
-    </script>
+    validEmail(email) {
+      // Email validation regex
+      const re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    },
+  },
+};
+</script>
+
 
 
 <style scoped>

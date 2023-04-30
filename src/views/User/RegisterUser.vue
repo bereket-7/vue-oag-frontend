@@ -50,10 +50,10 @@
       <span v-if="errors.image" class="error">{{ errors.image }}</span>
     </div>
 -->     <div>
-        <label for="role">Select Role</label>
+        <label for="roles">Select Role</label>
                         <select v-model="roles" class="form-select" id="role" required>
-                          <option value="customer">CUSTOMER</option>
-                          <option value="artist">ARTIST</option>
+                          <option value="CUSTOMER">CUSTOMER</option>
+                          <option value="ARTIST">ARTIST</option>
                         </select>
                       </div>
 
@@ -70,11 +70,11 @@
       <span v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword}}</span>
     </div>
     <p v-if="passwordError">{{ passwordError }}</p>
+    <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     <button type="submit">submit</button>
     <br>
   </form>
 </template>
-
 
 <script>
 import axios from 'axios';
@@ -93,10 +93,31 @@ export default {
       password: '',
       confirmPassword: '',
       errors: {},
-      passwordError: ''
+      passwordError: '',
+      errorMessage: ''
     };
   },
   methods: {
+    async register() {
+      try {
+        await axios.post('http://localhost:8081/user/signup', {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          email: this.email,
+          phone: this.phone,
+          address: this.address,
+          sex: this.sex,
+          age: this.age,
+          username: this.username,
+          password: this.password,
+          roles: [this.roles]
+          //roles: ['CUSTOMER']
+        });
+        this.$router.push('/signupSuccess');
+      } catch (error) {
+        this.errorMessage = error.response.data.message;
+      }
+    },
     submitForm() {
       // Clear errors
       this.errors = {};
@@ -106,42 +127,9 @@ export default {
         return;
       }
 
-      async function register() {
-    try {
-        await axios.post('http://localhost:8081/user/signup', this.form);
-         this.$router.push('/signupSuccess');
-    } catch (error) {
-        this.errorMessage = error.response.data;
-    }
-}
-/*
       // Send registration data to API endpoint
-      axios.post('http://localhost:8081/user/signup', {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.email,
-        phone: this.phone,
-        address: this.address,
-        sex: this.sex,
-        age: this.age,
-        username: this.username,
-        password: this.password,
-        roles: [this.role]
-        //roles: ['CUSTOMER']
-      })
-      .then(response => {
-        console.log(response.data);
-        // Redirect to a success page
-        this.$router.push('/signupSuccess');
-      })
-      .catch(error => {
-        //console.log(error.response.data);
-        this.errorMessage = error.response.data;
-        // Display any errors returned by the API
-        this.errors = error.response.data;
-      });
-    },*/
-
+      this.register();
+    },
     validateForm() {
       this.errors = {};
       if (!this.firstname) {
@@ -171,6 +159,10 @@ export default {
       if (!this.password) {
         this.errors.password = 'Password is required.';
       }
+      if (!this.roles) {
+        this.errors.roles = 'Role is is required.';
+      }
+
       if (!this.confirmPassword) {
         this.errors.confirmPassword = 'Please confirm your password.';
       }
@@ -179,9 +171,9 @@ export default {
       }
 
       if (this.password.length < 6) {
-    this.passwordError = 'Password should be at least 6 characters long.';
-    return;
-  }
+        this.passwordError = 'Password should be at least 6 characters long.';
+        return;
+      }
 
       // Return true if there are no errors
       return Object.keys(this.errors).length === 0;
@@ -189,6 +181,7 @@ export default {
   }
 };
 </script>
+
 
 
 

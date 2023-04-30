@@ -140,7 +140,9 @@ export default {
       }
       if (!this.email) {
         this.errors.email = 'Email is required.';
-      }
+      }else if (!this.validEmail(this.email)) {
+    this.errors.email = 'Please enter a valid email address.';
+  }
       if (!this.phone) {
         this.errors.phone = 'Phone number is required.';
       }
@@ -162,7 +164,9 @@ export default {
       if (!this.roles) {
         this.errors.roles = 'Role is is required.';
       }
-
+      if (this.age < 18) {
+      this.errors.age = 'You must be at least 18 years old to register.';
+    }
       if (!this.confirmPassword) {
         this.errors.confirmPassword = 'Please confirm your password.';
       }
@@ -177,7 +181,13 @@ export default {
 
       // Return true if there are no errors
       return Object.keys(this.errors).length === 0;
-    }
+    },
+    validEmail(email) {
+  // Regular expression for email validation
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(String(email).toLowerCase());
+}
+
   }
 };
 </script>

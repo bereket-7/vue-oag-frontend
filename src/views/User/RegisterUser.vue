@@ -49,7 +49,14 @@
       <input name="image" accept="image/png, image/jpeg" type="file" id="image"  placeholder="Upload photo" @change="onFileChange" required>
       <span v-if="errors.image" class="error">{{ errors.image }}</span>
     </div>
--->
+-->     <div>
+        <label for="role">Select Role</label>
+                        <select v-model="roles" class="form-select" id="role" required>
+                          <option value="customer">CUSTOMER</option>
+                          <option value="artist">ARTIST</option>
+                        </select>
+                      </div>
+
     <div>
       <input type="text" placeholder="Username" id="username" v-model="username" required>
       <span v-if="errors.username" class="error">{{ errors.username }}</span>
@@ -99,6 +106,15 @@ export default {
         return;
       }
 
+      async function register() {
+    try {
+        await axios.post('http://localhost:8081/user/signup', this.form);
+         this.$router.push('/signupSuccess');
+    } catch (error) {
+        this.errorMessage = error.response.data;
+    }
+}
+/*
       // Send registration data to API endpoint
       axios.post('http://localhost:8081/user/signup', {
         firstname: this.firstname,
@@ -110,7 +126,8 @@ export default {
         age: this.age,
         username: this.username,
         password: this.password,
-        roles: ['CUSTOMER']
+        roles: [this.role]
+        //roles: ['CUSTOMER']
       })
       .then(response => {
         console.log(response.data);
@@ -118,11 +135,12 @@ export default {
         this.$router.push('/signupSuccess');
       })
       .catch(error => {
-        console.log(error.response.data);
+        //console.log(error.response.data);
+        this.errorMessage = error.response.data;
         // Display any errors returned by the API
         this.errors = error.response.data;
       });
-    },
+    },*/
 
     validateForm() {
       this.errors = {};
@@ -159,15 +177,11 @@ export default {
       if (this.password !== this.confirmPassword) {
         this.passwordError = 'Passwords do not match.';
       }
+
       if (this.password.length < 6) {
     this.passwordError = 'Password should be at least 6 characters long.';
     return;
   }
-
-      // If there are errors, do not submit the form
-      //if (Object.keys(this.errors).length || this.passwordError) {
-        //return;
-        //}
 
       // Return true if there are no errors
       return Object.keys(this.errors).length === 0;

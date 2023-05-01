@@ -72,11 +72,6 @@ const routes = [
     component: () => import('../views/Manager/AddStandard.vue')
   },
   {
-    path: '/addStandard',
-    name: 'AddStandard',
-    component: () => import('../views/Manager/AddStandard.vue')
-  },
-  {
     path: '/verifyArtwork',
     name: 'VerifyArtwork',
     component: () => import('../views/Manager/VerifyArtwork.vue')

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 //import HomeView from '../views/HomeView.vue'
-
 const routes = [
   {
     path: '/',
@@ -165,6 +164,11 @@ const routes = [
     path: '/logout',
     name: 'LogOut',
     component: () => import('../components/LogOut.vue')
+  },
+  {
+    path: "*",
+    name: 'UnavailablePage',
+    //component: () => import(/* webpackChunkName: "about" */ '../components/UnavailablePage.vue')
   },
   {
     path: '/adminPanel',

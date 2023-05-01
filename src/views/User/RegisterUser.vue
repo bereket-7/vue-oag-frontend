@@ -132,6 +132,7 @@ export default {
     },
     validateForm() {
       this.errors = {};
+      const ethiopiaCode = '+251';
       if (!this.firstname) {
         this.errors.firstname = 'First name is required.';
       }
@@ -148,7 +149,15 @@ export default {
       }
       if (!this.address) {
         this.errors.address = 'Address is required.';
-      }
+      }else if (
+    !(
+      (this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 10
+      || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
+      || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
+    )
+  ) {
+    this.errors.phone = 'Invalid phone number format.';
+  }
       if (!this.age) {
         this.errors.age = 'Age is required.';
       }

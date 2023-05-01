@@ -23,7 +23,7 @@
         <div class="footer-col">
           <h4>Others</h4>
           <ul>
-            <li><router-link to="" >User FAQs</router-link></li>
+            <li><router-link to="/FAQs" >User FAQs</router-link></li>
             <li><router-link to="" >Legal</router-link></li>
             <li><router-link to="" >Privacy Policy</router-link></li>
             <li><router-link to="" >Terms and Conditions</router-link></li>

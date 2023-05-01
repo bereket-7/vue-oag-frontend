@@ -40,14 +40,18 @@ export default {
   },
   methods: {
     async addCompetition() {
-      try {
-        await axios.post("http://localhost:8081/competition/add", this.competition);
-        alert("Competition added successfully!");
-      } catch (error) {
-        console.error(error);
-        alert("Failed to add competition.");
-      }
-    },
+  try {
+    await axios.post("http://localhost:8081/competition/add", this.competition, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    alert("Competition added successfully!");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to add competition.");
+  }
+},
   },
 };
 </script>

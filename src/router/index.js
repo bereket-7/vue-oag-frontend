@@ -166,11 +166,6 @@ const routes = [
     component: () => import('../components/LogOut.vue')
   },
   {
-    path: "*",
-    name: 'UnavailablePage',
-    //component: () => import(/* webpackChunkName: "about" */ '../components/UnavailablePage.vue')
-  },
-  {
     path: '/adminPanel',
     name: 'AdminPanel',
     component: () => import('../views/Admin/AdminPanel.vue')

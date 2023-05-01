@@ -36,9 +36,6 @@
       <div class="form-group">
         <label for="artworkPhoto">Upload Artwork Photo</label>
         <input type="file" id="artworkPhoto" @change="handleFileUpload" name="image" accept=".jpg,.jpeg,.png" required />
-        <div v-if="imagePreview" class="image-preview">
-          <img :src="imagePreview" alt="Artwork Preview">
-        </div>
       </div>
 
       <div class="form-group">
@@ -112,9 +109,49 @@ export default {
         alert("Failed to register competitor.");
       }
     },
+
+
+
+    validateForm() {
+      this.errors = {};
+      const ethiopiaCode = '+251';
+      if (!this.firstname) {
+        this.errors.firstname = 'First name is required.';
+      }
+      if (!this.lastname) {
+        this.errors.lastname = 'Last name is required.';
+      }
+      if (!this.email) {
+        this.errors.email = 'Email is required.';
+      }else if (!this.validEmail(this.email)) {
+    this.errors.email = 'Please enter a valid email address.';
+  }
+      if (!this.phone) {
+        this.errors.phone = 'Phone number is required.';
+      }else if (
+    !(
+      (this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 10
+      || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
+      || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
+    )
+  ) {
+    this.errors.phone = 'Invalid phone number format.';
+  }
+      // Return true if there are no errors
+      return Object.keys(this.errors).length === 0;
+    },
+    validEmail(email) {
+  // Regular expression for email validation
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(String(email).toLowerCase());
+}
+
+
   },
 };
 </script>
+
+
 
 <style>
 .form-container {

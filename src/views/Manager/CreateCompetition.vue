@@ -49,7 +49,8 @@ export default {
 </script>
 
 <style scoped>
-    .form-container {
+
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,5 +109,64 @@ export default {
 .form button[type="reset"]:hover {
   background-color: #d32f2f;
 }
+
+
+/* Desktop styles */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tablet styles */
+@media screen and (max-width: 768px) {
+  .form-container {
+    max-width: 500px;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 480px) {
+  .form-container {
+    max-width: 300px;
+  }
+}
+
+/* General styles for inputs and buttons */
+input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+input[type="submit"], button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover, button:hover {
+  background-color: #3e8e41;
+}
+
+/* Specific styles for buttons and inputs in mobile view */
+@media screen and (max-width: 480px) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
+    padding: 10px;
+  }
+  
+  input[type="submit"], button {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
+
 
 </style>

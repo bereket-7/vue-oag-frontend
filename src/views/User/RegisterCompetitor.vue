@@ -191,7 +191,7 @@ label{
 }
 
 .form-group input[type="file"] {
-  
+  display: block;
 
 }
 

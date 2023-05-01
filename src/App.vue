@@ -25,7 +25,7 @@
             </ul>
           </div>
         <li class="nav-item">
-          <router-link class="nav-link" to="/register">SignUp</router-link>
+          <router-link class="nav-link" to="/userSignup">SignUp</router-link>
         </li>
 
         <li class="nav-item">
@@ -54,8 +54,6 @@
 </nav>
   <router-view/>
 </template>
-
-
 
 <style>
 #app {

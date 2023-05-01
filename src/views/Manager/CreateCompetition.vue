@@ -1,123 +1,172 @@
 <template>
-      <form class="vh-200">
-        <div class="container h-150">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-9">
-          <h1 class="text-primary mb-4">Create Competition</h1>
+  <div class="form-container">
+    <h1>Add Competition</h1>
+    <form @submit.prevent="addCompetition"   class="form">
+      <label for="title">Title:</label>
+      <input type="text" id="title" v-model="competition.competitionTitle" required><br><br>
 
-        <div class="card">
-          <div class="card-body bg-light">
- 
-        <div class="input-group flex-nowrap pt-4 pb-3">
-          <span class="input-group-text" for="competitionTitle" id="competitionTitle">Competition   
-             Title</span>
-        <input type="text" class="form-control form-control-lg" placeholder="water color painting competition" 
-         id="competitionTitle" 
-         v-model="competitionTitle" aria-label="Competition Title" aria-describedby="addon-wrapping">
-        </div>
+      <label for="description">Description:</label>
+      <input type="text" id="description" v-model="competition.competitionDescription" required><br><br>
 
-        <div class="input-group flex-nowrap py-3">
-          <span class="input-group-text" for="competitionDescription">Competition Description</span>
-          <textarea type="text" class="form-control form-control-lg" id="competitionDescription" rows="3" 
-          v-model="competitionDescription"></textarea>
-        </div>
+      <label for="numberOfCompetitor">Number of Competitors:</label>
+      <input type="number" id="numberOfCompetitor" v-model="competition.numberOfCompetitor" required><br><br>
 
+      <label for="expiryDate">Expiry Date:</label>
+      <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
 
-        <div class="input-group flex-nowrap pt-3">
-          <span class="input-group-text" for="numberOfCompetitor">Number of Competitors</span>
-          <input type="number" min='3' class="form-control form-control-lg" id="numberOfCompetitor" 
-          v-model.number="numberOfCompetitor">
-        </div>
+      <button type="submit">Add Competition</button>
+    </form>
+  </div>
+</template>
 
-        <div class="input-group flex-nowrap pt-3">
-          <span class="input-group-text" for="expiryDate">Date</span>
-          <input type="date" class="form-control form-control-lg" id="createDate" v-model="createDate">
-        </div>
-        <hr class="mx-n3">
-        <div class="px-5 py-4">   
-        <button type="submit" class="btn btn-primary btn-lg" @click.prevent="registerCompetition()">Create</button>
-        </div>
-        </div>
-</div>
-</div>
-</div>
-</div>
+<script>
+import axios from 'axios';
 
-      </form>
-  </template>
-  
-  <script>
-  export default {
-    name:'CreateCompetition',
-    data() {
-      return {
+export default {
+  name: 'AddCompetition',
+  data() {
+    return {
+      competition: {
         competitionTitle: '',
         competitionDescription: '',
-        numberOfCompetitor: 0,
-        createDate: ''
+        numberOfCompetitor: '',
+        expiryDate: ''
       }
-    },
-    methods: {
-
-      registerCompetition() {
-        this.artworkPhoto = event.target.files[0];
-        // Submit the form data to the server or perform any other necessary action.
-        console.log({
-          competitionTitle: this.competitionTitle,
-          competitionDescription: this.competitionDescription,
-          numberOfCompetitor: this.numberOfCompetitor,
-          expiryDate: this.expiryDate
-        })
+    }
+  },
+  methods: {
+    async addCompetition() {
+      try {
+        await axios.post('http://localhost:8081/competition/add', this.competition);
+        alert('Competition added successfully!');
+      } catch (error) {
+        console.error(error);
+        alert('Failed to add competition.');
       }
     }
   }
-  </script>
-  
-  <style scoped>
-/*
-.container {
+}
+</script>
+
+<style scoped>
+
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
- /* Set the height of the container 
+  min-height: 100vh;
 }
 
 .form {
-  width: 400px; /* Set the width of the form 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  background-color: #f2f2f2;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a shadow effect 
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the form fields 
 .form input[type="text"],
 .form input[type="email"],
-.form textarea {
+.form input[type="password"],
+.form input[type="date"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing: border-box;
   border: none;
   border-radius: 4px;
-  background-color: #fff;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
 }
 
- Style the form submit button 
-.form input[type="submit"] {
+.form input[type="text"]:hover,
+.form input[type="email"]:hover,
+.form input[type="password"]:hover,
+.form input[type="date"]:hover {
+  background-color: #e8e8e8;
+}
+
+.form button {
   background-color: #4CAF50;
-  color: #fff;
+  color: white;
+  border: none;
+  border-radius: 4px;
   padding: 12px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form button:hover {
+  background-color: #3e8e41;
+}
+
+.form button[type="reset"] {
+  background-color: #f44336;
+}
+
+.form button[type="reset"]:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Desktop styles */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tablet styles */
+@media screen and (max-width: 768px) {
+  .form-container {
+    max-width: 500px;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 480px) {
+  .form-container {
+    max-width: 300px;
+  }
+}
+
+/* General styles for inputs and buttons */
+input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+input[type="submit"], button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-Add hover effects to the form submit button 
-.form input[type="submit"]:hover {
-  background-color: #45a049;
+input[type="submit"]:hover, button:hover {
+  background-color: #3e8e41;
 }
-*/
-  /* Add any custom CSS styles here */
-  </style>
+
+/* Specific styles for buttons and inputs in mobile view */
+@media screen and (max-width: 480px) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
+    padding: 10px;
+  }
   
+  input[type="submit"], button {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
+
+
+</style>

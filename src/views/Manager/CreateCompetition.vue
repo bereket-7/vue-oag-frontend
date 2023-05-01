@@ -1,78 +1,57 @@
 <template>
-      <form class="vh-200">
-        <div class="container h-150">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-9">
-          <h1 class="text-primary mb-4">Create Competition</h1>
+  <div class="container">
+    <h1>Add Competition</h1>
+    <form @submit.prevent="addCompetition">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" v-model="competition.title" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" v-model="competition.description" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="numberOfCompetitor" class="form-label">Number of Competitor</label>
+        <input type="number" class="form-control" id="numberOfCompetitor" v-model="competition.numberOfCompetitor" required>
+      </div>
+      <div class="mb-3">
+        <label for="expiryDate" class="form-label">Expiry Date</label>
+        <input  class="form-control" id="expiryDate" v-model="competition.expiryDate" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Competition</button>
+    </form>
+  </div>
+</template>
 
-        <div class="card">
-          <div class="card-body bg-light">
- 
-        <div class="input-group flex-nowrap pt-4 pb-3">
-          <span class="input-group-text" for="competitionTitle" id="competitionTitle">Competition   
-             Title</span>
-        <input type="text" class="form-control form-control-lg" placeholder="water color painting competition" 
-         id="competitionTitle" 
-         v-model="competitionTitle" aria-label="Competition Title" aria-describedby="addon-wrapping">
-        </div>
+<script>
+import axios from "axios";
 
-        <div class="input-group flex-nowrap py-3">
-          <span class="input-group-text" for="competitionDescription">Competition Description</span>
-          <textarea type="text" class="form-control form-control-lg" id="competitionDescription" rows="3" 
-          v-model="competitionDescription"></textarea>
-        </div>
-
-
-        <div class="input-group flex-nowrap pt-3">
-          <span class="input-group-text" for="numberOfCompetitor">Number of Competitors</span>
-          <input type="number" min='3' class="form-control form-control-lg" id="numberOfCompetitor" 
-          v-model.number="numberOfCompetitor">
-        </div>
-
-        <div class="input-group flex-nowrap pt-3">
-          <span class="input-group-text" for="expiryDate">Date</span>
-          <input type="date" class="form-control form-control-lg" id="createDate" v-model="createDate">
-        </div>
-        <hr class="mx-n3">
-        <div class="px-5 py-4">   
-        <button type="submit" class="btn btn-primary btn-lg" @click.prevent="registerCompetition()">Create</button>
-        </div>
-        </div>
-</div>
-</div>
-</div>
-</div>
-
-      </form>
-  </template>
-  
-  <script>
-  export default {
-    name:'CreateCompetition',
-    data() {
-      return {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: 0,
-        createDate: ''
+export default {
+  name: "AddCompetition",
+  data() {
+    return {
+      competition: {
+        title: "",
+        description: "",
+        numberOfCompetitor: "",
+        expiryDate: "",
+      },
+    };
+  },
+  methods: {
+    async addCompetition() {
+      try {
+        await axios.post("http://localhost:8081/competition/add", this.competition);
+        alert("Competition added successfully!");
+      } catch (error) {
+        console.error(error);
+        alert("Failed to add competition.");
       }
     },
-    methods: {
+  },
+};
+</script>
 
-      registerCompetition() {
-        this.artworkPhoto = event.target.files[0];
-        // Submit the form data to the server or perform any other necessary action.
-        console.log({
-          competitionTitle: this.competitionTitle,
-          competitionDescription: this.competitionDescription,
-          numberOfCompetitor: this.numberOfCompetitor,
-          expiryDate: this.expiryDate
-        })
-      }
-    }
-  }
-  </script>
-  
   <style scoped>
 /*
 .container {

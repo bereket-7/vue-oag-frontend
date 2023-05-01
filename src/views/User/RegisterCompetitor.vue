@@ -1,6 +1,6 @@
 <template>
    <div class="form-container">
-    <h2>Apply for Competition</h2>
+    <h2 style=" color:#007bff;">Apply for Competition</h2>
     <form @submit.prevent="registerCompetitor" enctype="multipart/form-data">
       <div class="form-group">
         <label for="firstName">First Name</label>
@@ -163,6 +163,9 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+label{
+  color:#155724;
+}
 .form-group {
   margin-bottom: 20px;
 }
@@ -188,7 +191,8 @@ export default {
 }
 
 .form-group input[type="file"] {
-  display: none;
+  
+
 }
 
 .image-preview {

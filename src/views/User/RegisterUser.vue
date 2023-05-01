@@ -146,18 +146,18 @@ export default {
   }
       if (!this.phone) {
         this.errors.phone = 'Phone number is required.';
-      }
-      if (!this.address) {
-        this.errors.address = 'Address is required.';
       }else if (
     !(
       (this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 10
       || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
       || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
     )
-  ) {
+  ){
     this.errors.phone = 'Invalid phone number format.';
   }
+      if (!this.address) {
+        this.errors.address = 'Address is required.';
+      }
       if (!this.age) {
         this.errors.age = 'Age is required.';
       }

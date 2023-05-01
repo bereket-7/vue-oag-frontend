@@ -14,7 +14,6 @@
       <label for="expiryDate">Expiry Date:</label>
       <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
       <button type="submit">Add Competition</button>
-      <div class="success-message" v-if="successMessage">{{ successMessage }}</div>
     </form>
   </div>
 </template>
@@ -32,27 +31,27 @@ export default {
         numberOfCompetitor: '',
         expiryDate: ''
       },
-      successMessage: '',
-      errorMessage: ''
+      success: false
     }
   },
   methods: {
     async addCompetition() {
       try {
         await axios.post('http://localhost:8081/competition/add', this.competition);
-        this.successMessage = 'Competition added successfully!';
-        this.errorMessage = '';
-        this.competition = {
-          competitionTitle: '',
-          competitionDescription: '',
-          numberOfCompetitor: '',
-          expiryDate: ''
-        };
+        alert("successfully registered");
+        this.resetForm();
       } catch (error) {
         console.error(error);
-        this.errorMessage = 'Failed to add competition.';
-        this.successMessage = '';
+        alert('Failed to add competition.');
       }
+    },
+    resetForm() {
+      this.competition = {
+        competitionTitle: '',
+        competitionDescription: '',
+        numberOfCompetitor: '',
+        expiryDate: ''
+      };
     }
   }
 }
@@ -130,7 +129,7 @@ export default {
   background-color: rgba(0, 255, 0, 0.5);
   font-size: 2em;
   font-weight: bold;
-  z-index: 999;
+  z-index: 500;
 }
 
 

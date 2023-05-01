@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <h1>Add Competition</h1>
-    <form @submit.prevent="addCompetition"   class="form">
+    <form @submit.prevent="addCompetition" class="form">
       <label for="title">Title:</label>
       <input type="text" id="title" v-model="competition.competitionTitle" required><br><br>
 
@@ -13,8 +13,8 @@
 
       <label for="expiryDate">Expiry Date:</label>
       <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
-
       <button type="submit">Add Competition</button>
+      <div class="success-message" v-if="successMessage">{{ successMessage }}</div>
     </form>
   </div>
 </template>
@@ -31,25 +31,33 @@ export default {
         competitionDescription: '',
         numberOfCompetitor: '',
         expiryDate: ''
-      }
+      },
+      successMessage: '',
+      errorMessage: ''
     }
   },
   methods: {
     async addCompetition() {
       try {
         await axios.post('http://localhost:8081/competition/add', this.competition);
-        alert('Competition added successfully!');
+        this.successMessage = 'Competition added successfully!';
+        this.errorMessage = '';
+        this.competition = {
+          competitionTitle: '',
+          competitionDescription: '',
+          numberOfCompetitor: '',
+          expiryDate: ''
+        };
       } catch (error) {
         console.error(error);
-        alert('Failed to add competition.');
+        this.errorMessage = 'Failed to add competition.';
+        this.successMessage = '';
       }
     }
   }
 }
 </script>
-
 <style scoped>
-
 .form-container {
   display: flex;
   justify-content: center;
@@ -110,6 +118,21 @@ export default {
   background-color: #d32f2f;
 }
 
+.success-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 255, 0, 0.5);
+  font-size: 2em;
+  font-weight: bold;
+  z-index: 999;
+}
+
 
 /* Desktop styles */
 .form-container {
@@ -167,6 +190,4 @@ input[type="submit"]:hover, button:hover {
     font-size: 16px;
   }
 }
-
-
 </style>

@@ -18,6 +18,8 @@
         <label for="email">Email</label>
         <input type="email" v-model="competitor.email" name="email" required />
       </div>
+
+
       <div class="form-group">
         <label for="category">Category</label>
         <select id="category" v-model="competitor.category" required>
@@ -46,7 +48,23 @@
       </div>
       </div>
     </form>
-    <div v-if="message" class="success-message">{{ message }}</div>
+
+    <div id="success-modal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Success</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Competitor registered successfully!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -88,7 +106,7 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        alert("Competitor registered successfully!");
+        this.$router.push('/signupSuccess');
       } catch (error) {
         console.error(error);
         alert("Failed to register competitor.");
@@ -98,92 +116,128 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Form Styles */
-
-form {
-  max-width: 500px;
+<style>
+.form-container {
+  max-width: 600px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #f2f2f2;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-form h2 {
-  margin-top: 0;
+.form-group {
+  margin-bottom: 20px;
 }
 
-form label {
+.form-group label {
   display: block;
+  margin-bottom: 5px;
   font-weight: bold;
-  margin-bottom: 0.5rem;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form select,
-form textarea {
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.4;
+  box-sizing: border-box;
 }
 
-form select {
-  appearance: none;
-  padding-right: 1.5rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 1.5rem;
+.form-group input[type="file"] {
+  display: none;
 }
 
-form textarea {
-  height: 10rem;
+.image-preview {
+  margin-top: 10px;
+  text-align: center;
 }
 
-form input[type="submit"] {
-  background-color: #008080;
+.image-preview img {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
   color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
+  background-color: #007bff;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
-form input[type="submit"]:hover {
-  background-color: #006666;
+.btn:hover {
+  background-color: #0056b3;
 }
 
-/* Media Queries */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
-@media only screen and (max-width: 600px) {
-  form {
-    padding: 1rem;
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  form input[type="text"],
-  form input[type="email"],
-  form input[type="tel"],
-  form select,
-  form textarea {
-    font-size: 0.9rem;
-  }
-  
-  form input[type="submit"] {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+  100% {
+    transform: rotate(360deg);
   }
 }
 
+.success-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    padding: 10px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="tel"],
+  .form-group input[type="email"],
+  .form-group textarea,
+  .form-group select {
+    font-size: 14px;
+  }
+  .btn {
+    font-size: 14px;
+  }
+}
 </style>
+
+

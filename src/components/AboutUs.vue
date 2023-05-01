@@ -16,7 +16,7 @@
           showcase their work to a global audience, and art collectors and enthusiasts alike can discover, 
           experience, and ultimately acquire a piece of visual magic that speaks to their soul.
  </p>
-        <button class="btn btn-primary mt-3">Get in Touch</button>
+        <router-link class="btn btn-primary mt-3" to="/contactUs">Get in Touch</router-link>
       </div>
     </div>
   </div>

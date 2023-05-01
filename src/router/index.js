@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/registerCompetitor',
     name: 'RegisterCompetitor',
-    component: () => import('../views/Manager/RegisterCompetitor.vue')
+    component: () => import('../views/User/RegisterCompetitor.vue')
   },
   {
     path: '/checkout',

@@ -20,19 +20,27 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
-        reports: [
-          { id: 1, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
-          { id: 2, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
-          { id: 3, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
-          { id: 4, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
-          { id: 5, reportTitle: 'Accounted blocked', reportDetail: 'My account is disabled without any reason,username:bereketgetachew', reporterName: 'Bereket getachew', reporterEmail: 'beki@example.com' }
-        ],
+
+        reports:[],
         selectedReports: []
       }
+    },
+    methods: {
+    fetchReports() {
+      // Call API to get standards
+      axios.get('http://localhost:8081/report/all')
+        .then(response => {
+          this.reports = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  }
   }
   </script>
 <style scoped>

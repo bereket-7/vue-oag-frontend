@@ -63,15 +63,18 @@ export default {
     }
   },
   methods: {
+    handleFileUpload(event) {
+      this.event.fileData = event.target.files[0];
+    },
     submitForm() {
       const formData = new FormData();
-      formData.append('image', this.event.fileData);
-      formData.append('eventName', this.event.eventName);
-      formData.append('eventDescription', this.event.eventDescription);
-      formData.append('eventDate', this.event.eventDate);
-      formData.append('location', this.event.location);
-      formData.append('capacity', this.event.capacity);
-      formData.append('ticketPrice', this.event.ticketPrice);
+      formData.append('image', this.event.fileData),
+      formData.append('eventName', this.event.eventName),
+      formData.append('eventDescription', this.event.eventDescription),
+      formData.append('eventDate', this.event.eventDate),
+      formData.append('location', this.event.location),
+      formData.append('capacity', this.event.capacity),
+      formData.append('ticketPrice', this.event.ticketPrice),
 
       axios.post('http://localhost:8081/event/upload', formData)
         .then(response => {
@@ -93,6 +96,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 

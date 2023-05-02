@@ -24,11 +24,14 @@
   export default {
     data() {
       return {
-
         reports:[],
         selectedReports: []
       }
     },
+    mounted() {
+    // Fetch standards from API
+    this.fetchReports();
+  },
     methods: {
     fetchReports() {
       // Call API to get standards

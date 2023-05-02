@@ -76,7 +76,7 @@ h1 {
 .card-title {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #f70606;
+  color:maroon;
 }
 
 .card-subtitle {

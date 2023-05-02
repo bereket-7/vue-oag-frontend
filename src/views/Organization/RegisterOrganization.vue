@@ -1,111 +1,64 @@
 <template>
-    <div class="container" style="margin-top: 50px;">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-          <div class="card">
-            <div style="color:green; font-size:25px" class="card-header bg-light">
-              Register Organization<br>
-            </div>
-            <div class="card-body vh-200">
-              <form>
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="name" id="name">Name</span>
-                  <input type="text" id="name" class="form-control form-control-md"   
-                   placeholder="Organization Name" v-model="name">
-                </div>
+  <div>
+    <h1>Register Organization</h1>
+    <form @submit.prevent="registerOrganization">
+      <label>Name:</label>
+      <input type="text" v-model="name" required />
+      <label>Email:</label>
+      <input type="email" v-model="email" required />
+      <label>Phone:</label>
+      <input type="text" v-model="phone" required />
+      <label>Address:</label>
+      <input type="text" v-model="address" required />
+      <label>Password:</label>
+      <input type="password" v-model="password" required />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</template>
 
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="email" id="email">Email</span>
-                  <input type="text" id="email" class="form-control form-control-md"   
-                   placeholder="Organization Email" v-model="email">
-                </div>
-                
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="phone" id="phone">Phone</span>
-                  <input type="text" class="form-control form-control-md"   
-                   placeholder="Enter Phone Number" id="phone" v-model="phone">
-                </div>
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="address" id="address">Address</span>
-                  <textarea type="text" class="form-control form-control-md"   
-                   placeholder="Country,Region,city," id="address" v-model="address"></textarea>
-                </div>
+<script>
+import { ref } from 'vue';
+import axios from 'axios';
 
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="username" id="username">Username</span>
-                  <input type="text" class="form-control form-control-md"   
-                   placeholder="Enter Username" id="username" v-model="username">
-                </div>
+export default {
+  name: 'RegisterOrganization',
+  setup() {
+    const name = ref('');
+    const email = ref('');
+    const phone = ref('');
+    const address = ref('');
+    const password = ref('');
 
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                    <span class="input-group-text" for="password" id="password" >Password</span>
-                  <input type="text" class="form-control form-control-md"   
-                   placeholder="Enter Password at least 6 character"  id="password" v-model="password">
-                </div>
-
-                <div class="input-group flex-nowrap pt-2 mb-2">
-                  <label class="input-group-text" for="organizationType">Organization Type</label>
-                  <select class="form-select" id="organizationType">
-                    <option value="governmental" selected>Governmental</option>
-                    <option value="private">Private</option>
-                    <option value="NGO">NGO's</option>
-                  </select>
-                </div>
-
-
-                <div class="px-2 py-3">
-                    <button type="submit"  @click.prevent="submitForm" 
-                    class="btn btn-success btn-lg">Submit</button>
-                </div>
-            
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name:'RegisterOrganization',
-    data() {
-      return {
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        username: "",
-        password: ""
+    const registerOrganization = () => {
+      const organization = {
+        name: name.value,
+        email: email.value,
+        phone: phone.value,
+        address: address.value,
+        password: password.value
       };
-    },
-    methods: {
-      submitForm() {
-        // submit the form data to your backend API or perform other actions here
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
- /* .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+
+      axios.post('http://localhost:8081/organization/add', organization)
+        .then(response => {
+          console.log(response.data);
+          alert("successfully registered");
+          this.organization = {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        password:''
+      };
+
+        })
+        .catch(error => {
+          console.log(error);
+          // handle error
+        });
+    };
+
+    return { name, email, phone, address, password, registerOrganization };
   }
-  
-  .card {
-    width: 100%;
-    max-width: 700px;
-  }*/
-  
-  @media screen and (min-width: 992px) {
-    .card {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-  </style>
-  
+};
+</script>

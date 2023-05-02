@@ -24,10 +24,11 @@
       <span v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword}}</span>
       <p v-if="passwordError">{{ passwordError }}</p>
       <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <br>
       <hr class="mx-n5">
       <button type="submit">Register</button>
     </form>
-    <br><br>
+    <br>
   </div>
   <br><br>
 </template>

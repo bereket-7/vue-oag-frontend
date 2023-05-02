@@ -9,8 +9,7 @@
               <h6 class="card-subtitle mb-2 text-muted">{{ report.reporterName }} - {{ report.reporterEmail }}</h6>
               <p class="card-text">{{ report.reportDetail }}</p>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="selectedReports" :value="report.id">
-                <label class="form-check-label">Check</label>
+                <router-link class="btn btn-primary mt-2" to="/contactUser">Reply</router-link>
               </div>
             </div>
           </div>
@@ -24,8 +23,7 @@
   export default {
     data() {
       return {
-        reports:[],
-        selectedReports: []
+        reports:[]
       }
     },
     mounted() {

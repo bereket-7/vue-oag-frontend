@@ -175,6 +175,12 @@ const routes = [
     name: 'FAQs',
     component: () => import('../views/User/FAQs.vue')
   },
+  {
+    path: '/UserHeader',
+    name: 'UserHeader',
+    component: () => import('../views/User/UserHeader.vue')
+  },
+  
 
 
 ]

@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
           <label for="reportDetail">Report Detail</label>
-          <textarea class="form-control" id="reportDetail" v-model="reporter.reportDetail" rows="5" required></textarea>
+          <textarea class="form-control" id="reportDetail" v-model="reporter.reportDetail" rows="4" required></textarea>
         </div>
         <div class="form-group">
           <label for="reporterName">Reporter Name</label>
@@ -18,7 +18,7 @@
           <label for="reporterEmail">Reporter Email</label>
           <input type="email" class="form-control" id="reporterEmail" v-model="reporter.reporterEmail" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-s">Submit</button>
       </form>
       <br><br><br>
     </div>
@@ -44,26 +44,17 @@
           .then(response => {
             console.log(response.data);
             alert('Report submitted successfully');
-            this.resetForm();
-          })
-          .catch(error => {
-            console.log(error);
-            alert('Error submitting report');
-          });
-      },
-      validEmail(reporterEmail) {
-  // Regular expression for email validation
-  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(String(reporterEmail).toLowerCase());
-},
-      resetForm() {
-      this.reporter = {
-        reportTitle: '',
+            this.reporter= {
+          reportTitle: '',
           reportDetail: '',
           reporterName: '',
           reporterEmail: ''
-      };
-    }
+        }
+          }).catch(error => {
+            console.log(error);
+            alert('Error submitting report');
+          });
+      }
     }
   }
   </script>
@@ -103,6 +94,7 @@ textarea {
   border-radius: 5px;
   border: none;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
 }
 
 textarea {

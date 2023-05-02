@@ -74,9 +74,11 @@
     <button type="submit">submit</button>
     <br>
   </form>
+  <FooterView/>
 </template>
 
 <script>
+import FooterView from '@/components/FooterView.vue'
 import axios from 'axios';
 
 export default {
@@ -96,6 +98,9 @@ export default {
       passwordError: '',
       errorMessage: ''
     };
+  },
+  components:{
+   FooterView
   },
   methods: {
     async register() {

@@ -23,15 +23,20 @@
         </div>
       </div>
     </div>
+    <FooterView/>
   </template>
   
   <script>
+  import FooterView from '@/components/FooterView.vue'
   import { defineComponent } from 'vue';
 
   import axios from 'axios';
   
   export default defineComponent({
     name: 'LoginPage',
+    components:{
+      FooterView
+    },
     data() {
       return {
         username: '',

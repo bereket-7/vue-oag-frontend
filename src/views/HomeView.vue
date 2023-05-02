@@ -1,7 +1,7 @@
 <template>
   <div class="home">
   </div>
-
+  <UserHeader/>
   <CardSlider/>
   <ArtworkCategory/>
   <FAQs/>
@@ -13,6 +13,7 @@
 
 <script>
 // @ is an alias to /src
+
 import FAQs from '@/views/User/FAQs.vue'
 import SearchArtwork from '@/components/SearchArtwork.vue'
 import FooterView from '@/components/FooterView.vue'
@@ -25,7 +26,7 @@ export default {
     CardSlider,
     ArtworkCategory,
     SearchArtwork,
-    FAQs
+    FAQs,
   },
 }
 </script>

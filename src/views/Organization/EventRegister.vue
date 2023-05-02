@@ -1,100 +1,80 @@
 <template>
-    <div class="registration-form">
-    <form @submit.prevent="submitForm" class="vh-300">
-    <div class="container h-150">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+  <div>
+    <form>
+      <div>
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" v-model="eventData.eventName" />
+      </div>
+      <div>
+        <label for="eventDescription">Event Description:</label>
+        <input type="text" id="eventDescription" v-model="eventData.eventDescription" />
+      </div>
+      <div>
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" v-model="eventData.eventDate" />
+      </div>
+      <div>
+        <label for="location">Location:</label>
+        <input type="text" id="location" v-model="eventData.location" />
+      </div>
+      <div>
+        <label for="capacity">Capacity:</label>
+        <input type="text" id="capacity" v-model="eventData.capacity" />
+      </div>
+      <div>
+        <label for="ticketPrice">Ticket Price:</label>
+        <input type="number" id="ticketPrice" v-model="eventData.ticketPrice" />
+      </div>
+      <div>
+        <input type="file" name="image" ref="fileInput" @change="handleFileUpload" />
+      </div>
+      <div>
+        <button type="button" @click="submitForm">Submit</button>
+      </div>
+    </form>
+  </div>
+</template>
 
-     <div class="col-xl-9">
-        <h2 class="mb-4" style="color:#4CAF50;">Register Event</h2>
+<script>
+import axios from 'axios';
 
-        <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="event-name" class="mb-0">Event Name:</h6>
-              </div>
-              <div class="col-md-9 pe-5">
-                <input   type="text" id="event-name" v-model="eventName" required placeholder="Cultural Art musium festival" class="form-control form-control-lg" />
-              </div>
-            </div>
-
-        <div class="row align-items-center py-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="event-description" class="mb-0">Event Description:</h6>
-              </div>
-              <div class="col-md-9 pe-5">
-                <textarea id="event-description" v-model="eventDescription" required class="form-control" rows="4" placeholder="Short description about the event"></textarea>
-              </div>
-        </div>
-
-        <div class="row align-items-center py-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="event-photo" class="mb-0">Event Photo</h6>
-              </div>
-              <div class="col-md-9 pe-5">
-                <input class="form-control form-control-lg" type="file" id="event-photo" 
-                 @change="onPhotoChange"/>
-                <div class="small text-muted mt-2">Upload Photo file, If needed. Max file
-                  size 20 MB</div>
-              </div>
-        </div>
-     
-        <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="timestamp" class="mb-0">Date</h6>
-              </div>
-              <div class="col-md-9 pe-5">
-                <input  type="datetime-local" id="timestamp" class="form-control form- 
-                  control-lg" v-model="timestamp" required />
-              </div>
-        </div>
-
-        <div class="px-5 py-4">
-        <button type="submit">Submit</button>
-        </div>
-    </div>
-</div>
- </div>
-</form>
-</div>
-  </template>
-  
-  <script>
-  export default {
-    name:'EventRegister',
-    data() {
-      return {
+export default {
+  data() {
+    return {
+      eventData: {
         eventName: '',
         eventDescription: '',
-        photo: null,
-        timestamp: ''
-      };
-    },
-    methods: {
-      onPhotoChange(event) {
-        this.photo = event.target.files[0];
+        eventDate: '',
+        location: '',
+        capacity: '',
+        ticketPrice: '',
+        eventphoto: '' // this property is not needed in the form
       },
-      submitForm() {
-        // Perform form submission logic here
+      fileData: null
+    };
+  },
+  methods: {
+    handleFileUpload() {
+      this.fileData = this.$refs.fileInput.files[0];
+    },
+    async submitForm() {
+      const formData = new FormData();
+      formData.append('image', this.fileData);
+      formData.append('event', JSON.stringify(this.eventData));
+
+      try {
+        const response = await axios.post('http://localhost:8081/event/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log(response.data);
+        // handle response as needed
+      } catch (error) {
+        console.error(error);
+        // handle error as needed
       }
     }
-  };
-  </script>
-  
-<style scoped>
-button {
-  width: 25%;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #0b7c22;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color:rgb(120, 19, 74);
-}
-
-  /* Add any custom styles here */
-  </style>
-  
+  }
+};
+</script>

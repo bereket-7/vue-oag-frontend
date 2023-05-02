@@ -121,12 +121,10 @@ export default {
     submitForm() {
       // Clear errors
       this.errors = {};
-
       // Validate form inputs
       if (!this.validateForm()) {
         return;
       }
-
       // Send registration data to API endpoint
       this.register();
     },
@@ -229,11 +227,13 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  font-weight: bold;
 }
 
 input[type='file'] {
   padding: 0;
   font-size: 1rem;
+  font-weight: bold;
 }
 
 button {

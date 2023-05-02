@@ -20,6 +20,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <br><br><br>
     </div>
   </template>
   
@@ -39,16 +40,30 @@
     },
     methods: {
       submitReport() {
-        axios.post('/api/reporter/submit', this.reporter)
+        axios.post('http://localhost:8081/report/create', this.reporter)
           .then(response => {
             console.log(response.data);
             alert('Report submitted successfully');
+            this.resetForm();
           })
           .catch(error => {
             console.log(error);
             alert('Error submitting report');
           });
-      }
+      },
+      validEmail(reporterEmail) {
+  // Regular expression for email validation
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(String(reporterEmail).toLowerCase());
+},
+      resetForm() {
+      this.reporter = {
+        reportTitle: '',
+          reportDetail: '',
+          reporterName: '',
+          reporterEmail: ''
+      };
+    }
     }
   }
   </script>

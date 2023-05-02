@@ -9,8 +9,7 @@
               <h6 class="card-subtitle mb-2 text-muted">{{ report.reporterName }} - {{ report.reporterEmail }}</h6>
               <p class="card-text">{{ report.reportDetail }}</p>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="selectedReports" :value="report.id">
-                <label class="form-check-label">Check</label>
+                <router-link class="btn btn-primary mt-2" to="/contactUser">Reply</router-link>
               </div>
             </div>
           </div>
@@ -20,19 +19,29 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
-        reports: [
-          { id: 1, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
-          { id: 2, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
-          { id: 3, reportTitle: 'Plagarism', reportDetail: 'the artwork uploaded by name was From the internet source and i provided the link below .', reporterName: 'Beneyam Legese', reporterEmail: 'benjamen@gmail.com' },
-          { id: 4, reportTitle: 'Artwork not display', reportDetail: 'My artwork is not uploaded i submitted for approval in last month', reporterName: 'Bereket Getachew', reporterEmail: 'benjamen@gmail.com' },
-          { id: 5, reportTitle: 'Accounted blocked', reportDetail: 'My account is disabled without any reason,username:bereketgetachew', reporterName: 'Bereket getachew', reporterEmail: 'beki@example.com' }
-        ],
-        selectedReports: []
+        reports:[]
       }
+    },
+    mounted() {
+    // Fetch standards from API
+    this.fetchReports();
+  },
+    methods: {
+    fetchReports() {
+      // Call API to get standards
+      axios.get('http://localhost:8081/report/all')
+        .then(response => {
+          this.reports = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  }
   }
   </script>
 <style scoped>
@@ -67,7 +76,7 @@ h1 {
 .card-title {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #f70606;
+  color:maroon;
 }
 
 .card-subtitle {

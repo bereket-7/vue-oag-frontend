@@ -134,7 +134,7 @@ const routes = [
   {
     path: '/registerOrganization',
     name: 'RegisterOrganization',
-    component: () => import('../views/User/RegisterOrganization.vue')
+    component: () => import('../views/Organization/RegisterOrganization.vue')
   },
   {
     path: '/contactUs',

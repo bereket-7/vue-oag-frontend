@@ -1,13 +1,16 @@
 <template>
   <div class="event-list">
-    <div class="card-deck">
-      <div v-for="event in events" :key="event.id" class="card mb-3">
-        <img :src="event.eventPhoto" class="card-img-top" alt="Event Photo">
-        <div class="card-body">
-          <h5 class="card-title">{{ event.eventName }}</h5>
-          <p class="card-text">{{ event.eventDescription }}</p>
-          <p class="card-text"><small class="text-muted">{{ event.eventDate }}</small></p>
-        </div>
+    <div class="event-card" v-for="event in events" :key="event.id">
+      <div class="event-card-column">
+        <img :src="'/img/event-images/' + event.eventPhoto" :alt="event.eventName">
+      </div>
+      <div class="event-card-column">
+        <h3>{{ event.eventName }}</h3>
+        <p>{{ event.eventDescription }}</p>
+        <p>{{ event.eventDate }}</p>
+        <p>{{ event.location }}</p>
+        <p>Capacity: {{ event.capacity }}</p>
+        <p>Ticket Price: {{ event.ticketPrice }}</p>
       </div>
     </div>
   </div>
@@ -40,20 +43,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .event-list {
-  padding: 20px;
-}
-
-.card-deck {
   display: flex;
   flex-wrap: wrap;
-  margin: -15px;
+  justify-content: center;
 }
 
-.card {
-  flex: 0 0 calc(33.333333% - 30px);
-  margin: 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.event-card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+}
+
+.event-card-column {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  .event-card {
+    flex-direction: column;
+  }
 }
 </style>

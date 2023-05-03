@@ -17,6 +17,11 @@ const routes = [
     component: () => import('../views/Organization/EventDisplay.vue')
   },
   {
+    path: '/eventRequest',
+    name: 'EventRequest',
+    component: () => import('../views/Manager/EventRequest.vue')
+  },
+  {
     path: '/createCompetition',
     name: 'CreateCompetition',
     component: () => import('../views/Manager/CreateCompetition.vue')

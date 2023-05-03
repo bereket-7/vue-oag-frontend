@@ -79,17 +79,10 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         });
-
         console.log(response);
-        alert('Event uploaded successfully!');
-        this.event.eventName = '';
-    this.event.eventDescription = '';
-    this.event.eventDate = '';
-    this.event.location = '';
-    this.event.capacity = '';
-    this.event.ticketPrice = 0;
-    this.event.fileData = null;
-      } catch (error) {
+        this.$router.push('/signupSuccess');
+      }
+       catch (error) {
         // Handle any errors from the client (network errors, timeouts, etc.)
         console.error(error);
         alert('An error occurred while uploading the event.');

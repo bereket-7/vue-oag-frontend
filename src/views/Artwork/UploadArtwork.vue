@@ -148,7 +148,7 @@ import axios from 'axios';
         });
 
         console.log(response);
-          alert('Standard uploaded successfully!');
+          alert('Artwork uploaded successfully!');
       } catch (error) {
         // Handle any errors from the client (network errors, timeouts, etc.)
         console.error(error);

@@ -1,9 +1,9 @@
 <template>
-  <br><br>
+  <br>
   <div class="form-container">
     <h1>Create Event</h1>
     <hr class="mx-n3">
-    <br><br>
+    <br>
     <form>
       <div>
         <label for="eventName">Event Name</label>
@@ -30,8 +30,8 @@
         <input type="number" id="ticketPrice" v-model="ticketPrice">
       </div>
       <div>
-        <label for="fileInput">Upload Image</label>
-        <input type="file" id="fileInput" @change="handleFileUpload">
+      <label for="eventPhoto">Event Photo</label>
+      <input type="file" id="eventPhoto" @change="handleFileUpload" accept="image/*">
       </div>
       <br>
       <hr class="mx-n3">
@@ -39,15 +39,12 @@
     </form>
   </div>
   <br><br>
-  <footer-view />
 </template>
 
 <script>
 import axios from 'axios';
-import FooterView from '@/components/FooterView.vue';
 
 export default {
-  components: { FooterView },
   name: 'CreateEvent',
   data() {
     return {
@@ -64,38 +61,44 @@ export default {
   },
   methods: {
     handleFileUpload(event) {
-      this.event.fileData = event.target.files[0];
-    },
-    submitForm() {
+  this.event.fileData = event.target.files[0];
+},
+    async submitForm() {
       const formData = new FormData();
-      formData.append('image', this.event.fileData),
-      formData.append('eventName', this.event.eventName),
-      formData.append('eventDescription', this.event.eventDescription),
-      formData.append('eventDate', this.event.eventDate),
-      formData.append('location', this.event.location),
-      formData.append('capacity', this.event.capacity),
-      formData.append('ticketPrice', this.event.ticketPrice),
+      formData.append('eventName', this.eventName);
+      formData.append('image', this.event.fileData);
+      formData.append('eventDate', this.eventDate);
+      formData.append('capacity', this.capacity);
+      formData.append('ticketPrice', Number(this.event.ticketPrice));
+      formData.append('location', this.location);
+      formData.append('eventDescription', this.eventDescription);
 
-      axios.post('http://localhost:8081/event/upload', formData)
-        .then(response => {
-          console.log(response.data);
-          alert('Event created successfully');
-          this.event.eventName = '',
-          this.event.eventDescription = '',
-          this.event.eventDate = '',
-          this.event.location = '',
-          this.event.capacity = '',
-          this.event.ticketPrice = 0,
-          this.event.fileData = null
-        })
-        .catch(error => {
-          console.log(error);
-          alert('Error creating event');
+      try {
+        const response = await axios.post('http://localhost:8081/event/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         });
+
+        console.log(response);
+        alert('Event uploaded successfully!');
+        this.event.eventName = '';
+    this.event.eventDescription = '';
+    this.event.eventDate = '';
+    this.event.location = '';
+    this.event.capacity = '';
+    this.event.ticketPrice = 0;
+    this.event.fileData = null;
+      } catch (error) {
+        // Handle any errors from the client (network errors, timeouts, etc.)
+        console.error(error);
+        alert('An error occurred while uploading the event.');
+      }
     }
   }
 }
 </script>
+
 
 
 <style scoped>

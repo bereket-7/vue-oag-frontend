@@ -76,6 +76,11 @@ const routes = [
     component: () => import('../views/Manager/AddStandard.vue')
   },
   {
+    path: '/displayStandard',
+    name: 'UserStandard',
+    component: () => import('../views/User/UserStandard.vue')
+  },
+  {
     path: '/verifyArtwork',
     name: 'VerifyArtwork',
     component: () => import('../views/Manager/VerifyArtwork.vue')

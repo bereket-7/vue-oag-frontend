@@ -4,13 +4,12 @@
   <thead>
     <tr>
       <!-- <th scope="col">#</th> -->
-      <th scope="col">Standard Description</th> 
     </tr>
   </thead>
   <tbody>
     <tr>
       <!-- <th scope="row">1</th> -->
-      <td>{{standard.Description}}</td>
+      <td>{{standard.standardDescription}}</td>
     </tr>
   </tbody>
 </table>   

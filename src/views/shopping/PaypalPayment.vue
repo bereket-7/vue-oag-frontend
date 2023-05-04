@@ -1,7 +1,42 @@
 <template>
-    <div class="col-75">
-    </div>
-  </template>
+  <div class="payment">
+    <form method="post" @submit.prevent="submitPayment">
+      <div class="payment__card-container">
+        <h2 class="payment__title">Payment Details</h2>
+        <div class="payment__card-icons">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-discover"></i>
+          <i class="fab fa-cc-amex"></i>
+        </div>
+        <div class="payment__card-details">
+          <div class="payment__card-details-input">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" v-model="paymentData.cardNumber" required>
+          </div>
+          <div class="payment__card-details-input">
+            <label for="expiration">Expiration Date</label>
+            <input type="text" id="expiration" v-model="paymentData.expiration" required>
+          </div>
+          <div class="payment__card-details-input">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" v-model="paymentData.cvv" required>
+          </div>
+        </div>
+      </div>
+      <div class="payment__amount-container">
+        <h2 class="payment__title">Amount</h2>
+        <div class="payment__amount-input">
+          <label for="amount">Total Amount</label>
+          <input type="text" id="amount" v-model="paymentData.amount" required>
+        </div>
+      </div>
+      <div class="payment__buttons">
+        <button type="submit" class="payment__submit-btn">Pay Now</button>
+      </div>
+    </form>
+  </div>
+</template>
 
 <script>
 export default {

@@ -116,12 +116,6 @@ const routes = [
     component: () => import('../views/Manager/ContactUser.vue')
   },
   {
-    path: '/userSignUp',
-    name: 'UserSignUp',
-    component: () => import('../views/User/UserSignUp.vue')
-  }, 
-
-  {
     path: '/userLogin',
     name: 'UserLogin',
     component: () => import('../views/User/UserLogin.vue')

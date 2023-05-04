@@ -10,6 +10,13 @@
         <input type="password" placeholder="Password" class="login__input" />
         <div class="login__input-underline"></div>
       </div>
+      <div class="login__input-container">
+        <select class="login__input">
+          <option value="admin">ARTIST</option>
+          <option value="user">CUSTOMER</option>
+        </select>
+        <div class="login__input-underline"></div>
+      </div>
       <button class="login__button">Log In</button>
       <a href="#" class="login__forgot-password">Forgot Password?</a>
     </form>
@@ -34,7 +41,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 110vh;
   background-color: #f5f5f5;
   background-image: url("~@/assets/img/background.jpg");
   background-size: cover;
@@ -48,7 +55,7 @@ export default {
   align-items: center;
   width: 100%;
   max-width: 450px;
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);

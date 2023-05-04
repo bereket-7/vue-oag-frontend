@@ -29,12 +29,16 @@ export default {
 </script>
 
 <style scoped>
+
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
+  background-image: url("~@/assets/img/background.jpg");
+  background-size: cover;
+  background-position: center center;
 }
 
 .login__form {

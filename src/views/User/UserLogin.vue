@@ -13,10 +13,12 @@
       <button class="login__button">Log In</button>
       <a href="#" class="login__forgot-password">Forgot Password?</a>
     </form>
+    <div class="login__signup-wrapper">
     <div class="login__signup">
       <p class="login__signup-message">Don't have an account?</p>
-      <button class="login__signup-button">Sign Up</button>
+    <button class="login__signup-button">Sign Up</button>
     </div>
+  </div>
   </div>
 </template>
 
@@ -41,7 +43,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   padding: 2rem;
   background-color: #fff;
   border-radius: 1rem;
@@ -111,6 +113,19 @@ export default {
 .login__forgot-password:hover {
   color: #2980b9;
 }
+
+.login__signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  width: 100%;
+}
+
 .login__signup {
   display: flex;
   flex-direction: column;
@@ -118,6 +133,8 @@ export default {
   margin-top: 2rem;
   font-size: 1.2rem;
   color: #333;
+  position: relative;
+  margin-top: 2rem;
 }
 
 .login__signup-message {
@@ -134,6 +151,7 @@ export default {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  width: 100%;
 }
 
 .login__signup-button:hover {

@@ -47,6 +47,11 @@ const routes = [
     component: () => import('../views/shopping/WishList.vue')
   },
   {
+    path: '/payment',
+    name: 'PaypalPayment',
+    component: () => import('../views/shopping/PaypalPayment.vue')
+  },
+  {
     path: '/signupSuccess',
     name: 'SignupSuccess',
     component: () => import('../views/User/SignupSuccess.vue')

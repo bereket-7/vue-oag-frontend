@@ -36,7 +36,7 @@
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
-  background-image: url("~@/assets/img/background.jpg");
+  background-image: url("~@/assets/img/buetyback.png");
   background-size: cover;
   background-position: center center;
 }
@@ -44,6 +44,7 @@
 .forgot-password__form {
   display: flex;
   flex-direction: column;
+  max-width: 500px;
   align-items: center;
   padding: 2rem;
   border-radius: 1rem;

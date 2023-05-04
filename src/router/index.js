@@ -47,11 +47,6 @@ const routes = [
     component: () => import('../views/shopping/WishList.vue')
   },
   {
-    path: '/login',
-    name: 'LoginPage',
-    component: () => import('../views/User/LoginPage.vue')
-  },
-  {
     path: '/signupSuccess',
     name: 'SignupSuccess',
     component: () => import('../views/User/SignupSuccess.vue')

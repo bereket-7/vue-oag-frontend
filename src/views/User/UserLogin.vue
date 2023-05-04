@@ -1,37 +1,60 @@
 <template>
   <div class="login">
-    <form class="login__form">
+    <form class="login__form" @submit.prevent="login">
       <h2 class="login__title">Log In</h2>
       <div class="login__input-container">
-        <input type="email" placeholder="Email" class="login__input" />
+        <input v-model="email" type="email" placeholder="Email" class="login__input" />
         <div class="login__input-underline"></div>
       </div>
       <div class="login__input-container">
-        <input type="password" placeholder="Password" class="login__input" />
+        <input v-model="password" type="password" placeholder="Password" class="login__input" />
         <div class="login__input-underline"></div>
       </div>
       <div class="login__input-container">
-        <select class="login__input">
+        <select v-model="role" class="login__input">
           <option value="admin">ARTIST</option>
           <option value="user">CUSTOMER</option>
         </select>
         <div class="login__input-underline"></div>
       </div>
-      <button class="login__button">Log In</button>
+      <button type="submit" class="login__button">Log In</button>
       <a href="#" class="login__forgot-password">Forgot Password?</a>
     </form>
     <div class="login__signup-wrapper">
     <div class="login__signup">
       <p class="login__signup-message">Don't have an account?</p>
-    <button class="login__signup-button">Sign Up</button>
+      <router-link to="/register"><button class="login__signup-button">Sign Up</button></router-link>
     </div>
   </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'UserLogin',
+  data() {
+    return {
+      email: '',
+      password: '',
+      role: 'user'
+    }
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post('http://localhost:8081/user/login', {
+          email: this.email,
+          password: this.password,
+          role: this.role
+        });
+        console.log(response.data); // do something with the response data
+      } catch (error) {
+        console.log(error); // handle the error
+      }
+    }
+  }
 }
 </script>
 

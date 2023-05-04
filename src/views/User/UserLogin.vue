@@ -1,81 +1,143 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-5 col-lg-4">
-        <div class="card border-0 shadow-sm rounded-lg">
-          <div class="card-header bg-success text-white text-center py-3">
-            <h4 class="mb-0">Kelem Online Art</h4>
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" v-model="username">
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" v-model="password">
-              </div>
-              <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
-            </form>
-          </div>
-          <div class="card-footer text-muted text-center">
-            <a href="#" class="text-decoration-none">Forgot Password?</a>
-          </div>
-        </div>
+  <div class="login">
+    <form class="login__form">
+      <h2 class="login__title">Log In</h2>
+      <div class="login__input-container">
+        <input type="email" placeholder="Email" class="login__input" />
+        <div class="login__input-underline"></div>
       </div>
+      <div class="login__input-container">
+        <input type="password" placeholder="Password" class="login__input" />
+        <div class="login__input-underline"></div>
+      </div>
+      <button class="login__button">Log In</button>
+      <a href="#" class="login__forgot-password">Forgot Password?</a>
+    </form>
+    <div class="login__signup">
+      <p class="login__signup-message">Don't have an account?</p>
+      <button class="login__signup-button">Sign Up</button>
     </div>
   </div>
-  <FooterView/>
 </template>
+
 <script>
-import FooterView from '@/components/FooterView.vue'
 export default {
-  name:'UserLogin',
-  components: {
-    FooterView
-  },
-  data() {
-    
-    return {
-      username: '',
-      password: '',
-    }
-  },
+  name: 'UserLogin',
 }
 </script>
 
 <style scoped>
-.container {
-  background-color:ghostwhite;
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login__form {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.card {
-  transition: all 0.3s ease;
+.login__title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
-.card:hover {
-  transform: translateY(7px);
-}
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+.login__input-container {
+  position: relative;
+  margin-bottom: 1.5rem;
 }
 
-.btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
+.login__input {
+  width: 100%;
+  padding: 1rem 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
 }
 
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+.login__input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #3498db;
+  transition: width 0.2s ease-in-out;
 }
-@media only screen and (max-width: 768px) {
-  form {
-    max-width: 80%;
-  }
+
+.login__input:focus + .login__input-underline {
+  width: 100%;
+}
+
+.login__button {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.login__button:hover {
+  background-color: #2980b9;
+}
+
+.login__forgot-password {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.2s ease-in-out;
+}
+
+.login__forgot-password:hover {
+  color: #2980b9;
+}
+
+.login__signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.login__signup-message {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  color: #333;
+}
+
+.login__signup-button {
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.login__signup-button:hover {
+  background-color: #2980b9;
 }
 </style>

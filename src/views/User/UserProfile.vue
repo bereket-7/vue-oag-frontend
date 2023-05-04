@@ -29,7 +29,6 @@
                   </div>
                 </div>
 
-
                 <form class="card mb-4">
                   <div class="card-header">
                     <h4 class="card-heading">My Profile</h4>

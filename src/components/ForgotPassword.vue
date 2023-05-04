@@ -1,41 +1,35 @@
 <template>
-    <div class="container">
-      <div class="row d-flex align-items-center justify-content-center h-100">
-  
-      <div class="card text-center" style="width: 300px;">
-      <div class="card-header h4 text-white bg-dark">Password Reset</div>
-      <div class="card-body px-5">
-          <p class="card-text ">
-              Enter your email address and we'll send you an email with instructions to reset your password.
-          </p>
-          <div class="mb-4">
-              <input type="email" class="form-control" id="recover-mail" placeholder="name@example.com">
-          </div>
-          <a href="#" class="btn btn-success w-100">Reset password</a>
-          <div class="d-flex justify-content-between mt-3">
-  
-               <router-link to="/userLogin">Login</router-link>
-               <router-link to="/userSignUp">SignUp</router-link>
-          </div>
-      </div>
-  </div>
-  </div>
-  </div>
+    <div class="forgot-password">
+      <form class="forgot-password__form">
+        <h2 class="forgot-password__title">Forgot Password</h2>
+        <div class="forgot-password__input-container">
+          <input type="email" placeholder="Email" class="forgot-password__input" />
+          <div class="forgot-password__input-underline"></div>
+        </div>
+        <button class="forgot-password__button">Submit</button>
+      </form>
+    </div>
   </template>
   
   <script>
   export default {
-      name: 'ForgotPassword',
-      components: {
-      
-    }   
+    name: 'ForgotPassword',
+    data() {
+      return {
+        email: ''
+      }
+    },
+    methods: {
+      onSubmit() {
+        // Here you can make an API call to reset the user's password
+        // using this.email as the user's email address
+        // and then show a success message or redirect the user to another page
+      }
+    }
   }
   </script>
   
   <style scoped>
-      .container{
-              align-items:center;
-              justify-content:center;
-              margin-top: 150px;
-          }
+  /* Add your styles here */
   </style>
+  

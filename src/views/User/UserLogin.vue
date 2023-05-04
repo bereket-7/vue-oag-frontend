@@ -18,7 +18,7 @@
         <div class="login__input-underline"></div>
       </div>
       <button type="submit" class="login__button">Log In</button>
-      <a href="#" class="login__forgot-password">Forgot Password?</a>
+      <router-link to="/forgotPassword" class="login__forgot-password">Forgot Password?</router-link>
     </form>
     <div class="login__signup-wrapper">
     <div class="login__signup">

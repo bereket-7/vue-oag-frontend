@@ -41,7 +41,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 2rem;
   background-color: #fff;
   border-radius: 1rem;
@@ -111,18 +111,17 @@ export default {
 .login__forgot-password:hover {
   color: #2980b9;
 }
-
 .login__signup {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .login__signup-message {
-  font-size: 1.2rem;
-  margin-right: 1rem;
-  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .login__signup-button {
@@ -139,5 +138,20 @@ export default {
 
 .login__signup-button:hover {
   background-color: #2980b9;
+}
+
+@media only screen and (max-width: 600px) {
+  .login__form {
+    border-radius: 0;
+  }
+
+  .login__button {
+    border-radius: 0;
+  }
+
+  .login__signup-button {
+    border-radius: 0;
+    width: 100%;
+  }
 }
 </style>

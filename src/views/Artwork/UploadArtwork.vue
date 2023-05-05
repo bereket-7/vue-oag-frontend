@@ -160,3 +160,54 @@ import axios from 'axios';
 
   </script>
   
+<style scoped>
+  .registration-form {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 50px 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .registration-form {
+    padding: 50px;
+  }
+}
+
+.registration-form h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.registration-form input[type="text"],
+.registration-form input[type="number"],
+.registration-form select,
+.registration-form textarea {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.registration-form input[type="file"] {
+  margin-top: 10px;
+}
+
+.registration-form button[type="submit"] {
+  margin-top: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .registration-form input[type="text"],
+  .registration-form input[type="number"],
+  .registration-form select,
+  .registration-form textarea {
+    padding: 15px;
+  }
+
+  .registration-form button[type="submit"] {
+    margin-top: 30px;
+  }
+}
+
+</style>

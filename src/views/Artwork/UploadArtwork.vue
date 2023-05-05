@@ -1,30 +1,30 @@
 <template>
 <div class="registration-form">
-<form class="vh-200">
-  <div class="container h-150">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-9">
+<form>
+  <div>
+    <div>
+      <div>
 
-        <h1 class="text-success mb-4">Upload Artwork</h1>
+        <h1>Upload Artwork</h1>
 
         <div class="card">
-          <div class="card-body bg-light">
+          <div class="card-body">
 
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="artworkName" class="mb-0">Artwork Name</h6>
+            <div>
+              <div>
+                <h6 for="artworkName">Artwork Name</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input  id="artworkName" v-model="artworkName" type="text" placeholder="Abstract child face" class="form-control form-control-lg" />
+              <div>
+                <input  id="artworkName" v-model="artworkName" type="text" placeholder="Abstract child face" />
               </div>
             </div>
 
-            <div class="row align-items-center pt-4 pb-3">
-                <div class="col-md-3 ps-5">
-                    <h6 for=" artworkCategory" class="mb-0">Artwork Category</h6>
+            <div>
+                <div>
+                    <h6 for=" artworkCategory">Artwork Category</h6>
                 </div>
-              <div class="col-md-9 pe-5">
-                <select id=" artworkCategory" v-model="artworkCategory" name=" artworkCategory"  class="form-select form-control-lg" >
+              <div>
+                <select id=" artworkCategory" v-model="artworkCategory" name=" artworkCategory" >
                 <option value="painting">Painting</option>
                 <option value="sculpture">Sculpture</option>
                 <option value="photography">Photography</option>
@@ -33,71 +33,70 @@
                 </div>
             </div>
 
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="size" class="mb-0">Size</h6>
+            <div>
+              <div>
+                <h6 for="size">Size</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input  id="size" v-model="size" type="text" placeholder="100cm x 120cm" class="form-control form-control-lg" />
+              <div>
+                <input  id="size" v-model="size" type="text" placeholder="100cm x 120cm"/>
               </div>
             </div>
 
             <hr class="mx-n3">
 
-            <div class="row align-items-center py-3">
-              <div class="col-md-3 ps-5">
+            <div>
+              <div>
                 <h6 class="mb-0" for=" artworkDescription">Description</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <textarea class="form-control" v-model="artworkDescription" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
+              <div>
+                <textarea v-model="artworkDescription" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
               </div>
             </div>
 
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="price" class="mb-0">Price</h6>
+            <div>
+              <div>
+                <h6 for="price">Price</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input  id="price" v-model="artistId" type="number" placeholder="Enter Price" class="form-control form-control-md" />
+              <div>
+                <input  id="price" v-model="artistId" type="number" placeholder="Enter Price" />
               </div>
             </div>
 
             
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="artistId" class="mb-0">artist Id</h6>
+            <div>
+              <div>
+                <h6 for="artistId">artist Id</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input  id="artistId" v-model="price" type="number" placeholder="Enter id" class="form-control form-control-md" />
+              <div>
+                <input  id="artistId" v-model="price" type="number" placeholder="Enter id" />
               </div>
             </div>
 
-            <div class="row align-items-center py-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="artworkPhoto" class="mb-0">Artwork Photo</h6>
+            <div>
+              <div>
+                <h6 for="artworkPhoto">Artwork Photo</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input class="form-control form-control-lg" id="artworkPhoto" type="file" 
+              <div>
+                <input id="artworkPhoto" type="file" 
                  @change="onFileChange" />
-                <div class="small text-muted mt-2">Upload Artwork Photo file. Max file
+                <div>Upload Artwork Photo file. Max file
                   size 10 MB</div>
               </div>
             </div>
 
-            <div class="row align-items-center pt-4 pb-3">
-              <div class="col-md-3 ps-5">
-                <h6 for="createDate" class="mb-0">Date</h6>
+            <div>
+              <div>
+                <h6 for="createDate">Date</h6>
               </div>
-              <div class="col-md-9 pe-5">
-                <input  type="date" class="form-control form- 
-                  control-lg" id="createDate" v-model="createDate" />
+              <div>
+                <input  type="date" id="createDate" v-model="createDate" />
               </div>
             </div>
     
             <hr class="mx-n3">
 
-            <div class="px-5 py-4">
-              <button type="submit" @click.prevent="submitForm" class="btn btn-success btn-lg">Submit Artwork</button>
+            <div>
+              <button type="submit" @click.prevent="submitForm">Submit Artwork</button>
             </div>
 
           </div>
@@ -161,53 +160,99 @@ import axios from 'axios';
   </script>
   
 <style scoped>
-  .registration-form {
+ /* Registration form container */
+.registration-form {
+  max-width: 800px;
   margin: 0 auto;
-  max-width: 600px;
-  padding: 50px 20px;
+  padding: 40px;
+  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
 }
 
-@media only screen and (min-width: 768px) {
-  .registration-form {
-    padding: 50px;
-  }
-}
-
+/* Title */
 .registration-form h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.registration-form input[type="text"],
-.registration-form input[type="number"],
-.registration-form select,
-.registration-form textarea {
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 10px 15px;
+/* Card container */
+.card {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Labels */
+.card h6 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+.card input,
+.card select,
+.card textarea {
   width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
 }
 
-.registration-form input[type="file"] {
-  margin-top: 10px;
+/* Submit button */
+.card button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.registration-form button[type="submit"] {
-  margin-top: 20px;
+.card button[type="submit"]:hover {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #333;
 }
 
-@media only screen and (min-width: 768px) {
-  .registration-form input[type="text"],
-  .registration-form input[type="number"],
-  .registration-form select,
-  .registration-form textarea {
-    padding: 15px;
-  }
+/* File input */
+.card input[type="file"] {
+  border: none;
+  padding: 0;
+}
 
-  .registration-form button[type="submit"] {
-    margin-top: 30px;
-  }
+/* File input label */
+.card input[type="file"] + div {
+  font-size: 14px;
+  color:darkcyan;
+  margin-top: 5px;
+}
+
+/* Hover effect for inputs */
+.card input:hover,
+.card select:hover,
+.card textarea:hover {
+  border-color:dodgerblue;
+}
+
+/* Hover effect for labels */
+.card h6:hover {
+  color: #666;
+}
+
+/* Hover effect for card */
+.card:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 </style>

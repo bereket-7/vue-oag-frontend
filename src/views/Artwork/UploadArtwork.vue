@@ -174,7 +174,7 @@ import axios from 'axios';
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #333;
+  color: dodgerblue;
 }
 
 /* Card container */
@@ -189,7 +189,7 @@ import axios from 'axios';
 .card h6 {
   font-size: 14px;
   font-weight: bold;
-  color: #333;
+  color:black;
   margin-bottom: 10px;
 }
 
@@ -208,7 +208,7 @@ import axios from 'axios';
 
 /* Submit button */
 .card button[type="submit"] {
-  background-color: #333;
+  background-color: dodgerblue;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -234,7 +234,7 @@ import axios from 'axios';
 /* File input label */
 .card input[type="file"] + div {
   font-size: 14px;
-  color:darkcyan;
+  color:dodgerblue;
   margin-top: 5px;
 }
 

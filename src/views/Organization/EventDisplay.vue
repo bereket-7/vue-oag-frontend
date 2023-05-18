@@ -7,7 +7,8 @@
       <div class="event-card-column">
         <h3>{{ event.eventName }}</h3>
         <p>{{ event.eventDescription }}</p>
-        <p>{{ event.eventDate }}</p>
+        <p>Date: {{ event.eventDate }}</p>
+        <p>Location: {{ event.location }}</p>
         <p>{{ event.location }}</p>
         <p>Capacity: {{ event.capacity }}</p>
         <p>Ticket Price: {{ event.ticketPrice }}</p>
@@ -17,31 +18,36 @@
 </template>
 
 <script>
-import axios from 'axios';
+
+import { ref, onMounted } from 'vue';
 
 export default {
-  name: 'EventList',
-  data() {
-    return {
-      events: []
-    }
-  },
-  mounted() {
-    this.fetchEvents();
-  },
-  methods: {
-    async fetchEvents() {
+  setup() {
+    const events = ref([]);
+    const loading = ref(true);
+
+    // Fetching events from API
+    const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/event/all');
-        this.events = response.data;
+        const response = await fetch('/http://localhost:8081/event/all');
+        const data = await response.json();
+        events.value = data;
       } catch (error) {
         console.error(error);
-        alert('An error occurred while fetching the events.');
+      } finally {
+        loading.value = false;
       }
-    }
-  }
-}
+    };
+
+    onMounted(() => {
+      fetchEvents();
+    });
+
+    return { events, loading };
+  },
+};
 </script>
+
 
 <style>
 .event-list {

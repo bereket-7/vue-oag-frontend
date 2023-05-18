@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: '/eventDisplay',
-    name: 'eventRegister',
+    name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue')
   },
   {

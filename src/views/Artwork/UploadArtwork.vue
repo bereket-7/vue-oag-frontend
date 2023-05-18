@@ -62,7 +62,6 @@
               </div>
             </div>
 
-            
             <div>
               <div>
                 <h6 for="artistId">artist Id</h6>

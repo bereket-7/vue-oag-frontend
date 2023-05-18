@@ -1,6 +1,9 @@
 <template>
     <div>
       <img :src="imageUrl" alt="Event Image" />
+      <h2>{{ eventName }}</h2>
+      <p>{{ location }}</p>
+      <p>{{ eventDescription }}</p>
     </div>
   </template>
   
@@ -10,16 +13,17 @@
       return {
         imageUrl: null,
         eventName: null,
+        location: null,
+        eventDescription: null,
       };
     },
     mounted() {
-      // Fetch event image
-      this.fetchEventImage();
+      // Fetch event details
+      this.fetchEventDetails();
     },
     methods: {
-      fetchEventImage() {
-        const eventId = 2; // Replace with the actual event ID you want to fetch
-  
+      fetchEventDetails() {
+        const eventId = 3; // Replace with the actual event ID you want to fetch
         fetch(`http://localhost:8081/event/${eventId}`, {
           method: 'GET',
           headers: {
@@ -29,9 +33,11 @@
           .then(response => {
             // Check if the response was successful
             if (response.ok) {
-              // Get the event name from response headers
+              // Get the event details from response headers
               this.eventName = response.headers.get('x-event-name');
-  
+              this.location = response.headers.get('x-location');
+              this.eventDescription = response.headers.get('x-event-description');
+    
               // Convert the response to blob
               return response.blob();
             } else {
@@ -49,5 +55,4 @@
     },
   };
   </script>
-  
   

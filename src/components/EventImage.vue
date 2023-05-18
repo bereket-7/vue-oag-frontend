@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
       <h1>Event Image</h1>
       <img ref="eventImage" />
     </div>
@@ -18,22 +18,20 @@
     },
     mounted() {
       axios.get('http://localhost:8081/event/2').then((response) => {
+        console.log("=============");
         this.eventImage = response.data;
+        this.showEventImage();
       }).catch((error) => {
         this.error = error;
+        console.log();
       });
     },
     methods: {
       showEventImage() {
-        if (this.eventImage) {
-          const image = new Image();
-          image.src = this.eventImage;
-          image.style.width = '100px';
-          image.style.height = '100px';
-          this.$refs.eventImage.appendChild(image);
-        } else {
-          this.$refs.eventImage.innerHTML = this.error;
-        }
+        console.log(this.eventImage);
+      var img = document.createElement("img");
+      img.src = "data:image/png;base64," + this.eventImage;
+      document.getElementById("app").appendChild(img);
       },
     },
   };

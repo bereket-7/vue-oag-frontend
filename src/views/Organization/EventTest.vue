@@ -1,9 +1,9 @@
 <template>
     <div>
-      <img :src="imageUrl" alt="Event Image" />
-      <h2>{{ eventName }}</h2>
-      <p>{{ location }}</p>
-      <p>{{ eventDescription }}</p>
+      <img :src="eventDetails.image" alt="Event Image" />
+      <h2>{{ eventDetails.eventName }}</h2>
+      <p>{{ eventDetails.location }}</p>
+      <p>{{ eventDetails.eventDescription }}</p>
     </div>
   </template>
   
@@ -11,10 +11,7 @@
   export default {
     data() {
       return {
-        imageUrl: null,
-        eventName: null,
-        location: null,
-        eventDescription: null,
+        eventDetails: {},
       };
     },
     mounted() {
@@ -23,30 +20,22 @@
     },
     methods: {
       fetchEventDetails() {
-        const eventId = 3; // Replace with the actual event ID you want to fetch
+        const eventId = 2; // Replace with the actual event ID you want to fetch
         fetch(`http://localhost:8081/event/${eventId}`, {
           method: 'GET',
-          headers: {
-            Accept: 'image/png',
-          },
         })
           .then(response => {
             // Check if the response was successful
             if (response.ok) {
-              // Get the event details from response headers
-              this.eventName = response.headers.get('x-event-name');
-              this.location = response.headers.get('x-location');
-              this.eventDescription = response.headers.get('x-event-description');
-    
-              // Convert the response to blob
-              return response.blob();
+              // Parse the response as JSON
+              return response.json();
             } else {
-              throw new Error('Failed to fetch event image');
+              throw new Error('Failed to fetch event details');
             }
           })
-          .then(imageBlob => {
-            // Create a URL for the blob object
-            this.imageUrl = URL.createObjectURL(imageBlob);
+          .then(data => {
+            // Store the event details in the component data
+            this.eventDetails = data;
           })
           .catch(error => {
             console.error(error);

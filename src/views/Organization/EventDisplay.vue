@@ -23,7 +23,6 @@ export default {
     };
   },
   mounted() {
-    // Fetch all events
     this.fetchAllEvents();
   },
   methods: {
@@ -79,6 +78,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .event-list {

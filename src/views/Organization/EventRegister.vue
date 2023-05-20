@@ -1,35 +1,36 @@
 <template>
-   <br>
+    <br>
   <div class="form-container">
     <h1>Create Event</h1>
     <hr class="mx-n3">
     <br>
     <form @submit="saveEvent" enctype="multipart/form-data">
-      <div>
+      <div class="form-group">
         <label for="eventName">Event Name:</label>
         <input type="text" id="eventName" v-model="eventName" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="ticketPrice">Ticket Price:</label>
         <input type="number" id="ticketPrice" v-model="ticketPrice" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="capacity">Capacity:</label>
         <input type="number" id="capacity" v-model="capacity" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="eventDescription">Event Description:</label>
-        <textarea id="eventDescription" v-model="eventDescription" required></textarea>
+        <textarea type="text" id="eventDescription" v-model="eventDescription" required></textarea>
       </div>
-      <div>
+
+      <div class="form-group">
         <label for="location">Location:</label>
         <input type="text" id="location" v-model="location" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="eventDate">Event Date:</label>
-        <input id="eventDate" v-model="eventDate" required />
+        <input type="text" id="eventDate" v-model="eventDate" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="image">Image:</label>
         <input type="file" id="image" ref="fileInput" required />
       </div>
@@ -38,6 +39,7 @@
       <button type="submit">Submit</button>
     </form>
   </div>
+  <br>
 </template>
 
 <script>
@@ -71,8 +73,6 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$router.push('/signupSuccess');
-
-          // Add your logic here for handling a successful event creation
         })
         .catch((error) => {
           console.error(error);
@@ -82,7 +82,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 
 .form-container {
@@ -97,6 +96,16 @@ export default {
 
 input[type="text"],
 input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+textarea[type="text"],
+textarea[type="number"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;

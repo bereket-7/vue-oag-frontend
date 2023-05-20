@@ -7,28 +7,28 @@
     <form @submit="saveEvent" enctype="multipart/form-data">
       <div class="form-group">
         <label for="eventName">Event Name:</label>
-        <input type="text" id="eventName" v-model="eventName" required />
+        <input type="text" id="eventName" v-model="eventName" placeholder="Enter event title" required />
       </div>
       <div class="form-group">
         <label for="ticketPrice">Ticket Price:</label>
-        <input type="number" id="ticketPrice" v-model="ticketPrice" required />
+        <input type="number" id="ticketPrice" placeholder="Enter price for event, if needed" v-model="ticketPrice" />
       </div>
       <div class="form-group">
         <label for="capacity">Capacity:</label>
-        <input type="number" id="capacity" v-model="capacity" required />
+        <input type="number" id="capacity" v-model="capacity" placeholder="Maximum number participant"/>
       </div>
       <div class="form-group">
         <label for="eventDescription">Event Description:</label>
-        <textarea type="text" id="eventDescription" v-model="eventDescription" required></textarea>
+        <textarea type="text" id="eventDescription" v-model="eventDescription" placeholder="Enter Short description about the event"   required></textarea>
       </div>
 
       <div class="form-group">
         <label for="location">Location:</label>
-        <input type="text" id="location" v-model="location" required />
+        <input type="text" id="location" v-model="location" placeholder="Jimma" required />
       </div>
       <div class="form-group">
         <label for="eventDate">Event Date:</label>
-        <input type="text" id="eventDate" v-model="eventDate" required />
+        <input type="text" placeholder="2023-10-05" id="eventDate" v-model="eventDate" required />
       </div>
       <div class="form-group">
         <label for="image">Image:</label>

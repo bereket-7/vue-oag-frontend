@@ -13,6 +13,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
   data() {
@@ -33,19 +35,14 @@ export default {
         },
       })
         .then(response => {
-          // Check if the response was successful
           if (response.ok) {
-            // Parse the response body as JSON
             return response.json();
           } else {
             throw new Error('Failed to fetch events');
           }
         })
         .then(data => {
-          // Set the events array
           this.events = data;
-
-          // Fetch the images for each event
           this.fetchEventImages();
         })
         .catch(error => {
@@ -61,16 +58,13 @@ export default {
           },
         })
           .then(response => {
-            // Check if the response was successful
             if (response.ok) {
-              // Convert the response to blob
               return response.blob();
             } else {
               throw new Error(`Failed to fetch image for event ${event.id}`);
             }
           })
           .then(imageBlob => {
-            // Create a URL for the blob object
             event.imageUrl = URL.createObjectURL(imageBlob);
           })
           .catch(error => {

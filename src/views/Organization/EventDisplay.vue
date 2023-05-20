@@ -1,19 +1,21 @@
+
 <template>
   <div class="event-list">
     <div v-for="event in events" :key="event.id" class="event-card">
-      <h1 class="event-name">{{ event.eventName }}</h1>
-      <p class="event-description">{{ event.eventDescription }}</p>
-      <p class="event-description">{{ event.ticketPrice }}</p>
-      <p class="event-description">{{ event.location }}</p>
-      <p class="event-description">{{ event.capacity }}</p>
-      <p class="event-description">{{ event.eventDate }}</p>
-      <div class="image-container">
+      <div class="event-image-container">
         <img :src="getEventImageUrl(event.id)" alt="Event Image" class="event-image" />
+      </div>
+      <div class="event-details">
+        <h1 class="event-name">{{ event.eventName }}</h1>
+        <p class="event-description">{{ event.eventDescription }}</p>
+        <p class="event-description">Ticket Price: {{ event.ticketPrice }}</p>
+        <p class="event-description">Location: {{ event.location }}</p>
+        <p class="event-description">Capacity: {{ event.capacity }}</p>
+        <p class="event-description">Event Date: {{ event.eventDate }}</p>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -79,7 +81,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .event-list {
   display: flex;
@@ -88,35 +89,52 @@ export default {
 }
 
 .event-card {
-  width: 300px;
+  width: 500px;
   margin: 20px;
-  padding: 20px;
-  background-color: #f4f4f4;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.2); /* Zoom effect */
+}
+
+.event-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.event-details {
+  margin-top: 10px;
 }
 
 .event-name {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
 .event-description {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
-.image-container {
-  display: flex;
-  justify-content: center;
-}
-
-.event-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
+@media (max-width: 768px) {
+  .event-card {
+    width: 100%;
+  }
 }
 </style>
 

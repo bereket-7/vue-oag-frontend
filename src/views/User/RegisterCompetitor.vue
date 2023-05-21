@@ -115,132 +115,53 @@ export default {
 </script>
 
 
-<style>
-.form-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-label{
-  color:#155724;
-}
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input[type="text"],
-.form-group input[type="tel"],
-.form-group input[type="email"],
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  line-height: 1.4;
-  box-sizing: border-box;
-}
-
-.form-group input[type="file"] {
-  display: block;
-
-}
-
-.image-preview {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.image-preview img {
-  max-width: 100%;
-  max-height: 400px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #0056b3;
-}
-
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.spinner {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #007bff;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+<style scoped>
+  /* Style for the Register Competitor form */
+  .register-form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
   }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-.success-message {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
+  /* Style for the form labels */
+  .register-form label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
 
-@media screen and (max-width: 600px) {
-  .form-container {
-    padding: 10px;
+  /* Style for the form inputs */
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form textarea {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
   }
-  .form-group input[type="text"],
-  .form-group input[type="tel"],
-  .form-group input[type="email"],
-  .form-group textarea,
-  .form-group select {
-    font-size: 14px;
+
+  /* Style for the file input */
+  .register-form input[type="file"] {
+    margin-bottom: 10px;
   }
-  .btn {
-    font-size: 14px;
+
+  /* Style for the submit button */
+  .register-form button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
-}
+
+  /* Style for the heading */
+  .register-form h2 {
+    margin-top: 0;
+  }
+
 </style>
-
-

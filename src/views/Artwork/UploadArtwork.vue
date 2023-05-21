@@ -1,6 +1,6 @@
 <template>
 <div class="registration-form">
-<form>
+  <form @submit="saveArtwork" enctype="multipart/form-data">
   <div>
     <div>
       <div>
@@ -64,22 +64,11 @@
 
             <div>
               <div>
-                <h6 for="artistId">artist Id</h6>
-              </div>
-              <div>
-                <input  id="artistId" v-model="price" type="number" placeholder="Enter id" />
-              </div>
-            </div>
-
-            <div>
-              <div>
                 <h6 for="artworkPhoto">Artwork Photo</h6>
               </div>
               <div>
-                <input id="artworkPhoto" type="file" 
-                 @change="onFileChange" />
-                <div>Upload Artwork Photo file. Max file
-                  size 10 MB</div>
+                <input type="file" id="image" ref="fileInput" required />
+                <div>Upload Artwork Photo file. Max file size 10 MB</div>
               </div>
             </div>
 
@@ -88,14 +77,14 @@
                 <h6 for="createDate">Date</h6>
               </div>
               <div>
-                <input  type="date" id="createDate" v-model="createDate" />
+                <input type="text" placeholder="2023-10-05" id="eventDate" v-model="createDate" required />
               </div>
             </div>
     
             <hr class="mx-n3">
 
             <div>
-              <button type="submit" @click.prevent="submitForm">Submit Artwork</button>
+              <button type="submit">Submit Artwork</button>
             </div>
 
           </div>
@@ -109,7 +98,7 @@
 </div>
 </template>
 
-  
+
 <script>  
 import axios from 'axios';
  export default {
@@ -119,47 +108,39 @@ import axios from 'axios';
       artworkName: '',
       price: 0,
       createDate: '',
-      artworkPhoto: null,
       artworkDescription: '',
       artworkCategory: ''
     };
   },
   methods: {
-    onFileChange(event) {
-      this.artworkPhoto = event.target.files[0];
-    },
-    async submitForm() {
+    saveArtwork(artwork) {
+      artwork.preventDefault();
       const formData = new FormData();
       formData.append('artworkName', this.artworkName);
       formData.append('price', this.price);
-      formData.append('artistId', this.artistId);
-      formData.append('createDate', this.createDate);
-      formData.append('artworkPhoto', this.artworkPhoto);
-      formData.append('artworkDescription', this.artworkDescription);
       formData.append('artworkCategory', this.artworkCategory);
+      formData.append('artworkDescription', this.artworkDescription);
+      formData.append('size', this.size);
+      formData.append('image', this.$refs.fileInput.files[0]);
 
-      try {
-        const response = await axios.post('http://localhost:8081/artwork/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+      axios
+        .post('http://localhost:8081/artworks/saveArtwork', formData)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push('/signupSuccess');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.errorMessage = 'An error occurred while uploading artwork.';
         });
-
-        console.log(response);
-          alert('Artwork uploaded successfully!');
-      } catch (error) {
-        // Handle any errors from the client (network errors, timeouts, etc.)
-        console.error(error);
-        alert('An error occurred while uploading the artwork.');
-      }
-    }
-  }
-};
-
-  </script>
+    },
+  },
+    };
+</script>
   
+
+
 <style scoped>
- /* Registration form container */
 .registration-form {
   max-width: 800px;
   margin: 0 auto;
@@ -167,24 +148,18 @@ import axios from 'axios';
   background-color: #f8f8f8;
   font-family: Arial, sans-serif;
 }
-
-/* Title */
 .registration-form h1 {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
   color: dodgerblue;
 }
-
-/* Card container */
 .card {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 5px;
 }
-
-/* Labels */
 .card h6 {
   font-size: 14px;
   font-weight: bold;
@@ -192,7 +167,6 @@ import axios from 'axios';
   margin-bottom: 10px;
 }
 
-/* Inputs */
 .card input,
 .card select,
 .card textarea {
@@ -204,8 +178,6 @@ import axios from 'axios';
   font-size: 16px;
   color: #333;
 }
-
-/* Submit button */
 .card button[type="submit"] {
   background-color: dodgerblue;
   color: #fff;
@@ -223,33 +195,23 @@ import axios from 'axios';
   color: #333;
   border: 1px solid #333;
 }
-
-/* File input */
 .card input[type="file"] {
   border: none;
   padding: 0;
 }
-
-/* File input label */
 .card input[type="file"] + div {
   font-size: 14px;
   color:dodgerblue;
   margin-top: 5px;
 }
-
-/* Hover effect for inputs */
 .card input:hover,
 .card select:hover,
 .card textarea:hover {
   border-color:dodgerblue;
 }
-
-/* Hover effect for labels */
 .card h6:hover {
   color: #666;
 }
-
-/* Hover effect for card */
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }

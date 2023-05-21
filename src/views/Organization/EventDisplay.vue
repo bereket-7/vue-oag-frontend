@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     fetchAllEvents() {
-      fetch('http://localhost:8081/event', {
+      fetch('http://localhost:8081/events', {
         method: 'GET',
         headers: {
           Accept: 'application/json',

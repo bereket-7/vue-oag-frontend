@@ -143,6 +143,65 @@ export default {
     .artwork-card:hover .quick-view {
 			display: block;
 		}
+
+    .modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: #fff;
+  max-width: 800px;
+  width: 90%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.modal-header .btn-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.modal-body {
+  display: flex;
+}
+
+.modal-body .artwork-image {
+  flex: 1;
+}
+
+.modal-body .artwork-details {
+  flex: 1;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+}
 @media screen and (max-width: 768px) {
   .artwork-card {
     width: 100%;

@@ -58,7 +58,7 @@
                 <h6 for="price">Price</h6>
               </div>
               <div>
-                <input  id="price" v-model="artistId" type="number" placeholder="Enter Price" />
+                <input  id="price" v-model="price" type="number" placeholder="Enter Price" />
               </div>
             </div>
 
@@ -72,14 +72,14 @@
               </div>
             </div>
 
-            <div>
+            <!-- <div>
               <div>
                 <h6 for="createDate">Date</h6>
               </div>
               <div>
                 <input type="text" placeholder="2023-10-05" id="eventDate" v-model="createDate" required />
               </div>
-            </div>
+            </div> -->
     
             <hr class="mx-n3">
 
@@ -104,10 +104,9 @@ import axios from 'axios';
  export default {
   data() {
     return {
-      artistName:'',
       artworkName: '',
       price: 0,
-      createDate: '',
+      // createDate: '',
       artworkDescription: '',
       artworkCategory: ''
     };

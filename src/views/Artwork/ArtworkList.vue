@@ -144,33 +144,100 @@
   </ul>
 </nav>
 
+
+<div class="artwork-list">
+    <div v-for="event in events" :key="event.id" class="artwork-card">
+      <div class="artwork-image-container">
+        <img :src="getEventImageUrl(event.id)" alt="Artwork Image" class="artwork-image" />
+      </div>
+      <div class="artwork-details">
+        <h1 class="event-name">{{ artwork.artworkName }}</h1>
+        <p class="event-description">{{ artwork.artworkCategory }}</p>
+        <p class="event-description">Price: {{ artwork.price }}</p>
+        <p class="event-description">Size: {{ artwork.size }}</p>
+        <p class="event-description">Decription: {{ artwork.artworkDescription }}</p>
+      </div>
+    </div>
+  </div>
+
 <footer-view/>
 </template>
+
 
 <script>
 import FooterView from '@/components/FooterView.vue'
 import SearchArtwork from '@/components/SearchArtwork.vue'
-import axios from 'axios'
 export default {
-	components: { FooterView, SearchArtwork },
+  components: { FooterView, SearchArtwork },
 	name:'ArtworkList',
   data() {
     return {
       artworks: [],
-    }
+    };
   },
-
   mounted() {
-    axios.get('http://localhost:8081/artwork/all')
-      .then(response => {
-        this.artworks = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    this.fetchAllArtworks();
   },
-}
+  methods: {
+    fetchAllArtworks() {
+      fetch('http://localhost:8081/artworks', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to fetch artworks');
+          }
+        })
+        .then(data => {
+          this.events = data;
+          this.fetchArtworkImages();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    fetchArtworkImages() {
+      this.artworks.forEach(artwork => {
+        fetch(`http://localhost:8081/artworks/${artwork.id}/image`, {
+          method: 'GET',
+          headers: {
+            Accept: 'image/png',
+          },
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.blob();
+            } else {
+              throw new Error(`Failed to fetch image for artwork ${artwork.id}`);
+            }
+          })
+          .then(imageBlob => {
+            artwork.imageUrl = URL.createObjectURL(imageBlob);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+    },
+    getEventImageUrl(artworkId) {
+      const artwork = this.artworks.find(artwork => artwork.id === artworkId);
+      return artwork ? artwork.imageUrl : null;
+    },
+  },
+};
 </script>
+
+
+
+
+
+
+
 
 <style scoped>
 		.card-img-top {

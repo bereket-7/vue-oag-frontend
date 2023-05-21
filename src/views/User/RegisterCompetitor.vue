@@ -1,6 +1,6 @@
 <template>
   <div class="register-form">
-    <h2>Register Competitor</h2>
+    <h2>Apply for competition</h2>
     <form @submit.prevent="registerCompetitor">
       <div>
         <label for="firstName">First Name:</label>
@@ -22,10 +22,21 @@
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="competitor.email" required />
       </div>
+
       <div>
+        <div>
         <label for="category">Category:</label>
-        <input type="text" id="category" v-model="competitor.category" required />
+               <div>
+                <select type="text" id="category" v-model="competitor.category"  required >
+                <option value="painting">Painting</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="photography">Photography</option>
+                <option value="mixed-media">Mixed Media</option>
+                </select>
+                </div>
       </div>
+      </div>
+      
       <div>
         <label for="image">Image:</label>
         <input type="file" id="image" @change="onFileChange" required />
@@ -128,14 +139,18 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  /* Style for the form labels */
+h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: dodgerblue;
+}
   .register-form label {
     display: block;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
-  /* Style for the form inputs */
   .register-form input[type="text"],
   .register-form input[type="email"],
   .register-form textarea {
@@ -147,12 +162,10 @@ export default {
     transition: border-color 0.3s ease;
   }
 
-  /* Style for the file input */
   .register-form input[type="file"] {
     margin-bottom: 15px;
   }
 
-  /* Style for the submit button */
   .register-form button[type="submit"] {
     padding: 12px 20px;
     background-color: #4caf50;
@@ -163,19 +176,15 @@ export default {
     transition: background-color 0.3s ease;
   }
 
-  /* Hover effect for buttons */
   .register-form button[type="submit"]:hover {
     background-color: #45a049;
   }
 
-  /* Hover effect for inputs */
   .register-form input[type="text"]:hover,
   .register-form input[type="email"]:hover,
   .register-form textarea:hover {
     border-color: #999;
   }
-
-  /* Responsive styles */
   @media only screen and (max-width: 600px) {
     .register-form {
       margin: 10px;
@@ -193,8 +202,6 @@ export default {
       padding: 10px 16px;
     }
   }
-
-  /* Attractive styles */
   .register-form h2 {
     margin-top: 0;
     color: #333;

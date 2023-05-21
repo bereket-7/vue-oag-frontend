@@ -17,11 +17,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3>{{ selectedArtwork.artworkName }}</h3>
-          <button class="btn btn-close" @click="closeModal">Close</button>
+          <button class="btn btn-close" @click="closeModal"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="modal-body">
           <div class="artwork-image">
-            <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" />
+            <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" style="width: 400px; height: 300px;" />
           </div>
           <div class="artwork-details">
             <p>{{ selectedArtwork.artworkDescription }}</p>
@@ -202,6 +202,23 @@ export default {
   max-width: 100%;
   height: auto;
 }
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #333;
+}
+
+.btn-close:hover {
+  color: #ff0000;
+}
+
 @media screen and (max-width: 768px) {
   .artwork-card {
     width: 100%;

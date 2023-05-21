@@ -5,10 +5,8 @@
         <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" style="width: 410px; height: 300px;" />
       </div>
       <div class="artwork-details">
-        <h3>{{ artwork.artworkName }}</h3>
-        <p>{{ artwork.artworkDescription }}</p>
-        <p>Price: {{ artwork.price }}</p>
-        <p>Size: {{ artwork.size }}</p>
+        <h3><b>{{ artwork.artworkName }}</b></h3>
+        <p><b>Price: {{ artwork.price }}</b></p>
         <p>Category: {{ artwork.artworkCategory }}</p>
         <button class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</button>
       </div>
@@ -30,6 +28,8 @@
             <p>Price: {{ selectedArtwork.price }}</p>
             <p>Size: {{ selectedArtwork.size }}</p>
             <p>Category: {{ selectedArtwork.artworkCategory }}</p>
+            <hr class="mx-n3">
+            <button type="button" class="btn btn-danger">Add to Cart</button>
           </div>
         </div>
       </div>

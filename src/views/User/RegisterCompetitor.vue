@@ -68,9 +68,11 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data); 
+          this.$router.push('/signupSuccess');
         })
         .catch(error => {
           console.error(error);
+          this.errorMessage = 'An error occurred while registering.';
         });
     },
     onFileChange(event) {

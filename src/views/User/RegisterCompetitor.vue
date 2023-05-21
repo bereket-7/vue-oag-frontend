@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="register-form">
     <h2>Register Competitor</h2>
     <form @submit.prevent="registerCompetitor">
       <div>
@@ -116,19 +116,21 @@ export default {
 
 
 <style scoped>
-  /* Style for the Register Competitor form */
-  .register-form {
+   .register-form {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   /* Style for the form labels */
   .register-form label {
-    display: inline-block;
-    width: 120px;
+    display: block;
     font-weight: bold;
     margin-bottom: 10px;
   }
@@ -137,31 +139,77 @@ export default {
   .register-form input[type="text"],
   .register-form input[type="email"],
   .register-form textarea {
-    width: 200px;
-    padding: 5px;
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
   }
 
   /* Style for the file input */
   .register-form input[type="file"] {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   /* Style for the submit button */
   .register-form button[type="submit"] {
-    padding: 8px 16px;
+    padding: 12px 20px;
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
-  /* Style for the heading */
+  /* Hover effect for buttons */
+  .register-form button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  /* Hover effect for inputs */
+  .register-form input[type="text"]:hover,
+  .register-form input[type="email"]:hover,
+  .register-form textarea:hover {
+    border-color: #999;
+  }
+
+  /* Responsive styles */
+  @media only screen and (max-width: 600px) {
+    .register-form {
+      margin: 10px;
+      padding: 15px;
+    }
+
+    .register-form input[type="text"],
+    .register-form input[type="email"],
+    .register-form textarea {
+      width: 100%;
+      padding: 8px;
+    }
+
+    .register-form button[type="submit"] {
+      padding: 10px 16px;
+    }
+  }
+
+  /* Attractive styles */
   .register-form h2 {
     margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form textarea {
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
 </style>

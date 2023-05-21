@@ -19,13 +19,13 @@
         <input type="email" v-model="competitor.email" name="email" required />
       </div>
 
-
       <div class="form-group">
         <label for="category">Category</label>
         <select id="category" v-model="competitor.category" required>
           <option value="painting">Painting</option>
           <option value="sculpture">Sculpture</option>
           <option value="photography">Photography</option>
+          <option value="mixed-media">Mixed Media</option>
         </select>
       </div>
       <div class="form-group">
@@ -35,7 +35,7 @@
 
       <div class="form-group">
         <label for="artworkPhoto">Upload Artwork Photo</label>
-        <input type="file" id="artworkPhoto" @change="handleFileUpload" name="image" accept=".jpg,.jpeg,.png" required />
+        <input type="file" id="image" ref="fileInput" accept=".jpg,.jpeg,.png" required />
       </div>
 
       <div class="form-group">
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   name: "RegisterCompetitor",
@@ -84,10 +84,8 @@ export default {
     };
   },
   methods: {
-    handleFileUpload(event) {
-      this.competitor.artworkPhoto = event.target.files[0];
-    },
-    async registerCompetitor() {
+    registerCompetitor(competitor) {
+      competitor.preventDefault();
       const formData = new FormData();
       formData.append("firstName", this.competitor.firstName);
       formData.append("lastName", this.competitor.lastName);
@@ -97,21 +95,17 @@ export default {
       formData.append("artDescription", this.competitor.artDescription);
       formData.append("image", this.competitor.artworkPhoto);
 
-      try {
-        await axios.post("http://localhost:8081/competitor/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      axios
+        .post('http://localhost:8081/competitors/registerCompetitor', formData)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push('/signupSuccess');
+        })
+        .catch((error) => {
+          console.error(error);
+          this.errorMessage = 'Failed to register competitor.';
         });
-        this.$router.push('/signupSuccess');
-      } catch (error) {
-        console.error(error);
-        alert("Failed to register competitor.");
-      }
     },
-
-
-
     validateForm() {
       this.errors = {};
       const ethiopiaCode = '+251';
@@ -150,7 +144,6 @@ export default {
   },
 };
 </script>
-
 
 
 <style>

@@ -106,7 +106,6 @@ import axios from 'axios';
     return {
       artworkName: '',
       price: 0,
-      // createDate: '',
       artworkDescription: '',
       artworkCategory: ''
     };

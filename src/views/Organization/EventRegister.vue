@@ -82,8 +82,9 @@ export default {
   },
 };
 </script>
-<style scoped>
 
+
+<style scoped>
 .form-container {
   width: 100%;
   max-width: 500px;
@@ -145,5 +146,4 @@ h1 {
     max-width: 100%;
   }
 }
-
 </style>

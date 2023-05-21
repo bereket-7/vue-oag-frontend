@@ -1,111 +1,82 @@
 <template>
-   <div class="form-container">
-    <h2 style=" color:#007bff;">Apply for Competition</h2>
-    <form @submit.prevent="registerCompetitor" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" v-model="competitor.firstName" name="firstName" required />
+  <div>
+    <h2>Register Competitor</h2>
+    <form @submit.prevent="registerCompetitor">
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" v-model="competitor.firstName" required />
       </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" v-model="competitor.lastName" name="lastName" required />
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" v-model="competitor.lastName" required />
       </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="tel" v-model="competitor.phone" name="phone" required />
+      <div>
+        <label for="artDescription">Art Description:</label>
+        <textarea id="artDescription" v-model="competitor.artDescription" required></textarea>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" v-model="competitor.email" name="email" required />
+      <div>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" v-model="competitor.phone" required />
       </div>
-
-      <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" v-model="competitor.category" required>
-          <option value="painting">Painting</option>
-          <option value="sculpture">Sculpture</option>
-          <option value="photography">Photography</option>
-          <option value="mixed-media">Mixed Media</option>
-        </select>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="competitor.email" required />
       </div>
-      <div class="form-group">
-        <label for="artDescription">Artwork Description</label>
-        <textarea v-model="competitor.artDescription" name="artDescription" required></textarea>
+      <div>
+        <label for="category">Category:</label>
+        <input type="text" id="category" v-model="competitor.category" required />
       </div>
-
-      <div class="form-group">
-        <label for="artworkPhoto">Upload Artwork Photo</label>
-        <input type="file" id="image" ref="fileInput" accept=".jpg,.jpeg,.png" required />
+      <div>
+        <label for="image">Image:</label>
+        <input type="file" id="image" @change="onFileChange" required />
       </div>
-
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Register</button>
-        <div v-if="loading" class="loading-overlay">
-        <div class="spinner"></div>
-      </div>
-      </div>
+      <button type="submit">Register</button>
     </form>
-
-    <div id="success-modal" class="modal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Success</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Competitor registered successfully!</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-  name: "RegisterCompetitor",
   data() {
     return {
       competitor: {
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        category: "",
-        artDescription: "",
-        artworkPhoto: null,
+        firstName: '',
+        lastName: '',
+        artDescription: '',
+        phone: '',
+        email: '',
+        category: '',
+        image: null,
       },
     };
   },
   methods: {
-    registerCompetitor(competitor) {
-      competitor.preventDefault();
+    registerCompetitor() {
       const formData = new FormData();
-      formData.append("firstName", this.competitor.firstName);
-      formData.append("lastName", this.competitor.lastName);
-      formData.append("phone", this.competitor.phone);
-      formData.append("email", this.competitor.email);
-      formData.append("category", this.competitor.category);
-      formData.append("artDescription", this.competitor.artDescription);
-      formData.append("image", this.competitor.artworkPhoto);
+      formData.append('firstName', this.competitor.firstName);
+      formData.append('lastName', this.competitor.lastName);
+      formData.append('artDescription', this.competitor.artDescription);
+      formData.append('phone', this.competitor.phone);
+      formData.append('email', this.competitor.email);
+      formData.append('category', this.competitor.category);
+      formData.append('image', this.competitor.image);
 
-      axios
-        .post('http://localhost:8081/competitors/registerCompetitor', formData)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push('/signupSuccess');
+      fetch('http://localhost:8081/competitors/registerCompetitor', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data); 
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
-          this.errorMessage = 'Failed to register competitor.';
         });
     },
+    onFileChange(event) {
+      this.competitor.image = event.target.files[0];
+    },
+
     validateForm() {
       this.errors = {};
       const ethiopiaCode = '+251';
@@ -131,16 +102,12 @@ export default {
   ) {
     this.errors.phone = 'Invalid phone number format.';
   }
-      // Return true if there are no errors
       return Object.keys(this.errors).length === 0;
     },
     validEmail(email) {
-  // Regular expression for email validation
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailRegex.test(String(email).toLowerCase());
 }
-
-
   },
 };
 </script>

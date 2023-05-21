@@ -10,37 +10,33 @@
         <p>Price: {{ artwork.price }}</p>
         <p>Size: {{ artwork.size }}</p>
         <p>Category: {{ artwork.artworkCategory }}</p>
-        <a href="#" class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</a>
+        <button class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</button>
       </div>
     </div>
 
     <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{ selectedArtwork.artworkName }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div v-if="selectedArtwork" class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>{{ selectedArtwork.artworkName }}</h3>
+          <button class="btn btn-close" @click="closeModal">Close</button>
+        </div>
+        <div class="modal-body">
+          <div class="artwork-image">
+            <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" />
           </div>
-          <div class="modal-body">
-            <div class="artwork-image">
-              <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" />
-            </div>
-            <div class="artwork-details">
-              <p>{{ selectedArtwork.artworkDescription }}</p>
-              <p>Price: {{ selectedArtwork.price }}</p>
-              <p>Size: {{ selectedArtwork.size }}</p>
-              <p>Category: {{ selectedArtwork.artworkCategory }}</p>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <div class="artwork-details">
+            <p>{{ selectedArtwork.artworkDescription }}</p>
+            <p>Price: {{ selectedArtwork.price }}</p>
+            <p>Size: {{ selectedArtwork.size }}</p>
+            <p>Category: {{ selectedArtwork.artworkCategory }}</p>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 
@@ -55,6 +51,14 @@ export default {
     this.fetchArtworks();
   },
   methods: {
+    openModal(artwork) {
+      this.selectedArtwork = artwork;
+      document.body.classList.add('modal-open');
+    },
+    closeModal() {
+      this.selectedArtwork = null;
+      document.body.classList.remove('modal-open');
+    },
     fetchArtworks() {
       axios.get('http://localhost:8081/artworks')
         .then(response => {

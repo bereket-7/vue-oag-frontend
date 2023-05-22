@@ -49,5 +49,40 @@
     },
   };
   </script>
+
+<style scoped>
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 300px;
+  }
+
+  .button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+</style>
+
   
   

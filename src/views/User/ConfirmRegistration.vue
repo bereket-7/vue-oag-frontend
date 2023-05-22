@@ -1,19 +1,20 @@
 <template>
-    <div>
+    <div class="container">
       <h1>Registration Confirmation</h1>
       <div v-if="!confirmed">
         <p>Please enter the confirmation code you received via email:</p>
         <input v-model="confirmationCode" type="text" placeholder="Confirmation Code">
-        <button @click="confirmRegistration">Confirm Registration</button>
+        <button class="button" @click="confirmRegistration">Confirm Registration</button>
       </div>
       <div v-else>
         <p>Registration confirmed successfully!</p>
       </div>
       <div v-if="error">
-        <p>Error: {{ error }}</p>
+        <p class="error">Error: {{ error }}</p>
       </div>
     </div>
   </template>
+  
   
   <script>
   import axios from 'axios';

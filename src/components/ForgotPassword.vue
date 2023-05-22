@@ -11,6 +11,7 @@
     </div>
   </template>
   
+  
   <script>
   export default {
     name: 'ForgotPassword',
@@ -21,7 +22,6 @@
     },
     methods: {
       onSubmit() {
-        // Here you can make an API call to reset the user's password
         // using this.email as the user's email address
         // and then show a success message or redirect the user to another page
       }

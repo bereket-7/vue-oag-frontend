@@ -56,12 +56,15 @@ export default {
   }
 }
 </script>
+
+
 <style scoped>
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  max-width: 400px;
 }
 
 .form {
@@ -133,27 +136,23 @@ export default {
 }
 
 
-/* Desktop styles */
 .form-container {
   max-width: 600px;
   margin: 0 auto;
 }
 
-/* Tablet styles */
 @media screen and (max-width: 768px) {
   .form-container {
     max-width: 500px;
   }
 }
-
-/* Mobile styles */
 @media screen and (max-width: 480px) {
   .form-container {
     max-width: 300px;
   }
 }
 
-/* General styles for inputs and buttons */
+
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
   width: 100%;
   padding: 12px;
@@ -178,7 +177,7 @@ input[type="submit"]:hover, button:hover {
   background-color: #3e8e41;
 }
 
-/* Specific styles for buttons and inputs in mobile view */
+
 @media screen and (max-width: 480px) {
   input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
     padding: 10px;

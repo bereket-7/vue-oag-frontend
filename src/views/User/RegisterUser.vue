@@ -116,7 +116,7 @@ export default {
           username: this.username,
           password: this.password,
           roles: [this.roles]
-          //roles: ['CUSTOMER']
+
         });
         this.$router.push('/signupSuccess');
       } catch (error) {
@@ -124,13 +124,10 @@ export default {
       }
     },
     submitForm() {
-      // Clear errors
       this.errors = {};
-      // Validate form inputs
       if (!this.validateForm()) {
         return;
       }
-      // Send registration data to API endpoint
       this.register();
     },
     validateForm() {
@@ -190,12 +187,9 @@ export default {
         this.passwordError = 'Password should be at least 6 characters long.';
         return;
       }
-
-      // Return true if there are no errors
       return Object.keys(this.errors).length === 0;
     },
     validEmail(email) {
-  // Regular expression for email validation
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailRegex.test(String(email).toLowerCase());
 }

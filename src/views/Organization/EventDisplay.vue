@@ -1,8 +1,8 @@
 
 <template>
   <div class="event-list">
-    <div v-for="event in events" :key="event.id" class="event-card">
-      <div class="event-image-container">
+    <div v-for="event in events" :key="event.id" class="event-card" >
+      <div class="event-image-container" >
         <img :src="getEventImageUrl(event.id)" alt="Event Image" class="event-image" />
       </div>
       <div class="event-details">
@@ -52,7 +52,7 @@ export default {
     },
     fetchEventImages() {
       this.events.forEach(event => {
-        fetch(`http://localhost:8081/event/${event.id}/image`, {
+        fetch(`http://localhost:8081/events/${event.id}/image`, {
           method: 'GET',
           headers: {
             Accept: 'image/png',

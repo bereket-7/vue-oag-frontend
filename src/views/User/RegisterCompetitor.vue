@@ -36,7 +36,6 @@
                 </div>
       </div>
       </div>
-      
       <div>
         <label for="image">Image:</label>
         <input type="file" id="image" @change="onFileChange" required />

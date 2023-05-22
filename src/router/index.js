@@ -61,6 +61,11 @@ const routes = [
     name: 'RegisterUser',
     component: () => import('../views/User/RegisterUser.vue')
   },
+  {
+    path: '/activateAccount',
+    name: 'ConfirmRegistration',
+    component: () => import('../views/User/ConfirmRegistration.vue')
+  },
   /*{
     path: '/',
     name: 'DashboardView',

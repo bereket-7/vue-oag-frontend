@@ -2,12 +2,12 @@
     <div class="confirm-container">
         <div class="form-container">
         <div class="card">
-        <h1>Registration Confirmation</h1>
+        <h1>Activate Account</h1>
         <div v-if="!confirmed">
           <p>Please enter the confirmation code you received via email:</p>
           <form>
             <input v-model="confirmationCode" type="text" placeholder="Confirmation Code">
-            <button class="button" @click="confirmRegistration">Confirm Registration</button>
+            <button class="button" @click="confirmRegistration">Activate</button>
           </form>
         </div>
         <div v-else>

@@ -16,7 +16,6 @@
           <td>{{ standard.standardDescription}}</td>
           <td>{{ standard.standardType }}</td>
           <td>
-            <!-- Edit button -->
             <button
               type="button"
               class="btn btn-primary"
@@ -25,7 +24,6 @@
               Edit
             </button>
 
-            <!-- Delete button -->
             <button
               type="button"
               class="btn btn-danger"
@@ -38,12 +36,10 @@
       </tbody>
     </table>
 
-    <!-- Modal for editing a standard -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
       ...
     </div>
 
-    <!-- Modal for deleting a standard -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
       ...
     </div>
@@ -62,7 +58,6 @@ export default {
     }
   },
   mounted() {
-    // Fetch standards from API
     this.fetchStandards();
   },
   methods: {
@@ -77,13 +72,11 @@ export default {
         });
     },
     editStandard(standard) {
-      // Set edited standard and show modal
       this.editedStandard = standard;
       // eslint-disable-next-line no-undef
       $('#editModal').modal('show');
     },
     deleteStandard(standard) {
-      // Set deleted standard and show modal
       this.deletedStandard = standard;
       // eslint-disable-next-line no-undef
       $('#deleteModal').modal('show');
@@ -98,7 +91,6 @@ export default {
           if (index !== -1) {
             this.standards.splice(index, 1);
           }
-          // Hide modal
           // eslint-disable-next-line no-undef
           $('#deleteModal').modal('hide');
         })

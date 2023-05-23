@@ -94,14 +94,14 @@
     </div>
   </div>
 </form>
-
 </div>
+
 <div>
   <div class="container">
 <div class="popup" id="popup">
     <img src="tick.png" alt="tick">
     <h2>Thank You</h2>
-    <p>You have Successfully Uploaded Your Artwork</p>
+    <p>You have Successfully submitted your Artwork for approval.</p>
     <button type="button" @click="closePopup()">OK</button>
 </div>
     </div> 

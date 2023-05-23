@@ -84,7 +84,7 @@
             <hr class="mx-n3">
 
             <div>
-              <button type="submit">Submit Artwork</button>
+              <button type="submit" @click="openPopup()">Submit Artwork</button>
             </div>
 
           </div>
@@ -96,10 +96,21 @@
 </form>
 
 </div>
+<div>
+  <div class="container">
+<div class="popup" id="popup">
+    <img src="tick.png" alt="tick">
+    <h2>Thank You</h2>
+    <p>You have Successfully Uploaded Your Artwork</p>
+    <button type="button" @click="closePopup()">OK</button>
+</div>
+    </div> 
+</div>
 </template>
 
 
 <script>  
+let popup= document.getElementById("popup");
 import axios from 'axios';
  export default {
   data() {
@@ -111,6 +122,12 @@ import axios from 'axios';
     };
   },
   methods: {
+    openPopup(){
+popup.classList.add("open-popup");
+    },
+    closePopup(){
+popup.classList.remove("open-popup");
+    },
     saveArtwork(artwork) {
       artwork.preventDefault();
       const formData = new FormData();
@@ -213,5 +230,59 @@ import axios from 'axios';
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+.container{
+    width: 100%;
+    height:100%;
+    background: #3c5077;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup{
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color:#333 ;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+.open-popup{
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1) ;
+}
+.popup img{
+    width: 100px;
+    margin-top: -50%;
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+  
+}
+
+.popup button{
+    width: 100px;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius:4px  ;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
 </style>

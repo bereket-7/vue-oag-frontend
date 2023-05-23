@@ -5,8 +5,8 @@
         <h1>Activate Account</h1>
         <div v-if="!confirmed">
           <p>Please enter the confirmation code you received via email:</p>
-          <form>
-            <input v-model="confirmationCode" type="text" placeholder="Confirmation Code">
+          <form class="form-input">
+            <input v-model="confirmationCode" type="text" placeholder="Confirmation Code" class="input">
             <button class="button" @click="confirmRegistration">Activate</button>
           </form>
         </div>
@@ -67,6 +67,7 @@
   background-size: cover;
   background-position: center center;
 }
+
 .container {
     display: flex;
   flex-direction: column;
@@ -91,15 +92,31 @@
   background-color: #fff;
 }
 .button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
 }
 
+.input{
+  background-color: #303245;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+ 
 .button:hover {
   background-color: #45a049;
 }
@@ -109,11 +126,6 @@
     max-width: 300px;
   }
 
-  .button {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-  }
 }
 </style>
 
@@ -131,6 +143,9 @@ background-image: url("~@/assets/img/buetyback.png");
 background-size: cover;
 background-position: center center;
 }
+
+
+
 
 .forgot-password__form {
 display: flex;

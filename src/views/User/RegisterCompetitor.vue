@@ -73,7 +73,7 @@ export default {
       formData.append('category', this.competitor.category);
       formData.append('image', this.competitor.image);
 
-      fetch('http://localhost:8081/competitors/registerCompetitor', {
+      fetch('http://localhost:8081/competitors/register', {
         method: 'POST',
         body: formData,
       })

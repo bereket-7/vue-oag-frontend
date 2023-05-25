@@ -108,7 +108,6 @@
 </div>
 </template>
 
-
 <script>  
 import axios from 'axios';
 
@@ -125,6 +124,7 @@ export default {
     openPopup() {
       let popup = document.getElementById("popup");
       popup.classList.add("open-popup");
+      this.resetForm();
     },
     closePopup() {
       let popup = document.getElementById("popup");
@@ -143,16 +143,22 @@ export default {
         .post('http://localhost:8081/artworks/saveArtwork', formData)
         .then(() => {
           this.openPopup();
-          
         })
         .catch((error) => {
           console.error(error);
           this.errorMessage = 'An error occurred while uploading artwork.';
         });
     },
+    resetForm() {
+      this.artworkName = '';
+      this.price = 0;
+      this.artworkDescription = '';
+      this.artworkCategory = '';
+    },
   },
 };
 </script>
+
 
   
 

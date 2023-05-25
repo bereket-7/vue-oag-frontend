@@ -148,7 +148,7 @@ export default {
         this.errors.phone = 'Phone number is required.';
       }else if (
     !(
-      (this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 10
+      (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
       || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
       || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
     )

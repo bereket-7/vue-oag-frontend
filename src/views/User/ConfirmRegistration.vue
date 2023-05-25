@@ -44,11 +44,9 @@
         axios
           .post(apiUrl, requestData)
           .then(() => {
-            // successfull msg
             this.confirmed = true;
           })
           .catch((error) => {
-            // Error 
             this.error = error.response.data.message;
           });
       },
@@ -145,9 +143,6 @@ background-size: cover;
 background-position: center center;
 }
 
-
-
-
 .forgot-password__form {
 display: flex;
 flex-direction: column;
@@ -178,12 +173,10 @@ border: none;
 border-bottom: 2px solid #ccc;
 background-color: transparent;
 }
-
 .forgot-password__input:focus {
 outline: none;
 border-bottom-color: #4caf50;
 }
-
 .forgot-password__input-underline {
 position: absolute;
 bottom: 0;
@@ -197,7 +190,6 @@ transition: width 0.3s;
 .forgot-password__input:focus + .forgot-password__input-underline {
 width: 100%;
 }
-
 .forgot-password__button {
 background-color: #4caf50;
 color: white;
@@ -207,16 +199,12 @@ border-radius: 0.5rem;
 cursor: pointer;
 transition: background-color 0.3s;
 }
-
 .forgot-password__button:hover {
 background-color: #3e8e41;
 }
-
 @media screen and (max-width: 768px) {
 .forgot-password__form {
   width: 90%;
 }
 }
-
-/* Add your styles here */
 </style>

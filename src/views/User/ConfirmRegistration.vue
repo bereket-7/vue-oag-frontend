@@ -93,6 +93,7 @@
 }
 .button {
   background-color: #08d;
+  padding: 10px 60px;
   border-radius: 12px;
   border: 0;
   color: #eee;
@@ -102,7 +103,7 @@
   margin-top: 15px;
   outline: 0;
   text-align: center;
-  width: 100%;
+  
 }
 
 .input{

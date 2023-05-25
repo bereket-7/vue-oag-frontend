@@ -1,6 +1,6 @@
 <template>
 <div class="registration-form">
-  <form @submit="saveArtwork" enctype="multipart/form-data">
+  <form @submit.prevent="saveArtwork" enctype="multipart/form-data">
   <div>
     <div>
       <div>
@@ -110,9 +110,9 @@
 
 
 <script>  
-let popup= document.getElementById("popup");
 import axios from 'axios';
- export default {
+
+export default {
   data() {
     return {
       artworkName: '',
@@ -122,14 +122,15 @@ import axios from 'axios';
     };
   },
   methods: {
-    openPopup(){
-popup.classList.add("open-popup");
+    openPopup() {
+      let popup = document.getElementById("popup");
+      popup.classList.add("open-popup");
     },
-    closePopup(){
-popup.classList.remove("open-popup");
+    closePopup() {
+      let popup = document.getElementById("popup");
+      popup.classList.remove("open-popup");
     },
-    saveArtwork(artwork) {
-      artwork.preventDefault();
+    saveArtwork() {
       const formData = new FormData();
       formData.append('artworkName', this.artworkName);
       formData.append('price', this.price);
@@ -140,9 +141,9 @@ popup.classList.remove("open-popup");
 
       axios
         .post('http://localhost:8081/artworks/saveArtwork', formData)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push('/signupSuccess');
+        .then(() => {
+          this.openPopup();
+          
         })
         .catch((error) => {
           console.error(error);
@@ -150,8 +151,9 @@ popup.classList.remove("open-popup");
         });
     },
   },
-    };
+};
 </script>
+
   
 
 

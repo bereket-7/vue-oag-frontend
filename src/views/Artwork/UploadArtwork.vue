@@ -154,6 +154,7 @@ export default {
       this.price = 0;
       this.artworkDescription = '';
       this.artworkCategory = '';
+      this.size = '';
     },
   },
 };

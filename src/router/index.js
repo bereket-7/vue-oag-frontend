@@ -114,6 +114,11 @@ const routes = [
     component: () => import('../views/shopping/PaypalPayment.vue')
   },
   {
+    path: '/paypalSuccess',
+    name: 'PaypalSuccess',
+    component: () => import('../views/shopping/PaypalSuccess.vue')
+  },
+  {
     path: '/userList',
     name: 'UserList',
     component: () => import('../views/Admin/UserList.vue')

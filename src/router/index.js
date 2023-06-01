@@ -108,18 +108,19 @@ const routes = [
     name: 'VoteForArtwork',
     component: () => import('../views/Artwork/VoteForArtwork.vue')
   },
+
   {
     path: '/paypal',
     name: 'PaypalPayment',
     component: () => import('../views/shopping/PaypalPayment.vue')
   },
   {
-    path: '/paypalSuccess',
+    path: '/success',
     name: 'PaypalSuccess',
     component: () => import('../views/shopping/PaypalSuccess.vue')
   },
   {
-    path: '/paypalFail',
+    path: '/cancel',
     name: 'PaypalFail',
     component: () => import('../views/shopping/PaypalFail.vue')
   },

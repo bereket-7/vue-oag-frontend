@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     submitPayment() {
-      axios.post('http://localhost:8080/paypal/pay', this.order)
+      axios.post('http://localhost:8081/paypal/pay', this.order)
         .then(response => {
           const approvalUrl = this.getApprovalUrl(response.data);
           if (approvalUrl) {

@@ -67,5 +67,46 @@ export default {
 </script>
 
 <style scoped>
-/* Add your component's styles here */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #5c9be5;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #5c9be5;
+  color: #fff;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3264a8;
+}
+
+@media screen and (max-width: 480px) {
+  input[type="text"],
+  input[type="number"],
+  button {
+    width: 100%;
+  }
+}
 </style>

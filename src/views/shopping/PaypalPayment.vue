@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     submitPayment() {
-      axios.post('/pay', this.order)
+      axios.post('http://localhost:8080/paypal/pay', this.order)
         .then(response => {
           const approvalUrl = this.getApprovalUrl(response.data);
           if (approvalUrl) {
@@ -57,7 +57,7 @@ export default {
           console.error('Payment request failed:', error);
         });
     },
-    getApprovalUrl(paymentData) {
+    getApprovalUrl(paymentData) { 
       for (const link of paymentData.links) {
         if (link.rel === 'approval_url') {
           return link.href;

@@ -10,7 +10,7 @@
               <i class="fa-brands fa-cc-visa" style="color:navy;"></i>
               <i class="fa-brands fa-cc-mastercard" style="color:red;"></i>
               <i class="fa-brands fa-cc-discover" style="color:orange;"></i>
-              <i class="fas-brands fa-cc-amex" style="color:blue;"></i>
+              <i class="fa-brands fa-cc-amex" style="color:blue;"></i>
             </div>
             <label for="price">Total</label>
             <input v-model="total" type="text" id="price" name="price" placeholder="Enter Total Amount">
@@ -75,6 +75,8 @@ export default {
   }
 };
 </script>
+
+
 
 
 

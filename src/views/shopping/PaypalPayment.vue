@@ -1,149 +1,180 @@
 <template>
-  <div class="container">
-    <form @submit.prevent="submitPayment">
-      <div>
-        <label for="price">Price:</label>
-        <input type="number" id="price" v-model="order.price" required>
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form @submit.prevent="makePayment">
+          <div class="col-50">
+            <h3>Payment</h3>
+            <label>Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="price">Total</label>
+            <input v-model="total" type="text" id="price" name="price" placeholder="Enter Total Amount">
+            <label for="currency">Currency</label>
+            <input v-model="currency" type="text" id="currency" name="currency" placeholder="Enter Currency">
+            <label for="method">Payment Method</label>
+            <input v-model="method" type="text" id="method" name="method" placeholder="Payment Method">
+            <label for="intent">Intent</label>
+            <input v-model="intent" type="text" id="intent" name="intent" placeholder="Payment Intent">
+            <label for="description">Payment Description</label>
+            <input v-model="description" type="text" id="description" name="description" placeholder="Payment Description">
+          </div>
+          <input type="submit" value="Continue to checkout" class="btn">
+        </form>
       </div>
-      <div>
-        <label for="currency">Currency:</label>
-        <input type="text" id="currency" v-model="order.currency" required>
+    </div>
+    <div class="col-25">
+      <div class="container">
+        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+        <p><a href="#">Product 1</a> <span class="price">$1</span></p>
+        <p><a href="#">Product 2</a> <span class="price">$4</span></p>
+        <p><a href="#">Product 3</a> <span class="price">$3</span></p>
+        <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+        <hr>
+        <p>Total <span class="price" style="color:black"><b>{{ total }}</b></span></p>
       </div>
-      <div>
-        <label for="method">Payment Method:</label>
-        <input type="text" id="method" v-model="order.method" required>
-      </div>
-      <div>
-        <label for="intent">Payment Intent:</label>
-        <input type="text" id="intent" v-model="order.intent" required>
-      </div>
-      <div>
-        <label for="description">Description:</label>
-        <input type="text" id="description" v-model="order.description" required>
-      </div>
-      <br>
-      <button type="submit">Pay Now</button>
-    </form>
+    </div>
   </div>
 </template>
 
-<script>
-import axios from 'axios';
 
+<script>
 export default {
   data() {
     return {
-      order: {
-        price: '',
-        currency: '',
-        method: '',
-        intent: '',
-        description: ''
-      }
+      total: '',
+      currency: '',
+      method: '',
+      intent: '',
+      description: ''
     };
   },
   methods: {
-    // submitPayment() {
-    //   axios.post('http://localhost:8081/paypal/pay', this.order)
-    //     .then(response => {
-    //       const approvalUrl = this.getApprovalUrl(response.data);
-    //       if (approvalUrl) {
-    //         window.location.href = approvalUrl;
-    //       } else {
-    //         console.error('Approval URL not found in the response.');
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.error('Payment request failed:', error);
-    //     });
-    // },
-
-
-    submitPayment() {
-    axios.post('http://localhost:8081/paypal/pay', this.order)
-        .then(response => {
-            const approvalUrl = this.getApprovalUrl(response.data);
-            if (approvalUrl) {
-                window.location.href = approvalUrl;
-            } else {
-                console.error('Approval URL not found in the response.');
-            }
-        })
-        .catch(error => {
-            console.error('Payment request failed:', error);
-        });
-},
-
-
-
-    getApprovalUrl(paymentData) { 
-      for (const link of paymentData.links) {
-        if (link.rel === 'approval_url') {
-          return link.href;
+    makePayment() {
+      // Send form data to the server using axios or any other HTTP library
+      this.$http.post('/pay', {
+        total: this.total,
+        currency: this.currency,
+        method: this.method,
+        intent: this.intent,
+        description: this.description
+      })
+      .then(response => {
+        // Handle the server response
+        if (response.data.approvalUrl) {
+          window.location.href = response.data.approvalUrl;
         }
-      }
-      return null;
+      })
+      .catch(error => {
+       
+      });
     }
   }
 };
 </script>
 
+
+
 <style scoped>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  flex: 25%;
+}
+
+.col-50 {
+  flex: 50%;
+}
+
+.col-75 {
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
 .container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
 }
 
-.container input[type="text"],
-.container input[type="number"] {
+input[type="text"] {
   width: 100%;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  border-radius: 3px;
 }
 
-.container input[type="text"]:focus,
-.container input[type="number"]:focus {
-  outline: none;
-  border-color: #5c9be5;
+label {
+  margin-bottom: 10px;
+  display: block;
 }
 
-.container button {
-  display: inline-block;
-  padding: 10px 20px;
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  background-color: #5c9be5;
-  color: #fff;
-  transition: background-color 0.3s ease;
+  width: 100%;
+  border-radius: 3px;
   cursor: pointer;
+  font-size: 17px;
 }
 
-.container button:hover {
-  background-color: #3264a8;
+.btn:hover {
+  background-color: #45a049;
 }
 
-@media screen and (max-width: 480px) {
-  .container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px 10px;
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
   }
-
-  .container input[type="text"],
-  .container input[type="number"],
-  .container button {
-    width: 100%;
+  .col-25 {
+    margin-bottom: 20px;
   }
 }
 </style>

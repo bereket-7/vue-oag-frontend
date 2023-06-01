@@ -43,6 +43,8 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -55,8 +57,8 @@ export default {
   },
   methods: {
     makePayment() {
- 
-      this.$http.post('localhost:/8081/paypal/pay', {
+      axios
+      .post('localhost:/8081/paypal/pay', {
         total: this.total,
         currency: this.currency,
         method: this.method,

@@ -19,7 +19,7 @@
   .failure-page h2 {
     font-size: 24px;
     margin-bottom: 10px;
-    color:#ec1515;
+    color:#ef1010;
     font-weight:bold;
   }
   

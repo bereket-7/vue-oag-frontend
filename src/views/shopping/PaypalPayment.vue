@@ -7,10 +7,10 @@
             <h3>Payment</h3>
             <label>Accepted Cards</label>
             <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
-              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
+              <i class="fa-brands fa-cc-visa" style="color:navy;"></i>
+              <i class="fa-brands fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa-brands fa-cc-discover" style="color:orange;"></i>
+              <i class="fas-brands fa-cc-amex" style="color:blue;"></i>
             </div>
             <label for="price">Total</label>
             <input v-model="total" type="text" id="price" name="price" placeholder="Enter Total Amount">
@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     makePayment() {
-      // Send form data to the server using axios or any other HTTP library
-      this.$http.post('/pay', {
+ 
+      this.$http.post('localhost:/8081/paypal/pay', {
         total: this.total,
         currency: this.currency,
         method: this.method,
@@ -64,13 +64,12 @@ export default {
         description: this.description
       })
       .then(response => {
-        // Handle the server response
         if (response.data.approvalUrl) {
           window.location.href = response.data.approvalUrl;
         }
       })
       .catch(error => {
-       
+        console.error('Error occurred:', error);
       });
     }
   }

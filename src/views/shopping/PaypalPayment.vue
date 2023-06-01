@@ -43,20 +43,39 @@ export default {
     };
   },
   methods: {
+    // submitPayment() {
+    //   axios.post('http://localhost:8081/paypal/pay', this.order)
+    //     .then(response => {
+    //       const approvalUrl = this.getApprovalUrl(response.data);
+    //       if (approvalUrl) {
+    //         window.location.href = approvalUrl;
+    //       } else {
+    //         console.error('Approval URL not found in the response.');
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.error('Payment request failed:', error);
+    //     });
+    // },
+
+
     submitPayment() {
-      axios.post('http://localhost:8081/paypal/pay', this.order)
+    axios.post('http://localhost:8081/paypal/pay', this.order)
         .then(response => {
-          const approvalUrl = this.getApprovalUrl(response.data);
-          if (approvalUrl) {
-            window.location.href = approvalUrl;
-          } else {
-            console.error('Approval URL not found in the response.');
-          }
+            const approvalUrl = this.getApprovalUrl(response.data);
+            if (approvalUrl) {
+                window.location.href = approvalUrl;
+            } else {
+                console.error('Approval URL not found in the response.');
+            }
         })
         .catch(error => {
-          console.error('Payment request failed:', error);
+            console.error('Payment request failed:', error);
         });
-    },
+},
+
+
+
     getApprovalUrl(paymentData) { 
       for (const link of paymentData.links) {
         if (link.rel === 'approval_url') {

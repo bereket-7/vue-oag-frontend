@@ -69,7 +69,7 @@ export default {
       formData.append('image', this.$refs.fileInput.files[0]);
 
       axios
-        .post('http://localhost:8081/event/saveEvent', formData)
+        .post('http://localhost:8081/events/saveEvent', formData)
         .then((response) => {
           console.log(response.data);
           this.$router.push('/signupSuccess');

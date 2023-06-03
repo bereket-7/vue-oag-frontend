@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <h1>Create Bid Art</h1>
+    <h1>Bid Art</h1>
     <form @submit="saveBidArt" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">Title:</label>
@@ -19,22 +19,26 @@
         <textarea id="description" v-model="description" placeholder="Enter a description" required></textarea>
       </div>
       <div class="form-group">
-        <label for="bidEndTime">Bid End Time:</label>
-        <input type="datetime-local" id="bidEndTime" v-model="bidEndTime" required />
-      </div>
-      <div class="form-group">
         <label for="startingTime">Starting Time:</label>
         <input type="datetime-local" id="startingTime" v-model="startingTime" required />
       </div>
+      <br>
+      <div class="form-group">
+        <label for="bidEndTime">Bid End Time:</label>
+        <input type="datetime-local" id="bidEndTime" v-model="bidEndTime" required />
+      </div>
+      <br>
       <div class="form-group">
         <label for="image">Image:</label>
         <input type="file" id="image" ref="fileInput" required />
       </div>
+      <br>
       <button type="submit">Submit</button>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
     </form>
   </div>
+  <br><br>
 </template>
   
 <script>
@@ -83,7 +87,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .form-container {
     max-width: 400px;
     margin: 0 auto;
@@ -91,15 +95,15 @@ export default {
     background-color: #f5f5f5;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
   }
-
   input[type="text"],
   input[type="number"],
   textarea,
   button[type="submit"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
     transition: border-color 0.3s ease;

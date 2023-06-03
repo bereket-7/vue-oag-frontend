@@ -14,7 +14,9 @@
         <p class="price">{{ artwork.price }}</p>
         <hr class="mx-n3">
         <button type="button" id="cart" class="btn btn-danger">Add to Cart</button>
+        <button type="button" id="cart" class="btn btn-success">Back to Shopping</button>
       </div>
+      
     </div>
   </div>
 </template>
@@ -39,6 +41,10 @@ export default {
 </script>
 
 <style scoped>
+
+.button{
+  margin-top: 10px;
+}
 .artwork-details {
   display: flex;
   align-items: center;
@@ -64,7 +70,7 @@ export default {
 }
 #cart {
   display: block;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 #cart:hover {
   background-color: rgb(196, 33, 4);

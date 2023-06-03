@@ -92,14 +92,6 @@ export default {
   .artwork-card p {
     margin-bottom: 10px;
   }
-
-  .fa-paint-brush,
-  .fa-cubes,
-  .fa-camera,
-  .fa-sculpture {
-    font-size: 24px;
-    margin-right: 5px;
-  }
 </style>
 
 

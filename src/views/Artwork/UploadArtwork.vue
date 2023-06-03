@@ -71,15 +71,6 @@
                 <div>Upload Artwork Photo file. Max file size 10 MB</div>
               </div>
             </div>
-
-            <!-- <div>
-              <div>
-                <h6 for="createDate">Date</h6>
-              </div>
-              <div>
-                <input type="text" placeholder="2023-10-05" id="eventDate" v-model="createDate" required />
-              </div>
-            </div> -->
     
             <hr class="mx-n3">
 

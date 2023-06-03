@@ -67,7 +67,6 @@ export default {
       formData.append('location', this.location);
       formData.append('eventDate', this.eventDate);
       formData.append('image', this.$refs.fileInput.files[0]);
-
       axios
         .post('http://localhost:8081/events/saveEvent', formData)
         .then((response) => {

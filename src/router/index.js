@@ -27,6 +27,11 @@ const routes = [
     component: () => import('../views/Manager/CreateCompetition.vue')
   },
   {
+    path: '/createBid',
+    name: 'CreateBid',
+    component: () => import('../views/Bidding/CreateBid.vue')
+  },
+  {
     path: '/registerCompetitor',
     name: 'RegisterCompetitor',
     component: () => import('../views/User/RegisterCompetitor.vue')

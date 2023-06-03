@@ -55,23 +55,51 @@ export default {
 };
 </script>
 
+<style>
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
 
-<style scoped>
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+  }
+  .artwork-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    margin-top: 20px;
+  }
 
-.btn-outline-secondary:hover {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
+  .artwork-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
 
-.fa-search {
-  margin-right: 10px;
-}
+  .artwork-card h3 {
+    margin-top: 0;
+  }
+
+  .artwork-card p {
+    margin-bottom: 10px;
+  }
+
+  .fa-paint-brush,
+  .fa-cubes,
+  .fa-camera,
+  .fa-sculpture {
+    font-size: 24px;
+    margin-right: 5px;
+  }
 </style>
 
 

@@ -130,11 +130,6 @@ const routes = [
     component: () => import('../views/Admin/UserList.vue')
   },
   {
-    path: '/managerPanel',
-    name: 'ManagerPanel',
-    component: () => import('../views/Manager/ManagerPanel.vue')
-  },
-  {
     path: '/showStandard',
     name: 'ShowStandard',
     component: () => import('../views/Manager/ShowStandards.vue')

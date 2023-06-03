@@ -62,8 +62,7 @@ export default {
   },
   methods: {
     fetchStandards() {
-      // Call API to get standards
-      axios.get('http://localhost:8081/standard/all')
+      axios.get('http://localhost:8081/standards')
         .then(response => {
           this.standards = response.data;
         })
@@ -82,11 +81,9 @@ export default {
       $('#deleteModal').modal('show');
     },
     confirmDelete() {
-      // Call API to delete standard
       axios.delete(`/api/standards/${this.deletedStandard.id}`)
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          // Remove deleted standard from list
           const index = this.standards.indexOf(this.deletedStandard);
           if (index !== -1) {
             this.standards.splice(index, 1);

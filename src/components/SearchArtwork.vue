@@ -1,49 +1,60 @@
 <template>
-    <div class="container">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control bg-light" placeholder="Search Artwork by name" 
-        v-model="searchTerm">
-        <button class="btn btn-outline-primary" type="button" @click="searchArtwork">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-      <div v-if="artworkResults.length > 0">
-        <h3>Search Results:</h3>
-        <ul>
-          <li v-for="result in artworkResults" :key="result.id">
-            {{ result.title }}
-          </li>
-        </ul>
-      </div>
-      <div v-else>
-        <p>No artwork found.</p>
+  <div>
+    <label for="category">Select Category:</label>
+    <select id="category" v-model="selectedCategory" @change="searchByCategory">
+      <option value="">All Categories</option>
+      <option value="Painting">Painting</option>
+      <option value="Mixed Media">Mixed Media</option>
+      <option value="Photography">Photography</option>
+      <option value="Sculpture">Sculpture</option>
+    </select>
+
+    <div v-if="isLoading">Loading...</div>
+
+    <div v-else>
+      <div v-for="artwork in artworks" :key="artwork.id">
+        <h3>{{ artwork.artworkName }}</h3>
+        <p>{{ artwork.artworkDescription }}</p>
+        <p>{{ artwork.price }}</p>
       </div>
     </div>
-  </template>
-
+  </div>
+</template>
 <script>
-import { ref } from 'vue';
+import axios from 'axios';
 
 export default {
-  name: 'ArtworkSearch',
-  setup() {
-    const searchTerm = ref('');
-    const artworkResults = ref([]);
-
-    const searchArtwork = async () => {
-      const response = await fetch(`https://api.example.com/artwork?q=${searchTerm.value}`);
-      const data = await response.json();
-      artworkResults.value = data.results;
-    };
-
+  name:'SearchArtwork',
+  data() {
     return {
-      searchTerm,
-      artworkResults,
-      searchArtwork,
+      artworks: [],
+      selectedCategory: '',
+      isLoading: false,
     };
+  },
+  methods: {
+    searchByCategory() {
+      this.isLoading = true;
+      let url = 'http://localhost:8081/artworks';
+      if (this.selectedCategory) {
+        url += '/category/' + this.selectedCategory;
+      }
+
+      axios
+        .get(url)
+        .then((response) => {
+          this.artworks = response.data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        });
+    },
   },
 };
 </script>
+
 
 <style scoped>
 .container {

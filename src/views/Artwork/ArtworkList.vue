@@ -11,6 +11,8 @@
         <button class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</button>
       </div>
     </div>
+
+    
     <!-- Modal -->
     <div v-if="selectedArtwork" class="modal-container">
       <div class="modal-content">

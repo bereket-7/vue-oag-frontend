@@ -108,7 +108,8 @@ export default {
       artworkName: '',
       price: 0,
       artworkDescription: '',
-      artworkCategory: ''
+      artworkCategory: '',
+      size: ''
     };
   },
   methods: {

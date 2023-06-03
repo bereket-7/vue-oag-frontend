@@ -114,12 +114,15 @@ export default {
   }
 
   button[type="submit"] {
-    background-color: #4caf50;
+    background-color: #57c05a;
     color: #fff;
     border: none;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background-color: #38913d;
   }
 
   .error-message {

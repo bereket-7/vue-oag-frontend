@@ -83,3 +83,16 @@
   };
   </script>
   
+  <style scoped>
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+</style>

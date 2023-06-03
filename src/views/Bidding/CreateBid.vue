@@ -31,6 +31,8 @@
           <input type="file" id="image" ref="fileInput" required />
         </div>
         <button type="submit">Submit</button>
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
       </form>
     </div>
   </template>
@@ -48,6 +50,8 @@
         description: '',
         bidEndTime: '',
         startingTime: '',
+        errorMessage: '',
+      successMessage: '',
       };
     },
     methods: {
@@ -63,12 +67,16 @@
         formData.append('image', this.$refs.fileInput.files[0]);
   
         axios
-          .post('http://localhost:8081/saveBidArt', formData)
+          .post('http://localhost:8081/bid/saveBidArt', formData)
           .then((response) => {
             console.log(response.data);
+            this.successMessage = response.data;
+            this.errorMessage = '';
           })
           .catch((error) => {
             console.error(error);
+            this.successMessage = '';
+          this.errorMessage = 'An error occurred while saving the bid art.';
           });
       },
     },

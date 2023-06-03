@@ -82,62 +82,53 @@ export default {
   },
 };
 </script>
-  
-<style scoped>
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
-}
 
-.success-message {
-  color: green;
-  font-weight: bold;
-  margin-top: 10px;
-}
+<style>
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-.form-container {
-  width: 400px;
-  margin: 0 auto;
-  background-color: #f5f5f5;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: border-color 0.3s ease;
+    font-family: Arial, sans-serif;
+  }
 
-input[type="text"],
-input[type="number"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  transition: border-color 0.3s ease;
-}
+  input[type="text"]:hover,
+  input[type="number"]:hover,
+  textarea:hover,
+  button[type="submit"]:hover {
+    border-color: #999;
+  }
 
-button[type="submit"] {
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
-}
+  button[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
 
-input[type="text"]:hover,
-input[type="number"]:hover,
-textarea:hover,
-button[type="submit"]:hover {
-  border-color: #999;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  .success-message {
+    color: green;
+    margin-top: 10px;
+  }
 </style>
 

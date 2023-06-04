@@ -52,6 +52,11 @@ const routes = [
     component: () => import('../views/shopping/WishList.vue')
   },
   {
+    path: '/myaccount',
+    name: 'myprofile',
+    component: () => import('../components/MyAccount.vue')
+  },
+  {
     path: '/payment',
     name: 'PaypalPayment',
     component: () => import('../views/shopping/PaypalPayment.vue')

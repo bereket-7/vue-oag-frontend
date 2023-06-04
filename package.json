@@ -12,6 +12,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "boxicons": "^2.1.4",
     "buffer": "^6.0.3",
     "carousel": "^0.0.3",
     "core-js": "^3.8.3",

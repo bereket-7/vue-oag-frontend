@@ -1,3 +1,23 @@
 <template>
-    <div><p><b>My Arts</b></p></div>
-</template>
+    <div>
+      <h2>Artworks</h2>
+      <ul>
+        <li v-for="artwork in artworks" :key="artwork.id">
+          <h3>{{ artwork.title }}</h3>
+          <p>{{ artwork.description }}</p>
+          <img :src="artwork.imageUrl" :alt="artwork.title" />
+        </li>
+      </ul>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        artworks: [],
+      };
+    },
+  };
+  </script>
+  

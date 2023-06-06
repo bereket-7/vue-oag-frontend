@@ -1,6 +1,6 @@
 <template>
 <div class="registration-form">
-  <form @submit="saveArtwork" enctype="multipart/form-data">
+  <form @submit.prevent="saveArtwork" enctype="multipart/form-data">
   <div>
     <div>
       <div>
@@ -71,20 +71,11 @@
                 <div>Upload Artwork Photo file. Max file size 10 MB</div>
               </div>
             </div>
-
-            <!-- <div>
-              <div>
-                <h6 for="createDate">Date</h6>
-              </div>
-              <div>
-                <input type="text" placeholder="2023-10-05" id="eventDate" v-model="createDate" required />
-              </div>
-            </div> -->
     
             <hr class="mx-n3">
 
             <div>
-              <button type="submit">Submit Artwork</button>
+              <button type="submit" @click="openPopup()">Submit Artwork</button>
             </div>
 
           </div>
@@ -94,25 +85,44 @@
     </div>
   </div>
 </form>
+</div>
 
+<div>
+  <div class="container">
+<div class="popup" id="popup">
+    <img src="tick.png" alt="tick">
+    <h2>Thank You</h2>
+    <p>You have Successfully submitted your Artwork for approval.</p>
+    <button type="button" @click="closePopup()">OK</button>
+</div>
+    </div> 
 </div>
 </template>
 
-
 <script>  
 import axios from 'axios';
- export default {
+
+export default {
   data() {
     return {
       artworkName: '',
       price: 0,
       artworkDescription: '',
-      artworkCategory: ''
+      artworkCategory: '',
+      size: ''
     };
   },
   methods: {
-    saveArtwork(artwork) {
-      artwork.preventDefault();
+    openPopup() {
+      let popup = document.getElementById("popup");
+      popup.classList.add("open-popup");
+      this.resetForm();
+    },
+    closePopup() {
+      let popup = document.getElementById("popup");
+      popup.classList.remove("open-popup");
+    },
+    saveArtwork() {
       const formData = new FormData();
       formData.append('artworkName', this.artworkName);
       formData.append('price', this.price);
@@ -123,18 +133,26 @@ import axios from 'axios';
 
       axios
         .post('http://localhost:8081/artworks/saveArtwork', formData)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push('/signupSuccess');
+        .then(() => {
+          this.openPopup();
         })
         .catch((error) => {
           console.error(error);
           this.errorMessage = 'An error occurred while uploading artwork.';
         });
     },
+    resetForm() {
+      this.artworkName = '';
+      this.price = 0;
+      this.artworkDescription = '';
+      this.artworkCategory = '';
+      this.size = '';
+    },
   },
-    };
+};
 </script>
+
+
   
 
 
@@ -213,5 +231,59 @@ import axios from 'axios';
 .card:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+.container{
+    width: 100%;
+    height:100%;
+    background: #3c5077;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup{
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color:#333 ;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+.open-popup{
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1) ;
+}
+.popup img{
+    width: 100px;
+    margin-top: -50%;
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+  
+}
+
+.popup button{
+    width: 100px;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius:4px  ;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
 </style>

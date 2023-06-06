@@ -1,80 +1,113 @@
 <template>
-  <div class="payment">
-    <form method="post" @submit.prevent="submitPayment">
-      <div class="payment__card-container">
-        <h2 class="payment__title">Payment Details</h2>
-        <div class="payment__card-icons">
-          <i class="fab fa-cc-visa"></i>
-          <i class="fab fa-cc-mastercard"></i>
-          <i class="fab fa-cc-discover"></i>
-          <i class="fab fa-cc-amex"></i>
-        </div>
-        <div class="payment__card-details">
-          <div class="payment__card-details-input">
-            <label for="cardNumber">Card Number</label>
-            <input type="text" id="cardNumber" v-model="paymentData.cardNumber" required>
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form @submit.prevent="makePayment">
+          <div class="col-50">
+            <h3>Payment</h3>
+            <label>Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa-brands fa-cc-visa" style="color:navy;"></i>
+              <i class="fa-brands fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa-brands fa-cc-discover" style="color:orange;"></i>
+              <i class="fa-brands fa-cc-amex" style="color:blue;"></i>
+            </div>
+            <label for="price">Total</label>
+            <input v-model="total" type="text" id="price" name="price" placeholder="Enter Total Amount">
+            <label for="currency">Currency</label>
+            <input v-model="currency" type="text" id="currency" name="currency" placeholder="Enter Currency">
+            <label for="method">Payment Method</label>
+            <input v-model="method" type="text" id="method" name="method" placeholder="Payment Method">
+            <label for="intent">Intent</label>
+            <input v-model="intent" type="text" id="intent" name="intent" placeholder="Payment Intent">
+            <label for="description">Payment Description</label>
+            <input v-model="description" type="text" id="description" name="description" placeholder="Payment Description">
           </div>
-          <div class="payment__card-details-input">
-            <label for="expiration">Expiration Date</label>
-            <input type="text" id="expiration" v-model="paymentData.expiration" required>
-          </div>
-          <div class="payment__card-details-input">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" v-model="paymentData.cvv" required>
-          </div>
-        </div>
+          <input type="submit" value="Continue to checkout" class="btn">
+        </form>
       </div>
-      <div class="payment__amount-container">
-        <h2 class="payment__title">Amount</h2>
-        <div class="payment__amount-input">
-          <label for="amount">Total Amount</label>
-          <input type="text" id="amount" v-model="paymentData.amount" required>
-        </div>
+    </div>
+    <div class="col-25">
+      <div class="container">
+        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+        <p><a href="#">Product 1</a> <span class="price">$1</span></p>
+        <p><a href="#">Product 2</a> <span class="price">$4</span></p>
+        <p><a href="#">Product 3</a> <span class="price">$3</span></p>
+        <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+        <hr>
+        <p>Total <span class="price" style="color:black"><b>{{ total }}</b></span></p>
       </div>
-      <div class="payment__buttons">
-        <button type="submit" class="payment__submit-btn">Pay Now</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
+
 export default {
-  name:'PaypalPayment',
   data() {
     return {
-      payment: {
-        price: '10',
-        currency: '',
-        method: '',
-        intent: 'sale',
-        description: ''
-      }
-    }
+      total: '',
+      currency: '',
+      method: '',
+      intent: '',
+      description: ''
+    };
   },
   methods: {
-    submitPayment() {
-      // Add your API call or other logic to handle the form submission
+    makePayment() {
+      axios
+      .post('localhost:/8081/paypal/pay', {
+        total: this.total,
+        currency: this.currency,
+        method: this.method,
+        intent: this.intent,
+        description: this.description
+      })
+      .then(response => {
+        if (response.data.approvalUrl) {
+          window.location.href = response.data.approvalUrl;
+        }
+      })
+      .catch(error => {
+        console.error('Error occurred:', error);
+      });
     }
   }
-}
+};
 </script>
 
 
+
+
+
 <style scoped>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
 
 .col-25 {
-  -ms-flex: 25%; /* IE10 */
   flex: 25%;
 }
 
 .col-50 {
-  -ms-flex: 50%; /* IE10 */
   flex: 50%;
 }
 
 .col-75 {
-  -ms-flex: 75%; /* IE10 */
   flex: 75%;
 }
 
@@ -91,7 +124,7 @@ export default {
   border-radius: 3px;
 }
 
-input[type=text] {
+input[type="text"] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -139,7 +172,6 @@ span.price {
   color: grey;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
   .row {
     flex-direction: column-reverse;
@@ -148,5 +180,4 @@ span.price {
     margin-bottom: 20px;
   }
 }
-
 </style>

@@ -27,6 +27,11 @@ const routes = [
     component: () => import('../views/Manager/CreateCompetition.vue')
   },
   {
+    path: '/createBid',
+    name: 'CreateBid',
+    component: () => import('../views/Bidding/CreateBid.vue')
+  },
+  {
     path: '/registerCompetitor',
     name: 'RegisterCompetitor',
     component: () => import('../views/User/RegisterCompetitor.vue')
@@ -45,6 +50,11 @@ const routes = [
     path: '/wishlist',
     name: 'WishList',
     component: () => import('../views/shopping/WishList.vue')
+  },
+  {
+    path: '/myaccount',
+    name: 'myprofile',
+    component: () => import('../components/MyAccount.vue')
   },
   {
     path: '/payment',
@@ -81,11 +91,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/AboutUs.vue')
   },
   {
+    path: '/searchByCategory',
+    name: 'SearchArtwork',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchArtwork.vue')
+  },
+  {
     path: '/notFound',
     name: 'NotFound',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/NotFound.vue')
   },
   {
@@ -108,15 +120,26 @@ const routes = [
     name: 'VoteForArtwork',
     component: () => import('../views/Artwork/VoteForArtwork.vue')
   },
+
+  {
+    path: '/paypal',
+    name: 'PaypalPayment',
+    component: () => import('../views/shopping/PaypalPayment.vue')
+  },
+  {
+    path: '/success',
+    name: 'PaypalSuccess',
+    component: () => import('../views/shopping/PaypalSuccess.vue')
+  },
+  {
+    path: '/cancel',
+    name: 'PaypalFail',
+    component: () => import('../views/shopping/PaypalFail.vue')
+  },
   {
     path: '/userList',
     name: 'UserList',
     component: () => import('../views/Admin/UserList.vue')
-  },
-  {
-    path: '/managerPanel',
-    name: 'ManagerPanel',
-    component: () => import('../views/Manager/ManagerPanel.vue')
   },
   {
     path: '/showStandard',
@@ -138,6 +161,7 @@ const routes = [
     name: 'SubmitReport',
     component: () => import('../views/User/SubmitReport.vue')
   },
+
   {
     path: '/userReport',
     name: 'UserReport',
@@ -202,7 +226,7 @@ const routes = [
     name: 'UserHeader',
     component: () => import('../views/User/UserHeader.vue')
   },
-  
+
 
 
 ]

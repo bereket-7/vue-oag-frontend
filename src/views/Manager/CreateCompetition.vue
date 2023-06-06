@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
-    <h1>Add Competition</h1>
     <form @submit.prevent="addCompetition" class="form">
+      <h1>Add Competition</h1>
       <label for="title">Title:</label>
       <input type="text" id="title" v-model="competition.competitionTitle" required><br><br>
 

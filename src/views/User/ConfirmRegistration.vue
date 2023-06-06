@@ -5,8 +5,8 @@
         <h1>Activate Account</h1>
         <div v-if="!confirmed">
           <p>Please enter the confirmation code you received via email:</p>
-          <form>
-            <input v-model="confirmationCode" type="text" placeholder="Confirmation Code">
+          <form class="form-input">
+            <input v-model="confirmationCode" type="text" placeholder="Confirmation Code" class="input">
             <button class="button" @click="confirmRegistration">Activate</button>
           </form>
         </div>
@@ -44,11 +44,9 @@
         axios
           .post(apiUrl, requestData)
           .then(() => {
-            // successfull msg
             this.confirmed = true;
           })
           .catch((error) => {
-            // Error 
             this.error = error.response.data.message;
           });
       },
@@ -67,6 +65,7 @@
   background-size: cover;
   background-position: center center;
 }
+
 .container {
     display: flex;
   flex-direction: column;
@@ -91,15 +90,32 @@
   background-color: #fff;
 }
 .button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  background-color: #08d;
+  padding: 10px 60px;
+  border-radius: 12px;
+  border: 0;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+  outline: 0;
+  text-align: center;
+  
 }
 
+.input{
+  background-color: #303245;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+ 
 .button:hover {
   background-color: #45a049;
 }
@@ -109,11 +125,6 @@
     max-width: 300px;
   }
 
-  .button {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-  }
 }
 </style>
 
@@ -162,12 +173,10 @@ border: none;
 border-bottom: 2px solid #ccc;
 background-color: transparent;
 }
-
 .forgot-password__input:focus {
 outline: none;
 border-bottom-color: #4caf50;
 }
-
 .forgot-password__input-underline {
 position: absolute;
 bottom: 0;
@@ -181,7 +190,6 @@ transition: width 0.3s;
 .forgot-password__input:focus + .forgot-password__input-underline {
 width: 100%;
 }
-
 .forgot-password__button {
 background-color: #4caf50;
 color: white;
@@ -191,16 +199,12 @@ border-radius: 0.5rem;
 cursor: pointer;
 transition: background-color 0.3s;
 }
-
 .forgot-password__button:hover {
 background-color: #3e8e41;
 }
-
 @media screen and (max-width: 768px) {
 .forgot-password__form {
   width: 90%;
 }
 }
-
-/* Add your styles here */
 </style>

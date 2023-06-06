@@ -32,7 +32,7 @@
     methods: {
       async fetchEvents() {
         try {
-          const response = await axios.get('http://localhost:8081/event/pending');
+          const response = await axios.get('http://localhost:8081/events/pending');
           this.events = response.data;
         } catch (error) {
           console.error(error);

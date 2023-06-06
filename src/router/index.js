@@ -12,6 +12,11 @@ const routes = [
     component: () => import('../views/Organization/EventRegister.vue')
   },
   {
+    path: '/updateEvent',
+    name: 'updateEvent',
+    component: () => import('../views/Organization/UpdateEvent.vue')
+  },
+  {
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue')

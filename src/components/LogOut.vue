@@ -28,7 +28,6 @@
         this.showDialog = false;
       },
       logout() {
-        // Perform logout operation here
         this.hideConfirmationDialog();
       }
     }

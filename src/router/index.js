@@ -12,6 +12,11 @@ const routes = [
     component: () => import('../views/Organization/EventRegister.vue')
   },
   {
+    path: '/updateEvent',
+    name: 'updateEvent',
+    component: () => import('../views/Organization/UpdateEvent.vue')
+  },
+  {
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue')
@@ -55,11 +60,6 @@ const routes = [
     path: '/myaccount',
     name: 'myprofile',
     component: () => import('../components/MyAccount.vue')
-  },
-  {
-    path: '/payment',
-    name: 'PaypalPayment',
-    component: () => import('../views/shopping/PaypalPayment.vue')
   },
   {
     path: '/signupSuccess',

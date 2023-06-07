@@ -4,7 +4,7 @@
       <ul>
         <li v-for="artwork in artworks" :key="artwork.id">
           <h3>{{ artwork.title }}</h3>
-          <p>{{ artwork.description }}</p>
+          <b><p>{{ artwork.description }}</p></b>
           <img :src="artwork.imageUrl" :alt="artwork.title" />
         </li>
       </ul>

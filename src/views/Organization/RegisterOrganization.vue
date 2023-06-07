@@ -11,11 +11,10 @@
       <label>Email</label>
       <input type="email" v-model="email" required />
       <span v-if="errors.email" class="error">{{ errors.email }}</span>
-      <label>Phone:</label>
+      <label>Phone</label>
       <input type="tel" v-model="phone" required />
       <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
-      <label>Address</label>
-      <input type="text" v-model="address" required />
+      <input type="text" v-model="address" placeholder="Address" required />
       <label>Password</label>
       <input type="password" v-model="password" required />
       <span v-if="errors.password" class="error">{{ errors.password }}</span>
@@ -67,18 +66,14 @@ export default {
       }
     },
     registerOrganization() {
-      // Clear errors
       this.errors = {};
-      // Validate form inputs
       if (!this.validateForm()) {
         return;
       }
-      // Send registration data to API endpoint
       this.register();
     },
     validateForm() {
       this.errors = {};
-      //const ethiopiaCode = '+251';
       if (!this.email) {
         this.errors.email = 'Email is required.';
       }else if (!this.validEmail(this.email)) {
@@ -109,11 +104,9 @@ export default {
         return false;
       }
 
-      // Return true if there are no errors
       return Object.keys(this.errors).length === 0;
     },
     validEmail(email) {
-  // Regular expression for email validation
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailRegex.test(String(email).toLowerCase());
 }
@@ -123,7 +116,6 @@ export default {
 </script>
 
 <style scoped>
-  /* Form container */
   .form-container {
     max-width: 500px;
     margin: 0 auto;
@@ -133,7 +125,6 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
-  /* Form inputs */
   input[type="text"],
   input[type="tel"],
   input[type="email"],
@@ -152,7 +143,6 @@ export default {
     color:#3498db;
 
   }
-  /* Form button */
   button[type="submit"] {
     display: block;
     width: 100%;
@@ -169,13 +159,12 @@ export default {
     background-color: #2980b9;
   }
 
-  /* Form label */
   label {
     display: block;
     font-weight: bold;
     margin-bottom: 10px;
   }
-  /* Media queries for responsiveness */
+
   @media screen and (max-width: 600px) {
     .form-container {
       max-width: 100%;

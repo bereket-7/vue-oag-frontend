@@ -18,10 +18,10 @@
           </ul>
         </li>
       <li class="nav-item">
-          <router-link to="/contactUs">contact Us</router-link>
-        </li>
-      <li class="nav-item">
           <router-link to="/about">About</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/contactUs">Contact Us</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/FAQs">FAQ</router-link>
@@ -40,7 +40,7 @@
   left: 0;
   width: 100%;
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
   transition: background-color 0.3s ease;

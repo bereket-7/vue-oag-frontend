@@ -1,20 +1,35 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar navbar-expand-lg">
+    <router-link to="/"> <img src="@/assets/img/Kelem.png" alt="Logo" width="90" height="70"></router-link>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="main collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-list">
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Signup</a></li>
-      <li>
-        <a href="#">Art Category</a>
-        <ul class="dropdown">
-          <li><a href="#">Painting</a></li>
-          <li><a href="#">Sculpture</a></li>
-          <li><a href="#">Mixed Media</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">FAQ</a></li>
+
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu">
+              <li class="dropdown-item"><router-link to="/artworks"> Paintings</router-link></li>
+              <li class="dropdown-item"><router-link to="/artworks">Drawings</router-link></li>
+              <li class="dropdown-item"><router-link to="/artworks">Sculptures</router-link></li>
+          </ul>
+        </li>
+      <li class="nav-item">
+          <router-link to="/contactUs">contact Us</router-link>
+        </li>
+      <li class="nav-item">
+          <router-link to="/about">About</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/FAQs">FAQ</router-link>
+        </li>
+        <li class="nav-item"><router-link to="/userlogin">Login</router-link></li>
+        <li class="nav-item"><router-link to="/register">Sign up</router-link></li>
     </ul>
+    </div>
   </nav>
 </template>
 

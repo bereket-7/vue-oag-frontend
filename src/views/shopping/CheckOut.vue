@@ -33,7 +33,6 @@
             <label for="state" class="form-label">State</label>
             <select id="state" class="form-select" v-model="state">
               <option value="AL">Ethiopia</option>
-              <!-- add more options here -->
             </select>
           </div>
           <div class="col-md-2">

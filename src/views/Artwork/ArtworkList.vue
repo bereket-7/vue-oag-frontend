@@ -13,7 +13,6 @@
     </div>
 
     
-    <!-- Modal -->
     <div v-if="selectedArtwork" class="modal-container">
       <div class="modal-content">
         <div class="modal-header">

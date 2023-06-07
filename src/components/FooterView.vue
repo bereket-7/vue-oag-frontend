@@ -8,7 +8,7 @@
             <li><router-link to="/" >Home</router-link></li>
             <li><router-link to="/about" >About</router-link></li>
             <li><router-link to="/contactUs" >Contact Us</router-link></li>
-            <li><router-link to="/userlogin" >Sign Up</router-link></li>
+            <li><router-link to="/register" >Sign Up</router-link></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -23,10 +23,9 @@
         <div class="footer-col">
           <h4>Others</h4>
           <ul>
-            <li><router-link to="/FAQs" >User FAQs</router-link></li>
-            <li><router-link to="" >Legal</router-link></li>
-            <li><router-link to="" >Privacy Policy</router-link></li>
-            <li><router-link to="" >Terms and Conditions</router-link></li>
+            <li><router-link to="/FAQs">FAQs</router-link></li>
+            <li><router-link to="/standards">Privacy Policy</router-link></li>
+            <li><router-link to="/standards">Terms and Conditions</router-link></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -140,7 +139,6 @@ ul{
 	background-color: #ffffff;
 }
 
-/*responsive*/
 @media(max-width: 767px){
   .footer-col{
     width: 50%;

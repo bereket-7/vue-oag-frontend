@@ -128,7 +128,7 @@ export default {
 }
 
 .event-description {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 @media (max-width: 768px) {

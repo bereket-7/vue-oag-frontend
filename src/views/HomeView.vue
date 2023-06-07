@@ -12,7 +12,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 
 import FAQs from '@/views/User/FAQs.vue'
 import SearchArtwork from '@/components/SearchArtwork.vue'

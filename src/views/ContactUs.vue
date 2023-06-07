@@ -4,8 +4,6 @@
       <br><br>
   
     <h2>Contact</h2>
-  
-  
   <div class="row gy-4">
   
     <div class="col-lg-6">

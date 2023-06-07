@@ -8,7 +8,7 @@
             <li><router-link to="/" >Home</router-link></li>
             <li><router-link to="/about" >About</router-link></li>
             <li><router-link to="/contactUs" >Contact Us</router-link></li>
-            <li><router-link to="/" >Sign Up</router-link></li>
+            <li><router-link to="/userlogin" >Sign Up</router-link></li>
           </ul>
         </div>
         <div class="footer-col">

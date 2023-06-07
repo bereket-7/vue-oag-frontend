@@ -27,7 +27,7 @@
 
             <label for="eventDate">Event Date</label>
             <input type="text" placeholder="2023-10-05" id="eventDate" v-model="eventDate" required />
-  
+            <br><br>
             <button @click="updateEvent">Update</button>
           </div>
         </div>

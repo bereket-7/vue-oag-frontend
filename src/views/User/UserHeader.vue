@@ -21,6 +21,7 @@
         <li class="nav-item"><router-link to="/userlogin">Login</router-link></li>
         <li class="nav-item"><router-link to="/register">Sign up</router-link></li>
     </ul>
+      <router-link to="/cart" class="shopping-cart-icon"><i class="fas fa-shopping-cart"></i></router-link>
     </div>
   </nav>
 </template>
@@ -53,9 +54,13 @@
   margin-right: auto;
 }
 
+
 .navbar-brand img {
+  max-width: 100%;
+  height: auto;
   transition: opacity 0.3s ease;
 }
+
 
 .navbar-brand:hover img {
   opacity: 0.8; 
@@ -118,7 +123,11 @@
   order: 2;
   flex-grow: 1;
 }
-
+.shopping-cart-icon {
+  font-size: 2rem;
+  color: #04bb23;
+  margin-left: 20px;
+}
 @media (max-width: 768px) {
   .navbar-brand {
     position: absolute;
@@ -148,6 +157,9 @@
 
   .dropdown li {
     margin: 0;
+  }
+  .shopping-cart-icon {
+    font-size: 1.8rem;
   }
 }
 </style>

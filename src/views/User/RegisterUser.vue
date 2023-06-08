@@ -66,7 +66,9 @@
   </form>
   </div>
 
+
   <div class="animation-container">
+    <p class="animation-text">Kelem Online Art Gallery</p>
       <div class="swatch">
         <div></div>
         <div></div>
@@ -75,7 +77,6 @@
         <div></div>
         <div></div>
       </div>
-      <p class="animation-text">Welcome to Kelem Online Art Gallery</p>
     </div>
   </div>
   <FooterView />
@@ -204,13 +205,13 @@ export default {
 <style scoped>
 .animation-text {
   bottom: -50px;
-  left: 50%;
   transform: translateX(-50%);
   font-size: 35px;
   font-weight: bold;
   color: #067915;
   margin-top:30px;
 }
+
 .swatch {
   display: block;
   text-align: center;

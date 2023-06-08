@@ -63,13 +63,10 @@
     <p v-if="passwordError">{{ passwordError }}</p>
     <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     <button type="submit">submit</button>
-    <br>
   </form>
-  <br><br>
-    </div>
+  </div>
 
-
-    <div class="animation-container">
+  <div class="animation-container">
       <div class="swatch">
         <div></div>
         <div></div>
@@ -78,6 +75,7 @@
         <div></div>
         <div></div>
       </div>
+      <p class="animation-text">Welcome to Kelem Online Art Gallery</p>
     </div>
   </div>
   <FooterView />
@@ -203,15 +201,15 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .animation-text {
-  position: absolute;
-  bottom: -40px;
+  bottom: -50px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 25px;
+  font-size: 35px;
   font-weight: bold;
+  color: #067915;
+  margin-top:30px;
 }
 .swatch {
   display: block;
@@ -222,14 +220,14 @@ export default {
 
 .swatch div {
   width: 90px;
-  height: 225px;
+  height: 400px;
   position: absolute;
   top: 0px;
   border-radius: 5px;
   border-top: solid 2px rgba(0, 0, 0, .2);
   border-left: solid 3px rgba(255, 255, 255, .2);
   border-bottom: solid 3px rgba(0, 0, 0, .2);
-  text-align: center;
+  text-align:center;
   box-sizing: border-box;
   transform-origin: center 90%;
   display: inline-block;
@@ -396,6 +394,7 @@ form>div {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
   margin-right: 20px;
+  margin-top: 25px;
 }
 .animation-container {
   flex: 1;

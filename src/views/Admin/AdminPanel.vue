@@ -5,17 +5,15 @@
       <DashboardView/>
         <router-view/>
     </div>
-    <AdminFooter></AdminFooter>
   </div>
 </template>
 
 <script>
 import HeaderView from '@/components/HeaderView.vue';
 import DashboardView from '@/views/DashboardView.vue'
-import AdminFooter from '@/components/AdminFooter.vue';
 export default {
   components:{
-    HeaderView, AdminFooter,DashboardView
+    HeaderView,DashboardView
   }
 }
 </script>

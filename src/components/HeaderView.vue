@@ -11,17 +11,6 @@
 			</div>
             <div class="menu-name">
                 <h2>Bereket Getachew</h2>
-                <div class="menu-name-social-icons">
-                    <a href="">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-                </div>
             </div>
             <div class="menu-list">
                 <ul>
@@ -48,10 +37,10 @@
                         <i class="fa fa-star" style="color:darkorange"></i> <h5>Popular Artist</h5>
                     </li>
                     <li class="menu-list-item-2">
-                        <i class="fa-solid fa-circle-user" style="color:green"></i><h5>Accounts</h5>
+                        <i class="fa-solid fa-circle-user" style="color:green"></i><h5>My Account</h5>
                     </li>
                     <li class="menu-list-item-2">
-                        <i class="fa-solid fa-building-ngo" style="color:blue"></i><h5>Ogranizations</h5>
+                        <i class="fa-solid fa-building-ngo" style="color:#3498db"></i><h5>Ogranizations</h5>
                     </li>
 
                 </ul>
@@ -90,7 +79,7 @@
             </div>
             <div class="sidebar-list-item">
                 <router-link to="/">
-                    <i class="fa fa-download" style="color:azure"></i>
+                    <i class="fa fa-download" style="color:#3498db"></i>
                     <span class="tooltip">Requests</span>
                 </router-link>
             </div>
@@ -102,7 +91,7 @@
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-star" style="color:azure"></i>
+                    <i class="fa fa-star" style="color:#3498db"></i>
                     <span class="tooltip"></span>
                 </a>
             </div>

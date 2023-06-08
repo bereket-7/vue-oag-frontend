@@ -49,127 +49,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
+                        <tbody>    
+
                             <tr>
                                 <td>
                                     Bereket 
@@ -205,6 +86,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="cards">
             <div class="card">
                 <div class="icon">
@@ -225,6 +109,8 @@
                 <div class="num">200</div>
             </div>
         </div>
+
+
     </div>
 </template>
 

@@ -1,12 +1,5 @@
 <template>
     <div class="sidebar">
-<!-- 
-        <div class="nav">
-            <div class="nav-mobile">
-                <i class="fa-solid fa-bars" @click="showMenu = !showMenu"></i>  
-            </div>
-        </div> -->
-
         <div class="menu" v-show="showMenu" id="menu">
             <div class="menu-logo">
 				<img src="../assets/img/bekam.jpg" alt="">

@@ -430,7 +430,7 @@ button {
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: #3498db;
   color: #fff;
   cursor: pointer;
 }

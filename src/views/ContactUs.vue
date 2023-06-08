@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-12 text-center">
               <div class="error-message"></div>
-              <button type="submit" class="btn btn-success">Send Message</button>
+              <button type="submit" class="btn btn-primary">Send Message</button>
             </div>
           </div>
         </form>

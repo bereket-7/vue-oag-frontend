@@ -122,7 +122,7 @@
 
 .shopping-cart-icon {
   font-size: 2rem;
-  color: #04bb23;
+  color: #047404;
   margin-left: 20px;
 }
 

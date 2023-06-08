@@ -5,7 +5,7 @@
         <img :src="require('@/assets/img/three.jpg')" class="img-fluid rounded" alt="Our Team">
       </div>
       <div class="col-md-6 my-4 my-md-0">
-        <h1><b class="text-primary">About</b></h1>
+        <h1><b>About</b></h1>
         <p>Welcome to Kelem Online Art Gallery, an exquisite treasure trove where creativity, diversity, 
           and passion intertwine to bring you an exceptional array of artistic wonders. 
           Our mission is to champion the works of talented artists from around the world, 

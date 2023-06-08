@@ -4,7 +4,7 @@
         <i class="fa fa-star"></i>
       </span>
     </div>
-  </template>
+</template>
 
 <script>
 export default {
@@ -17,7 +17,6 @@ export default {
   methods: {
     select(index) {
       this.selected = index;
-      // Call the API to save the rating
       fetch('https://your-api-url.com/rate-artwork', {
         method: 'POST',
         body: JSON.stringify({ rating: index }),

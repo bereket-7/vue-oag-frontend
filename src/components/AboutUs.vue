@@ -34,8 +34,9 @@ export default {
 <style scoped> 
 p {
   text-align: justify;
-  font-weight: 600;
-  font-family: 'Times New Roman', serif;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .container {

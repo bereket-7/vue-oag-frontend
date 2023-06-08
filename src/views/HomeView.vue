@@ -20,7 +20,6 @@ export default {
   components: {
     FooterView,
     CardSlider,
-    ArtworkCategory,
     SearchArtwork,
     FAQs,
   },

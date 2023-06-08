@@ -3,9 +3,9 @@
         <div class="card-icon">
             <div class="card-icon-body">
                 <div class="card-icon-i">
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa fa-user "></i>
                 </div>
-                <h3>Add User</h3>
+                <h3>Register Organization</h3>
             </div>
         </div>
         <div class="card-icon">
@@ -24,14 +24,9 @@
                 <h3>Send Message</h3>
             </div>
         </div>
-        <div class="card-icon">
-            <div class="card-icon-body">
-                <div class="card-icon-i">
-                    <i class="fa fa-star"></i>
-                </div>
-                <h3>Request</h3>
-            </div>
-        </div>
+
+
+
         <div class="table">
             <div class="table-head">
                 <h3>Table</h3>
@@ -49,127 +44,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bereket 
-                                </td>
-                                <td>
-                                    Getachew 
-                                </td>
-                                <td>
-                                    Bereket@gmail.com 
-                                </td>
-                                <td>
-                                    0942550858
-                                </td>
-                                <td>
-                                    Manager 
-                                </td>
-                                <td>
-                                   <div class="btn-group">
-                                        <a href="" title="View">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="" title="Delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                   </div>
-                                </td>
-                            </tr>
+                        <tbody>    
+
                             <tr>
                                 <td>
                                     Bereket 
@@ -205,14 +81,17 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="cards">
             <div class="card">
                 <div class="icon">
                     <h3>Customers</h3>
                 </div>
-                <div class="num">1000</div>
+                <div class="num">100</div>
             </div>
-            <div class="card">
+            <div class="card" style="color:#3498db">
                 <div class="icon">
                     <h3>Managers</h3>
                 </div>
@@ -225,6 +104,8 @@
                 <div class="num">200</div>
             </div>
         </div>
+
+
     </div>
 </template>
 
@@ -379,7 +260,7 @@ export default {
     box-shadow: 0 3px 10px rgba(62,85,120,.045);
     margin: 0 8px 10px;
     position: relative;
-    background-color:darkblue;
+    background-color:rgb(5, 138, 104);
     height: 94px;
     padding: 20px;
 }

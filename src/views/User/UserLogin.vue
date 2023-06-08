@@ -10,13 +10,13 @@
         <input v-model="password" type="password" placeholder="Password" class="login__input" />
         <div class="login__input-underline"></div>
       </div>
-      <div class="login__input-container">
+      <!-- <div class="login__input-container">
         <select v-model="role" class="login__input">
           <option value="admin">ARTIST</option>
           <option value="user">CUSTOMER</option>
         </select>
         <div class="login__input-underline"></div>
-      </div>
+      </div> -->
       <button type="submit" class="login__button">Log In</button>
       <router-link to="/forgotPassword" class="login__forgot-password">Forgot Password?</router-link>
     </form>
@@ -49,9 +49,9 @@ export default {
           password: this.password,
           role: this.role
         });
-        console.log(response.data); // do something with the response data
+        console.log(response.data);
       } catch (error) {
-        console.log(error); // handle the error
+        console.log(error); 
       }
     }
   }
@@ -66,7 +66,7 @@ export default {
   align-items: center;
   height: 110vh;
   background-color: #f5f5f5;
-  background-image: url("~@/assets/img/background.jpg");
+  /* background-image: url("~@/assets/img/background.jpg"); */
   background-size: cover;
   background-position: center center;
 }
@@ -86,18 +86,18 @@ export default {
 
 .login__title {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #333;
+  margin-bottom: 1.5rem;
+  color: #0a87ee;
 }
 
 .login__input-container {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.1rem;
 }
 
 .login__input {
   width: 100%;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   font-size: 1.2rem;
   border: none;
   border-bottom: 2px solid #ccc;
@@ -109,7 +109,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 4px;
   background-color: #3498db;
   transition: width 0.2s ease-in-out;
 }

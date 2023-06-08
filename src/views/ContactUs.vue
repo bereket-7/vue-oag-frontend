@@ -1,7 +1,7 @@
 <template>
   <div class="container" data-aos="fade-up">
     <br><br>
-    <h2>Contact</h2>
+    <h2>Contact Us</h2>
     <div class="row gy-4">
       <div class="col-lg-6">
         <form action="forms/contact.php" method="post" class="php-email-form">
@@ -74,10 +74,11 @@
 </template>
 
 <script>
+import FooterView from "@/components/FooterView.vue"
 export default {
   name: 'ContactUs',
   components: {
-    
+    FooterView
   }
 }
 </script>

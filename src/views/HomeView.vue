@@ -2,26 +2,20 @@
   <UserHeader/>
   <CardSlider/>
   <ArtworkCategory/>
-  <FAQs/>
-
-  <SearchArtwork/>
 
   <FooterView/>
 </template>
 
 <script>
-
-import FAQs from '@/views/User/FAQs.vue'
-import SearchArtwork from '@/components/SearchArtwork.vue'
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
+import ArtworkCategory from '@/components/ArtworkCategory.vue';
 export default {
   name: 'HomeView',
   components: {
     FooterView,
     CardSlider,
-    SearchArtwork,
-    FAQs,
+    ArtworkCategory
   },
 }
 </script>

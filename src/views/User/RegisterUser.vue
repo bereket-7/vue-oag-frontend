@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <div class="container">
+    <div class="form-container">
+
+      <form @submit.prevent="submitForm">
     <div>
       <br>
       <input type="text" id="firstname" placeholder="First Name" v-model="firstname" required>
@@ -26,7 +29,6 @@
       <span v-if="errors.age" class="error">{{ errors.age }}</span>
     </div>
 
-
     <div class="col-md-6 mb-4">
       <div class="form-check form-check-inline">
         <input v-model="sex" class="form-check-input" type="radio" name="sex" id="female" value="female" checked />
@@ -39,13 +41,6 @@
       </div>
       <span v-if="errors.sex" class="error">{{ errors.sex }}</span>
     </div>
-    <!--
-      <div>
-      <label for="password">Profile Photo</label>
-      <input name="image" accept="image/png, image/jpeg" type="file" id="image"  placeholder="Upload photo" @change="onFileChange" required>
-      <span v-if="errors.image" class="error">{{ errors.image }}</span>
-    </div>
--->
     <div>
       <label for="roles">Select Role</label>
       <select v-model="roles" class="form-select" id="role" required>
@@ -71,6 +66,19 @@
     <button type="submit">submit</button>
     <br>
   </form>
+    </div>
+    <div class="animation-container">
+      <div class="swatch">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <!-- <img :src="require('@/assets/img/three.jpg')" alt="Your Image" class="animated-image"> -->
+    </div>
+  </div>
   <FooterView />
 </template>
 
@@ -195,21 +203,209 @@ export default {
 </script>
 
 
-
-
 <style scoped>
+.swatch {
+  display: block;
+  text-align: center;
+  position: relative;
+  margin: 100px;
+}
+
+.swatch div {
+  width: 70px;
+  height: 225px;
+  position: absolute;
+  top: 0px;
+  border-radius: 5px;
+  border-top: solid 2px rgba(0, 0, 0, .2);
+  border-left: solid 3px rgba(255, 255, 255, .2);
+  border-bottom: solid 3px rgba(0, 0, 0, .2);
+  text-align: center;
+  box-sizing: border-box;
+  transform-origin: center 90%;
+  display: inline-block;
+  backface-visibility: hidden;
+  margin-left: -35px;
+  transform: rotate(0deg);
+}
+
+.swatch div:before {
+  width: 16px;
+  height: 16px;
+  content: "";
+  background-color: #FFFFFF;
+  display: inline-block;
+  border-radius: 8px;
+  bottom: 10px;
+  position: absolute;
+  margin-left: -8px;
+}
+
+.swatch div:nth-child(1) {
+  background-color: #815A8F;
+  animation: swatch-purple-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.swatch div:nth-child(2) {
+  background-color: #6730EC;
+  animation: swatch-blue-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.swatch div:nth-child(3) {
+  background-color: #9ED763;
+  animation: swatch-green-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.swatch div:nth-child(4) {
+  background-color: #FBD400;
+  animation: swatch-yellow-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.swatch div:nth-child(5) {
+  background-color: #FF9000;
+  animation: swatch-orange-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.swatch div:nth-child(6) {
+  background-color: #F73F52;
+  animation: swatch-red-motion 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+@keyframes swatch-purple-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(-65deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swatch-blue-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(-40deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swatch-green-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(-15deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swatch-yellow-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(15deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swatch-orange-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(40deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swatch-red-motion {
+  0% {
+    transform: rotate(0deg);
+  }
+  30%,
+  70% {
+    transform: rotate(65deg);
+  }
+  90%,
+  10% {
+    transform: rotate(0deg);
+  }
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f0f0f0, #ffffff);
+  margin-bottom: 20px;
+  margin-top: 120px;
+}
+
+.animated-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 form {
   display: flex;
   flex-direction: column;
   max-width: 350px;
   margin: 0 auto;
-  margin-top: 120px;
+  margin-bottom: 20px;
 }
 
 form>div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+}
+
+.form-container {
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  display: flex;
+}
+
+.form-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.animation-container {
+  flex: 1;
 }
 
 label {

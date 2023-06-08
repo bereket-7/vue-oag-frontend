@@ -89,7 +89,7 @@
                 <div class="icon">
                     <h3>Customers</h3>
                 </div>
-                <div class="num">1000</div>
+                <div class="num">100</div>
             </div>
             <div class="card" style="color:#3498db">
                 <div class="icon">
@@ -260,7 +260,7 @@ export default {
     box-shadow: 0 3px 10px rgba(62,85,120,.045);
     margin: 0 8px 10px;
     position: relative;
-    background-color:darkblue;
+    background-color:rgb(5, 138, 104);
     height: 94px;
     padding: 20px;
 }

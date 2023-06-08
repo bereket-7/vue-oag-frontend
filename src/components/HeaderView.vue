@@ -1,11 +1,11 @@
 <template>
     <div class="sidebar">
-
+<!-- 
         <div class="nav">
             <div class="nav-mobile">
                 <i class="fa-solid fa-bars" @click="showMenu = !showMenu"></i>  
             </div>
-        </div>
+        </div> -->
 
         <div class="menu" v-show="showMenu" id="menu">
             <div class="menu-logo">
@@ -45,16 +45,7 @@
                         <i class="fa-solid fa-building-ngo" style="color:#3498db"></i><h5>Ogranizations</h5>
                     </li>
 
-                </ul>
-            </div>
-        </div>
-
-
-
-        <div class="header-top">
-            <div class="header-top-content">
-                <input type="text" placeholder="Search user by name">
-                <ul class="options-user">
+                    <ul class="options-user">
                     <li>
                         <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head"><i class="fa fa-user"></i></a>
                         <ul id="myDropdownUser">
@@ -66,6 +57,8 @@
                             </li>
                         </ul>
                     </li>
+                </ul>
+
                 </ul>
             </div>
         </div>
@@ -100,6 +93,7 @@ export default {
 
 .menu{
     margin-top: 100px;
+    margin-left: 10px;
 }
 .sidebar{
     margin-top: 100px;

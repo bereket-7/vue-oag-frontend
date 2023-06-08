@@ -3,9 +3,9 @@
         <div class="card-icon">
             <div class="card-icon-body">
                 <div class="card-icon-i">
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa fa-user "></i>
                 </div>
-                <h3>Add User</h3>
+                <h3>Register Organization</h3>
             </div>
         </div>
         <div class="card-icon">
@@ -24,14 +24,9 @@
                 <h3>Send Message</h3>
             </div>
         </div>
-        <div class="card-icon">
-            <div class="card-icon-body">
-                <div class="card-icon-i">
-                    <i class="fa fa-star"></i>
-                </div>
-                <h3>Request</h3>
-            </div>
-        </div>
+
+
+
         <div class="table">
             <div class="table-head">
                 <h3>Table</h3>
@@ -96,7 +91,7 @@
                 </div>
                 <div class="num">1000</div>
             </div>
-            <div class="card">
+            <div class="card" style="color:#3498db">
                 <div class="icon">
                     <h3>Managers</h3>
                 </div>

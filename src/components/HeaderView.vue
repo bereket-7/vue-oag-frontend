@@ -1,10 +1,12 @@
 <template>
-    <div>
+    <div class="sidebar">
+
         <div class="nav">
             <div class="nav-mobile">
                 <i class="fa-solid fa-bars" @click="showMenu = !showMenu"></i>  
             </div>
         </div>
+
         <div class="menu" v-show="showMenu" id="menu">
             <div class="menu-logo">
 				<img src="../assets/img/bekam.jpg" alt="">
@@ -46,6 +48,9 @@
                 </ul>
             </div>
         </div>
+
+
+
         <div class="header-top">
             <div class="header-top-content">
                 <input type="text" placeholder="Search user by name">
@@ -64,58 +69,8 @@
                 </ul>
             </div>
         </div>
-        <div class="sidebar-list" id="sidebar" v-show="showMenu">
-            <div class="sidebar-list-item">
-                <router-link to="/">
-                    <i class="fa fa-home" style="color:azure"></i>
-                    <span class="tooltip">Dashboard</span>
-                </router-link>
-            </div>
-            <div class="sidebar-list-item">
-                <router-link to="/about">
-                    <i class="fa fa-user" style="color:azure"></i>
-                    <span class="tooltip">About</span>
-                </router-link>
-            </div>
-            <div class="sidebar-list-item">
-                <router-link to="/">
-                    <i class="fa fa-download" style="color:#3498db"></i>
-                    <span class="tooltip">Requests</span>
-                </router-link>
-            </div>
-            <div class="sidebar-list-item">
-            <router-link to="/about">
-                    <i class="fa fa-calendar" style="color:azure"></i>
-                    <span class="tooltip">Artworks</span>
-                </router-link>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-star" style="color:#3498db"></i>
-                    <span class="tooltip"></span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-shopping-bag" style="color:azure"></i>
-                    <span class="tooltip">Products</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-sitemap" style="color:azure"></i>
-                    <span class="tooltip">Sitemap</span>
-                </a>
-            </div>
-            <div class="sidebar-list-item">
-                <a href="">
-                    <i class="fa fa-sign-out" style="color:azure"></i>
-                    <span class="tooltip">Sign out</span>
-                </a>
-            </div>
-        </div>
-    </div>
 
+    </div>
 </template>
 
 <script>
@@ -141,7 +96,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.menu{
+    margin-top: 100px;
+}
+.sidebar{
+    margin-top: 100px;
+}
 .nav{
     width: 80px;
     height: 100%;
@@ -163,6 +125,9 @@ export default {
 }
 .nav-mobile{
     display: none;
+}
+.header-top{
+    margin-top: 120px;
 }
 @media only screen and (max-width: 768px) {
     .nav{

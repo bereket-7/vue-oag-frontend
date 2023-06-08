@@ -203,6 +203,7 @@ form {
   flex-direction: column;
   max-width: 350px;
   margin: 0 auto;
+  margin-top: 120px;
 }
 
 form>div {

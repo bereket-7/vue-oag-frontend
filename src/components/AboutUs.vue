@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-5">
+  <div class="container">
     <div class="row">
       <div class="col-md-6">
         <img :src="require('@/assets/img/three.jpg')" class="img-fluid rounded" alt="Our Team">
@@ -35,7 +35,13 @@ export default {
    
    p {
   text-align: justify;
-  font-weight: bold;
-  font-family:Georgia, Times, 'Times New Roman', serif;
+  font-weight:600;
+  font-family:'Times New Roman', serif;
+}
+
+.container{
+  margin-top: 130px;
+  margin-bottom: 30px;
+
 }
 </style>

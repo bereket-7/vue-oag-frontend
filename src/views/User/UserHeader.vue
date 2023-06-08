@@ -1,20 +1,27 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar navbar-expand-lg">
+    <router-link to="/" class="navbar-brand"> <img src="@/assets/img/Kelem.png" alt="Logo" width="100" height="60"></router-link>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="main collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-list">
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Signup</a></li>
-      <li>
-        <a href="#">Art Category</a>
-        <ul class="dropdown">
-          <li><a href="#">Painting</a></li>
-          <li><a href="#">Sculpture</a></li>
-          <li><a href="#">Mixed Media</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">FAQ</a></li>
+        <li class="nav-item">
+          <router-link to="/">Home</router-link>
+        </li>
+      <li class="nav-item">
+          <router-link to="/about">About</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/contactUs">Contact Us</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/FAQs">FAQ</router-link>
+        </li>
+        <li class="nav-item"><router-link to="/userlogin">Login</router-link></li>
+        <li class="nav-item"><router-link to="/register">Sign up</router-link></li>
     </ul>
+    </div>
   </nav>
 </template>
 
@@ -25,7 +32,7 @@
   left: 0;
   width: 100%;
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
   transition: background-color 0.3s ease;
@@ -37,6 +44,18 @@
   background-color: #f1f1f1;
 }
 
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  opacity: 0.8; 
+}
 .navbar-list {
   display: flex;
   align-items: center; 
@@ -80,6 +99,16 @@
 }
 
 @media (max-width: 768px) {
+  .navbar-brand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+  }
+
+  .navbar-brand img {
+    width: 60px; 
+  }
   .navbar-list {
     flex-direction: column;
     align-items: flex-start;

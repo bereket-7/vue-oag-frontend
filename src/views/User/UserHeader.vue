@@ -16,9 +16,9 @@
           <router-link to="/contactUs">Contact Us</router-link>
         </li>
       </ul>
-      <li class="nav-item"><router-link to="/userlogin">Login</router-link></li>
-        <li class="nav-item"><router-link to="/register">Sign up</router-link></li>
-      <router-link to="/cart" class="shopping-cart-icon"><i class="fas fa-shopping-cart"></i></router-link>
+      <router-link to="/userlogin" style="margin-right:15px">Login</router-link>
+      <router-link to="/register" style="margin-right:15px">Sign up</router-link>
+      <router-link to="/cart" class="shopping-cart-icon"  style="margin-right:15px"><i class="fas fa-shopping-cart"></i></router-link>
     </div>
   </nav>
 </template>

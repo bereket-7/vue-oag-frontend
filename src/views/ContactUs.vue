@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="contact-info">
-        <i class="fas fa-phone fa-3x"></i>
+        <i class="fas fa-phone fa-3x" style="color:#2F7633"></i>
         <h4>Phone Number</h4>
         <p>+251943578915</p>
         <p>+251942085855</p>
@@ -39,7 +39,7 @@
     </div>
     <div class="col-md-6">
       <div class="contact-info">
-        <i class="fas fa-map-marker-alt fa-3x"></i>
+        <i class="fas fa-map-marker-alt fa-3x" style="color:#020202"></i>
         <h4>Address</h4>
         <p>Adama science and technology University(ASTU), Adama, Ethiopia</p>
       </div>
@@ -48,19 +48,19 @@
   <div class="row">
     <div class="col-md-6">
       <div class="contact-info">
-        <i class="fas fa-envelope fa-3x"></i>
+        <i class="fas fa-envelope fa-3x" style="color:#9C1E1E"></i>
         <h4>Email</h4>
         <p>kelem.oag.app@gmail.com</p>
       </div>
     </div>
     <div class="col-md-6">
       <div class="contact-info">
-        <i class="fab fa-facebook-f fa-3x"></i>
+        <i class="fab fa-facebook-f fa-3x" style="color:#1759A6"></i>
         <h4>Follow Us</h4>
         <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
-          <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-          <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="#"><i class="fab fa-facebook-f fa-lg" style="color:#1759A6"></i></a>
+          <a href="#"><i class="fab fa-twitter fa-lg" style="color:#2E88D7"></i></a>
+          <a href="#"><i class="fab fa-instagram fa-lg" style="color:#F05523"></i></a>
         </div>
       </div>
     </div>

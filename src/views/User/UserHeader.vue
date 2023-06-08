@@ -32,7 +32,7 @@
   left: 0;
   width: 100%;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
   transition: background-color 0.3s ease;
@@ -77,7 +77,7 @@
   justify-content: center;
 }
 .navbar-list li {
-  margin-right: 20px;
+  margin-right: 15px;
   transition: color 0.3s ease;
 }
 

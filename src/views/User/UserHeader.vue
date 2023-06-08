@@ -40,6 +40,7 @@
   justify-content: center; 
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .navbar:hover {
@@ -108,6 +109,14 @@
 
 .navbar-list li:hover .dropdown {
   display: block;
+}
+.navbar-toggler {
+  order: 1; 
+  margin-left: auto;
+}
+.main {
+  order: 2;
+  flex-grow: 1;
 }
 
 @media (max-width: 768px) {

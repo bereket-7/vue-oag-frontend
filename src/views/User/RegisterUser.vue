@@ -67,6 +67,8 @@
   </form>
   <br><br>
     </div>
+
+
     <div class="animation-container">
       <div class="swatch">
         <div></div>
@@ -203,6 +205,14 @@ export default {
 
 
 <style scoped>
+.animation-text {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25px;
+  font-weight: bold;
+}
 .swatch {
   display: block;
   text-align: center;
@@ -211,7 +221,7 @@ export default {
 }
 
 .swatch div {
-  width: 100px;
+  width: 90px;
   height: 225px;
   position: absolute;
   top: 0px;
@@ -358,7 +368,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
+  min-height: 120vh;
   background: linear-gradient(to right, #f0f0f0, #ffffff);
   margin-bottom: 20px;
   margin-top: 120px;
@@ -387,14 +397,13 @@ form>div {
   flex: 1;
   margin-right: 20px;
 }
-.form-container {
-  flex: 1;
-  margin-right: 20px;
-}
-
 .animation-container {
   flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
+
 label {
   margin-bottom: 0.5rem;
   font-weight: bold;
@@ -444,8 +453,10 @@ button:hover {
 
   .form-container,
   .animation-container {
-    margin-right: 0;
     margin-bottom: 20px; 
+    overflow: hidden; 
+    padding: 0 20px;
+    width: 100%; 
   }
 }
 </style>

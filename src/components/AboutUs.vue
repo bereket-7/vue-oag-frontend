@@ -31,17 +31,37 @@ export default {
 }
 </script>
 
-<style scoped>
-   
-   p {
+<style scoped> 
+p {
   text-align: justify;
-  font-weight:600;
-  font-family:'Times New Roman', serif;
+  font-weight: 600;
+  font-family: 'Times New Roman', serif;
 }
 
-.container{
+.container {
   margin-top: 130px;
   margin-bottom: 30px;
-
 }
+
+@media only screen and (max-width: 768px) {
+  .container {
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+
+  .col-md-6 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .col-md-6 img {
+    margin-bottom: 20px;
+  }
+
+  .col-md-6 h1 {
+    font-size: 26px;
+  }
+}
+
 </style>
+

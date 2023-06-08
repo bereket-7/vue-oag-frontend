@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="form-container">
-
       <form @submit.prevent="submitForm">
     <div>
       <br>
@@ -66,6 +65,7 @@
     <button type="submit">submit</button>
     <br>
   </form>
+  <br><br>
     </div>
     <div class="animation-container">
       <div class="swatch">
@@ -76,7 +76,6 @@
         <div></div>
         <div></div>
       </div>
-      <!-- <img :src="require('@/assets/img/three.jpg')" alt="Your Image" class="animated-image"> -->
     </div>
   </div>
   <FooterView />
@@ -212,7 +211,7 @@ export default {
 }
 
 .swatch div {
-  width: 70px;
+  width: 100px;
   height: 225px;
   position: absolute;
   top: 0px;
@@ -355,22 +354,14 @@ export default {
   }
 }
 
-
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   background: linear-gradient(to right, #f0f0f0, #ffffff);
   margin-bottom: 20px;
   margin-top: 120px;
-}
-
-.animated-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -393,12 +384,9 @@ form>div {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin-right: 20px;
 }
-
-.container {
-  display: flex;
-}
-
 .form-container {
   flex: 1;
   margin-right: 20px;
@@ -407,7 +395,6 @@ form>div {
 .animation-container {
   flex: 1;
 }
-
 label {
   margin-bottom: 0.5rem;
   font-weight: bold;
@@ -450,8 +437,15 @@ button:hover {
 }
 
 @media only screen and (max-width: 768px) {
-  form {
-    max-width: 80%;
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container,
+  .animation-container {
+    margin-right: 0;
+    margin-bottom: 20px; 
   }
 }
 </style>

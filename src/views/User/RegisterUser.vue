@@ -206,7 +206,7 @@ export default {
 .animation-text {
   bottom: -50px;
   transform: translateX(-50%);
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   color: #067915;
   margin-top:30px;
@@ -370,7 +370,7 @@ export default {
   min-height: 120vh;
   background: linear-gradient(to right, #f0f0f0, #ffffff);
   margin-bottom: 20px;
-  margin-top: 120px;
+  margin-top: 110px;
 }
 
 form {
@@ -457,6 +457,12 @@ button:hover {
     overflow: hidden; 
     padding: 0 20px;
     width: 100%; 
+  }
+  .animation-text {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 100px;
+    bottom: -40px;
   }
 }
 </style>

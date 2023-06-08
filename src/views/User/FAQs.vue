@@ -117,7 +117,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .p-5{
   margin-top: 120px;

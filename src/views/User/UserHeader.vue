@@ -38,6 +38,8 @@
   transition: background-color 0.3s ease;
   display: flex;
   justify-content: center; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar:hover {
@@ -47,6 +49,7 @@
 .navbar-brand {
   display: flex;
   align-items: center;
+  margin-right: auto;
 }
 
 .navbar-brand img {
@@ -64,6 +67,15 @@
   list-style: none;
 }
 
+.navbar-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-grow: 1;
+  justify-content: center;
+}
 .navbar-list li {
   margin-right: 20px;
   transition: color 0.3s ease;
@@ -74,7 +86,7 @@
 }
 
 .navbar-list li:hover {
-  color: #f70d0d; 
+  color: #f70d0d;
 }
 .dropdown {
   display: none;

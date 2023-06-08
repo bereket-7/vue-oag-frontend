@@ -85,6 +85,7 @@ export default {
 <style scoped>
 .container {
   margin-top: 120px;
+  margin-bottom: 30px;
 }
 
 .contact-info {

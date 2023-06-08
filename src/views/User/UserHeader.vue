@@ -1,21 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <router-link to="/"> <img src="@/assets/img/Kelem.png" alt="Logo" width="90" height="70"></router-link>
+    <router-link to="/" class="navbar-brand"> <img src="@/assets/img/Kelem.png" alt="Logo" width="100" height="60"></router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="main collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-list">
-
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
-          </a>
-          <ul class="dropdown-menu">
-              <li class="dropdown-item"><router-link to="/artworks"> Paintings</router-link></li>
-              <li class="dropdown-item"><router-link to="/artworks">Drawings</router-link></li>
-              <li class="dropdown-item"><router-link to="/artworks">Sculptures</router-link></li>
-          </ul>
+        <li class="nav-item">
+          <router-link to="/">Home</router-link>
         </li>
       <li class="nav-item">
           <router-link to="/about">About</router-link>
@@ -52,6 +44,18 @@
   background-color: #f1f1f1;
 }
 
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  opacity: 0.8; 
+}
 .navbar-list {
   display: flex;
   align-items: center; 
@@ -95,6 +99,16 @@
 }
 
 @media (max-width: 768px) {
+  .navbar-brand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+  }
+
+  .navbar-brand img {
+    width: 60px; 
+  }
   .navbar-list {
     flex-direction: column;
     align-items: flex-start;

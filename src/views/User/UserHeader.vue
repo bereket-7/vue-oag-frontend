@@ -5,11 +5,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="main collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-list">
+      <ul class="navbar-list">
         <li class="nav-item">
           <router-link to="/">Home</router-link>
         </li>
-      <li class="nav-item">
+        <li class="nav-item">
           <router-link to="/about">About</router-link>
         </li>
         <li class="nav-item">
@@ -20,11 +20,12 @@
         </li>
         <li class="nav-item"><router-link to="/userlogin">Login</router-link></li>
         <li class="nav-item"><router-link to="/register">Sign up</router-link></li>
-    </ul>
+      </ul>
       <router-link to="/cart" class="shopping-cart-icon"><i class="fas fa-shopping-cart"></i></router-link>
     </div>
   </nav>
 </template>
+
 
 <style scoped>
 .navbar {
@@ -53,7 +54,9 @@
   align-items: center;
   margin-right: auto;
 }
-
+.nav-item{
+  color: #04bb23;
+}
 
 .navbar-brand img {
   max-width: 100%;
@@ -61,27 +64,20 @@
   transition: opacity 0.3s ease;
 }
 
-
 .navbar-brand:hover img {
   opacity: 0.8; 
 }
+
 .navbar-list {
   display: flex;
   align-items: center; 
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.navbar-list {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
   flex-grow: 1;
   justify-content: center;
 }
+
 .navbar-list li {
   margin-right: 15px;
   transition: color 0.3s ease;
@@ -94,6 +90,7 @@
 .navbar-list li:hover {
   color: #f70d0d;
 }
+
 .dropdown {
   display: none;
   position: absolute;
@@ -115,19 +112,23 @@
 .navbar-list li:hover .dropdown {
   display: block;
 }
+
 .navbar-toggler {
   order: 1; 
   margin-left: auto;
 }
+
 .main {
   order: 2;
   flex-grow: 1;
 }
+
 .shopping-cart-icon {
   font-size: 2rem;
   color: #04bb23;
   margin-left: 20px;
 }
+
 @media (max-width: 768px) {
   .navbar-brand {
     position: absolute;
@@ -139,6 +140,7 @@
   .navbar-brand img {
     width: 60px; 
   }
+
   .navbar-list {
     flex-direction: column;
     align-items: flex-start;
@@ -158,6 +160,7 @@
   .dropdown li {
     margin: 0;
   }
+
   .shopping-cart-icon {
     font-size: 1.8rem;
   }

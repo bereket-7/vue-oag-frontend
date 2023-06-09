@@ -1,7 +1,9 @@
 <template>
     <div class="artwork-gallery">
       <div v-for="artwork in artworks" :key="artwork.id" class="artwork-card">
-        <img :src="artwork.imageUrl" :alt="artwork.name" class="artwork-image">
+        <div class="artwork-image-container">
+          <img :src="artwork.imageUrl" :alt="artwork.name" class="artwork-image">
+        </div>
         <div class="artwork-details">
           <h3 class="artwork-title">{{ artwork.name }}</h3>
           <p class="artist-name">{{ artwork.artistName }}</p>
@@ -11,64 +13,84 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
 
 <style scoped>
 .artwork-gallery {
-    margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 100px;
 }
 
 .artwork-card {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
   margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.artwork-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .artwork-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
+  max-width: 100%;
+  height: auto;
+}
+
+.artwork-details {
+  padding: 10px;
 }
 
 .artwork-title {
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
-.artist-name {
-  font-size: 16px;
-  color: #666;
-}
-
-.artwork-category {
-  font-size: 14px;
-  color: #999;
-}
-
+.artist-name,
+.artwork-category,
 .vote-count {
-  font-size: 14px;
-  margin-top: 10px;
+  margin: 5px 0;
 }
 
 .vote-button {
   padding: 8px 16px;
-  margin-top: 10px;
-  background-color: #04AA6D;
-  color: white;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
-.vote-button:hover {
-  opacity: 0.8;
+/* Responsive styles */
+@media (min-width: 768px) {
+
+  .artwork-image-container {
+    flex-basis: 40%;
+  }
+  .artwork-card {
+    position: relative;
+    flex-direction: row;
+  }
+
+  .vote-button {
+    align-self: flex-end;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    float: right;
+  }
+
+  .artwork-details {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 </style>
 

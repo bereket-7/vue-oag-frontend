@@ -13,7 +13,10 @@
         </div>
       </div>
     </div>
+
+    <FooterView />
 </template>
+
 
 <style scoped>
 .artwork-gallery {
@@ -165,7 +168,6 @@ export default {
           category: "Category 3",
           voteCount: 8
         }
-        // Add more artwork objects as needed
       ]
     };
   },
@@ -177,6 +179,7 @@ export default {
     // }
   },
   mounted() {
+    
     // Fetch the artworks from the backend API
     this.fetchArtworks();
   },

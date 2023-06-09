@@ -103,7 +103,7 @@ const routes = [
   {
     path: '/addStandard',
     name: 'AddStandard',
-    component: () => import('../views/Manager/AddStandard.vue')
+    component: () => import('../views/Manager/CompanyStandard.vue')
   },
   {
     path: '/displayStandard',

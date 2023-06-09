@@ -25,7 +25,7 @@
 
 .artwork-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 10px;
   max-width: 400px;
   width: 100%;
@@ -74,7 +74,7 @@
   }
   .artwork-card {
     position: relative;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .vote-button {
@@ -92,6 +92,23 @@
     justify-content: space-between;
   }
 }
+@media screen and (max-width: 300px) {
+  .vote-button {
+    align-self: flex-end;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    float: right;
+  }
+
+  .artwork-details {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+}
 </style>
 
 
@@ -102,7 +119,7 @@ export default {
       artworks: [
         {
           id: 1,
-          imageUrl: "https://via.placeholder.com/300x200",
+          imageUrl: "https://via.placeholder.com/400x200",
           name: "Artwork 1",
           artistName: "Artist 1",
           category: "Category 1",
@@ -110,7 +127,31 @@ export default {
         },
         {
           id: 2,
-          imageUrl: "https://via.placeholder.com/300x200",
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
           name: "Artwork 2",
           artistName: "Artist 2",
           category: "Category 2",
@@ -118,7 +159,7 @@ export default {
         },
         {
           id: 3,
-          imageUrl: "https://via.placeholder.com/300x200",
+          imageUrl: "https://via.placeholder.com/400x200",
           name: "Artwork 3",
           artistName: "Artist 3",
           category: "Category 3",

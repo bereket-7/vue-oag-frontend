@@ -206,7 +206,7 @@ export default {
 .animation-text {
   bottom: -50px;
   transform: translateX(-50%);
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   color: #067915;
   margin-top:30px;
@@ -278,13 +278,13 @@ button {
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  background-color: #3498db;
+  background-color: #3e8e41;
   color: #fff;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #3e8e41;
+  background-color: #054607;
 }
 
 .error {

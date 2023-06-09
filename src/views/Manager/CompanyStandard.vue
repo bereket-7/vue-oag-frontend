@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <button onclick="document.getElementById('id01').style.display='block'">Add Standard</button>
+      <button id="add-standard" onclick="document.getElementById('id01').style.display='block'">Add Standard</button>
   
       <div id="id01" class="modal">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"><i class="fa-solid fa-xmark"></i></span>
@@ -89,7 +89,7 @@ button:hover {
 
 .cancelbtn, .signupbtn {
   float: left;
-  width: 20%;
+  width: 25%;
 }
 
 .container {
@@ -109,7 +109,6 @@ button:hover {
   background-color: #474e5d;
   padding-top: 100px;
 }
-
 .modal-content {
   background-color: #fefefe;
   margin: 5% auto 15% auto; 
@@ -121,7 +120,6 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
-
 .close {
   position: absolute;
   right: 35px;
@@ -137,13 +135,11 @@ hr {
   cursor: pointer;
 }
 
-
 .clearfix::after {
   content: "";
   clear: both;
   display: table;
 }
-
 .popup{
     width: 400px;
     background: #fff;
@@ -170,14 +166,12 @@ hr {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 
 }
-
 .popup h2{
     font-size: 38px;
     font-weight: 500;
     margin: 30px 0 10px;
   
 }
-
 .popup button{
     width: 100px;
     margin-top: 50px;
@@ -191,10 +185,21 @@ hr {
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0,0,0,0.2);
 } 
+@media screen and (max-width: 768px) {
+  .cancelbtn, .signup {
+    width: 100%;
+  }
 
-
+  #add-standard{
+    width: 100%;
+  }
+}
 @media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
+  .cancelbtn, .signup {
+    width: 100%;
+  }
+
+  #add-standard{
     width: 100%;
   }
 }
@@ -225,7 +230,7 @@ export default {
         console.log(response);
         this.standardDescription = '';
         this.standardType = '';
-        this.openPopup();
+        this.openPopup(); 
       } catch (error) {
         console.error(error);
         alert('An error occurred while uploading!');
@@ -241,7 +246,8 @@ export default {
       popup.classList.remove('open-popup');
     },
     resetForm() {
-      // Reset any form fields if needed
+      this.standardDescription = ''; 
+      this.standardType = '';
     }
   }
 };

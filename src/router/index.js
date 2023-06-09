@@ -42,6 +42,11 @@ const routes = [
     component: () => import('../views/User/RegisterCompetitor.vue')
   },
   {
+    path: '/displayCompetitor',
+    name: 'RegisterCompetitor',
+    component: () => import('../views/Manager/DisplayCompetitor.vue')
+  },
+  {
     path: '/checkout',
     name: 'CheckOut',
     component: () => import('../views/shopping/CheckOut.vue')

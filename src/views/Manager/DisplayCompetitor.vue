@@ -15,6 +15,7 @@
 
 <style scoped>
 .artwork-gallery {
+    margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -106,11 +107,11 @@ export default {
     };
   },
   methods: {
-    vote(artworkId) {
+    // vote(artworkId) {
       // Logic to handle voting for the artwork with the specified ID
       // You can make an API request here to update the vote count
       // and handle any success/error responses
-    }
+    // }
   },
   mounted() {
     // Fetch the artworks from the backend API

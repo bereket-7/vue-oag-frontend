@@ -1,9 +1,18 @@
 <template>
   <div class="container">
     <div class="row">
+
       <div class="col-lg-6">
-        <form class="vh-200">
-          <div class="container h-150">
+        <div class="image-container">
+          <img :src="require('@/assets/img/quality2.png')" alt="Standards">
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-6">
+        <form>
+          <div>
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-xl-9">
                 <h1 class="text-dark mb-4">Add Standard</h1>
@@ -32,22 +41,21 @@
           </div>
         </form>
       </div>
-      <div class="col-lg-6">
-        <div class="image-container">
-          <img :src="require('@/assets/img/quality4.png')" alt="Standards">
-        </div>
-      </div>
     </div>
   </div>
+  <footer-view/>
 </template>
 
 <style scoped>
 .container {
   padding-top: 50px;
   margin-top: 50px;
+  margin-bottom: 40px;
 }
 
 .image-container {
+  width:300px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,9 +85,13 @@
 
 
 <script>
+import FooterView from "@/components/FooterView.vue"
 import axios from 'axios';
 
 export default {
+  components: {
+    FooterView
+  },
   data() {
     return {
       standardDescription: '',

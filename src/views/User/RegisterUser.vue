@@ -211,6 +211,88 @@ export default {
   color: #067915;
   margin-top:30px;
 }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 120vh;
+  background: linear-gradient(to right, #f0f0f0, #ffffff);
+  margin-bottom: 20px;
+  margin-top: 110px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+form>div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-container {
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin-right: 20px;
+  margin-top: 25px;
+}
+.animation-container {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-weight: bold;
+}
+
+input[type='file'] {
+  padding: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
 
 .swatch {
   display: block;
@@ -363,87 +445,6 @@ export default {
   }
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 120vh;
-  background: linear-gradient(to right, #f0f0f0, #ffffff);
-  margin-bottom: 20px;
-  margin-top: 110px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-
-form>div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.form-container {
-  max-width: 400px;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  margin-right: 20px;
-  margin-top: 25px;
-}
-.animation-container {
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-label {
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-input,
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  font-weight: bold;
-}
-
-input[type='file'] {
-  padding: 0;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-button {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #3498db;
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3e8e41;
-}
-
-.error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-}
 
 @media only screen and (max-width: 768px) {
   .container {

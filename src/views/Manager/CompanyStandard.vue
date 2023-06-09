@@ -32,6 +32,16 @@
           </div>
         </form>
       </div>
+
+
+      <div class="popup" id="popup">
+    <img src="tick.png" alt="tick">
+    <h2>Thank You</h2>
+    <p>You have successfully uploaded standards</p>
+    <button type="button" @click="closePopup()">OK</button>
+  </div>
+
+
       <footer-view/>
     </div>
   </template>
@@ -134,6 +144,54 @@ hr {
   display: table;
 }
 
+.popup{
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color:#333 ;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+.open-popup{
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1) ;
+}
+.popup img{
+    width: 100px;
+    margin-top: -50%;
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+  
+}
+
+.popup button{
+    width: 100px;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius:4px  ;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+} 
+
 
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {
@@ -143,21 +201,9 @@ hr {
 
 </style>
 
-
-
 <script>
-import FooterView from "@/components/FooterView.vue"
+import FooterView from "@/components/FooterView.vue";
 import axios from 'axios';
-
-
-var modal = document.getElementById('id01');
-
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 export default {
   components: {
@@ -166,7 +212,7 @@ export default {
   data() {
     return {
       standardDescription: '',
-      standardType: '',
+      standardType: ''
     };
   },
   methods: {
@@ -174,18 +220,29 @@ export default {
       try {
         const response = await axios.post('http://localhost:8081/standard/add', {
           standardDescription: this.standardDescription,
-          standardType: this.standardType,
+          standardType: this.standardType
         });
-          console.log(response);
-          this.standardDescription= '';
-          this.standardType= '';
-          alert('Standard uploaded successfully!');
-      }
-      catch (error) {
+        console.log(response);
+        this.standardDescription = '';
+        this.standardType = '';
+        this.openPopup();
+      } catch (error) {
         console.error(error);
-          alert('error occured while uploading!');
+        alert('An error occurred while uploading!');
       }
     },
-  },
+    openPopup() {
+      let popup = document.getElementById('popup');
+      popup.classList.add('open-popup');
+      this.resetForm();
+    },
+    closePopup() {
+      let popup = document.getElementById('popup');
+      popup.classList.remove('open-popup');
+    },
+    resetForm() {
+      // Reset any form fields if needed
+    }
+  }
 };
-</Script>
+</script>

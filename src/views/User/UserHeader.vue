@@ -33,9 +33,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   z-index: 100;
   transition: background-color 0.3s ease;
   display: flex;
@@ -43,6 +43,8 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  background-color: transparent;
+  /* box-shadow: none; */
 }
 
 .navbar:hover {

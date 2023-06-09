@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     fetchArtworks() {
-      axios.get('http://localhost:8081/artworks')
+      axios.get('http://localhost:8081/artworks/pending')
         .then(response => {
           this.artworks = response.data;
         })

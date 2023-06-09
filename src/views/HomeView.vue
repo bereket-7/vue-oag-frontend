@@ -2,7 +2,6 @@
   <UserHeader/>
   <CardSlider/>
   <ArtworkCategory/>
-
   <FooterView/>
 </template>
 

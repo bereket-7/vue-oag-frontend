@@ -1,20 +1,20 @@
 <template>
   <UserHeader/>
   <CardSlider/>
-  <ArtworkCategory/>
+  <ArtworkCategory1/>
   <FooterView/>
 </template>
 
 <script>
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
-import ArtworkCategory from '@/components/ArtworkCategory.vue';
+import ArtworkCategory1 from '@/components/ArtworkCategory1.vue';
 export default {
   name: 'HomeView',
   components: {
     FooterView,
     CardSlider,
-    ArtworkCategory
+    ArtworkCategory1
   },
 }
 </script>

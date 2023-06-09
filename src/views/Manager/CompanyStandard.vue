@@ -41,8 +41,6 @@
     <button type="button" @click="closePopup()">OK</button>
   </div>
 
-
-      <footer-view/>
     </div>
   </template>
   
@@ -207,13 +205,9 @@ hr {
 </style>
 
 <script>
-import FooterView from "@/components/FooterView.vue";
 import axios from 'axios';
 
 export default {
-  components: {
-    FooterView
-  },
   data() {
     return {
       standardDescription: '',

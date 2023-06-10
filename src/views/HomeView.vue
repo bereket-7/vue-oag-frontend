@@ -8,7 +8,7 @@
 <script>
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
-import ArtworkCategory1 from '@/components/ArtworkCategory1.vue';
+import ArtworkCategory1 from '@/components/ArtworkCategory.vue';
 export default {
   name: 'HomeView',
   components: {

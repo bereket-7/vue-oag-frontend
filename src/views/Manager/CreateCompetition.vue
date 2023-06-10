@@ -1,71 +1,67 @@
 <template>
+  <div class="container">
+    <div class="image-container">
+      <img src="@/assets/img/competition.png" alt="Competition image">
+    </div>
   <div class="form-container">
     <form @submit.prevent="addCompetition" class="form">
       <h1>Add Competition</h1>
-      <label for="title">Title:</label>
+      <label for="title">Title</label>
       <input type="text" id="title" v-model="competition.competitionTitle" required><br><br>
 
-      <label for="description">Description:</label>
+      <label for="description">Description</label>
       <input type="text" id="description" v-model="competition.competitionDescription" required><br><br>
 
-      <label for="numberOfCompetitor">Number of Competitors:</label>
+      <label for="numberOfCompetitor">Number of Competitors</label>
       <input type="number" id="numberOfCompetitor" v-model="competition.numberOfCompetitor" required><br><br>
 
-      <label for="expiryDate">Expiry Date:</label>
+      <label for="expiryDate">Expiry Date</label>
       <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
       <button type="submit">Add Competition</button>
     </form>
   </div>
+  </div>
 </template>
 
-<script>
-import axios from 'axios';
-
-export default {
-  name: 'AddCompetition',
-  data() {
-    return {
-      competition: {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      },
-      success: false
-    }
-  },
-  methods: {
-    async addCompetition() {
-      try {
-        await axios.post('http://localhost:8081/competition/add', this.competition);
-        alert("successfully registered");
-        this.resetForm();
-      } catch (error) {
-        console.error(error);
-        alert('Failed to add competition.');
-      }
-    },
-    resetForm() {
-      this.competition = {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      };
-    }
-  }
-}
-</script>
 
 
 <style scoped>
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.image-container {
+  flex-basis: 40%;
+  margin-bottom: 30px;
+  width: 400px;
+}
+
+/* .image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+} */
+.image-container img {
+  width: 100%;
+  /* max-height: 100%;  */
+  object-fit: cover;
+  height: auto;
+}
+
+
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 400px;
+  max-width: 600px;
   margin-top:150px;
   margin: 0 auto;
+  flex-basis: 40%;
+  margin-bottom: 30px;
+  padding-left: 20px;
 }
 
 .form {
@@ -92,6 +88,7 @@ export default {
   border-radius: 2px;
   box-sizing: border-box;
   background-color: #f8f8f8;
+  margin-bottom: 10px; 
 }
 
 .form input[type="text"]:hover,
@@ -139,13 +136,17 @@ export default {
   z-index: 500;
 }
 
-
-/* .form-container {
-  max-width: 600px;
-  margin: 0 auto;
-} */
-
 @media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-container,
+  .form-container {
+    flex-basis: 100%;
+    padding-left: 0;
+  }
   .form-container {
     max-width: 90%;
   }
@@ -193,3 +194,42 @@ input[type="submit"]:hover, button:hover {
   background-color: #3e8e41;
 }
 </style>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'AddCompetition',
+  data() {
+    return {
+      competition: {
+        competitionTitle: '',
+        competitionDescription: '',
+        numberOfCompetitor: '',
+        expiryDate: ''
+      },
+      success: false
+    }
+  },
+  methods: {
+    async addCompetition() {
+      try {
+        await axios.post('http://localhost:8081/competition/add', this.competition);
+        alert("successfully registered");
+        this.resetForm();
+      } catch (error) {
+        console.error(error);
+        alert('Failed to add competition.');
+      }
+    },
+    resetForm() {
+      this.competition = {
+        competitionTitle: '',
+        competitionDescription: '',
+        numberOfCompetitor: '',
+        expiryDate: ''
+      };
+    }
+  }
+}
+</script>

@@ -24,11 +24,12 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 100px;
+  margin-bottom: 30px;
 }
 
 .artwork-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 10px;
   max-width: 400px;
   width: 100%;

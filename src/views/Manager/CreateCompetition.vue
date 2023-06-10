@@ -63,8 +63,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   max-width: 400px;
+  margin-top:150px;
+  margin: 0 auto;
 }
 
 .form {
@@ -75,6 +76,9 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top:100px;
+  margin-bottom: 30px;
+  width:500px;
 }
 
 .form input[type="text"],
@@ -82,10 +86,10 @@ export default {
 .form input[type="password"],
 .form input[type="date"] {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 12px 10px;
+  margin: 3px 0;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   box-sizing: border-box;
   background-color: #f8f8f8;
 }
@@ -136,22 +140,34 @@ export default {
 }
 
 
-.form-container {
+/* .form-container {
   max-width: 600px;
   margin: 0 auto;
-}
+} */
 
 @media screen and (max-width: 768px) {
   .form-container {
-    max-width: 500px;
+    max-width: 90%;
   }
 }
 @media screen and (max-width: 480px) {
   .form-container {
-    max-width: 300px;
+    max-width: 90%;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
+    padding: 10px;
+  }
+  
+  input[type="submit"], button {
+    padding: 10px;
+    font-size: 16px;
   }
 }
-
+@media screen and (max-width: 330px) {
+  .form-container {
+    max-width: 90%;
+  }
+}
 
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
   width: 100%;
@@ -175,17 +191,5 @@ input[type="submit"], button {
 
 input[type="submit"]:hover, button:hover {
   background-color: #3e8e41;
-}
-
-
-@media screen and (max-width: 480px) {
-  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
-    padding: 10px;
-  }
-  
-  input[type="submit"], button {
-    padding: 10px;
-    font-size: 16px;
-  }
 }
 </style>

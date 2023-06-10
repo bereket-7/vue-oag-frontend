@@ -82,126 +82,6 @@
   <FooterView />
 </template>
 
-<script>
-import FooterView from '@/components/FooterView.vue'
-import axios from 'axios'
-
-export default {
-  data() {
-    return {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phone: '',
-      address: '',
-      sex: '',
-      age: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      errors: {},
-      passwordError: '',
-      errorMessage: ''
-    }
-  },
-  components: {
-    FooterView
-  },
-  methods: {
-    async register() {
-      try {
-        await axios.post('http://localhost:8081/api/v1/registration', {
-          firstname: this.firstname,
-          lastname: this.lastname,
-          email: this.email,
-          phone: this.phone,
-          address: this.address,
-          sex: this.sex,
-          age: this.age,
-          username: this.username,
-          password: this.password,
-          roles: [this.roles]
-
-        })
-        this.$router.push('/signupSuccess')
-      } catch (error) {
-        this.errorMessage = error.response.data.message
-      }
-    },
-    submitForm() {
-      this.errors = {}
-      if (!this.validateForm()) {
-        return
-      }
-      this.register()
-    },
-    validateForm() {
-      this.errors = {}
-      const ethiopiaCode = '+251'
-      if (!this.firstname) {
-        this.errors.firstname = 'First name is required.'
-      }
-      if (!this.lastname) {
-        this.errors.lastname = 'Last name is required.'
-      }
-      if (!this.email) {
-        this.errors.email = 'Email is required.'
-      } else if (!this.validEmail(this.email)) {
-        this.errors.email = 'Please enter a valid email address.'
-      }
-      if (!this.phone) {
-        this.errors.phone = 'Phone number is required.'
-      } else if (
-        !(
-          (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
-          || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
-          || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
-        )
-      ) {
-        this.errors.phone = 'Invalid phone number format.'
-      }
-      if (!this.address) {
-        this.errors.address = 'Address is required.'
-      }
-      if (!this.age) {
-        this.errors.age = 'Age is required.'
-      }
-      if (!this.sex) {
-        this.errors.sex = 'Gender is required.'
-      }
-      if (!this.username) {
-        this.errors.username = 'Username is required.'
-      }
-      if (!this.password) {
-        this.errors.password = 'Password is required.'
-      }
-      if (!this.roles) {
-        this.errors.roles = 'Role is is required.'
-      }
-      if (this.age < 18) {
-        this.errors.age = 'You must be at least 18 years old to register.'
-      }
-      if (!this.confirmPassword) {
-        this.errors.confirmPassword = 'Please confirm your password.'
-      }
-      if (this.password !== this.confirmPassword) {
-        this.passwordError = 'Passwords do not match.'
-      }
-
-      if (this.password.length < 6) {
-        this.passwordError = 'Password should be at least 6 characters long.'
-        return
-      }
-      return Object.keys(this.errors).length === 0
-    },
-    validEmail(email) {
-      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return emailRegex.test(String(email).toLowerCase())
-    }
-  }
-}
-</script>
-
 <style scoped>
 .animation-text {
   bottom: -50px;
@@ -250,7 +130,9 @@ form>div {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  /* background: linear-gradient(to right, #ff6a00, #ee0979); */
 }
+
 
 label {
   margin-bottom: 0.5rem;
@@ -467,3 +349,124 @@ button:hover {
   }
 }
 </style>
+
+
+<script>
+import FooterView from '@/components/FooterView.vue'
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      firstname: '',
+      lastname: '',
+      email: '',
+      phone: '',
+      address: '',
+      sex: '',
+      age: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      errors: {},
+      passwordError: '',
+      errorMessage: ''
+    }
+  },
+  components: {
+    FooterView
+  },
+  methods: {
+    async register() {
+      try {
+        await axios.post('http://localhost:8081/api/v1/registration', {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          email: this.email,
+          phone: this.phone,
+          address: this.address,
+          sex: this.sex,
+          age: this.age,
+          username: this.username,
+          password: this.password,
+          roles: [this.roles]
+
+        })
+        this.$router.push('/signupSuccess')
+      } catch (error) {
+        this.errorMessage = error.response.data.message
+      }
+    },
+    submitForm() {
+      this.errors = {}
+      if (!this.validateForm()) {
+        return
+      }
+      this.register()
+    },
+    validateForm() {
+      this.errors = {}
+      const ethiopiaCode = '+251'
+      if (!this.firstname) {
+        this.errors.firstname = 'First name is required.'
+      }
+      if (!this.lastname) {
+        this.errors.lastname = 'Last name is required.'
+      }
+      if (!this.email) {
+        this.errors.email = 'Email is required.'
+      } else if (!this.validEmail(this.email)) {
+        this.errors.email = 'Please enter a valid email address.'
+      }
+      if (!this.phone) {
+        this.errors.phone = 'Phone number is required.'
+      } else if (
+        !(
+          (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
+          || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
+          || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
+        )
+      ) {
+        this.errors.phone = 'Invalid phone number format.'
+      }
+      if (!this.address) {
+        this.errors.address = 'Address is required.'
+      }
+      if (!this.age) {
+        this.errors.age = 'Age is required.'
+      }
+      if (!this.sex) {
+        this.errors.sex = 'Gender is required.'
+      }
+      if (!this.username) {
+        this.errors.username = 'Username is required.'
+      }
+      if (!this.password) {
+        this.errors.password = 'Password is required.'
+      }
+      if (!this.roles) {
+        this.errors.roles = 'Role is is required.'
+      }
+      if (this.age < 18) {
+        this.errors.age = 'You must be at least 18 years old to register.'
+      }
+      if (!this.confirmPassword) {
+        this.errors.confirmPassword = 'Please confirm your password.'
+      }
+      if (this.password !== this.confirmPassword) {
+        this.passwordError = 'Passwords do not match.'
+      }
+
+      if (this.password.length < 6) {
+        this.passwordError = 'Password should be at least 6 characters long.'
+        return
+      }
+      return Object.keys(this.errors).length === 0
+    },
+    validEmail(email) {
+      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return emailRegex.test(String(email).toLowerCase())
+    }
+  }
+}
+</script>

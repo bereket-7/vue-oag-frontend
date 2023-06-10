@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center text-black">Categories</h2>
-    <p class="lead text-center text-black mb-5">Main collections in our Gallery</p>
+    <p class="lead text-center text-black mb-5">Main categories in our Gallery</p>
     <div class="row justify-content-center">
 
       <div class="col-md-4">
@@ -69,11 +69,14 @@ h5{
   font-weight: bold;
 }
 .card-img {
-  height: 200px; /* Adjust the height as desired */
+  height: 300px;
   object-fit: cover;
 }
 
 @media screen and (max-width: 768px) {
+  .col-md-4 {
+    width: 100%;
+  }
   .container {
   margin-top: 3%;
   margin-bottom: 3%;

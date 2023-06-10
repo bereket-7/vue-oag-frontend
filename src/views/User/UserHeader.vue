@@ -43,13 +43,13 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color: transparent;
+  background-color: #f1f1f1;
   /* box-shadow: none; */
 }
 
-.navbar:hover {
+/* .navbar:hover {
   background-color: #f1f1f1;
-}
+}  */
 
 .navbar-brand {
   display: flex;

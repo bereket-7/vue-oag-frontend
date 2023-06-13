@@ -42,14 +42,16 @@ export default {
         password: this.password
       })
       .then(response => {
-        //const token = response.data.token;
+        const token = response.data.token;
         //localStorage.setItem('token', token);
         if (response.data.accessToken) {
-          window.localStorage.clear();
-          window.localStorage.setItem("token", response.data.accessToken);
+          //window.localStorage.clear();
+          //window.localStorage.setItem("token", response.data.accessToken);
+          this.setToken(token); 
+          this.redirectUserPage(); 
+        }else {
+          this.errorMessage = 'Access token not found in the response.';
         }
-        //window.location.href = "/notFound";
-        this.$router.push('/notFound');
       })
       .catch(error => {
         if (error.response && error.response.data && error.response.data.message) {
@@ -58,9 +60,15 @@ export default {
           this.errorMessage = 'An error occurred during login.';
         }
       });
+    },
+    setToken(token) {
+      localStorage.setItem('token', token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+    redirectToNotFound() {
+      this.$router.push('/notFound');
     }
   }
-
 }
 </script>
 

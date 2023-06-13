@@ -10,13 +10,6 @@
         <input v-model="password" type="password" placeholder="Password" class="login__input" />
         <div class="login__input-underline"></div>
       </div>
-      <!-- <div class="login__input-container">
-        <select v-model="role" class="login__input">
-          <option value="admin">ARTIST</option>
-          <option value="user">CUSTOMER</option>
-        </select>
-        <div class="login__input-underline"></div>
-      </div> -->
       <button type="submit" class="login__button">Log In</button>
       <router-link to="/forgotPassword" class="login__forgot-password">Forgot Password?</router-link>
     </form>
@@ -38,23 +31,31 @@ export default {
     return {
       email: '',
       password: '',
-      role: 'user'
+      errorMessage: ''
     }
   },
   methods: {
-    async login() {
-      try {
-        const response = await axios.post('http://localhost:8081/user/login', {
-          email: this.email,
-          password: this.password,
-          role: this.role
-        });
-        console.log(response.data);
-      } catch (error) {
-        console.log(error); 
-      }
+    submitForm(event) {
+      event.preventDefault();
+      axios.post('http://localhost:8082/api/auth/login', {
+        username: this.email,
+        password: this.password
+      })
+      .then(response => {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        this.$router.push('/notFound');
+      })
+      .catch(error => {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errorMessage = error.response.data.message;
+        } else {
+          this.errorMessage = 'An error occurred during login.';
+        }
+      });
     }
   }
+
 }
 </script>
 

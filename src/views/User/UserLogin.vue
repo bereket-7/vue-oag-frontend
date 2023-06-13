@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <form class="login__form" @submit.prevent="login">
+    <form class="login__form" @submit.prevent="submitForm">
       <h2 class="login__title">Log In</h2>
       <div class="login__input-container">
         <input v-model="email" type="email" placeholder="Email" class="login__input" />
@@ -42,8 +42,13 @@ export default {
         password: this.password
       })
       .then(response => {
-        const token = response.data.token;
-        localStorage.setItem('token', token);
+        //const token = response.data.token;
+        //localStorage.setItem('token', token);
+        if (response.data.accessToken) {
+          window.localStorage.clear();
+          window.localStorage.setItem("token", response.data.accessToken);
+        }
+        //window.location.href = "/notFound";
         this.$router.push('/notFound');
       })
       .catch(error => {

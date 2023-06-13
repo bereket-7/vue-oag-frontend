@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="form-container">
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="register">
     <div>
       <br>
       <input type="text" id="firstname" placeholder="First Name" v-model="firstname" required>
@@ -379,7 +379,7 @@ export default {
   methods: {
     async register() {
       try {
-        await axios.post('http://localhost:8081/api/v1/registration', {
+        await axios.post('http://localhost:8082/api/v1/registration/register', {
           firstname: this.firstname,
           lastname: this.lastname,
           email: this.email,

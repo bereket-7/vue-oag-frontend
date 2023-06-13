@@ -65,7 +65,7 @@ export default {
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     },
-    redirectToNotFound() {
+    redirectUserPage() {
       this.$router.push('/notFound');
     }
   }

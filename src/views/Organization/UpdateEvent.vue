@@ -59,7 +59,7 @@
       },
       updateEvent(eventId) {
       axios
-        .put(`http://localhost:8081/events/${eventId}`, this.updatedEvent)
+        .put(`http://localhost:8082/events/${eventId}`, this.updatedEvent)
         .then(response => {
           this.event = response.data;
           console.log('Event updated successfully!');

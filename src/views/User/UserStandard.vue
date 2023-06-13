@@ -34,7 +34,7 @@ export default {
     methods: {
     fetchStandard() {
       // Call API to get standards
-      axios.get('http://localhost:8081/standard/all')
+      axios.get('http://localhost:8082/standard/all')
         .then(standard => {
           this.standards = standard.data;
         })

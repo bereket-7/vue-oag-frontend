@@ -217,7 +217,7 @@ export default {
   methods: {
     async saveStandard() {
       try {
-        const response = await axios.post('http://localhost:8081/standard/add', {
+        const response = await axios.post('http://localhost:8082/standard/add', {
           standardDescription: this.standardDescription,
           standardType: this.standardType
         });

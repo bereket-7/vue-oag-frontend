@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     fetchAllEvents() {
-      fetch('http://localhost:8081/events', {
+      fetch('http://localhost:8082/events', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -52,7 +52,7 @@ export default {
     },
     fetchEventImages() {
       this.events.forEach(event => {
-        fetch(`http://localhost:8081/events/${event.id}/image`, {
+        fetch(`http://localhost:8082/events/${event.id}/image`, {
           method: 'GET',
           headers: {
             Accept: 'image/png',

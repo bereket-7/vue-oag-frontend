@@ -31,7 +31,7 @@ async function checkTokenExpiration() {
 
       if (currentTimestamp > expirationTimestamp) {
         localStorage.removeItem('token');
-        window.location.href = '/login'; 
+        window.location.href = '/userLogin'; 
         return false;
       }
     } catch (error) {

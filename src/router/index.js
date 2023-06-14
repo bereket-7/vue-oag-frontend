@@ -12,7 +12,7 @@ const routes = [
     name: 'eventRegister',
     component: () => import('../views/Organization/EventRegister.vue'),
     meta: {
-      requiresAuth: true // Add this meta property to indicate that this route requires authentication
+      requiresAuth: true
     }
   },
   

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+//import { router } from './router'; 
 //import HomeView from '../views/HomeView.vue'
 const routes = [
   {
@@ -9,8 +10,12 @@ const routes = [
   {
     path: '/eventRegister',
     name: 'eventRegister',
-    component: () => import('../views/Organization/EventRegister.vue')
+    component: () => import('../views/Organization/EventRegister.vue'),
+    meta: {
+      requiresAuth: true // Add this meta property to indicate that this route requires authentication
+    }
   },
+  
   {
     path: '/updateEvent',
     name: 'updateEvent',

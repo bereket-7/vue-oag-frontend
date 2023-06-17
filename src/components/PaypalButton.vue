@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <div id="paypal-button-container"></div>
+    <div class="paypal-button-container">
+      <div id="paypal-button"></div>
     </div>
   </template>
   
@@ -26,7 +26,7 @@
                 body: JSON.stringify({ price: 10, currency: 'USD' }),
               })
                 .then((res) => res.json())
-                .then((data) => data.id); // Return the order ID
+                .then((data) => data.id);
             },
             onApprove: (data) => {
               return fetch('http://localhost:8080/paypal/success', {
@@ -34,22 +34,36 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                params: { paymentId: data.orderID, payerId: data.payerID }, // Adjust the parameter names according to backend implementation
+                params: { paymentId: data.orderID, payerId: data.payerID },
               })
                 .then((res) => res.text())
                 .then((result) => {
                   console.log(result);
-                  this.$router.push('/paymentSuccess')
+                  this.$router.push('/paymentSuccess');
                 })
                 .catch((error) => {
                   console.error(error);
-                  this.$router.push('/paymentSuccess')
+                  this.$router.push('/paymentError');
                 });
             },
           })
-          .render('#paypal-button-container');
+          .render('#paypal-button');
       },
     },
   };
   </script>
+  
+  <style scoped>
+  .paypal-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  #paypal-button {
+    width: 200px;
+    height: 50px;
+  }
+  </style>
   

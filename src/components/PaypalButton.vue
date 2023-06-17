@@ -39,12 +39,11 @@
                 .then((res) => res.text())
                 .then((result) => {
                   console.log(result);
-                  // Redirect to success page or show a success message
+                  this.$router.push('/paymentSuccess')
                 })
                 .catch((error) => {
-                  // Handle the error
                   console.error(error);
-                  // Redirect to error page or show an error message
+                  this.$router.push('/paymentSuccess')
                 });
             },
           })

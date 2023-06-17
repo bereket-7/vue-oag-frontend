@@ -62,6 +62,16 @@ const routes = [
     component: () => import('../views/shopping/ShoppingCart.vue')
   },
   {
+    path: '/paymentSuccess',
+    name: 'PaypalSuccess',
+    component: () => import('../views/shopping/PaypalSuccess.vue')
+  },
+  {
+    path: '/paymentError',
+    name: 'PaypalEror',
+    component: () => import('../views/shopping/PaymentError.vue')
+  },
+  {
     path: '/wishlist',
     name: 'WishList',
     component: () => import('../views/shopping/WishList.vue')

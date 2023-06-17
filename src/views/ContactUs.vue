@@ -66,21 +66,52 @@
     </div>
   </div>
 </div>
-
-
     </div>
   </div>
   <footer-view/>
 </template>
 
+
 <script>
-import FooterView from "@/components/FooterView.vue"
+import axios from 'axios';
+import FooterView from "@/components/FooterView.vue";
+
 export default {
   name: 'ContactUs',
   components: {
     FooterView
+  },
+  data() {
+    return {
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    };
+  },
+  methods: {
+    async sendEmail(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const emailDetail = {
+        recipient: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        sender: formData.get('email'),
+        attachment: null 
+      };
+
+      try {
+        await axios.post('http://localhost:8082/email/sendEmail', emailDetail);
+        event.target.reset();
+        alert('Email sent successfully!');
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while sending the email.');
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>

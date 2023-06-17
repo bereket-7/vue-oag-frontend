@@ -1,17 +1,40 @@
 <template>
-    <div>
+    <div class="error-page">
       <h1>Error</h1>
       <p>Sorry, an error occurred during the payment process.</p>
       <p>Please try again later or contact customer support.</p>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
-    mounted() {
-      // You can perform any additional error handling or logging here
-      console.error('Payment error occurred');
+  <style>
+  .error-page {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .error-page h1 {
+    font-size: 24px;
+    color: #FF0000;
+    margin-bottom: 20px;
+  }
+  
+  .error-page p {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 768px) {
+    .error-page {
+      margin-top: 20px;
     }
-  };
-  </script>
+  
+    .error-page h1 {
+      font-size: 20px;
+    }
+  
+    .error-page p {
+      font-size: 14px;
+    }
+  }
+  </style>
   

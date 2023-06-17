@@ -6,11 +6,11 @@
       <div class="col-lg-6">
         <form @submit="sendEmail" class="php-email-form">
           <div class="row gy-4">
-            <div class="col-md-6">
-              <input v-model="name" type="text" name="name" class="form-control" placeholder="Your Name" required>
+             <div class="col-md-6">
+              <input v-model="recipient" type="text" name="name" class="form-control" placeholder="Kelem.oag.app@gmail.com" required>
             </div>
             <div class="col-md-6">
-              <input v-model="email" type="email" class="form-control" name="email" placeholder="Your Email" required>
+              <input v-model="sender" type="email" class="form-control" name="email" placeholder="Your Email" required>
             </div>
             <div class="col-md-12">
               <input v-model="subject" type="text" class="form-control" name="subject" placeholder="Subject" required>
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      name: '',
+      recipient: 'kelem.oag.app@gmail.com',
       email: '',
       subject: '',
       message: ''

@@ -60,7 +60,7 @@ export default {
       document.body.classList.remove('modal-open');
     },
     fetchArtworks() {
-      axios.get('http://localhost:8081/artworks')
+      axios.get('http://localhost:8082/artworks')
         .then(response => {
           this.artworks = response.data;
         })
@@ -69,7 +69,7 @@ export default {
         });
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8081/artworks/${artworkId}/image`;
+      return `http://localhost:8082/artworks/${artworkId}/image`;
     },
   },
 };

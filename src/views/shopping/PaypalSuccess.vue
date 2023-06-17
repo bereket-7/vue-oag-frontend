@@ -4,7 +4,11 @@
       <p>Thank you for your payment. Your transaction has been successfully processed.</p>
     </div>
   </template>
-  
+  <script>
+     export default {
+
+     }
+</script>
   <style scoped>
   .success-page {
     max-width: 400px;

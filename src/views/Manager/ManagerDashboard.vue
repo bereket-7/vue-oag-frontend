@@ -12,9 +12,9 @@ import VerifyArtwork from './VerifyArtwork.vue'
 export default {
   name: 'HomeView',
   components: {
-    FooterView,
     ManagerNavbar,
-    VerifyArtwork
+    VerifyArtwork,
+    FooterView
   },
 }
 </script>

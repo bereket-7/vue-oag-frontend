@@ -4,13 +4,12 @@
     <FooterView/>
 </template>
 
-
 <script>
 import ManagerNavbar from '@/components/ManagerNavbar.vue'
 import FooterView from '@/components/FooterView.vue'
 import VerifyArtwork from './VerifyArtwork.vue'
 export default {
-  name: 'HomeView',
+  name: 'ManagerNavbar',
   components: {
     ManagerNavbar,
     VerifyArtwork,

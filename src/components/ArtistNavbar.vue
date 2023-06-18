@@ -22,8 +22,12 @@
             <router-link to="/myArts">My Arts</router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/displayCompetition">Competition</router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/myAccount"><i class="fa-solid fa-gear"></i></router-link>
           </li>
+
         </ul>
         <router-link to="/userLogin" style="margin-right:15px">Login</router-link>
         <router-link to="/register" style="margin-right:15px">Sign up</router-link>

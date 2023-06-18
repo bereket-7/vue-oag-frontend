@@ -196,6 +196,11 @@ const routes = [
     component: () => import('../components/ArtworkDetail.vue')
   },
   {
+    path: '/displayCompetition',
+    name: 'DisplayCompetition',
+    component: () => import('../views/Manager/DisplayCompetition.vue')
+  },
+  {
     path: '/registerOrganization',
     name: 'RegisterOrganization',
     component: () => import('../views/Organization/RegisterOrganization.vue')

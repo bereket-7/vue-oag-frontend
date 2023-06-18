@@ -7,10 +7,12 @@
             <div class="carousel-item active">
               <div class="row">
                 <div class="col-md-2 col-sm-12" v-for="(artwork, index) in displayedArtworks" :key="index">
-                  <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
-                  <div class="artwork-details">
-                    <h3>{{ artwork.title }}</h3>
-                    <p>{{ artwork.description }}</p>
+                  <div class="artwork-card">
+                    <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
+                    <div class="artwork-details">
+                      <h3>{{ artwork.title }}</h3>
+                      <p>{{ artwork.description }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -18,10 +20,12 @@
             <div class="carousel-item" v-for="(artworkGroup, index) in artworkGroups" :key="index">
               <div class="row">
                 <div class="col-md-2 col-sm-12" v-for="(artwork, index) in artworkGroup" :key="index">
-                  <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
-                  <div class="artwork-details">
-                    <h3>{{ artwork.title }}</h3>
-                    <p>{{ artwork.description }}</p>
+                  <div class="artwork-card">
+                    <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
+                    <div class="artwork-details">
+                      <h3>{{ artwork.title }}</h3>
+                      <p>{{ artwork.description }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -41,8 +45,6 @@
   </div>
 </template>
 
-
-  
   <script>
   import axios from 'axios';
 
@@ -102,23 +104,57 @@ export default {
   },
 };
   </script>
-  
-  <style scoped>
-  .carousel-inner {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-  
-  .carousel-control-prev,
-  .carousel-control-next {
-    position: absolute;
-    top: 50%;
-    z-index: 5;
-    display: inline-block;
-  }
-  
-  /* .carousel-control-prev {
 
-  } */
-</style>  
+<style scoped>
+.carousel-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+}
+
+.artwork-card {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease;
+}
+
+.artwork-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.artwork-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.artwork-details {
+  margin-top: 10px;
+}
+
+@media (max-width: 576px) {
+  .carousel-inner {
+    flex-direction: column;
+  }
+  
+  .carousel-item {
+    align-items: center;
+  }
+  
+  .artwork-card {
+    width: 80%;
+  }
+}
+</style> 

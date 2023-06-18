@@ -20,10 +20,10 @@
         <router-link to="/cart" class="shopping-cart-icon"  style="margin-right:15px"><i class="fas fa-shopping-cart"></i></router-link>
       </div>
     </nav>
-  </template>
-  
-  
-  <style scoped>
+</template>
+
+
+<style scoped>
   .navbar {
     position: fixed;
     top: 0;
@@ -55,17 +55,16 @@
   .nav-item{
     color: #04bb23;
   }
-  
   .navbar-brand img {
     max-width: 100%;
     height: auto;
     transition: opacity 0.3s ease;
   }
-  
+
   .navbar-brand:hover img {
     opacity: 0.8; 
   }
-  
+
   .navbar-list {
     display: flex;
     align-items: center; 

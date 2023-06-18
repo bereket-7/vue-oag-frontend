@@ -34,7 +34,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .dialog {
     position: fixed;
     top: 0;

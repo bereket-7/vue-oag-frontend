@@ -232,18 +232,10 @@ const routes = [
     component: () => import('../components/LogOut.vue')
   },
   {
-    path: '/adminPanel',
-    name: 'AdminPanel',
-    component: () => import('../views/Admin/AdminPanel.vue')
-  },
-  {
     path: '/FAQs',
     name: 'FAQs',
     component: () => import('../views/User/FAQs.vue')
   },
-
-
-
 ]
 
 const router = createRouter({

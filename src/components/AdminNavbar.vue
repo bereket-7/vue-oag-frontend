@@ -10,10 +10,16 @@
             <router-link to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/">Request</router-link>
+            <router-link to="/verifyArtwork">Request</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/contactUs">Contact Us</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/userList">Users</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/myAccount"><i class="fa-solid fa-gear">Account</i></router-link>
           </li>
         </ul>
         <router-link to="/register" style="margin-right:15px">Sign up</router-link>

@@ -4,8 +4,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: () => import('../views/HomeView.vue')
+  },
+  {
+    path: '/managerDashboard',
+    name: 'Manager Dashboard',
+    component: () => import('../views/Manager/ManagerDashboard.vue')
   },
   {
     path: '/eventRegister',
@@ -16,8 +21,6 @@ const routes = [
     }
   },
 
-
-  
   {
     path: '/updateEvent',
     name: 'updateEvent',

@@ -32,7 +32,13 @@
     </nav>
   </template>
   
-  
+<script>
+    export default {
+      name: 'ManagerNavbar'
+    }
+</script>
+
+
   <style scoped>
   .navbar {
     position: fixed;

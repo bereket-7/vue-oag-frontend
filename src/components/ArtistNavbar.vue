@@ -25,7 +25,7 @@
             <router-link to="/displayCompetition">Competition</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/myAccount"><i class="fa-solid fa-gear"></i></router-link>
+            <router-link to="/myAccount"><i class="fa-solid fa-gear">Account</i></router-link>
           </li>
 
         </ul>

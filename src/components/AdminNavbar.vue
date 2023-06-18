@@ -10,7 +10,7 @@
             <router-link to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about">About</router-link>
+            <router-link to="/">Request</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/contactUs">Contact Us</router-link>

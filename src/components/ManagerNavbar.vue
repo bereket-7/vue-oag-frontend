@@ -10,13 +10,19 @@
             <router-link to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about">About</router-link>
+            <router-link to="/verifyArtwork">Request</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/contactUs">Contact Us</router-link>
+            <router-link to="/createCompetition">Competition</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/adminPanel">Admin</router-link>
+            <router-link to="/artworks">Artworks</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/userReport">Reports</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/myAccount"><i class="fa-solid fa-gear">Account</i></router-link>
           </li>
         </ul>
         <router-link to="/userlogin" style="margin-right:15px">Login</router-link>

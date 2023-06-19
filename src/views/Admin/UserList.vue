@@ -9,6 +9,7 @@
           <th>Username</th>
           <th>Address</th>
           <th>Role</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +21,6 @@
             <td>{{ user.username }}</td>
             <td>{{ user.address }}</td>
             <td>{{ user.role }}</td>
-
             <td>
               <button @click="editUser(user.id)">
                 <i class="fa fa-edit"></i>
@@ -35,11 +35,15 @@
         </template>
         <template v-else>
           <tr>
-            <td colspan="6">No users available.</td>
+            <td colspan="7">No users available.</td>
           </tr>
         </template>
       </tbody>
     </table>
+
+    <button @click="deleteSelectedUsers" :disabled="selectedUsers.length === 0">
+      Delete Selected
+    </button>
   </div>
 </template>
 
@@ -49,7 +53,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      users: []
+      users: [],
+      selectedUsers: []
     };
   },
   mounted() {
@@ -57,39 +62,58 @@ export default {
   },
   methods: {
     fetchUsers() {
-      axios.get('/api/users/all')
-        .then(response => {
+      axios
+        .get('/api/users/all')
+        .then((response) => {
           this.users = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
     editUser(userId) {
-  // Redirect to the edit page with the userId parameter in the URL
-  this.$router.push(`/edit-user/${userId}`);
-},
-
+      this.$router.push(`/edit-user/${userId}`);
+    },
     confirmDeleteUser(userId) {
       if (confirm('Are you sure you want to delete this user?')) {
         this.deleteUser(userId);
       }
     },
     deleteUser(userId) {
-  axios.delete(`/api/users/${userId}`)
-    .then(() => {
-      // Handle successful deletion
-      this.fetchUsers(); // Refresh the user list
-    })
-    .catch(error => {
-      console.error(error);
-      // Handle error response
-    });
-}
-
+      axios
+        .delete(`/api/users/${userId}`)
+        .then(() => {
+          this.fetchUsers();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    toggleUserSelection(userId) {
+      const index = this.selectedUsers.indexOf(userId);
+      if (index === -1) {
+        this.selectedUsers.push(userId);
+      } else {
+        this.selectedUsers.splice(index, 1);
+      }
+    },
+    deleteSelectedUsers() {
+      if (confirm('Are you sure you want to delete the selected users?')) {
+        axios
+          .delete('/api/users', { data: { ids: this.selectedUsers } })
+          .then(() => {
+            this.fetchUsers();
+            this.selectedUsers = [];
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
   }
 };
 </script>
+
 
 <style scoped>
 table {
@@ -140,6 +164,27 @@ button:hover {
   color: #e71d36;
 }
 
+button.delete-selected {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #e71d36;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.delete-selected:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button.delete-selected:hover {
+  background-color: #c41e2d;
+}
+
+/* Responsive Styles */
 @media (max-width: 600px) {
   table {
     margin-top: 80px;
@@ -155,5 +200,6 @@ button:hover {
   }
 }
 </style>
+
 
 

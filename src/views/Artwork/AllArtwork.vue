@@ -28,7 +28,8 @@
               <p>Size: {{ selectedArtwork.size }}</p>
               <p>Category: {{ selectedArtwork.artworkCategory }}</p>
               <hr class="mx-n3">
-              <button type="button" class="btn btn-danger">Add to Cart</button>
+              <button type="button" class="btn btn-danger" @click="addToCart(selectedArtwork.id)">Add to Cart</button>
+              <p>{{ message }}</p>
             </div>
           </div>
         </div>
@@ -38,12 +39,13 @@
   
   <script>
   import axios from 'axios';
-  
   export default {
     data() {
       return {
         artworks: [],
         selectedArtwork: null,
+        message: '',
+
       };
     },
     mounted() {
@@ -70,6 +72,21 @@
       getArtworkImageUrl(artworkId) {
         return `http://localhost:8082/artworks/${artworkId}/image`;
       },
+      addToCart(artworkId) {
+      axios
+        .post(`http://localhost:8082/cart/add`, {
+          artworkId,
+          quantity: 1,
+        })
+        .then(response => {
+          console.log(response);
+          this.message = 'Item added to cart successfully!';
+        })
+        .catch(error => {
+          console.error('Failed to add item to cart:', error);
+          this.message = 'Failed to add item to cart.';
+        });
+    },
     },
   };
   </script>

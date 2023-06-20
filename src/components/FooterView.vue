@@ -81,7 +81,7 @@ ul{
 }
 .footer{
 	background-color: #24262b;
-    padding: 70px 0;
+    padding: 50px 0;
 }
 .footer-col{
    width: 25%;

@@ -134,5 +134,28 @@
     background-color: #f44336;
     margin-top: 20px;
   }
+/* Responsive Styles */
+@media (max-width: 767px) {
+  .cart-items-container {
+    padding: 10px;
+  }
   
+  .cart-table {
+    font-size: 14px;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 8px;
+  }
+  
+  .total-price {
+    margin-bottom: 5px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
   </style>

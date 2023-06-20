@@ -89,9 +89,10 @@
 
   <style scoped>
   .cart-items-container {
-    max-width: 800px;
+    /* margin-top: 150px; */
+    max-width: 900px; 
     margin: 0 auto;
-    padding: 20px;
+    padding: 100px; 
   }
   
   .cart-table {

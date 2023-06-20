@@ -1,16 +1,31 @@
 <template>
-    <div>
-      <h2>Cart Items</h2>
-      <div v-for="cartItem in cartItems" :key="cartItem.id" class="cart-item">
-        <p>{{ cartItem.artwork.artworkName }}</p>
-        <p>Quantity: {{ cartItem.quantity }}</p>
-        <p>Price: {{ cartItem.artwork.price }}</p>
-        <button class="btn btn-remove" @click="removeFromCart(cartItem.id)">Remove</button>
-      </div>
-      <p>Total Price: {{ calculateTotalPrice() }}</p>
-      <button class="btn btn-clear" @click="clearCart">Clear Cart</button>
-    </div>
-  </template>
+  <div class="cart-items-container">
+    <h2>Cart Items</h2>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Artwork Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="cartItem in cartItems" :key="cartItem.id" class="cart-item">
+          <td>{{ cartItem.artwork.artworkName }}</td>
+          <td>{{ cartItem.quantity }}</td>
+          <td>{{ cartItem.artwork.price }}</td>
+          <td>
+            <button class="btn btn-remove" @click="removeFromCart(cartItem.id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="total-price">Total Price: {{ calculateTotalPrice() }}</p>
+    <button class="btn btn-clear" @click="clearCart">Clear Cart</button>
+  </div>
+</template>
+
   
   <script>
   import axios from 'axios';
@@ -71,3 +86,53 @@
   };
   </script>
   
+
+  <style scoped>
+  .cart-items-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .cart-table th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .cart-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .total-price {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .btn {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-remove {
+    background-color: #f44336;
+    margin-left: 10px;
+  }
+  
+  .btn-clear {
+    background-color: #f44336;
+    margin-top: 20px;
+  }
+  
+  </style>

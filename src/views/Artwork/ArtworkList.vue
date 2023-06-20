@@ -29,6 +29,7 @@
             <p>Category: {{ selectedArtwork.artworkCategory }}</p>
             <hr class="mx-n3">
             <button type="button" class="btn btn-danger">Add to Cart</button>
+            <StarRating :rating="selectedArtwork.averageRating" :editable="true" @rating-selected="submitRating" />
           </div>
         </div>
       </div>
@@ -38,8 +39,12 @@
 
 <script>
 import axios from 'axios';
+import StarRating from '@/components/StarRating'; 
 
 export default {
+  components: {
+    StarRating, 
+  },
   data() {
     return {
       artworks: [],
@@ -70,9 +75,33 @@ export default {
     getArtworkImageUrl(artworkId) {
       return `http://localhost:8082/artworks/${artworkId}/image`;
     },
+    submitRating(rating) {
+    const artworkId = this.selectedArtwork.id;
+    axios.post(`http://localhost:8082/rating/artworks/${artworkId}/rate`, { rating })
+      .then(response => {
+        console.log(response);
+        console.log('Rating submitted successfully!');
+      })
+      .catch(error => {
+        console.error('Failed to submit rating:', error);
+      });
+  },
   },
 };
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <style scoped>

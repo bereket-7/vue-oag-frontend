@@ -2,39 +2,78 @@
     <div class="forgot-password">
       <form class="forgot-password__form">
         <h2 class="forgot-password__title">Forgot Password</h2>
-        <div class="forgot-password__input-container">
-          <input type="email" placeholder="Email" class="forgot-password__input" />
+        <div v-if="!showResetForm" class="forgot-password__input-container">
+          <p>Enter your email address to receive verification</p>
+          <input type="email" placeholder="Email" v-model="email" class="forgot-password__input" />
           <div class="forgot-password__input-underline"></div>
+          <br><br>
+          <button @click="requestPasswordReset" class="forgot-password__button">Submit</button>
         </div>
-        <button class="forgot-password__button">Submit</button>
+        <div v-else>
+      <p>Enter your new password:</p>
+      <input type="password" v-model="newPassword" placeholder="New Password">
+      <button @click="resetPassword">Reset Password</button>
+    </div>
+    <p v-if="message">{{ message }}</p>
       </form>
     </div>
-  </template>
-  
-  
-  <script>
-  export default {
-    name: 'ForgotPassword',
-    data() {
-      return {
-        email: ''
-      }
+</template>
+
+
+
+<script>
+import axios from 'axios';
+export default {
+  name: 'ForgotPassword',
+  data() {
+    return {
+      email: '',
+      newPassword: '',
+      showResetForm: false,
+      message: '',
+      token: ''
+    };
+  },
+  methods: {
+    requestPasswordReset() {
+      axios
+        .post('/api/users/password/request', {
+          email: this.email
+        })
+        .then(() => {
+          this.message = 'Password reset email sent.';
+          this.showResetForm = true;
+        })
+        .catch(error => {
+          this.message = error.response.data.message;
+        });
     },
-    methods: {
-      onSubmit() {
-        // using this.email as the user's email address
-        // and then show a success message or redirect the user to another page
-      }
+    resetPassword() {
+      axios
+        .post('/api/users/password/reset', {
+          token: this.token,
+          newPassword: this.newPassword
+        })
+        .then(() => {
+          this.message = 'Password reset successfully.';
+          this.showResetForm = false;
+        })
+        .catch(error => {
+          this.message = error.response.data.message;
+        });
     }
   }
-  </script>
+};
+</script>
+
+
   
   <style scoped>
   .forgot-password {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; 
   background-color: #f5f5f5;
   background-image: url("~@/assets/img/buetyback.png");
   background-size: cover;
@@ -44,7 +83,7 @@
 .forgot-password__form {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 600px;
   align-items: center;
   padding: 2rem;
   border-radius: 1rem;
@@ -111,6 +150,5 @@
   }
 }
 
-  /* Add your styles here */
   </style>
   

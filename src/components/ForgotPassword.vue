@@ -36,7 +36,7 @@ export default {
   methods: {
     requestPasswordReset() {
       axios
-        .post('/api/users/password/request', {
+        .post('http://localhost:8082/api/users/password/request', {
           email: this.email
         })
         .then(() => {
@@ -49,7 +49,7 @@ export default {
     },
     resetPassword() {
       axios
-        .post('/api/users/password/reset', {
+        .post('http://localhost:8082/api/users/password/reset', {
           token: this.token,
           newPassword: this.newPassword
         })

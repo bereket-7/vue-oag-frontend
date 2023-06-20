@@ -62,8 +62,8 @@ const routes = [
   },
   {
     path: '/cart',
-    name: 'ShoppingCart',
-    component: () => import('../views/shopping/ShoppingCart.vue')
+    name: 'CartItems',
+    component: () => import('../components/CartItems.vue')
   },
   {
     path: '/paymentSuccess',

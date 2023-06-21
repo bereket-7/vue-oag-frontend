@@ -91,6 +91,11 @@ const routes = [
     component: () => import('../components/MyAccount.vue')
   },
   {
+    path: '/edit-account',
+    name: 'AccountDetail',
+    component: () => import('../views/User/ProfileSetting.vue')
+  },
+  {
     path: '/signupSuccess',
     name: 'SignupSuccess',
     component: () => import('../views/User/SignupSuccess.vue')

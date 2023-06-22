@@ -40,10 +40,15 @@ export default {
         });
         const jwtToken = response.data.token;
         setAuthToken(jwtToken);
-        
+
         localStorage.setItem('token', jwtToken);
         router.push('/customerDashboard'); 
       } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          this.errorMessage = error.response.data.message;
+        } else {
+          this.errorMessage = 'Username or password incorrect';
+        }
         console.log(error);
       }
     };

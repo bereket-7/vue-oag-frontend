@@ -93,7 +93,7 @@
     }
     </script>
     
-    <style>
+    <style scoped>
 
     .btn{
         align-items: center;

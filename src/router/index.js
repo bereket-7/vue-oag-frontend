@@ -122,6 +122,12 @@ const routes = [
     component: () => import('../views/User/ConfirmRegistration.vue')
   },
   {
+    path: '/sendNotification',
+    name: 'SendNotification',
+    component: () => import('../components/SendNotification.vue')
+  },
+  
+  {
     path: '/about',
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../components/AboutUs.vue')

@@ -23,53 +23,43 @@
 </template>
 
 <script>
+import { setAuthToken } from '@/utils/auth';
 import axios from 'axios';
-
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
-  name: 'UserLogin',
-  data() {
-    return {
-      email: '',
-      password: '',
-      errorMessage: ''
-    }
-  },
-  methods: {
-    submitForm(event) {
-      event.preventDefault();
-      axios.post('http://localhost:8082/api/auth/login', {
-        username: this.email,
-        password: this.password
-      })
-      .then(response => {
-        const token = response.data.token;
-        //localStorage.setItem('token', token);
-        if (response.data.accessToken) {
-          //window.localStorage.clear();
-          //window.localStorage.setItem("token", response.data.accessToken);
-          this.setToken(token); 
-          this.redirectUserPage(); 
-        }else {
-          this.errorMessage = 'Access token not found in the response.';
-        }
-      })
-      .catch(error => {
+  setup() {
+    const email = ref('');
+    const password = ref('');
+    const router = useRouter();
+    const submitForm = async () => {
+      try {
+        const response = await axios.post('http://localhost:8082/api/auth/login', {
+          username: email.value,
+          password: password.value,
+        });
+        const jwtToken = response.data.token;
+        setAuthToken(jwtToken);
+
+        localStorage.setItem('token', jwtToken);
+        router.push('/customerDashboard'); 
+      } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           this.errorMessage = error.response.data.message;
         } else {
-          this.errorMessage = 'An error occurred during login.';
+          this.errorMessage = 'Username or password incorrect';
         }
-      });
-    },
-    setToken(token) {
-      localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    },
-    redirectUserPage() {
-      this.$router.push('/notFound');
-    }
-  }
-}
+        console.log(error);
+      }
+    };
+    return {
+      email,
+      password,
+      submitForm,
+    };
+  },
+};
+
 </script>
 
 <style scoped>
@@ -80,7 +70,6 @@ export default {
   align-items: center;
   height: 110vh;
   background-color: #f5f5f5;
-  /* background-image: url("~@/assets/img/background.jpg"); */
   background-size: cover;
   background-position: center center;
 }

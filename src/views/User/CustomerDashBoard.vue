@@ -1,181 +1,131 @@
 <template>
-  <div class="container-fluid">
-<div class="flex-container">
+  <div class="container-fluid rounded bg-white mt-5">
+      <div class="row">
+          <div class="col-md-3 border-right sidebar">
+              <div class="d-flex flex-column align-items-center text-center p-3  user-p">
+                  <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
+                  <span class="font-weight-bold">Bereket</span>
+              </div>
+              <div class="sidebar">
+                  <ul class="navbar-list">
+      <li class="nav-item">
+        <router-link to="/" class="nav-link">Home</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">About</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/adminPanel" class="nav-link">Admin</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/adminPanel" class="nav-link">Logout</router-link>
+      </li>
+    </ul> 
+              </div>
+          </div>
+          <div class="col-md-8 border-right">
+              <div class="p-3 py-5">
+                  <div class="justify-content-between align-items-center mb-3 myaccount">
+                      <h2 class="text-center">MY ACCOUNT</h2>
+                      <h5 class="text-center">DASHBOARD</h5>
+                  </div>
+                  <div class="row">
+                      <div class="row mt-2">
+                      <div class="col-md-4"><router-link to="/"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
+                      <div class="col-md-4"><router-link to="/about"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
+                      <div class="col-md-4"><router-link to="/contactUs"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>
+                       
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Detail</button></router-link></div>
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
+                  </div>
 
-    
-       <div class="sidebar">
-    <div class="user-p">
-    <img src="@/assets/img/bekam.jpg" alt="">
-    <h4>Bereket</h4>
-    </div>
-    <ul class="navbar-list">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link">About</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-        </li>
-      </ul> 
-</div>  
-<div class="main-content container text-center">
-  <div class="title">
-      <h1>MY ACCOUNT</h1>
-      <h5>DASHBOARD</h5>
-    </div>
-  <div class="row">
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">Home</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">About</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-      <button><router-link to="" class="item">Contact</router-link></button>
-    </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
   </div>
-  <div class="row">
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">address</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">About</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-      <button><router-link to="" class="item">Contact</router-link></button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">Home</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-     <button><router-link to="" class="item">About</router-link></button>
-    </div>
-    <div class="col-6 col-md-4">
-      <button><router-link to="" class="item">Contact</router-link></button>
-    </div>
-  </div>
-  </div>
-</div> 
-  </div>
-    
+  <FooterView/>
+  </template>
+  
+  <script>
+  import FooterView from "@/components/FooterView.vue"
+  export default{
+      name:'AccountDetail',
+      components:{
+          FooterView
+      }
+  }
+  </script>
+  
+  <style>
+  .form-control:focus {
+      box-shadow: none;
+      border-color: black
+  }
+  
+  .profile-button {
+      box-shadow: none;
+      border: none
+  }
+  .profile-button:active {
+      background: #682773;
+      box-shadow: none
+  }
+  .back:hover {
+      color: #682773;
+      cursor: pointer
+  }
+  
+  .labels {
+      font-size: 11px
+  }
+  
+  .add-experience:hover {
+      background: #BA68C8;
+      color: #fff;
+      cursor: pointer;
+      border: solid 1px #BA68C8
+  }
 
-<Footerview></Footerview>
-</template>
-
-
-
-<script>
-import Footerview from '@/components/FooterView.vue'
-export default{
-    name:'customerDashboard',
-    components:{
-        Footerview
-    }
-}
-
-</script>
-
-<style scoped>
-.flex-container {
-    display: flex;
-}
-
-.title{
-  background-color: rgb(95, 96, 107);
-  color:white;
-}
-
-
-.sidebar{
-    margin: 0;
-    padding-top: 80px;
-    width: 25%;
-    background-color: #f1f1f1;
-    height: 100%;
-    overflow: auto; 
-}
-.user-p{
-    text-align: center;
-    padding-left:0;
-    padding-top: 15px;
-}
-.user-p img{
-    width: 50%;
-    border-radius: 50%;
-}
-.main-content{
-     margin-top: 100px;
-    margin-left: 100px;
-    margin-right: 100px;
-    
-    /* padding-left: 30%;
-    padding-top:10%;
-    width: 75%; */
-}
-.item{
-  padding-left: 60px;
-  padding-right: 60px;
-  /* padding-top: 50px;
-  padding-bottom: 50px; */
-}
-
-.row{
-  margin-top:20px;
-  margin-bottom: 20px;
-}
-
-.item:hover{
-  background-color: rgb(74, 73, 72);
-  color: white;
-}
-.nav-item{
-    margin:5px;
-    align-content: center;
+  .sidebar{
+      background-color: #f1f1f1;
+      color:black;
+  }
+  .user-p img{
+  width: 50%;
+  border-radius: 50%;
 }
 .navbar-list{
-    align-content: center;
-    margin-top: 30px;
+  text-align: center;
+  list-style-type: none;
 }
 .nav-item{
-    align-items: center;
+  margin: 5px;
 }
-.nav-link{
-    display: block;
-  color: black;
-  padding: 0;
+.navbar-list{
   text-decoration: none;
-  text-align: center;
 }
-.nav-link:hover{
-    background-color: rgb(74, 73, 72);
-    color:white;
+.nav-item:hover{
+  background-color: rgb(74, 73, 72);
+color: white;
 }
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .nav-item {float: left;}
+.myaccount{
+  background-color:rgb(65, 74, 48) ;
+  color: white;
 }
-
-@media screen and (max-width: 400px) {
-  .nav-item{
-    text-align: center;
-    float: none;
-  }
-  }
 </style>

@@ -24,4 +24,6 @@ export function initializeAuth() {
   }
 }
 
+export const isAuthenticated = () => auth.isAuthenticated;
+
 export default auth;

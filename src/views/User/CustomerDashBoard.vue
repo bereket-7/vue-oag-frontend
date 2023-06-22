@@ -44,7 +44,7 @@
                   </div>
                   <div class="row mt-2">
                       <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Detail</button></router-link></div>
-                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
+                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Notification</button></router-link></div>
                       <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
                   </div>
                   <div class="row mt-2">

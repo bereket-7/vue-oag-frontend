@@ -41,9 +41,20 @@ const routes = [
     component: () => import('../views/Manager/EventRequest.vue')
   },
   {
+    path: '/eventValidation',
+    name: 'EventRequest',
+    component: () => import('../views/Manager/EventValidation.vue')
+  },
+
+  {
     path: '/createCompetition',
     name: 'CreateCompetition',
     component: () => import('../views/Manager/CreateCompetition.vue')
+  },
+  {
+    path: '/manageCompetition',
+    name: 'ManageCompetition',
+    component: () => import('../views/Manager/ManageCompetition.vue')
   },
   {
     path: '/createBid',

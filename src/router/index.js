@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { isAuthenticated } from '@/utils/auth'; 
+import { isAuthenticated } from '@/util/auth'; 
 const routes = [
   {
     path: '/',

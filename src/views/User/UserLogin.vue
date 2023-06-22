@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { setAuthToken } from '@/utils/auth';
+import { setAuthToken } from '@/util/auth';
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';

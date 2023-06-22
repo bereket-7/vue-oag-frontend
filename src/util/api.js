@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { removeAuthToken } from '@/utils/auth';
+import { removeAuthToken } from '@/util/auth';
 import router from '@/router';
 
 const api = axios.create({

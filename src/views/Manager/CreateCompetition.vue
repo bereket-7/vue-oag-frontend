@@ -17,7 +17,11 @@
 
       <label for="expiryDate">Expiry Date</label>
       <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
-      <button type="submit">Add Competition</button>
+      <!-- <button type="submit">Add Competition</button>
+      <button type="button" class="btn btn-secondary">Manage Competition</button> -->
+      <button type="submit" class="btn btn-success">Add Competition</button>
+      <router-link to="/manageCompetition"><button type="button" class="btn btn-primary">Manage Competition</button></router-link>
+
     </form>
   </div>
   </div>

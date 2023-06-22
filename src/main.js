@@ -7,4 +7,4 @@ import "bootstrap"
 import "carousel"
 import './assets/style.css'
 import '@fortawesome/fontawesome-free/js/all'
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).mount('#app');

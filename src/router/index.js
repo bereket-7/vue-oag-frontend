@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-//import { router } from './router'; 
-//import HomeView from '../views/HomeView.vue'
+import { isAuthenticated } from '@/utils/auth'; 
 const routes = [
   {
     path: '/',
@@ -8,10 +7,12 @@ const routes = [
     component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/customerDashboard',
-    name: 'Customer Dashboard',
-    component: () => import('../views/User/CustomerDashBoard.vue')
-  },
+  path: '/customerDashboard',
+  name: 'Customer Dashboard',
+  component: () => import('../views/User/CustomerDashBoard2.vue'),
+  meta: { requiresAuth: true },
+},
+
   {
     path: '/managerDashboard',
     name: 'Manager Dashboard',
@@ -272,6 +273,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
-
+});
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next({ path: '/userLogin' }); 
+  } else {
+    next();
+  }
+});
 export default router

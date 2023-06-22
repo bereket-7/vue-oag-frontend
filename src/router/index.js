@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { isAuthenticated } from '@/util/auth'; 
+import { isAuthenticated } from '@/utils/auth'; 
 const routes = [
   {
     path: '/',
@@ -10,13 +10,14 @@ const routes = [
   path: '/customerDashboard',
   name: 'Customer Dashboard',
   component: () => import('../views/User/CustomerDashBoard2.vue'),
-  meta: { requiresAuth: true },
+  meta: { requiresAuth: true }
 },
 
   {
     path: '/managerDashboard',
     name: 'Manager Dashboard',
-    component: () => import('../views/Manager/ManagerDashboard.vue')
+    component: () => import('../views/Manager/ManagerDashboard.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventRegister',
@@ -29,48 +30,58 @@ const routes = [
   {
     path: '/updateEvent',
     name: 'updateEvent',
-    component: () => import('../views/Organization/UpdateEvent.vue')
+    component: () => import('../views/Organization/UpdateEvent.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventDisplay',
     name: 'eventDisplay',
-    component: () => import('../views/Organization/EventDisplay.vue')
+    component: () => import('../views/Organization/EventDisplay.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventRequest',
     name: 'EventRequest',
-    component: () => import('../views/Manager/EventRequest.vue')
+    component: () => import('../views/Manager/EventRequest.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventValidation',
     name: 'EventRequest',
-    component: () => import('../views/Manager/EventValidation.vue')
+    component: () => import('../views/Manager/EventValidation.vue'),
+    meta: { requiresAuth: true }
   },
 
   {
     path: '/createCompetition',
     name: 'CreateCompetition',
-    component: () => import('../views/Manager/CreateCompetition.vue')
+    component: () => import('../views/Manager/CreateCompetition.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/manageCompetition',
     name: 'ManageCompetition',
-    component: () => import('../views/Manager/ManageCompetition.vue')
+    component: () => import('../views/Manager/ManageCompetition.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/createBid',
     name: 'CreateBid',
-    component: () => import('../views/Bidding/CreateBid.vue')
+    component: () => import('../views/Bidding/CreateBid.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/registerCompetitor',
     name: 'RegisterCompetitor',
-    component: () => import('../views/User/RegisterCompetitor.vue')
+    component: () => import('../views/User/RegisterCompetitor.vue'),
+    meta: { requiresAuth: true }
+
   },
   {
     path: '/displayCompetitor',
     name: 'RegisterCompetitor',
-    component: () => import('../views/Manager/DisplayCompetitor.vue')
+    component: () => import('../views/Manager/DisplayCompetitor.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/checkout',

@@ -26,12 +26,14 @@
   <FooterView/>
 </template>
 
+
+
 <script>
-import FooterView from '@/components/FooterView.vue'
-import { setAuthToken } from '@/util/auth';
+import { setAuthToken } from '@/utils/auth';
 import axios from 'axios';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import router from '@/router';
+import FooterView from '@/components/FooterView.vue';
 export default {
   name:{
 
@@ -42,10 +44,10 @@ export default {
   setup() {
     const email = ref('');
     const password = ref('');
-    const router = useRouter();
+    const errorMessage = ref('');
     const submitForm = async () => {
       try {
-        const response = await axios.post('http://localhost:8082/api/auth/login', {
+        const response = await axios.post('/auth/login', {
           username: email.value,
           password: password.value,
         });
@@ -56,21 +58,22 @@ export default {
         router.push('/customerDashboard'); 
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
-          this.errorMessage = error.response.data.message;
+          errorMessage.value = error.response.data.message;
         } else {
-          this.errorMessage = 'Username or password incorrect';
+          errorMessage.value = 'Username or password incorrect';
         }
         console.log(error);
       }
     };
+
     return {
       email,
       password,
+      errorMessage,
       submitForm,
     };
   },
 };
-
 </script>
 
 <style scoped>

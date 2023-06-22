@@ -72,7 +72,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .form-control:focus {
       box-shadow: none;
       border-color: black

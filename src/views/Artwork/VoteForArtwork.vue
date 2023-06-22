@@ -1,42 +1,51 @@
 <template>
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ artwork.title }}</h5>
-              <img :src="artwork.imageUrl" class="img-fluid mb-3" alt="">
-              <p class="card-text">{{ artwork.description }}</p>
-              <button class="btn btn-primary" @click="vote()">Vote {{ artwork.votes }}</button>
-              <i class="fas fa-thumbs-up fa-2x ml-2"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div>
+    <h2>Vote for Competitor</h2>
+    <div v-if="competition && competitor">
+      <h3>Competition: {{ competition.competitionTitle }}</h3>
+      <h4>Competitor: {{ competitor.firstName }} {{ competitor.lastName }}</h4>
+      <button @click="vote">Vote</button>
+      <p>{{ message }}</p>
     </div>
-  </template>
-  
-  <script>
-  import { ref } from 'vue';
-  
-  export default {
-    name: 'VoteForArtwork',
-    props: ['artwork'],
-    setup(props) {
-      const votes = ref(props.artwork.votes);
-  
-      const vote = () => {
-        votes.value++;
-      };
-  
-      return {
-        votes,
-        vote,
-      };
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      competition: null,
+      competitor: null,
+      message: '',
+    };
+  },
+  methods: {
+    async getCompetitionAndCompetitor() {
+      try {
+        const response = await axios.get('/api/competition-competitor-data');
+        this.competition = response.data.competition;
+        this.competitor = response.data.competitor;
+      } catch (error) {
+        console.error(error);
+      }
     },
-  };
-  </script>
-  
-  <style scoped>
-  </style>
-  
+    async vote() {
+      try {
+        await axios.post('/api/competitors/vote', {
+          competitionId: this.competition.id,
+          competitorId: this.competitor.id,
+        });
+        this.message = 'Thank you for voting!';
+      } catch (error) {
+        this.message = error.response.data;
+      }
+    },
+  },
+  mounted() {
+    this.getCompetitionAndCompetitor();
+  },
+};
+</script>
+

@@ -13,6 +13,12 @@ const routes = [
   //meta: { requiresAuth: true }
 },
 {
+  path: '/artistDashboard',
+  name: 'Artist Dashboard',
+  component: () => import('../views/User/ArtistPage.vue'),
+  //meta: { requiresAuth: true }
+},
+{
   path: '/profilePicture',
   name: 'Profile Picture',
   component: () => import('../components/ProfilePicture.vue'),
@@ -29,19 +35,19 @@ const routes = [
     path: '/eventRegister',
     name: 'eventRegister',
     component: () => import('../views/Organization/EventRegister.vue'),
-    //meta: {requiresAuth: true}
+    meta: {requiresAuth: true}
   },
   {
     path: '/updateEvent',
     name: 'updateEvent',
     component: () => import('../views/Organization/UpdateEvent.vue'),
-    //meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue'),
-    //meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/eventRequest',

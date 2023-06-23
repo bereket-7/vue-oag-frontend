@@ -9,7 +9,7 @@
               <h6 class="card-subtitle mb-2 text-muted">{{ report.reporterName }} - {{ report.reporterEmail }}</h6>
               <p class="card-text">{{ report.reportDetail }}</p>
               <div class="form-check">
-                <router-link class="btn btn-primary mt-2" to="/contactUser">Reply</router-link>
+                <router-link class="btn btn-primary mt-2" to="/sendNotification">Reply</router-link>
               </div>
             </div>
           </div>
@@ -27,13 +27,11 @@
       }
     },
     mounted() {
-    // Fetch standards from API
     this.fetchReports();
   },
     methods: {
     fetchReports() {
-      // Call API to get standards
-      axios.get('http://localhost:8081/report/all')
+      axios.get('http://localhost:8082/api/report/all')
         .then(response => {
           this.reports = response.data;
         })

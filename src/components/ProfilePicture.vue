@@ -54,10 +54,9 @@
     },
   };
   </script>
-
 <style scoped>
 .profile-card {
-  margin-top:100px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +64,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width:350px;
+  width: 350px;
   margin-left: 20px;
 }
 
@@ -82,6 +81,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 .placeholder {
   width: 150px;
   height: 150px;
@@ -93,7 +93,6 @@
   font-size: 50px;
   color: #bbb;
 }
-
 
 input[type="file"] {
   margin-bottom: 10px;
@@ -111,5 +110,12 @@ button {
 button:hover {
   background-color: #0069d9;
 }
+
+@media screen and (max-width: 768px) {
+  .profile-card {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 90px;
+  }
+}
 </style>
-  

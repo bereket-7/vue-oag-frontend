@@ -10,12 +10,12 @@ const routes = [
   path: '/customerDashboard',
   name: 'Customer Dashboard',
   component: () => import('../views/User/CustomerDashBoard2.vue'),
-  meta: { requiresAuth: true }
+  //meta: { requiresAuth: true }
 },
 {
   path: '/profilePicture',
   name: 'Profile Picture',
-  component: () => import('../components/ProfilePicture.vue')
+  component: () => import('../components/ProfilePicture.vue'),
   //meta: { requiresAuth: true }
 },
 
@@ -23,7 +23,7 @@ const routes = [
     path: '/managerDashboard',
     name: 'Manager Dashboard',
     component: () => import('../views/Manager/ManagerDashboard.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/eventRegister',
@@ -37,25 +37,25 @@ const routes = [
     path: '/updateEvent',
     name: 'updateEvent',
     component: () => import('../views/Organization/UpdateEvent.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/eventRequest',
     name: 'EventRequest',
     component: () => import('../views/Manager/EventRequest.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/eventValidation',
     name: 'EventRequest',
     component: () => import('../views/Manager/EventValidation.vue'),
-    meta: { requiresAuth: true }
+    ///meta: { requiresAuth: true }
   },
 
   {

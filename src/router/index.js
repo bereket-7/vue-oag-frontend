@@ -77,7 +77,7 @@ const routes = [
   },
   {
     path: '/displayCompetitor',
-    name: 'RegisterCompetitor',
+    name: 'DisplayCompetitor',
     component: () => import('../views/Manager/DisplayCompetitor.vue'),
     meta: { requiresAuth: true }
   },
@@ -89,7 +89,8 @@ const routes = [
   {
     path: '/cart',
     name: 'CartItems',
-    component: () => import('../components/CartItems.vue')
+    component: () => import('../components/CartItems.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/paymentSuccess',
@@ -264,7 +265,7 @@ const routes = [
     path: '/registerOrganization',
     name: 'RegisterOrganization',
     component: () => import('../views/Organization/RegisterOrganization.vue'),
-    //meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/contactUs',

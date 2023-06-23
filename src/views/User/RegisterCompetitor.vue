@@ -3,43 +3,37 @@
     <h2>Apply for competition</h2>
     <form @submit.prevent="registerCompetitor">
       <div>
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" v-model="competitor.firstName" required />
+        <input type="text" placeholder="First Name" id="firstName" v-model="competitor.firstName" required />
       </div>
       <div>
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" v-model="competitor.lastName" required />
+        <input type="text" placeholder="Last Name" id="lastName" v-model="competitor.lastName" required />
       </div>
       <div>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" v-model="competitor.phone" required />
+        <input type="text" placeholder="Phone" id="phone" v-model="competitor.phone" required />
       </div>
       <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="competitor.email" required />
+        <input type="email" placeholder="Email" id="email" v-model="competitor.email" required />
       </div>
 
       <div>
         <div>
-        <label for="category">Category</label>
+         <label for="category">Category</label> 
                <div>
-                <select type="text" id="category" v-model="competitor.category"  required >
+                <select type="text" placeholder="First Name" id="category" v-model="competitor.category"  required >
                 <option value="painting">Painting</option>
                 <option value="sculpture">Sculpture</option>
-                <option value="photography">Photography</option>
                 <option value="mixed-media">Mixed Media</option>
                 </select>
                 </div>
       </div>
+      </div><br><br>
+
+      <div>
+        <textarea id="artDescription" placeholder="Artwork Description" v-model="competitor.artDescription" required></textarea>
       </div>
 
       <div>
-        <label for="artDescription">Art Description</label>
-        <textarea id="artDescription" v-model="competitor.artDescription" required></textarea>
-      </div>
-
-      <div>
-        <label for="image">Image</label>
+        <label for="image">Artwork Image</label>
         <input type="file" id="image" @change="onFileChange" required />
       </div>
       <button type="submit">Register</button>
@@ -129,7 +123,8 @@ export default {
 
 <style scoped>
    .register-form {
-    margin: 20px;
+    margin-top: 100px;
+    margin-bottom: 50px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;

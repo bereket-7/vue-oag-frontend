@@ -173,9 +173,15 @@ const routes = [
     component: () => import('../views/User/ArtistDashboard.vue')
   },
   {
+    path: '/recentArtwork',
+    name: 'RecentArtwork',
+    component: () => import('../views/Artwork/RecentArtworks.vue'),
+  },
+  {
     path: '/verifyArtwork',
     name: 'VerifyArtwork',
-    component: () => import('../views/Manager/VerifyArtwork.vue')
+    component: () => import('../views/Manager/VerifyArtwork.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/vote',

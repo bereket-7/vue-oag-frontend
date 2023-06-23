@@ -12,13 +12,11 @@
     </div>
 
     <div class="popup" :class="{ 'open-popup': showPopup }">
-      <img src="tick.png" alt="tick">
       <h2>{{ popupMessage }}</h2>
       <button @click="closePopup()">OK</button>
     </div>
   </div>
 </template>
-  
   
 <script>
 import axios from 'axios';
@@ -26,7 +24,26 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      artworks: [],
+      artworks: [
+        {
+          id: 1,
+          description: 'Artwork 1',
+          image: '',
+          imagePlaceholder: 'https://via.placeholder.com/300x200?text=Artwork+1'
+        },
+        {
+          id: 2,
+          description: 'Artwork 2',
+          image: '',
+          imagePlaceholder: 'https://via.placeholder.com/300x200?text=Artwork+2'
+        },
+        {
+          id: 3,
+          description: 'Artwork 3',
+          image: '',
+          imagePlaceholder: 'https://via.placeholder.com/300x200?text=Artwork+3'
+        }
+      ],
       showPopup: false,
       popupMessage: '',
     };

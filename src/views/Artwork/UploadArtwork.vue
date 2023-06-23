@@ -75,7 +75,7 @@
             <hr class="mx-n3">
 
             <div>
-              <button type="submit" @click="openPopup()">Submit Artwork</button>
+              <button type="submit">Submit Artwork</button>
             </div>
 
           </div>
@@ -153,11 +153,9 @@ export default {
 </script>
 
 
-  
-
-
 <style scoped>
 .registration-form {
+  margin-top:120px;
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;

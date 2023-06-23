@@ -33,16 +33,23 @@ export default {
     const email = ref('');
     const password = ref('');
     const errorMessage = ref('');
+
     const submitForm = async () => {
       try {
         const response = await axios.post('http://localhost:8082/api/auth/login', {
           username: email.value,
           password: password.value,
         });
-        const jwtToken = response.data.token;
-        setAuthToken(jwtToken);
-        localStorage.setItem('token', jwtToken);
-        router.push('/sendNotification'); 
+
+        if (response.data.accessToken) {
+          const jwtToken = response.data.accessToken;
+          setAuthToken(jwtToken);
+          localStorage.setItem('token', jwtToken);
+          console.log(response.data.accessToken);
+          router.push('/sendNotification');
+        } else {
+          console.log('No access token received');
+        }
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           errorMessage.value = error.response.data.message;

@@ -5,7 +5,7 @@
       <div v-if="showDialog" class="dialog">
         <div class="dialog-content">
           <p>Are you sure you want to log out?</p>
-          <button type="button" class="btn btn-success" @click="logout">Yes</button>
+          <button type="button" class="btn btn-success" @click="logout()">Yes</button>
           <button type="button" class="btn btn-secondary" @click="hideConfirmationDialog">No</button>
         </div>
       </div>
@@ -13,6 +13,9 @@
   </template>
   
   <script>
+  import axios from 'axios';
+  import router from '@/router';
+  
   export default {
     name: 'LogOut',
     data() {
@@ -27,8 +30,15 @@
       hideConfirmationDialog() {
         this.showDialog = false;
       },
-      logout() {
-        this.hideConfirmationDialog();
+      async logout() {
+        try {
+          await axios.get('http://localhost:8082/api/auth/logout');
+          this.hideConfirmationDialog();
+          localStorage.removeItem('token');
+          router.push('/userLogin');
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   }

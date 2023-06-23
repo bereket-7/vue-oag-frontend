@@ -24,7 +24,7 @@
         <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Logout</router-link>
+        <router-link to="/logout" class="nav-link">Logout</router-link>
       </li>
     </ul> 
               </div>

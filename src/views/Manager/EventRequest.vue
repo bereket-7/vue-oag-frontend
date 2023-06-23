@@ -13,8 +13,9 @@
         <p class="event-description">Event Date: {{ event.eventDate }}</p>
       </div>
       <div class="button-container">
-        <button type="button" class="btn btn-primary">Accept</button>
-        <button type="button" class="btn btn-danger">Decline</button>
+        <button type="button" class="btn btn-primary" @click="acceptEvent(event.id)" v-if="event.status === 'Pending'">Accept</button>
+        <button type="button" class="btn btn-danger" @click="rejectEvent(event.id)" v-if="event.status === 'Pending'">Decline</button>
+        <span v-else class="status-label">{{ event.status }}</span>
       </div>
     </div>
   </div>
@@ -100,6 +101,50 @@ methods: {
     getEventImageUrl(eventId) {
       const event = this.events.find(event => event.id === eventId);
       return event ? event.imageUrl : null;
+    },
+    acceptEvent(eventId) {
+      fetch(`http://localhost:8082/api/events/${eventId}/accept`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error(`Failed to accept event with ID ${eventId}`);
+          }
+        })
+        .then(data => {
+          console.log(data);
+          // Refresh the event list or update the event's status in the local data
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    rejectEvent(eventId) {
+      fetch(`http://localhost:8082/api/events/${eventId}/reject`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error(`Failed to reject event with ID ${eventId}`);
+          }
+        })
+        .then(data => {
+          console.log(data);
+          // Refresh the event list or update the event's status in the local data
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
   },
 }

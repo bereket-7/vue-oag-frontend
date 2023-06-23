@@ -16,7 +16,7 @@
           <router-link to="/contactUs">Contact Us</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminPanel">Admin</router-link>
+          <router-link to="/recentArtwork">New Arts</router-link>
         </li>
       </ul>
       <router-link to="/userlogin" style="margin-right:15px">Login</router-link>

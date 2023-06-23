@@ -12,6 +12,12 @@ const routes = [
   component: () => import('../views/User/CustomerDashBoard2.vue'),
   meta: { requiresAuth: true }
 },
+{
+  path: '/profilePicture',
+  name: 'Profile Picture',
+  component: () => import('../components/ProfilePicture.vue')
+  //meta: { requiresAuth: true }
+},
 
   {
     path: '/managerDashboard',

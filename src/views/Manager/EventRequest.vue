@@ -13,13 +13,23 @@
         <p class="event-description">Event Date: {{ event.eventDate }}</p>
       </div>
       <div class="button-container">
-        <button type="button" class="btn btn-primary" @click="acceptEvent(event.id)" v-if="event.status === 'Pending'">Accept</button>
-        <button type="button" class="btn btn-danger" @click="rejectEvent(event.id)" v-if="event.status === 'Pending'">Decline</button>
-        <span v-else class="status-label">{{ event.status }}</span>
+        <button type="button" class="btn btn-primary" @click="showConfirmation('accept', event.id)">Accept</button>
+        <button type="button" class="btn btn-danger" @click="showConfirmation('reject', event.id)">Decline</button>
+      </div>
+    </div>
+
+    <div v-if="showPopup" class="popup">
+      <div class="popup-content">
+        <p>Are you sure you want to {{ action }} this event?</p>
+        <div class="popup-buttons">
+          <button class="btn btn-primary" @click="performAction">Yes</button>
+          <button class="btn btn-secondary" @click="cancelAction">No</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default{
@@ -47,12 +57,31 @@ data(){
           imageUrl: 'https://via.placeholder.com/300x200',
         },
       ],
+    showPopup: false, 
+    action: '',
+    eventId: null,
     }
 },
 mounted(){
     this.fetchAllEvents();
 },
 methods: {
+  showConfirmation(action, eventId) {
+      this.showPopup = true;
+      this.action = action;
+      this.eventId = eventId;
+    },
+    performAction() {
+      this.showPopup = false;
+      if (this.action === 'accept') {
+        this.acceptEvent(this.eventId);
+      } else if (this.action === 'reject') {
+        this.rejectEvent(this.eventId);
+      }
+    },
+    cancelAction() {
+      this.showPopup = false;
+    },
     fetchAllEvents() {
       fetch('http://localhost:8082/api/events/pending', {
         method: 'GET',

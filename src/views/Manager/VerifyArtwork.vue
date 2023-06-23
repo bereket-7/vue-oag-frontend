@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     fetchArtworks() {
-      axios.get('http://localhost:8081/artworks/pending')
+      axios.get('http://localhost:8082/api/artworks/pending')
         .then(response => {
           this.artworks = response.data;
         })
@@ -45,10 +45,10 @@ export default {
         });
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8081/artworks/${artworkId}/image`;
+      return `http://localhost:8082/api/artworks/${artworkId}/image`;
     },
     acceptArtwork(artworkId) {
-      axios.put(`http://localhost:8081/artworks/${artworkId}/accept`)
+      axios.put(`http://localhost:8082/api/artworks/${artworkId}/accept`)
         .then(response => {
           this.showSuccessPopup(response.data);
         })
@@ -57,7 +57,7 @@ export default {
         });
     },
     rejectArtwork(artworkId) {
-      axios.put(`http://localhost:8081/artworks/${artworkId}/reject`)
+      axios.put(`http://localhost:8082/api/artworks/${artworkId}/reject`)
         .then(response => {
           this.showSuccessPopup(response.data);
         })

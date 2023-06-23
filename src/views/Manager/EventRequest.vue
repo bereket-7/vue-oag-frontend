@@ -19,14 +19,15 @@
     </div>
 
     <div v-if="showPopup" class="popup">
-      <div class="popup-content">
-        <p>Are you sure you want to {{ action }} this event?</p>
-        <div class="popup-buttons">
-          <button class="btn btn-primary" @click="performAction">Yes</button>
-          <button class="btn btn-secondary" @click="cancelAction">No</button>
-        </div>
+    <div class="popup-content">
+      <p>Are you sure you want to {{ action }} this event?</p>
+      <div class="popup-buttons">
+        <button class="btn btn-primary" @click="performAction">Yes</button>
+        <button class="btn btn-secondary" @click="cancelAction">No</button>
       </div>
     </div>
+  </div>
+
   </div>
 </template>
 
@@ -245,8 +246,36 @@ button {
   color: #fff;
   border: none;
 }
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  gap: 20px;
+}
 
 @media screen and (max-width: 600px) {
+  .popup-content {
+    width: 80%;
+  }
   .event-card {
     width: 100%;
   }

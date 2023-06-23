@@ -1,6 +1,7 @@
 <template>
   <div class="login">
-    <form class="login__form" @submit.prevent="submitForm">
+    
+      <form class="login__form" @submit.prevent="submitForm">
       <h2 class="login__title">Log In</h2>
       <div class="login__input-container">
         <input v-model="email" type="email" placeholder="Email" class="login__input" />
@@ -19,16 +20,27 @@
       <router-link to="/register"><button class="login__signup-button">Sign Up</button></router-link>
     </div>
   </div>
+    
+    
   </div>
+  <FooterView/>
 </template>
+
+
 
 <script>
 import { setAuthToken } from '@/utils/auth';
 import axios from 'axios';
 import { ref } from 'vue';
 import router from '@/router';
-
+import FooterView from '@/components/FooterView.vue';
 export default {
+  name:{
+
+  },
+  components:{
+    FooterView
+  },
   setup() {
     const email = ref('');
     const password = ref('');
@@ -164,9 +176,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 30rem;
   position: absolute;
-  bottom: 2rem;
+  /* bottom: 2rem; */
   left: 0;
   width: 100%;
 }
@@ -175,7 +187,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
   font-size: 1.2rem;
   color: #333;
   position: relative;

@@ -170,6 +170,11 @@ const routes = [
     component: () => import('../views/User/UserStandard.vue')
   },
   {
+    path: '/artistDashboard',
+    name: 'ArtistDashboard',
+    component: () => import('../views/User/ArtistDashboard.vue')
+  },
+  {
     path: '/verifyArtwork',
     name: 'VerifyArtwork',
     component: () => import('../views/Manager/VerifyArtwork.vue')

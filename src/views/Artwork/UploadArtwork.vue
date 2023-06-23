@@ -85,7 +85,9 @@
     </div>
   </div>
 </form>
+
 </div>
+<FooterView/>
 
 <div>
   <div class="container">
@@ -101,6 +103,7 @@
 
 <script>  
 import axios from 'axios';
+import FooterView from "@/components/FooterView.vue"
 
 export default {
   data() {
@@ -111,6 +114,9 @@ export default {
       artworkCategory: '',
       size: ''
     };
+  },
+  components:{
+    FooterView
   },
   methods: {
     openPopup() {
@@ -157,7 +163,7 @@ export default {
 .registration-form {
   margin-top:120px;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 40px;
   background-color: #f8f8f8;
   font-family: Arial, sans-serif;

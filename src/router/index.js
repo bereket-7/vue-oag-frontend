@@ -206,6 +206,11 @@ const routes = [
     component: () => import('../views/Admin/UserList.vue')
   },
   {
+    path: '/adminDashboard',
+    name: 'AdminDashboard',
+    component: () => import('../views/Admin/AdminDashboard.vue')
+  },
+  {
     path: '/showStandard',
     name: 'ShowStandard',
     component: () => import('../views/Manager/ShowStandards.vue')

@@ -61,7 +61,7 @@
         document.body.classList.remove('modal-open');
       },
       fetchArtworks() {
-        axios.get('http://localhost:8082/artworks')
+        axios.get('http://localhost:8082/api/artworks')
           .then(response => {
             this.artworks = response.data;
           })
@@ -70,7 +70,7 @@
           });
       },
       getArtworkImageUrl(artworkId) {
-        return `http://localhost:8082/artworks/${artworkId}/image`;
+        return `http://localhost:8082/api/artworks/${artworkId}/image`;
       },
       addToCart(artworkId) {
       axios

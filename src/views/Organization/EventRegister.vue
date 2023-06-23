@@ -1,5 +1,4 @@
 <template>
-    <br>
   <div class="form-container">
     <h1>Create Event</h1>
     <hr class="mx-n3">
@@ -39,14 +38,20 @@
       <button type="submit">Submit</button>
     </form>
   </div>
-  <br>
+
+  <div v-if="showSuccessPopup" class="popup">
+    <div class="popup-content">
+      <p>Event created successfully!</p>
+      <button class="btn btn-primary" @click="closeSuccessPopup">OK</button>
+    </div>
+  </div><br><br>
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  data() {
+   data() {
     return {
       eventName: '',
       ticketPrice: 0,
@@ -54,6 +59,7 @@ export default {
       eventDescription: '',
       location: '',
       eventDate: '',
+      showSuccessPopup: false,
     };
   },
   methods: {
@@ -68,15 +74,18 @@ export default {
       formData.append('eventDate', this.eventDate);
       formData.append('image', this.$refs.fileInput.files[0]);
       axios
-        .post('http://localhost:8081/events/saveEvent', formData)
+        .post('http://localhost:8081/api/events/saveEvent', formData)
         .then((response) => {
           console.log(response.data);
-          this.$router.push('/signupSuccess');
+          this.showSuccessPopup = true; 
         })
         .catch((error) => {
           console.error(error);
           this.errorMessage = 'An error occurred while creating the event.';
         });
+    },
+    closeSuccessPopup() {
+      this.showSuccessPopup = false; 
     },
   },
 };
@@ -85,7 +94,7 @@ export default {
 
 <style scoped>
 .form-container {
-  margin-top:120px;
+  margin-top: 100px !important;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
@@ -94,7 +103,6 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-
 input[type="text"],
 input[type="number"] {
   width: 100%;

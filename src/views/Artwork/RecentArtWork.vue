@@ -47,7 +47,23 @@
     },
     data() {
       return {
-        artworks: [],
+        artworks: [ 
+           {
+          id: 1,
+          artworkName : 'Event 1',
+          artworkDescription: 'Description for Event 1',
+          price: '10',
+          artworkCategory:'2023-07-01',
+          imageUrl: 'https://via.placeholder.com/300x200',
+        },
+        {
+          id: 1,
+          artworkName : 'Event 1',
+          artworkDescription: 'Description for Event 1',
+          price: '10',
+          artworkCategory:'2023-07-01',
+          imageUrl: 'https://via.placeholder.com/300x200',
+        },],
         selectedArtwork: null,
       };
     },
@@ -64,7 +80,7 @@
         document.body.classList.remove('modal-open');
       },
       fetchArtworks() {
-        axios.get('http://localhost:8082/artworks')
+        axios.get('http://localhost:8082/api/artworks/recent')
           .then(response => {
             this.artworks = response.data;
           })

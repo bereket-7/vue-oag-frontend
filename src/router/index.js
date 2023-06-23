@@ -29,9 +29,7 @@ const routes = [
     path: '/eventRegister',
     name: 'eventRegister',
     component: () => import('../views/Organization/EventRegister.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    //meta: {requiresAuth: true}
   },
   {
     path: '/updateEvent',
@@ -49,7 +47,7 @@ const routes = [
     path: '/eventRequest',
     name: 'EventRequest',
     component: () => import('../views/Manager/EventRequest.vue'),
-    ///meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
 
   {

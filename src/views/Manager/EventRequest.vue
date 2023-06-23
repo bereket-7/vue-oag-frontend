@@ -140,7 +140,6 @@ methods: {
         })
         .then(data => {
           console.log(data);
-          // Refresh the event list or update the event's status in the local data
         })
         .catch(error => {
           console.error(error);
@@ -148,7 +147,6 @@ methods: {
     },
   },
 }
-
 </script>
 <style scoped>
 .event-list {

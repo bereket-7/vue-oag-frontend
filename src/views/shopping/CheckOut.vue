@@ -43,9 +43,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <FooterView/>
   </template>
   
   <script>
+  import FooterView from '@/components/FooterView.vue'
   export default {
     data() {
       return {
@@ -58,8 +60,12 @@
         state: '',
         zip: ''
       }
-    }
+    },
+    components:{
+FooterView
+}
   }
+  
   </script>
 
   <style>

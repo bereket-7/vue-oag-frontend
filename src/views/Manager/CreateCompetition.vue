@@ -20,7 +20,7 @@
       <!-- <button type="submit">Add Competition</button>
       <button type="button" class="btn btn-secondary">Manage Competition</button> -->
       <button type="submit" class="btn btn-success">Add Competition</button>
-      <router-link to="/manageCompetition"><button type="button" class="btn btn-primary">Manage Competition</button></router-link>
+      <router-link to="/manageCompetition"><p>Manage Competition</p></router-link>
 
     </form>
   </div>

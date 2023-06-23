@@ -1,58 +1,55 @@
-
 <template>
-    <div class="container">
-      <div class="input-container">
-        <input type="text" v-model="keyword" @input="searchArtwork" placeholder="Search artwork" />
-      </div>
-      <div class="results-container">
-        <ul>
-          <li v-for="result in searchResults" :key="result.id">{{ result.artworkName }}</li>
-        </ul>
-      </div>
-      <div class="pagination-container">
-        <button :disabled="currentPage === 0" @click="previousPage">Previous</button>
-        <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
-        <button :disabled="currentPage === totalPages - 1" @click="nextPage">Next</button>
+  <div class="container">
+    <div class="search-section">
+      <input type="text" v-model="keyword" placeholder="Enter keyword" class="search-input" />
+      <button @click="searchArtwork" class="search-button">Search</button>
+    </div>
+
+    <div v-if="artworkList.length === 0" class="no-artwork">
+      No artwork found.
+    </div>
+
+    <div v-else class="image-gallery">
+      <div v-for="artwork in artworkList" :key="artwork.id" class="gallery-item">
+        <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork" class="artwork-image" />
       </div>
     </div>
-  </template>
-  
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        keyword: '',
-        searchResults: [],
-        currentPage: 0,
-        totalPages: 0,
-      };
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      keyword: '',
+      artworkList: [],
+    };
+  },
+  methods: {
+    searchArtwork() {
+      axios.get('http://localhost:8082/api/artworks/search', {
+        params: {
+          keyword: this.keyword,
+          page: 0,
+          size: 10,
+        },
+      })
+      .then(response => {
+        this.artworkList = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
     },
-    methods: {
-      searchArtwork() {
-        axios.get(`/artworks/search?keyword=${this.keyword}&page=${this.currentPage}`)
-          .then((response) => {
-            this.searchResults = response.data;
-            this.totalPages = response.headers['x-total-pages'];
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-      previousPage() {
-        this.currentPage--;
-        this.searchArtwork();
-      },
-      nextPage() {
-        this.currentPage++;
-        this.searchArtwork();
-      },
+    getArtworkImageUrl(artworkId) {
+      return `http://localhost:8082/api/artworks/${artworkId}/image`;
     },
-  };
-  </script>
-  
+  },
+};
+</script>
+
 <style scoped>
 .container {
   max-width: 1200px;
@@ -60,66 +57,73 @@
   padding: 20px;
 }
 
-.input-container {
-  position: relative;
+.search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.input-container input {
-  width: 100%;
+.search-input {
+  width: 300px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  outline: none;
 }
 
-.input-container input:focus {
-  border-color: #007bff;
-}
-
-.results-container ul {
-  list-style: none;
-  padding: 0;
-}
-
-.results-container li {
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #f2f2f2;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.results-container li:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pagination-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination-container button {
-  background-color: #007bff;
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #333;
   color: #fff;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
-  margin: 0 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.pagination-container button:hover {
-  background-color: #0056b3;
+.search-button:hover {
+  background-color: #555;
 }
 
-.pagination-container span {
-  font-size: 16px;
+.no-artwork {
+  margin-top: 20px;
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.gallery-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artwork-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .image-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 10px;
+  }
 }
 </style>

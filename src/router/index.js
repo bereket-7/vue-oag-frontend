@@ -175,7 +175,7 @@ const routes = [
   {
     path: '/recentArtwork',
     name: 'RecentArtwork',
-    component: () => import('../views/Artwork/RecentArtworks.vue'),
+    component: () => import('../views/Artwork/RecentArtWork.vue'),
   },
   {
     path: '/verifyArtwork',
@@ -263,7 +263,8 @@ const routes = [
   {
     path: '/registerOrganization',
     name: 'RegisterOrganization',
-    component: () => import('../views/Organization/RegisterOrganization.vue')
+    component: () => import('../views/Organization/RegisterOrganization.vue'),
+    //meta: { requiresAuth: true }
   },
   {
     path: '/contactUs',
@@ -293,7 +294,8 @@ const routes = [
   {
     path: '/logout',
     name: 'LogOut',
-    component: () => import('../components/LogOut.vue')
+    component: () => import('../components/LogOut.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/FAQs',

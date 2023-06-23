@@ -5,22 +5,23 @@
     <hr class="mx-n3">
     <br>
     <form @submit.prevent="registerOrganization">
-      <label>Name</label>
-      <input type="text" v-model="name" required />
+      <input type="text" placeholder="Name" v-model="name" required />
       <span v-if="errors.name" class="error">{{ errors.name }}</span>
-      <label>Email</label>
-      <input type="email" v-model="email" required />
+
+      <input type="email"  placeholder="Email" v-model="email" required />
       <span v-if="errors.email" class="error">{{ errors.email }}</span>
-      <label>Phone</label>
-      <input type="tel" v-model="phone" required />
+
+      <input type="tel" placeholder="Phone" v-model="phone" required />
       <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+
       <input type="text" v-model="address" placeholder="Address" required />
-      <label>Password</label>
-      <input type="password" v-model="password" required />
+     
+      <input type="password" placeholder="Password" v-model="password" required />
       <span v-if="errors.password" class="error">{{ errors.password }}</span>
-      <label>Confirm</label>
-      <input type="password" v-model="confirmPassword" required />
+
+      <input type="password" placeholder="Confirm Password" v-model="confirmPassword" required />
       <span v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword}}</span>
+
       <p v-if="passwordError">{{ passwordError }}</p>
       <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
       <br>
@@ -53,7 +54,7 @@ export default {
   methods: {
     async register() {
       try {
-        await axios.post('http://localhost:8081/organization/add', {
+        await axios.post('http://localhost:8082/api/organization/add', {
           name:this.name,
           email: this.email,
           phone: this.phone,
@@ -123,6 +124,7 @@ export default {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: 70px;
   }
 
   input[type="text"],

@@ -273,7 +273,8 @@ const routes = [
   {
     path: '/uploadArtwork',
     name: 'UploadArtwork',
-    component: () => import('../views/Artwork/UploadArtwork.vue')
+    component: () => import('../views/Artwork/UploadArtwork.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/artworkDetail',

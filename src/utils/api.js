@@ -5,7 +5,6 @@ import router from '@/router';
 const api = axios.create({
   baseURL: 'http://localhost:8082/api', 
 });
-
 // Request interceptor
 api.interceptors.request.use(
   (config) => {

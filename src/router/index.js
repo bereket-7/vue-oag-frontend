@@ -49,12 +49,6 @@ const routes = [
     path: '/eventRequest',
     name: 'EventRequest',
     component: () => import('../views/Manager/EventRequest.vue'),
-    //meta: { requiresAuth: true }
-  },
-  {
-    path: '/eventValidation',
-    name: 'EventRequest',
-    component: () => import('../views/Manager/EventValidation.vue'),
     ///meta: { requiresAuth: true }
   },
 

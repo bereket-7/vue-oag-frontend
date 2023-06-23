@@ -85,6 +85,7 @@ export default {
 
 <style scoped>
 .form-container {
+  margin-top:120px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;

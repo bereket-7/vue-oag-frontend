@@ -80,6 +80,13 @@
     </div>
   </div>
   <FooterView />
+
+    <div v-if="showSuccessPopup" class="popup">
+    <div class="popup-content">
+      <p>Event created successfully!</p>
+      <button class="btn btn-primary" @click="closeSuccessPopup">OK</button>
+    </div>
+  </div><br><br>
 </template>
 
 <style scoped>
@@ -392,10 +399,15 @@ export default {
           roles: [this.roles]
 
         })
-        this.$router.push('/signupSuccess')
+        //console.log(response.data);
+        this.$router.push('/signupSuccess');
+          //this.showSuccessPopup = true; 
       } catch (error) {
         this.errorMessage = error.response.data.message
       }
+    },
+    closeSuccessPopup() {
+      this.showSuccessPopup = false; 
     },
     submitForm() {
       this.errors = {}

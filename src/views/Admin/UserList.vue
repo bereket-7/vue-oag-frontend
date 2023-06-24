@@ -63,7 +63,7 @@ export default {
   methods: {
     fetchUsers() {
       axios
-        .get('/api/users/all')
+        .get('http://localhost:8082/api/users/all')
         .then((response) => {
           this.users = response.data;
         })
@@ -72,7 +72,7 @@ export default {
         });
     },
     editUser(userId) {
-      this.$router.push(`/edit-user/${userId}`);
+      this.$router.push(`http://localhost:8082/api/users/edit-user/${userId}`);
     },
     confirmDeleteUser(userId) {
       if (confirm('Are you sure you want to delete this user?')) {
@@ -81,7 +81,7 @@ export default {
     },
     deleteUser(userId) {
       axios
-        .delete(`/api/users/${userId}`)
+        .delete(`http://localhost:8082/api/users/${userId}`)
         .then(() => {
           this.fetchUsers();
         })
@@ -100,7 +100,7 @@ export default {
     deleteSelectedUsers() {
       if (confirm('Are you sure you want to delete the selected users?')) {
         axios
-          .delete('/api/users', { data: { ids: this.selectedUsers } })
+          .delete('http://localhost:8082/api/users', { data: { ids: this.selectedUsers } })
           .then(() => {
             this.fetchUsers();
             this.selectedUsers = [];

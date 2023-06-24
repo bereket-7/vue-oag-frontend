@@ -22,7 +22,7 @@ const routes = [
   path: '/profilePicture',
   name: 'Profile Picture',
   component: () => import('../components/ProfilePicture.vue'),
-  //meta: { requiresAuth: true }
+  meta: { requiresAuth: true }
 },
 
   {
@@ -214,7 +214,8 @@ const routes = [
   {
     path: '/userList',
     name: 'UserList',
-    component: () => import('../views/Admin/UserList.vue')
+    component: () => import('../views/Admin/UserList.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/adminDashboard',

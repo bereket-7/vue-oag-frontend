@@ -23,6 +23,7 @@
       <li class="nav-item">
         <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
       </li>
+      
       <li class="nav-item">  
     <button @click="showConfirmationDialog = true">Logout</button> 
     <div v-if="showConfirmationDialog" class="confirmation-dialog">

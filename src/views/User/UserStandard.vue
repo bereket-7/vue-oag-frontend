@@ -28,13 +28,11 @@ export default {
       }
     },
     mounted() {
-    // Fetch standards from API
     this.fetchStandard();
   },
     methods: {
     fetchStandard() {
-      // Call API to get standards
-      axios.get('http://localhost:8082/standard/all')
+      axios.get('http://localhost:8082/api/standard/all')
         .then(standard => {
           this.standards = standard.data;
         })

@@ -1,8 +1,7 @@
-
 <template>
   <div class="event-list">
-    <div v-for="event in events" :key="event.id" class="event-card" >
-      <div class="event-image-container" >
+    <div v-for="event in events" :key="event.id" class="event-card">
+      <div class="event-image-container">
         <img :src="getEventImageUrl(event.id)" alt="Event picture" class="event-image" />
       </div>
       <div class="event-details">
@@ -12,10 +11,12 @@
         <p class="event-description">Location: {{ event.location }}</p>
         <p class="event-description">Capacity: {{ event.capacity }}</p>
         <p class="event-description">Event Date: {{ event.eventDate }}</p>
+        <router-link :to="'/registerCompetitor?id=' + event.id" class="register-button">Register</router-link>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

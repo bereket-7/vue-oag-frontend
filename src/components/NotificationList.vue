@@ -1,13 +1,15 @@
 <template>
     <div class="notifications">
       <h2>Notifications</h2>
-      <ul>
+      <ul v-if="notifications.length > 0">
         <li v-for="notification in notifications" :key="notification.id">
           <span :class="{ 'unread': !notification.read }">{{ notification.message }}</span>
         </li>
       </ul>
+      <p v-else>No notifications</p>
     </div>
-  </template>
+</template>
+  
   
   <script>
   import axios from 'axios';
@@ -22,22 +24,29 @@
       this.fetchNotifications();
     },
     methods: {
-      fetchNotifications() {
-        axios
-          .get('http://localhost:8082/api/notifications')
-          .then(response => {
-            this.notifications = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-    },
+  fetchNotifications() {
+    axios
+      .get('http://localhost:8082/notifications')
+      .then(response => {
+        this.notifications = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        if (this.notifications.length === 0) {
+          this.notifications = [];
+        }
+      });
+  },
+},
+
   };
   </script>
   
   <style scoped>
   .notifications {
+    margin-top: 100px;
     padding: 20px;
   }
   

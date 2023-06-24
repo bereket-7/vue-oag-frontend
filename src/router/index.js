@@ -61,7 +61,7 @@ const routes = [
     path: '/createCompetition',
     name: 'CreateCompetition',
     component: () => import('../views/Manager/CreateCompetition.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/manageCompetition',
@@ -79,7 +79,7 @@ const routes = [
     path: '/registerCompetitor',
     name: 'RegisterCompetitor',
     component: () => import('../views/User/RegisterCompetitor.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
 
   },
   {
@@ -224,9 +224,9 @@ const routes = [
     component: () => import('../views/Admin/AdminDashboard.vue')
   },
   {
-    path: '/showStandard',
-    name: 'ShowStandard',
-    component: () => import('../views/Manager/ShowStandards.vue')
+    path: '/manageStandard',
+    name: 'ManageStandards',
+    component: () => import('../components/ManageStandards.vue')
   },
   {
     path: '/contactUser',

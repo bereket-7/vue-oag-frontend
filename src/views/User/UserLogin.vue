@@ -59,15 +59,15 @@ export default {
       console.log(response.data.accessToken);
       
       if (role === 'ADMIN') {
-        router.push('/adminPage');
+        router.push('/adminDashboard');
       } else if (role === 'CUSTOMER') {
-        router.push('/customerPage');
+        router.push('/customerDashboard');
       } else if (role === 'ARTIST') {
-        router.push('/artistPage');
+        router.push('/artistDashboard');
       } else if (role === 'MANAGER') {
-        router.push('/managerPage');
+        router.push('/managerDashboard');
       } else if (role === 'ORGANIZATION') {
-        router.push('/organizationPage');
+        router.push('/managerDashboard');
       } else {
         console.log('Unknown role');
       }

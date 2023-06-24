@@ -4,6 +4,7 @@
     <h2>Check you emails ,To activate your account</h2> 
     </div>
 </template>
+
 <script>
 export default {
     name:'SignupSuccess',

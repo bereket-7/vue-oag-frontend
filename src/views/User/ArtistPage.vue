@@ -37,6 +37,9 @@
       <div v-else-if="activeTab === 'Events'">
         <EventDisplay />
       </div>
+      <div v-else-if="activeTab === 'Notification'">
+        <NotificationList />
+      </div>
   
       <div v-else-if="activeTab === 'Standard'">
         <UserStandard />
@@ -46,13 +49,14 @@
 </template>
 
 <script>
+import NotificationList from '@/views/User/NotificationList.vue'
 import AboutUs from '@/components/AboutUs.vue';
 import EventDisplay from '@/views/Organization/EventDisplay.vue'
 import ProfileSetting from '@/views/User/ProfileSetting.vue'
 import MyArt from '@/views/Artwork/MyArt.vue';
 import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
-import UserStandard from '@/User/UserStandard.vue';
+import UserStandard from '@/views/User/UserStandard.vue';
 
 import axios from 'axios';
 
@@ -65,11 +69,12 @@ export default {
     ProfileSetting,
     EventDisplay,
     UserStandard,
+    NotificationList
   },
   data() {
     return {
       activeTab: 'Profile',
-      tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Upload Artwork', 'Events', 'Standard'],
+      tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Upload Artwork', 'Events','Notification', 'Standard'],
       showConfirmationDialog: false,
     };
   },

@@ -11,19 +11,19 @@
       </ul>
     </nav>
     <div class="content">
-      <div v-if="activeTab === 'My Art'">
-
+      <div v-if="activeTab === 'Artists'">
+      <ArtistList/>
         <!-- Your My Art content goes here -->
       </div>
-      <div v-else-if="activeTab === 'Profile'">
-        <h2>Profile</h2>
+      <div v-else-if="activeTab === 'Customers'">
+        <CustomerList/>
         <!-- Your Profile content goes here -->
       </div>
-      <div v-else-if="activeTab === 'Competition'">
-        <h2>Competition</h2>
+      <div v-else-if="activeTab === 'Organization'">
+        <OrganizationList/>
       </div>
-      <div v-else-if="activeTab === 'Change Password'">
-        <AboutUs />
+      <div v-else-if="activeTab === 'Managers'">
+        <ManagerList/>
       </div>
 
       <div v-else-if="activeTab === 'Logout'">
@@ -40,16 +40,22 @@
 </template>
 
 <script>
-import AboutUs from '@/components/AboutUs.vue';
+import ArtistList from '@/views/Admin/ArtistList.vue'
+import CustomerList from '@/views/Admin/ArtistList.vue'
+import OrganizationList from '@/views/Admin/OrganizationList.vue'
+import ManagerList from '@/views/Admin/OrganizationList.vue'
 import axios from 'axios';
 export default {
-  components: {
-    AboutUs, 
+  components: { 
+    ArtistList,
+    CustomerList,
+    OrganizationList,
+    ManagerList
   },
   data() {
     return {
       activeTab: 'My Art',
-      tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout'],
+      tabs: ['Artists', 'Customers', 'Organization', 'Managers', 'Logout'],
       showConfirmationDialog: false,
     };
   },

@@ -23,8 +23,7 @@
           <h2>Competition</h2>
         </div>
         <div v-else-if="activeTab === 'Change Password'">
-          <h2>Change Password</h2>
-          <!-- Your Change Password content goes here -->
+          <AboutUs />
         </div>
 
         <div v-else-if="activeTab === 'Logout'">
@@ -41,8 +40,12 @@
   </template>
   
   <script>
+  import AboutUs from '@/components/AboutUs.vue';
   import axios from 'axios';
   export default {
+    components: {
+      AboutUs, 
+    },
     data() {
       return {
         activeTab: 'My Art',

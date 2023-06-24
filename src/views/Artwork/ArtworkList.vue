@@ -3,6 +3,8 @@
     <div v-for="artwork in artworks" :key="artwork.id" class="artwork-card">
       <div class="artwork-image">
         <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" style="width: 410px; height: 300px;" />
+        <button class="wishlist-button" @click="addToWishlist(artwork)">
+              <i class="fas fa-heart"></i></button>
       </div>
       <div class="artwork-details">
         <h3><b>{{ artwork.artworkName }}</b></h3>
@@ -36,10 +38,12 @@
     </div>
   </div>
 </template>
-
 <script>
+import api from '@/utils/api';
+import { isAuthenticated } from '@/utils/auth';
 import axios from 'axios';
 import StarRating from '@/components/StarRating'; 
+import router from '@/router';
 
 export default {
   components: {
@@ -76,26 +80,34 @@ export default {
       return `http://localhost:8082/api/artworks/${artworkId}/image`;
     },
     submitRating(rating) {
-    const artworkId = this.selectedArtwork.id;
-    axios.post(`http://localhost:8082/api/rating/artworks/${artworkId}/rate`, { rating })
-      .then(response => {
-        console.log(response);
-        console.log('Rating submitted successfully!');
-      })
-      .catch(error => {
-        console.error('Failed to submit rating:', error);
-      });
-  },
+      const artworkId = this.selectedArtwork.id;
+      axios.post(`http://localhost:8082/api/rating/artworks/${artworkId}/rate`, { rating })
+        .then(response => {
+          console.log(response);
+          console.log('Rating submitted successfully!');
+        })
+        .catch(error => {
+          console.error('Failed to submit rating:', error);
+        });
+    },
+    addToWishlist(artwork) {
+      if (!isAuthenticated()) {
+        router.push('/userLogin');
+        return;
+      }
+      api.post('http://localhost:8082/api/wishlist/save', artwork)
+        .then(response => {
+          console.log(response.data);
+          alert('Wishlist saved successfully.');
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Error saving wishlist.');
+        });
+    },
   },
 };
 </script>
-
-
-
-
-
-
-
 
 
 
@@ -129,7 +141,7 @@ export default {
 
 .artwork-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
@@ -152,23 +164,37 @@ export default {
   margin: 5px 0;
 }
 
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  color: darkred;
+  font-size: 20px;
+}
+
+.wishlist-button:hover {
+  color: red;
+}
+
 .quick-view {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			padding: 20px;
-			background-color: rgba(11, 61, 168, 0.8);
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-			display: none;
-		}
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(11, 61, 168, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: none;
+}
 
-    .artwork-card:hover .quick-view {
-			display: block;
-		}
+.artwork-card:hover .quick-view {
+  display: block;
+}
 
-    .modal-container {
+.modal-container {
   position: fixed;
   top: 0;
   left: 0;

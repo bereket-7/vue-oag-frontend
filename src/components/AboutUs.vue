@@ -40,7 +40,7 @@ p {
 }
 
 .container {
-  margin-top: 130px;
+  margin-top: 90px;
   margin-bottom: 30px;
 }
 

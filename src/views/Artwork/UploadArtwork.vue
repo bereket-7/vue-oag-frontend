@@ -1,105 +1,99 @@
 <template>
-<div class="registration-form">
-  <form @submit.prevent="saveArtwork" enctype="multipart/form-data">
-  <div>
-    <div>
+  <div class="registration-form">
+    <form @submit.prevent="saveArtwork" enctype="multipart/form-data">
       <div>
-
-        <h1>Upload Artwork</h1>
-
-        <div class="card">
-          <div class="card-body">
-
-            <div>
-              <div>
-                <h6 for="artworkName">Artwork Name</h6>
-              </div>
-              <div>
-                <input  id="artworkName" v-model="artworkName" type="text" placeholder="Abstract child face" />
-              </div>
-            </div>
-
-            <div>
+        <div>
+          <div>
+            <h1>Upload Artwork</h1>
+            <div class="card">
+              <div class="card-body">
                 <div>
-                    <h6 for=" artworkCategory">Artwork Category</h6>
+                  <div>
+                    <h6 for="artworkName">Artwork Name</h6>
+                  </div>
+                  <div>
+                    <input id="artworkName" v-model="artworkName" type="text" placeholder="Abstract child face" />
+                  </div>
                 </div>
-              <div>
-                <select id=" artworkCategory" v-model="artworkCategory" name=" artworkCategory" >
-                <option value="painting">Painting</option>
-                <option value="sculpture">Sculpture</option>
-                <option value="photography">Photography</option>
-                <option value="mixed-media">Mixed Media</option>
-                </select>
+
+                <div>
+                  <div>
+                    <h6 for="artworkCategory">Artwork Category</h6>
+                  </div>
+                  <div>
+                    <select id="artworkCategory" v-model="artworkCategory" name="artworkCategory">
+                      <option value="painting">Painting</option>
+                      <option value="sculpture">Sculpture</option>
+                      <option value="photography">Photography</option>
+                      <option value="mixed-media">Mixed Media</option>
+                    </select>
+                  </div>
                 </div>
+
+                <div>
+                  <div>
+                    <h6 for="size">Size</h6>
+                  </div>
+                  <div>
+                    <input id="size" v-model="size" type="text" placeholder="100cm x 120cm" />
+                  </div>
+                </div>
+
+                <hr class="mx-n3">
+
+                <div>
+                  <div>
+                    <h6 class="mb-0" for="artworkDescription">Description</h6>
+                  </div>
+                  <div>
+                    <textarea v-model="artworkDescription" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <h6 for="price">Price</h6>
+                  </div>
+                  <div>
+                    <input id="price" v-model="price" type="number" placeholder="Enter Price" />
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <h6 for="artworkPhoto">Artwork Photo</h6>
+                  </div>
+                  <div>
+                    <input type="file" id="image" ref="fileInput" required />
+                    <div>Upload Artwork Photo file. Max file size 10 MB</div>
+                  </div>
+                </div>
+
+                <hr class="mx-n3">
+
+                <div>
+                  <button type="submit">Submit Artwork</button>
+                </div>
+              </div>
             </div>
-
-            <div>
-              <div>
-                <h6 for="size">Size</h6>
-              </div>
-              <div>
-                <input  id="size" v-model="size" type="text" placeholder="100cm x 120cm"/>
-              </div>
-            </div>
-
-            <hr class="mx-n3">
-
-            <div>
-              <div>
-                <h6 class="mb-0" for=" artworkDescription">Description</h6>
-              </div>
-              <div>
-                <textarea v-model="artworkDescription" rows="3" placeholder="Short description about the artwork, only if it needs"></textarea>
-              </div>
-            </div>
-
-            <div>
-              <div>
-                <h6 for="price">Price</h6>
-              </div>
-              <div>
-                <input  id="price" v-model="price" type="number" placeholder="Enter Price" />
-              </div>
-            </div>
-
-            <div>
-              <div>
-                <h6 for="artworkPhoto">Artwork Photo</h6>
-              </div>
-              <div>
-                <input type="file" id="image" ref="fileInput" required />
-                <div>Upload Artwork Photo file. Max file size 10 MB</div>
-              </div>
-            </div>
-    
-            <hr class="mx-n3">
-
-            <div>
-              <button type="submit">Submit Artwork</button>
-            </div>
-
           </div>
         </div>
+      </div>
+    </form>
 
+    <!-- Popup section -->
+    <div class="container">
+      <div class="popup" id="popup">
+        <img src="tick.png" alt="tick">
+        <h2>Thank You</h2>
+        <p>You have Successfully submitted your Artwork for approval.</p>
+        <button type="button" @click="closePopup()">OK</button>
       </div>
     </div>
   </div>
-</form>
-
-</div>
-<FooterView/>
-
-<div>
-  <div class="container">
-<div class="popup" id="popup">
-    <img src="tick.png" alt="tick">
-    <h2>Thank You</h2>
-    <p>You have Successfully submitted your Artwork for approval.</p>
-    <button type="button" @click="closePopup()">OK</button>
-</div>
-    </div> 
-</div>
+  <FooterView />
 </template>
+
 
 <script>  
 import axios from 'axios';
@@ -129,24 +123,25 @@ export default {
       popup.classList.remove("open-popup");
     },
     saveArtwork() {
-      const formData = new FormData();
-      formData.append('artworkName', this.artworkName);
-      formData.append('price', this.price);
-      formData.append('artworkCategory', this.artworkCategory);
-      formData.append('artworkDescription', this.artworkDescription);
-      formData.append('size', this.size);
-      formData.append('image', this.$refs.fileInput.files[0]);
+  const formData = new FormData();
+  formData.append('artworkName', this.artworkName);
+  formData.append('price', this.price);
+  formData.append('artworkCategory', this.artworkCategory);
+  formData.append('artworkDescription', this.artworkDescription);
+  formData.append('size', this.size);
+  formData.append('image', this.$refs.fileInput.files[0]);
 
-      axios
-        .post('http://localhost:8081/artworks/saveArtwork', formData)
-        .then(() => {
-          this.openPopup();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.errorMessage = 'An error occurred while uploading artwork.';
-        });
-    },
+  axios
+    .post('http://localhost:8082/api/artworks/saveArtwork', formData)
+    .then(() => {
+      this.openPopup();
+    })
+    .catch((error) => {
+      console.error(error);
+      this.errorMessage = 'An error occurred while uploading artwork.';
+    });
+},
+
     resetForm() {
       this.artworkName = '';
       this.price = 0;

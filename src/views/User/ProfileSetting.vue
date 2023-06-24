@@ -3,30 +3,9 @@
         <div class="row">
             <div class="col-md-3 border-right sidebar">
                 <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                    <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
-                    <span class="font-weight-bold">Bereket</span>
+                   <ProfilePicture />
                 </div>
                 <div class="sidebar">
-                    <ul class="navbar-list">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link">About</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-        </li>
-      </ul> 
                 </div>
             </div>
             <div class="col-md-8 border-right">
@@ -48,16 +27,15 @@
             </div>
         </div>
     </div>
-    <FooterView/>
     </template>
     
     <script>
-    import FooterView from "@/components/FooterView.vue"
+    import ProfilePicture from "@/components/ProfilePicture.vue";
     export default{
         name:'AccountDetail',
         components:{
-            FooterView
-        }
+    ProfilePicture,
+}
     }
     </script>
     

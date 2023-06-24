@@ -12,21 +12,22 @@
       </nav>
       <div class="content">
         <div v-if="activeTab === 'My Art'">
-          <h2>My Art</h2>
-          <!-- Your My Art content goes here -->
+          <MyArt />
         </div>
         <div v-else-if="activeTab === 'Profile'">
-          <h2>Profile</h2>
-          <!-- Your Profile content goes here -->
+          <ProfileSetting />
         </div>
         <div v-else-if="activeTab === 'Competition'">
-          <h2>Competition</h2>
+          <DisplayCompetition />
         </div>
         <div v-else-if="activeTab === 'Upload Artwork'">
           <ArtworkUpload />
         </div>
         <div v-else-if="activeTab === 'Change Password'">
           <AboutUs />
+        </div>
+        <div v-else-if="activeTab === 'Notification'">
+          <Notification />
         </div>
 
         <div v-else-if="activeTab === 'Logout'">
@@ -44,17 +45,24 @@
   
   <script>
   import AboutUs from '@/components/AboutUs.vue';
-  import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue'
+  import ProfileSetting from '@/views/User/ProfileSetting.vue'
+  import MyArt from '@/views/Artwork/MyArt.vue';
+  import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
+  import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
   import axios from 'axios';
   export default {
     components: {
-      AboutUs, 
-      ArtworkUpload
-    },
+    AboutUs,
+    ArtworkUpload,
+    MyArt,
+    DisplayCompetition,
+    ProfileSetting,
+    Notification
+},
     data() {
       return {
         activeTab: 'My Art',
-        tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout','Upload Artwork'],
+        tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout','Upload Artwork','Notification'],
         showConfirmationDialog: false,
       };
     },

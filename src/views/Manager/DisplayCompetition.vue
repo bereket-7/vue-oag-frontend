@@ -46,7 +46,7 @@
 <style scoped>
 .competition {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 .competition-card {

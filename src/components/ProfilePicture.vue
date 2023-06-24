@@ -62,7 +62,7 @@ export default {
 
 <style scoped>
 .profile-card {
-  margin-top: 100px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,13 +70,13 @@ export default {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  width: 200px;
   margin-left: 20px;
 }
 
 .profile-photo {
-  width: 150px;
-  height: 150px;
+  width: 70px;
+  height: 100px;
   border-radius: 50%;
   overflow: hidden;
   margin-top: 20px;

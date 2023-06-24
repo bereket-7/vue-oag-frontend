@@ -20,8 +20,6 @@
       <router-link to="/register"><button class="login__signup-button">Sign Up</button></router-link>
     </div>
   </div>
-    
-    
   </div>
   <FooterView/>
 </template>
@@ -45,32 +43,46 @@ export default {
     const email = ref('');
     const password = ref('');
     const errorMessage = ref('');
-
     const submitForm = async () => {
-      try {
-        const response = await axios.post('http://localhost:8082/api/auth/login', {
-          username: email.value,
-          password: password.value,
-        });
+  try {
+    const response = await axios.post('http://localhost:8082/api/auth/login', {
+      username: email.value,
+      password: password.value,
+    });
 
-        if (response.data.accessToken) {
-          const jwtToken = response.data.accessToken;
-          setAuthToken(jwtToken);
-          localStorage.setItem('token', jwtToken);
-          console.log(response.data.accessToken);
-          router.push('/sendNotification');
-        } else {
-          console.log('No access token received');
-        }
-      } catch (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-          errorMessage.value = error.response.data.message;
-        } else {
-          errorMessage.value = 'Username or password incorrect';
-        }
-        console.log(error);
+    if (response.data.accessToken && response.data.role) {
+      const jwtToken = response.data.accessToken;
+      const role = response.data.role;
+      setAuthToken(jwtToken);
+      localStorage.setItem('token', jwtToken);
+      localStorage.setItem('role', role); 
+      console.log(response.data.accessToken);
+      
+      if (role === 'ADMIN') {
+        router.push('/adminPage');
+      } else if (role === 'CUSTOMER') {
+        router.push('/customerPage');
+      } else if (role === 'ARTIST') {
+        router.push('/artistPage');
+      } else if (role === 'MANAGER') {
+        router.push('/managerPage');
+      } else if (role === 'ORGANIZATION') {
+        router.push('/organizationPage');
+      } else {
+        console.log('Unknown role');
       }
-    };
+    } else {
+      console.log('No access token or role received');
+    }
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage.value = error.response.data.message;
+    } else {
+      errorMessage.value = 'Username or password incorrect';
+    }
+    console.log(error);
+  }
+};
 
     return {
       email,

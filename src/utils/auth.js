@@ -19,11 +19,13 @@ export function removeAuthToken() {
 
 export function initializeAuth() {
   const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role'); 
   if (token) {
     setAuthToken(token);
   }
+  if (role) {
+    auth.role = role;
+  }
 }
-
 export const isAuthenticated = () => auth.isAuthenticated;
-
 export default auth;

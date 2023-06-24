@@ -21,13 +21,11 @@
         </div>
         <div v-else-if="activeTab === 'Competition'">
           <h2>Competition</h2>
-          <!-- Your Competition content goes here -->
         </div>
         <div v-else-if="activeTab === 'Change Password'">
           <h2>Change Password</h2>
           <!-- Your Change Password content goes here -->
         </div>
-
 
         <div v-else-if="activeTab === 'Logout'">
     <button @click="showConfirmationDialog = true">Logout</button> 
@@ -37,8 +35,6 @@
       <button @click="cancelLogout">No</button>
     </div>
   </div>
-
-
 
       </div>
     </div>

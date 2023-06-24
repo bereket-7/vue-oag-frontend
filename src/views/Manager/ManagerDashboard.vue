@@ -23,9 +23,17 @@
       <li class="nav-item">
         <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-      </li>
+      <li class="nav-item">  
+    <button @click="showConfirmationDialog = true">Logout</button> 
+    <div v-if="showConfirmationDialog" class="confirmation-dialog">
+      <p>Are you sure you want to logout?</p>
+      <button @click="logoutUser">Yes</button>
+      <button @click="cancelLogout">No</button>
+    </div>
+ </li>
+
+
+
     </ul> 
               </div>
           </div>
@@ -37,8 +45,8 @@
                   </div>
                   <div class="row">
                       <div class="row mt-2">
-                      <div class="col-md-4"><router-link to="/"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Artwork Request</button></router-link></div>
-                      <div class="col-md-4"><router-link to="/eventValidation"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Event Request</button></router-link></div>
+                      <div class="col-md-4"><router-link to="/verifyArtwork"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Artwork Request</button></router-link></div>
+                      <div class="col-md-4"><router-link to="/eventRequest"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Event Request</button></router-link></div>
                       <div class="col-md-4"><router-link to="/createCompetition"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Competition</button></router-link></div>
                        
                   </div>
@@ -63,12 +71,36 @@
   </template>
   
   <script>
-  import FooterView from "@/components/FooterView.vue"
+  import FooterView from "@/components/FooterView.vue";
+  import axios from 'axios';
   export default{
       name:'AccountDetail',
       components:{
           FooterView
-      }
+      },
+      data() {
+      return {
+        showConfirmationDialog: false,
+      };
+    },
+    methods: {
+      logoutUser() {
+      axios
+        .get('http://localhost:8082/api/auth/logout')
+        .then(response => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userInfo');
+          this.$router.push('/userLogin');
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    cancelLogout() {
+      this.showConfirmationDialog = false;
+    },
+    },
   }
   </script>
   

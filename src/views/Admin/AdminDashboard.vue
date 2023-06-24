@@ -23,9 +23,17 @@
         <li class="nav-item">
           <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-        </li>
+
+        <li class="nav-item">  
+    <button @click="showConfirmationDialog = true">Logout</button> 
+    <div v-if="showConfirmationDialog" class="confirmation-dialog">
+      <p>Are you sure you want to logout?</p>
+      <button @click="logoutUser">Yes</button>
+      <button @click="cancelLogout">No</button>
+    </div>
+ </li>
+
+
       </ul> 
                 </div>
             </div>
@@ -37,7 +45,7 @@
                     </div>
                     <div class="row">
                         <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/userReport"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">UserReport</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/userReport"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Reports</button></router-link></div>
                         <div class="col-md-4"><router-link to="/about"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
                         <div class="col-md-4"><router-link to="/contactUs"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>
                          
@@ -50,7 +58,7 @@
                     <div class="row mt-2">
                         <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Register Organzation</button></router-link></div>
                         <div class="col-md-4"><router-link to="/userList"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">System Users</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
+                        <div class="col-md-4"><router-link to="/showStandard"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Standards</button></router-link></div>  
                     </div>
   
                     </div>
@@ -62,16 +70,7 @@
     <FooterView/>
     </template>
     
-    <script>
-    import FooterView from "@/components/FooterView.vue"
-    export default{
-        name:'AccountDetail',
-        components:{
-            FooterView
-        }
-    }
-    </script>
-    
+ 
     <style scoped>
     .form-control:focus {
         box-shadow: none;
@@ -129,3 +128,39 @@
     color: white;
   }
   </style>
+
+
+  <script>
+  import FooterView from "@/components/FooterView.vue"
+  import axios from 'axios';
+  export default {
+    name:'AdminDashboard',
+    components:{
+        FooterView
+    },
+    data() {
+      return {
+        showConfirmationDialog: false,
+      };
+    },
+    methods: {
+      logoutUser() {
+      axios
+        .get('http://localhost:8082/api/auth/logout')
+        .then(response => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userInfo');
+          this.$router.push('/userLogin');
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    cancelLogout() {
+      this.showConfirmationDialog = false;
+    },
+    },
+  };
+  </script>
+  

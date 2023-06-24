@@ -16,6 +16,7 @@ const routes = [
   path: '/artistDashboard',
   name: 'Artist Dashboard',
   component: () => import('../views/User/ArtistPage.vue'),
+  
   //meta: { requiresAuth: true }
 },
 {

@@ -1,166 +1,138 @@
 <template>
-    <div class="container-fluid rounded bg-white mt-5">
-        <div class="row">
-            <div class="col-md-3 border-right sidebar">
-                <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                    <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
-                    <span class="font-weight-bold">Bereket</span>
-                </div>
-                <div class="sidebar">
-                    <ul class="navbar-list">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
+  <div class="dashboard">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h3>Artist Dashboard</h3>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">
+          <a @click="changeTab(tab)">{{ tab }}</a>
         </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link">About</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-        </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <div v-if="activeTab === 'My Art'">
+        <h2>My Art</h2>
+        <!-- Your My Art content goes here -->
+      </div>
+      <div v-else-if="activeTab === 'Profile'">
+        <h2>Profile</h2>
+        <!-- Your Profile content goes here -->
+      </div>
+      <div v-else-if="activeTab === 'Competition'">
+        <h2>Competition</h2>
+      </div>
+      <div v-else-if="activeTab === 'Change Password'">
+        <AboutUs />
+      </div>
 
-        <li class="nav-item">  
-    <button @click="showConfirmationDialog = true">Logout</button> 
-    <div v-if="showConfirmationDialog" class="confirmation-dialog">
-      <p>Are you sure you want to logout?</p>
-      <button @click="logoutUser">Yes</button>
-      <button @click="cancelLogout">No</button>
+      <div v-else-if="activeTab === 'Logout'">
+  <button @click="showConfirmationDialog = true">Logout</button> 
+  <div v-if="showConfirmationDialog" class="confirmation-dialog">
+    <p>Are you sure you want to logout?</p>
+    <button @click="logoutUser">Yes</button>
+    <button @click="cancelLogout">No</button>
+  </div>
+</div>
+
     </div>
- </li>
+  </div>
+</template>
 
+<script>
+import AboutUs from '@/components/AboutUs.vue';
+import axios from 'axios';
+export default {
+  components: {
+    AboutUs, 
+  },
+  data() {
+    return {
+      activeTab: 'My Art',
+      tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout'],
+      showConfirmationDialog: false,
+    };
+  },
+  methods: {
+    changeTab(tab) {
+      this.activeTab = tab;
+    },
+    logoutUser() {
+    axios
+      .get('http://localhost:8082/api/logout')
+      .then(response => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('userInfo');
+        this.$router.push('/userLogin');
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
+  cancelLogout() {
+    this.showConfirmationDialog = false;
+  },
+  },
+};
+</script>
 
-      </ul> 
-                </div>
-            </div>
-            <div class="col-md-8 border-right">
-                <div class="p-3 py-5">
-                    <div class="justify-content-between align-items-center mb-3 myaccount">
-                        <h2 class="text-center">MY ACCOUNT</h2>
-                        <h5 class="text-center">DASHBOARD</h5>
-                    </div>
-                    <div class="row">
-                        <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/userReport"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Reports</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/about"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/contactUs"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>
-                         
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Detail</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Notification</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/userList"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">User List</button></router-link></div>  
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Register Organzation</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/userList"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">System Users</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/showStandard"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Standards</button></router-link></div>  
-                    </div>
-  
-                    </div>
-  
-                </div>
-            </div>
-        </div>
-    </div>
-    <FooterView/>
-    </template>
-    
- 
-    <style scoped>
-    .form-control:focus {
-        box-shadow: none;
-        border-color: black
-    }
-    
-    .profile-button {
-        box-shadow: none;
-        border: none
-    }
-    .profile-button:active {
-        background: #682773;
-        box-shadow: none
-    }
-    .back:hover {
-        color: #682773;
-        cursor: pointer
-    }
-    
-    .labels {
-        font-size: 11px
-    }
-    
-    .add-experience:hover {
-        background: #BA68C8;
-        color: #fff;
-        cursor: pointer;
-        border: solid 1px #BA68C8
-    }
-  
-    .sidebar{
-        background-color: #f1f1f1;
-        color:black;
-    }
-    .user-p img{
-    width: 50%;
-    border-radius: 50%;
-  }
-  .navbar-list{
-    text-align: center;
-    list-style-type: none;
-  }
-  .nav-item{
-    margin: 5px;
-  }
-  .navbar-list{
-    text-decoration: none;
-  }
-  .nav-item:hover{
-    background-color: rgb(74, 73, 72);
-  color: white;
-  }
-  .myaccount{
-    background-color:rgb(65, 74, 48) ;
-    color: white;
-  }
-  </style>
+<style scoped>
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  margin-top: 100px;
+}
 
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+}
 
-  <script>
-  import FooterView from "@/components/FooterView.vue"
-  import axios from 'axios';
-  export default {
-    name:'AdminDashboard',
-    components:{
-        FooterView
-    },
-    data() {
-      return {
-        showConfirmationDialog: false,
-      };
-    },
-    methods: {
-      logoutUser() {
-      axios
-        .get('http://localhost:8082/api/auth/logout')
-        .then(response => {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('userInfo');
-          this.$router.push('/userLogin');
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    cancelLogout() {
-      this.showConfirmationDialog = false;
-    },
-    },
-  };
-  </script>
-  
+.sidebar-header {
+  padding: 20px;
+  background-color: #222;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-item {
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-menu-item a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-menu-item.active {
+  background-color: #555;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+</style>

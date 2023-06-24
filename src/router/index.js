@@ -7,7 +7,7 @@ const routes = [
     component: () => import('../views/HomeView.vue')
   },
   {
-  path: '/customerDashboard',
+  path: '/customerDashboard', 
   name: 'Customer Dashboard',
   component: () => import('../views/User/CustomerDashBoard2.vue'),
   //meta: { requiresAuth: true }

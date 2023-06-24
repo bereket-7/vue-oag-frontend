@@ -11,49 +11,55 @@
     </div>
 </template>
   
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        selectedFile: null,
-        profilePhotoUrl: null,
-      };
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      selectedFile: null,
+      profilePhotoUrl: null,
+    };
+  },
+  methods: {
+    handleFileChange(event) {
+      this.selectedFile = event.target.files[0];
     },
-    methods: {
-      handleFileChange(event) {
-        this.selectedFile = event.target.files[0];
-      },
-      async uploadProfilePhoto() {
-        const formData = new FormData();
-        formData.append('file', this.selectedFile);
-  
-        try {
-          await axios.post('http://localhost:8082/api/users/profile/upload', formData);
+    async uploadProfilePhoto() {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      try {
+        const response = await axios.post('http://localhost:8082/api/users/profile/upload', formData);
+        if (response.status === 200) {
           this.selectedFile = null;
           this.getProfilePhoto();
-        } catch (error) {
-          console.error('Error uploading profile photo:', error);
         }
-      },
-      async getProfilePhoto() {
-        try {
-          const response = await axios.get('http://localhost:8082/api/users/profile/photo', { responseType: 'arraybuffer' });
-          const base64Image = btoa(
-            new Uint8Array(response.data).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              ''
-            )
-          );
-          this.profilePhotoUrl = `data:image/jpeg;base64,${base64Image}`;
-        } catch (error) {
-          console.error('Error getting profile photo:', error);
-        }
-      },
+      } catch (error) {
+        console.error('Error uploading profile photo:', error);
+      }
     },
-  };
-  </script>
+    async getProfilePhoto() {
+      try {
+        const response = await axios.get('http://localhost:8082/api/users/profile/photo', { responseType: 'arraybuffer' });
+        const base64Image = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ''
+          )
+        );
+        this.profilePhotoUrl = `data:image/jpeg;base64,${base64Image}`;
+      } catch (error) {
+        console.error('Error getting profile photo:', error);
+      }
+    },
+  },
+  mounted() {
+    this.getProfilePhoto();
+  },
+};
+</script>
+
 <style scoped>
 .profile-card {
   margin-top: 100px;

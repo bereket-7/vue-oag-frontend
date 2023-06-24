@@ -40,13 +40,14 @@
       </div>
       <span v-if="errors.sex" class="error">{{ errors.sex }}</span>
     </div>
+
     <div>
-      <label for="roles">Select Role</label>
-      <select v-model="roles" class="form-select" id="role" required>
-        <option value="CUSTOMER">CUSTOMER</option>
-        <option value="ARTIST">ARTIST</option>
-      </select>
-    </div>
+  <label for="role">Select Role</label>
+  <select v-model="role" class="form-select" id="role" required>
+    <option value="CUSTOMER">CUSTOMER</option>
+    <option value="ARTIST">ARTIST</option>
+  </select>
+</div>
 
     <div>
       <input type="text" placeholder="Username" id="username" v-model="username" required>
@@ -396,12 +397,10 @@ export default {
           age: this.age,
           username: this.username,
           password: this.password,
-          roles: [this.roles]
+          role: this.role 
 
         })
-        //console.log(response.data);
         this.$router.push('/signupSuccess');
-          //this.showSuccessPopup = true; 
       } catch (error) {
         this.errorMessage = error.response.data.message
       }

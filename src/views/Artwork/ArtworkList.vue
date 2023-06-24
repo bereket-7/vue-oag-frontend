@@ -26,7 +26,7 @@
             <p>{{ selectedArtwork.artworkDescription }}</p>
             <p>Price: {{ selectedArtwork.price }}</p>
             <p>Size: {{ selectedArtwork.size }}</p>
-            <p>Category: {{ selectedArtwork.artworkCategory }}</p>
+            <p><b>Category: {{ selectedArtwork.artworkCategory }}</b></p>
             <hr class="mx-n3">
             <button type="button" class="btn btn-danger">Add to Cart</button>
             <StarRating :rating="selectedArtwork.averageRating" :editable="true" @rating-selected="submitRating" />
@@ -64,7 +64,7 @@ export default {
       document.body.classList.remove('modal-open');
     },
     fetchArtworks() {
-      axios.get('http://localhost:8082/artworks')
+      axios.get('http://localhost:8082/api/artworks')
         .then(response => {
           this.artworks = response.data;
         })
@@ -73,11 +73,11 @@ export default {
         });
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8082/artworks/${artworkId}/image`;
+      return `http://localhost:8082/api/artworks/${artworkId}/image`;
     },
     submitRating(rating) {
     const artworkId = this.selectedArtwork.id;
-    axios.post(`http://localhost:8082/rating/artworks/${artworkId}/rate`, { rating })
+    axios.post(`http://localhost:8082/api/rating/artworks/${artworkId}/rate`, { rating })
       .then(response => {
         console.log(response);
         console.log('Rating submitted successfully!');
@@ -99,16 +99,12 @@ export default {
 
 
 
-
-
-
-
-
 <style scoped>
 .artwork-gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 100px;
 }
 
 .artwork-card {

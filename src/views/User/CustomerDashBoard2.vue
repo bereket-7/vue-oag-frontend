@@ -23,9 +23,15 @@
         <li class="nav-item">
           <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-        </li>
+      
+        <li class="nav-item">  
+    <button @click="showConfirmationDialog = true">Logout</button> 
+    <div v-if="showConfirmationDialog" class="confirmation-dialog">
+      <p>Are you sure you want to logout?</p>
+      <button @click="logoutUser">Yes</button>
+      <button @click="cancelLogout">No</button>
+    </div>
+ </li>
       </ul> 
                 </div>
             </div>
@@ -63,12 +69,36 @@
     </template>
     
     <script>
+      import axios from 'axios';
     import FooterView from "@/components/FooterView.vue"
     export default{
         name:'AccountDetail',
         components:{
             FooterView
-        }
+        },
+        data() {
+      return {
+        showConfirmationDialog: false,
+      };
+    },
+    methods: {
+      logoutUser() {
+      axios
+        .get('http://localhost:8082/api/auth/logout')
+        .then(response => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userInfo');
+          this.$router.push('/userLogin');
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    cancelLogout() {
+      this.showConfirmationDialog = false;
+    },
+    },
     }
     </script>
     

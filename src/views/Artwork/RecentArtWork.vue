@@ -89,11 +89,11 @@
           });
       },
       getArtworkImageUrl(artworkId) {
-        return `http://localhost:8082/artworks/${artworkId}/image`;
+        return `http://localhost:8082/api/artworks/${artworkId}/image`;
       },
       submitRating(rating) {
       const artworkId = this.selectedArtwork.id;
-      axios.post(`http://localhost:8082/rating/artworks/${artworkId}/rate`, { rating })
+      axios.post(`http://localhost:8082/api/rating/artworks/${artworkId}/rate`, { rating })
         .then(response => {
           console.log(response);
           console.log('Rating submitted successfully!');

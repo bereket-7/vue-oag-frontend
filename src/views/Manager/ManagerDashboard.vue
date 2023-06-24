@@ -1,93 +1,88 @@
 <template>
-  <div class="container-fluid rounded bg-white mt-5">
-      <div class="row">
-          <div class="col-md-3 border-right sidebar">
-              <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                  <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
-                  <span class="font-weight-bold">Bereket</span>
-              </div>
-              <div class="sidebar">
-                  <ul class="navbar-list">
-      <li class="nav-item">
-        <router-link to="/" class="nav-link">Home</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/about" class="nav-link">About</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-      </li>
-      
-      <li class="nav-item">  
-    <button @click="showConfirmationDialog = true">Logout</button> 
-    <div v-if="showConfirmationDialog" class="confirmation-dialog">
-      <p>Are you sure you want to logout?</p>
-      <button @click="logoutUser">Yes</button>
-      <button @click="cancelLogout">No</button>
-    </div>
- </li>
-
-
-
-    </ul> 
-              </div>
-          </div>
-          <div class="col-md-8 border-right">
-              <div class="p-3 py-5">
-                  <div class="justify-content-between align-items-center mb-3 myaccount">
-                      <h2 class="text-center">MY ACCOUNT</h2>
-                      <h5 class="text-center">DASHBOARD</h5>
-                  </div>
-                  <div class="row">
-                      <div class="row mt-2">
-                      <div class="col-md-4"><router-link to="/verifyArtwork"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Artwork Request</button></router-link></div>
-                      <div class="col-md-4"><router-link to="/eventRequest"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Event Request</button></router-link></div>
-                      <div class="col-md-4"><router-link to="/createCompetition"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Competition</button></router-link></div>
-                       
-                  </div>
-                  <div class="row mt-2">
-                      <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Standard</button></router-link></div>
-                      <div class="col-md-4"><router-link to="/userReport"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Report</button></router-link></div>
-                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Send Notification</button></router-link></div>  
-                  </div>
-                  <div class="row mt-2">
-                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
-                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
-                      <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
-                  </div>
-
-                  </div>
-
-              </div>
-          </div>
+  <div class="dashboard">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h3>Manager Dashboard</h3>
       </div>
-  </div>
-  <FooterView/>
-  </template>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">
+          <a @click="changeTab(tab)">{{ tab }}</a>
+        </li>
+        <li class="sidebar-menu-item logout">
+import ManageStandards from '@/components/ManageStandards.vue';
+import SendNotification from '@/components/SendNotification.vue';
+          <button @click="showConfirmationDialog = true"><i class="fas fa-sign-out-alt"></i></button>
+import VerifyArtwork from './VerifyArtwork.vue';
+          <div v-if="showConfirmationDialog" class="confirmation-dialog">
+            <p>Are you sure you want to logout?</p>
+            <button @click="logoutUser">Yes</button>
+            <button @click="cancelLogout">No</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <div v-if="activeTab === 'Art Request'">
+        <VerifyArtwork />
+      </div>
+      <div v-else-if="activeTab === 'Profile'">
+        <ProfileSetting />
+      </div>
+      <div v-else-if="activeTab === 'Competition'">
+        <DisplayCompetition />
+      </div>
+      <div v-else-if="activeTab === 'Create Competition'">
+        <CreateCompetition />
+      </div>
+      <div v-else-if="activeTab === 'Send Notification'">
+        <SendNotification />
+      </div>
+      <div v-else-if="activeTab === 'Manage Standard'">
+        <ManageStandards />
+      </div>
+      <div v-else-if="activeTab === 'Event Request'">
+        <EventDisplay />
+      </div>
   
-  <script>
-  import FooterView from "@/components/FooterView.vue";
-  import axios from 'axios';
-  export default{
-      name:'AccountDetail',
-      components:{
-          FooterView
-      },
-      data() {
-      return {
-        showConfirmationDialog: false,
-      };
+    
+    </div>
+  </div>
+</template>
+
+<script>
+import EventDisplay from '@/views/Organization/EventDisplay.vue'
+import ProfileSetting from '@/views/User/ProfileSetting.vue'
+import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
+import VerifyArtwork from '@/views/Manager/VerifyArtwork.vue';
+import ManageStandards from '@/components/ManageStandards.vue';
+import SendNotification from '@/components/SendNotification.vue';
+import CreateCompetition from '@/views/Manager/CreateCompetition.vue';
+import axios from 'axios';
+
+export default {
+  components: {
+    CreateCompetition,
+    DisplayCompetition,
+    ProfileSetting,
+    EventDisplay,
+    VerifyArtwork,
+    SendNotification,
+    ManageStandards
+},
+  data() {
+    return {
+      activeTab: 'Profile',
+      tabs: ['Art Request', 'Profile', 'Competition', 'Change Password', 'Verify Artwork', 'Event Request','Send Notification','Create Competition', 'Manage Standard'],
+      showConfirmationDialog: false,
+    };
+  },
+  methods: {
+    changeTab(tab) {
+      this.activeTab = tab;
     },
-    methods: {
-      logoutUser() {
+    logoutUser() {
       axios
-        .get('http://localhost:8082/api/auth/logout')
+        .get('http://localhost:8082/api/logout')
         .then(response => {
           localStorage.removeItem('accessToken');
           localStorage.removeItem('userInfo');
@@ -101,64 +96,129 @@
     cancelLogout() {
       this.showConfirmationDialog = false;
     },
-    },
-  }
-  </script>
+  },
+};
+</script>
   
-  <style scoped>
-  .form-control:focus {
-      box-shadow: none;
-      border-color: black
-  }
-  
-  .profile-button {
-      box-shadow: none;
-      border: none
-  }
-  .profile-button:active {
-      background: #682773;
-      box-shadow: none
-  }
-  .back:hover {
-      color: #682773;
-      cursor: pointer
-  }
-  
-  .labels {
-      font-size: 11px
-  }
-  
-  .add-experience:hover {
-      background: #BA68C8;
-      color: #fff;
-      cursor: pointer;
-      border: solid 1px #BA68C8
-  }
 
-  .sidebar{
-      background-color: #f1f1f1;
-      color:black;
+
+
+
+
+
+
+
+
+
+
+
+
+  <style scoped>
+  .dashboard {
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
   }
-  .user-p img{
-  width: 50%;
-  border-radius: 50%;
+  
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .sidebar-header {
+    padding: 20px;
+    background-color: #222;
+  }
+  
+  .sidebar-header h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-menu-item {
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-menu-item a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .sidebar-menu-item.active {
+    background-color: #555;
+  }
+  .sidebar-menu-item.logout {
+  position: relative;
 }
-.navbar-list{
-  text-align: center;
-  list-style-type: none;
+
+.sidebar-menu-item.logout button {
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
 }
-.nav-item{
+
+.confirmation-dialog {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #555;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmation-dialog p {
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.confirmation-dialog button {
   margin: 5px;
+  padding: 5px 10px;
 }
-.navbar-list{
-  text-decoration: none;
+  
+.sidebar-menu-item.logout {
+  display: flex;
+  transition: background-color 0.3s ease;
 }
-.nav-item:hover{
-  background-color: rgb(74, 73, 72);
-color: white;
+
+.sidebar-menu-item.logout button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #da0b0b;
+  font-size: 20px;
 }
-.myaccount{
-  background-color:rgb(65, 74, 48) ;
-  color: white;
+
+.sidebar-menu-item.logout button:hover {
+  color: #ccc;
 }
-</style>
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .dashboard {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  </style>
+  

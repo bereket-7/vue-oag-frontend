@@ -115,11 +115,6 @@ const routes = [
     component: () => import('../views/shopping/WishList.vue')
   },
   {
-    path: '/myaccount',
-    name: 'myprofile',
-    component: () => import('../components/MyAccount.vue')
-  },
-  {
     path: '/edit-account',
     name: 'AccountDetail',
     component: () => import('../views/User/ProfileSetting.vue')
@@ -299,12 +294,6 @@ const routes = [
     path: '/artworkDetail',
     name: 'Artworkdetail',
     component: () => import('../components/ArtworkDetail.vue')
-  },
-  {
-    path: '/logout',
-    name: 'LogOut',
-    component: () => import('../components/LogOut.vue'),
-    meta: { requiresAuth: true }
   },
   {
     path: '/FAQs',

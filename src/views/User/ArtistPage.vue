@@ -22,6 +22,9 @@
         <div v-else-if="activeTab === 'Competition'">
           <h2>Competition</h2>
         </div>
+        <div v-else-if="activeTab === 'Upload Artwork'">
+          <ArtworkUpload />
+        </div>
         <div v-else-if="activeTab === 'Change Password'">
           <AboutUs />
         </div>
@@ -41,15 +44,17 @@
   
   <script>
   import AboutUs from '@/components/AboutUs.vue';
+  import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue'
   import axios from 'axios';
   export default {
     components: {
       AboutUs, 
+      ArtworkUpload
     },
     data() {
       return {
         activeTab: 'My Art',
-        tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout'],
+        tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Logout','Upload Artwork'],
         showConfirmationDialog: false,
       };
     },

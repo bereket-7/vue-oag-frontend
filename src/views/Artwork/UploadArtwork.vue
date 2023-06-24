@@ -83,21 +83,18 @@
 
     <!-- Popup section -->
     <div class="container">
-      <div class="popup" id="popup">
+      <div class="popup" id="popup" :class="{ 'open-popup': isPopupOpen }">
         <img src="tick.png" alt="tick">
         <h2>Thank You</h2>
         <p>You have Successfully submitted your Artwork for approval.</p>
-        <button type="button" @click="closePopup()">OK</button>
+        <button type="button" @click="closePopup">OK</button>
       </div>
     </div>
   </div>
-  <FooterView />
 </template>
 
-
-<script>  
+<script>
 import axios from 'axios';
-import FooterView from "@/components/FooterView.vue"
 
 export default {
   data() {
@@ -106,50 +103,36 @@ export default {
       price: 0,
       artworkDescription: '',
       artworkCategory: '',
-      size: ''
+      size: '',
+      isPopupOpen: false
     };
   },
-  components:{
-    FooterView
-  },
   methods: {
+    saveArtwork() {
+      const formData = new FormData();
+      formData.append('artworkName', this.artworkName);
+      formData.append('price', this.price);
+      formData.append('artworkCategory', this.artworkCategory);
+      formData.append('artworkDescription', this.artworkDescription);
+      formData.append('size', this.size);
+      formData.append('image', this.$refs.fileInput.files[0]);
+
+      axios.post('http://localhost:8082/api/artworks/saveArtwork', formData)
+        .then(() => {
+          this.openPopup();
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error
+        });
+    },
     openPopup() {
-      let popup = document.getElementById("popup");
-      popup.classList.add("open-popup");
-      this.resetForm();
+      this.isPopupOpen = true;
     },
     closePopup() {
-      let popup = document.getElementById("popup");
-      popup.classList.remove("open-popup");
-    },
-    saveArtwork() {
-  const formData = new FormData();
-  formData.append('artworkName', this.artworkName);
-  formData.append('price', this.price);
-  formData.append('artworkCategory', this.artworkCategory);
-  formData.append('artworkDescription', this.artworkDescription);
-  formData.append('size', this.size);
-  formData.append('image', this.$refs.fileInput.files[0]);
-
-  axios
-    .post('http://localhost:8082/api/artworks/saveArtwork', formData)
-    .then(() => {
-      this.openPopup();
-    })
-    .catch((error) => {
-      console.error(error);
-      this.errorMessage = 'An error occurred while uploading artwork.';
-    });
-},
-
-    resetForm() {
-      this.artworkName = '';
-      this.price = 0;
-      this.artworkDescription = '';
-      this.artworkCategory = '';
-      this.size = '';
-    },
-  },
+      this.isPopupOpen = false;
+    }
+  }
 };
 </script>
 

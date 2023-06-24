@@ -12,7 +12,7 @@
     </nav>
     <div class="content">
       <div v-if="activeTab === 'My Art'">
-        <h2>My Art</h2>
+
         <!-- Your My Art content goes here -->
       </div>
       <div v-else-if="activeTab === 'Profile'">

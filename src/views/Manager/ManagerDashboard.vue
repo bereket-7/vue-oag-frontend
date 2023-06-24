@@ -66,13 +66,13 @@ export default {
     ProfileSetting,
     EventDisplay,
     VerifyArtwork,
-    SendNotification,
-    ManageStandards
+     SendNotification,
+     ManageStandards
 },
   data() {
     return {
       activeTab: 'Profile',
-      tabs: ['Art Request', 'Profile', 'Competition', 'Change Password', 'Verify Artwork', 'Event Request','Send Notification','Create Competition', 'Manage Standard'],
+      tabs: ['Art Request', 'Profile', 'Competition', 'Verify Artwork', 'Event Request','Send Notification','Create Competition', 'Manage Standard'],
       showConfirmationDialog: false,
     };
   },

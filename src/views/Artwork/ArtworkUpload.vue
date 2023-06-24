@@ -26,7 +26,7 @@
           <label for="image">Image</label>
           <input type="file" id="image" @change="handleImageUpload" required>
         </div>
-        <button type="submit">Upload</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </template>
@@ -75,72 +75,74 @@
   
 
   <style scoped>
-.artwork-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.upload-form {
-  width: 100%;
-  max-width: 500px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="number"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-button[type="submit"] {
-  padding: 10px 20px;
-  background-color: #4285f4;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #2a75e1;
-}
-
-.file-upload {
-  display: flex;
-  align-items: center;
-}
-
-.file-upload label {
-  padding: 10px 20px;
-  background-color: #4285f4;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.file-upload label:hover {
-  background-color: #2a75e1;
-}
-
-.file-upload input[type="file"] {
-  display: none;
-}
-</style>
+  .artwork-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .upload-form {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Move button to the right */
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #2a75e1;
+  }
+  
+  .file-upload {
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-upload label {
+    padding: 10px 30px;
+    background-color: #7a7978;
+    color: #a09f9f;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload label:hover {
+    background-color: #fafbfc;
+  }
+  
+  .file-upload input[type="file"] {
+    display: none;
+  }
+  </style>
+  

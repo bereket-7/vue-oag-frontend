@@ -7,16 +7,16 @@
     <div class="main collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-list">
         <li class="nav-item">
-          <router-link to="/">Home</router-link>
+          <router-link to="/" class="link">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about">About</router-link>
+          <router-link to="/about" class="link">About</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/contactUs">Contact Us</router-link>
+          <router-link to="/contactUs" class="link">Contact Us</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/recentArtwork">New Arts</router-link>
+          <router-link to="/recentArtwork" class="link">New Arts</router-link>
         </li>
       </ul>
       <router-link to="/userlogin" style="margin-right:15px">Login</router-link>
@@ -45,6 +45,9 @@
   flex-wrap: wrap;
   background-color: #f1f1f1;
   /* box-shadow: none; */
+}
+.link:hover{
+  color: black;
 }
 
 /* .navbar:hover {
@@ -130,6 +133,7 @@
   color: #047404;
   margin-left: 20px;
 }
+
 
 @media (max-width: 768px) {
   .navbar-brand {

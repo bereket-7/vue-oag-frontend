@@ -7,13 +7,27 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img :src="require('../assets/img/abstract-landscape-bold.jpg')" alt="Hot Air Balloons" style="width: 100%; height: 450px;">
+          <img :src="require('../assets/img/slide1.jpg')" class="overlay-image" alt="Hot Air Balloons" style="width: 100%; height: 450px; opacity: 1;">
+        <div class="carousel-caption d-none d-md-block firstSlide">
+        <h1 style="font-size: 100px;">KELEM</h1>
+        <h3 style="font-size: 50px;" >ONLINE ART GALLERY</h3>
+        <router-link to="/register" class="btn btn-outline-light">JOIN NOW</router-link>
+      </div>
       </div>
       <div class="carousel-item">
-        <img :src="require('../assets/img/art-landscape.jpg')" style="width: 100%; height: 450px;">
+        <img :src="require('../assets/img/slide2.jpg')" style="width: 100%; height: 450px; opacity: 1;">
+        <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+        <router-link class="btn btn-lg btn-primary" to="">Sign up today</router-link>
+      </div>
       </div>
       <div class="carousel-item">
-        <img :src="require('../assets/img/colorful-landscape.jpg')" style="width: 100%; height: 450px;">
+        <img :src="require('../assets/img/slide3.jpg')" style="width: 100%; height: 450px; opacity: 1;">
+        <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -37,3 +51,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.carousel-caption{
+  margin-bottom: 100px;
+}
+.firstSlide h1{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+</style>

@@ -1,25 +1,19 @@
 <template>
     <div class="create-order">
-      <h2>Create Order</h2>
+      <h2>Order</h2>
       <form @submit.prevent="createOrder" class="order-form">
-        <label for="cartId">Cart ID:</label>
-        <input type="text" v-model="cartId" required><br>
-        <label for="firstName">First Name:</label>
-        <input type="text" v-model="firstName" required><br>
-        <label for="lastName">Last Name:</label>
-        <input type="text" v-model="lastName" required><br>
-        <label for="phone">Phone:</label>
-        <input type="text" v-model="phone" required><br>
-        <label for="address">Address:</label>
-        <input type="text" v-model="address" required><br>
-        <button type="submit" class="submit-button">Create Order</button>
+        <input type="text" v-model="firstName" placeholder="First Name" required><br>
+        <input type="text" v-model="lastName" placeholder="Last Name" required><br>
+        <input type="text" v-model="phone" placeholder="Phone" required><br>
+        <input type="text" v-model="address" placeholder="Address" required><br>
+        <button type="submit" class="submit-button">Submit</button>
       </form>
       <div v-if="successMessage" class="success-message">
-      {{ successMessage }}
-    </div>
-    <div v-if="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+        {{ successMessage }}
+      </div>
+      <div v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
     </div>
   </template>
   
@@ -27,6 +21,7 @@
   .create-order {
     text-align: center;
     margin: 20px;
+    margin-top: 100px;
   }
   
   .order-form {
@@ -85,13 +80,12 @@
   </style>
   
 
-  <script>
+<script>
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      cartId: '',
       firstName: '',
       lastName: '',
       phone: '',
@@ -101,9 +95,23 @@ export default {
     };
   },
   methods: {
+    validateForm(){
+        this.errors = {}
+      const ethiopiaCode = '+251'
+        if (!this.phone) {
+        this.errors.phone = 'Phone number is required.'
+      } else if (
+        !(
+          (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
+          || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
+          || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
+        )
+      ) {
+        this.errors.phone = 'Invalid phone number format.'
+      }
+    },
     createOrder() {
       const payload = {
-        cartId: this.cartId,
         firstName: this.firstName,
         lastName: this.lastName,
         phone: this.phone,

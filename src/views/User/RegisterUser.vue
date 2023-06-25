@@ -87,7 +87,7 @@
       <p>Event created successfully!</p>
       <button class="btn btn-primary" @click="closeSuccessPopup">OK</button>
     </div>
-  </div><br><br>
+  </div>
 </template>
 
 <style scoped>

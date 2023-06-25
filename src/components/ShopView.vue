@@ -1,160 +1,296 @@
 <template>
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row">
-                <div class="col-md-2 col-sm-12" v-for="(artwork, index) in displayedArtworks" :key="index">
-                  <div class="artwork-card">
-                    <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
-                    <div class="artwork-details">
-                      <h3>{{ artwork.title }}</h3>
-                      <p>{{ artwork.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="artwork-gallery">
+    <div id="artwork-carousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div v-for="(artwork, index) in artworks" :key="artwork.id" :class="['carousel-item', { active: index === 0 }]">
+          <div class="artwork-card">
+            <div class="artwork-image">
+              <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" />
+              <button class="wishlist-button" @click="addToWishlist(artwork)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
-            <div class="carousel-item" v-for="(artworkGroup, index) in artworkGroups" :key="index">
-              <div class="row">
-                <div class="col-md-2 col-sm-12" v-for="(artwork, index) in artworkGroup" :key="index">
-                  <div class="artwork-card">
-                    <img :src="getImageUrl(artwork.id)" :alt="artwork.title" class="img-fluid" />
-                    <div class="artwork-details">
-                      <h3>{{ artwork.title }}</h3>
-                      <p>{{ artwork.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="artwork-details">
+              <h3><b>{{ artwork.artworkName }}</b></h3>
+              <p><b>Price: {{ artwork.price }}</b></p>
+              <p>Category: {{ artwork.artworkCategory }}</p>
+              <button class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</button>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target=".carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target=".carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#artwork-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#artwork-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+    <div v-if="selectedArtwork" class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>{{ selectedArtwork.artworkName }}</h3>
+          <button class="btn btn-close" @click="closeModal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="artwork-image">
+            <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" style="width: 400px; height: 300px;" />
+          </div>
+          <div class="artwork-details">
+            <p>{{ selectedArtwork.artworkDescription }}</p>
+            <p>Price: {{ selectedArtwork.price }}</p>
+            <p>Size: {{ selectedArtwork.size }}</p>
+            <p><b>Category: {{ selectedArtwork.artworkCategory }}</b></p>
+            <hr class="mx-n3">
+            <button type="button" class="btn btn-danger">Add to Cart</button>
+            <StarRating :rating="selectedArtwork.averageRating" :editable="true" @rating-selected="submitRating" />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-  <script>
-  import axios from 'axios';
+
+
+<script>
+import api from '@/utils/api';
+import { isAuthenticated } from '@/utils/auth';
+import axios from 'axios';
+import StarRating from '@/components/StarRating'; 
+import router from '@/router';
 
 export default {
-  name: "ArtworkCarousel",
+  components: {
+    StarRating, 
+  },
   data() {
     return {
       artworks: [],
-      displayedArtworks: [],
-      artworkGroups: [],
-      groupSize: 5,
-      currentIndex: 0,
-      sliding: true,
+      selectedArtwork: null,
     };
   },
   mounted() {
-    axios.get('http://localhost:8082/artworks')
-      .then(response => {
-        this.artworks = response.data;
-        this.displayedArtworks = this.artworks.slice(0, this.groupSize);
-        this.artworkGroups = this.chunkArray(this.artworks.slice(this.groupSize), this.groupSize);
-      })
-      .catch(error => {
-        console.error(error);
-        // Handle error
-      });
-
-    setInterval(() => {
-      this.next();
-    }, 5000);
+    this.fetchArtworks();
   },
   methods: {
-    next() {
-      if (this.currentIndex < this.artworkGroups.length) {
-        this.currentIndex++;
-      } else {
-        this.currentIndex = 0;
+    openModal(artwork) {
+      this.selectedArtwork = artwork;
+      document.body.classList.add('modal-open');
+    },
+    closeModal() {
+      this.selectedArtwork = null;
+      document.body.classList.remove('modal-open');
+    },
+    fetchArtworks() {
+      axios.get('http://localhost:8082/api/artworks')
+        .then(response => {
+          this.artworks = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    getArtworkImageUrl(artworkId) {
+      return `http://localhost:8082/api/artworks/${artworkId}/image`;
+    },
+    submitRating(rating) {
+      const artworkId = this.selectedArtwork.id;
+      axios.post(`http://localhost:8082/api/rating/artworks/${artworkId}/rate`, { rating })
+        .then(response => {
+          console.log(response);
+          console.log('Rating submitted successfully!');
+        })
+        .catch(error => {
+          console.error('Failed to submit rating:', error);
+        });
+    },
+    addToWishlist(artwork) {
+      if (!isAuthenticated()) {
+        router.push('/userLogin');
+        return;
       }
-      this.displayedArtworks = this.artworkGroups[this.currentIndex];
-      this.sliding = true;
-    },
-    prev() {
-      if (this.currentIndex > 0) {
-        this.currentIndex--;
-      } else {
-        this.currentIndex = this.artworkGroups.length;
-      }
-      this.displayedArtworks = this.artworkGroups[this.currentIndex];
-      this.sliding = true;
-    },
-    chunkArray(array, size) {
-      return array.reduce((acc, _, i) => (i % size ? acc : [...acc, array.slice(i, i + size)]), []);
-    },
-    getImageUrl(artworkId) {
-      return `http://localhost:8082/artworks/${artworkId}/image`;
+      api.post('http://localhost:8082/api/wishlist/save', artwork)
+        .then(response => {
+          console.log(response.data);
+          alert('Wishlist saved successfully.');
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Error saving wishlist.');
+        });
     },
   },
 };
-  </script>
+</script>
+
+
 
 <style scoped>
-.carousel-inner {
+.artwork-gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.carousel-item {
-  display: flex;
-  justify-content: center;
+  margin-top: 100px;
 }
 
 .artwork-card {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  margin: 10px;
+  width: 400px;
+  margin: 20px;
   padding: 10px;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  transition: transform 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
 }
 
 .artwork-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: scale(1.2);
 }
 
-.artwork-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+.artwork-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.artwork-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.artwork-card:hover .artwork-image img {
+  transform: scale(1.1);
 }
 
 .artwork-details {
   margin-top: 10px;
+  text-align: center;
 }
 
-@media (max-width: 576px) {
-  .carousel-inner {
-    flex-direction: column;
-  }
-  
-  .carousel-item {
-    align-items: center;
-  }
-  
+.artwork-details h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.artwork-details p {
+  margin: 5px 0;
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  color: darkred;
+  font-size: 20px;
+}
+
+.wishlist-button:hover {
+  color: red;
+}
+
+.quick-view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(11, 61, 168, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.artwork-card:hover .quick-view {
+  display: block;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: #fff;
+  max-width: 800px;
+  width: 90%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.modal-header .btn-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.modal-body {
+  display: flex;
+}
+
+.modal-body .artwork-image {
+  flex: 1;
+}
+
+.modal-body .artwork-details {
+  flex: 1;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #333;
+}
+
+.btn-close:hover {
+  color: #ff0000;
+}
+
+@media screen and (max-width: 768px) {
   .artwork-card {
-    width: 80%;
+    width: 100%;
+    margin: 10px 0;
   }
 }
-</style> 
+</style>

@@ -1,7 +1,55 @@
 <template>
+<<<<<<< HEAD
   <div class="title">
       <h1>Categories</h1>
   <h3>Main Categories in Our Gallery</h3>
+=======
+  <div class="container">
+    <h2 class="text-center text-black">Categories</h2>
+    <p class="lead text-center text-black mb-5">Main categories in our Gallery</p>
+    <div class="row justify-content-center">
+
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="inner">
+            <img src="@/assets/img/two.jpg" class="card-img card-img-top" alt="Mixed Art">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">Paintings</h5>
+            <p class="card-text">Painting is a two-dimensional visual art form that involves applying pigments, colors.</p>
+            <router-link class="btn-collection" to="/artworkList">View Collections</router-link>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="inner">
+            <img src="@/assets/img/three.jpg" class="card-img card-img-top" alt="Sculpture">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">Sculpture</h5>
+            <p class="card-text">Sculpture is a three-dimensional art form that involves shaping, constructing objects in various materials.</p>
+            <router-link class="btn-collection" to="/artworkList">View Collections</router-link>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="inner">
+            <img src="@/assets/img/art.jpg" class="card-img card-img-top" alt="Mixed Art">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">Mixed Art</h5>
+            <p class="card-text">Mixed media refers to an art form that incorporates multiple materials into a single artwork.</p>
+            <router-link class="btn-collection" to="/artworkList">View Collections</router-link>
+          </div>
+        </div>
+      </div>
+
+    </div>
+>>>>>>> 73dc0727c10b57b65e7988626389dac253eed71e
   </div>
   
   <div class="container-fluid">

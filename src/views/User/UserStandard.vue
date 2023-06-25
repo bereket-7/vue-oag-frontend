@@ -1,50 +1,54 @@
 <template>
-    <h1>Standards</h1>
- <table class="table table-borderless" v-for="standard in standards" :key="standard.id">
-  <thead>
-    <tr>
-      <!-- <th scope="col">#</th> -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <!-- <th scope="row">1</th> -->
-      <td>{{standard.standardDescription}}</td>
-    </tr>
-  </tbody>
-</table>   
+  <div class="standards-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Description</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="standard in standards" :key="standard.id">
+          <td>{{ standard.id }}</td>
+          <td>{{ standard.standardDescription }}</td>
+          <td>{{ standard.standardType }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
-export default {
-   name:'UserStandard',
-   components:{
 
-   },
-   data() {
-      return {
-        standards:[]
-      }
-    },
-    mounted() {
-    this.fetchStandard();
+export default {
+  data() {
+    return {
+      standards: [],
+    };
   },
-    methods: {
-    fetchStandard() {
-      axios.get('http://localhost:8082/api/standard/all')
-        .then(standard => {
-          this.standards = standard.data;
+  mounted() {
+    this.fetchStandards();
+  },
+  methods: {
+    fetchStandards() {
+      axios
+        .get('http://localhost:8082/api/standards')
+        .then(response => {
+          this.standards = response.data;
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
-    }
-  }
+    },
+  },
+};
 
-}
 </script>
 
-<style>
-
+<style scoped>
+.standards-table {
+  margin-top: 20px;
+}
 </style>

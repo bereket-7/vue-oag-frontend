@@ -32,7 +32,7 @@
   <h3>Paintings</h3>
 <p>Painting is a two-dimensional visual art form that involves applying pigments, colors</p>
 <div class="button">
-  <router-link class="btn btn-primary" to="">View Collection</router-link>
+  <router-link class="btn btn-primary" to="/artworkList">View Collection</router-link>
 </div>
 </div>
   </div>
@@ -42,7 +42,7 @@
 <h3>Paintings</h3>
 <p>Painting is a two-dimensional visual art form that involves applying pigments, colors</p>
 <div class="button">
-  <router-link class="btn btn-primary" to="">View Collection</router-link>
+  <router-link class="btn btn-primary" to="/artworkList">View Collection</router-link>
 </div>
 </div>
 
@@ -99,7 +99,7 @@
 <h3>Paintings</h3>
 <p>Painting is a two-dimensional visual art form that involves applying pigments, colors</p>
 <div class="button">
-  <router-link class="btn btn-primary" to="">View Collection</router-link>
+  <router-link class="btn btn-primary" to="/artworkList">View Collection</router-link>
 </div>
 
 </div>

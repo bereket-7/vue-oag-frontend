@@ -2,6 +2,7 @@
   <UserHeader/>
   <CardSlider/>
   <ArtworkCategory/>
+  <ShopView />
   <FooterView/>
 </template>
 
@@ -9,13 +10,15 @@
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
 import ArtworkCategory from '@/components/ArtworkCategory.vue';
+import ShopView from '@/components/ShopView.vue';
 export default {
   name: 'HomeView',
   components: {
     FooterView,
     CardSlider,
-    ArtworkCategory
-  },
+    ArtworkCategory,
+    ShopView
+},
 }
 </script>
 

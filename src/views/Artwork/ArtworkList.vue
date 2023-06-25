@@ -38,6 +38,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 import api from '@/utils/api';
 import { isAuthenticated } from '@/utils/auth';

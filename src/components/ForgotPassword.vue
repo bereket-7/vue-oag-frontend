@@ -83,7 +83,7 @@ export default {
   max-width: 400px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #dfdada;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 

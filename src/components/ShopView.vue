@@ -2,7 +2,13 @@
   <div class="artwork-gallery">
     <div id="artwork-carousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
-        <div v-for="(artwork, index) in artworks" :key="artwork.id" :class="['carousel-item', { active: index === 0 }]">
+
+
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+
+              <div v-for="(artwork, index) in artworks" :key="artwork.id" :class="['carousel-item', { active: index === 0 }]">
           <div class="artwork-card">
             <div class="artwork-image">
               <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" />
@@ -18,6 +24,13 @@
             </div>
           </div>
         </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        
       </div>
       <a class="carousel-control-prev" href="#artwork-carousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

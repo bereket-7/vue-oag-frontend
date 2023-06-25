@@ -58,9 +58,9 @@
         <i class="fab fa-facebook-f fa-3x" style="color:#1759A6"></i>
         <h4>Follow Us</h4>
         <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f fa-lg" style="color:#1759A6"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=100092538513954&mibextid=ZbWKwL"><i class="fab fa-facebook-f fa-lg" style="color:#1759A6"></i></a>
           <a href="#"><i class="fab fa-twitter fa-lg" style="color:#2E88D7"></i></a>
-          <a href="#"><i class="fab fa-instagram fa-lg" style="color:#F05523"></i></a>
+          <a href="https://instagram.com/kelem_arts?igshid=ZDdkNTZiNTM="><i class="fab fa-instagram fa-lg" style="color:#F05523"></i></a>
         </div>
       </div>
     </div>

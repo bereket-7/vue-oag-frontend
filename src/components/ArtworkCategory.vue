@@ -77,13 +77,13 @@
   <div id="carouselExampleAutoplaying" class="carousel slide float-start" data-bs-ride="carousel" style="margin-top: 20px; width: 50%;">
 <div class="carousel-inner">
   <div class="carousel-item active">
-    <img :src="require('../assets/img/dog.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/mixedmedia1.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
   </div>
   <div class="carousel-item">
-    <img :src="require('../assets/img/face.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/mixedmedia2.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
   </div>
   <div class="carousel-item">
-    <img :src="require('../assets/img/girl4.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/mixedmedia3.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
   </div>
 </div>
 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -151,6 +151,10 @@ h3{
 .container btn{
   font-family:sans-serif;
   font-size:larger;
+}
+.button .btn:hover{
+background-color:white;
+color: black;
 }
 
 </style>

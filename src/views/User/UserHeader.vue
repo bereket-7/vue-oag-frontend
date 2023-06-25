@@ -19,8 +19,8 @@
           <router-link to="/recentArtwork" class="link">New Arts</router-link>
         </li>
       </ul>
-      <router-link to="/userlogin" style="margin-right:15px">Login</router-link>
-      <router-link to="/register" style="margin-right:15px">Sign up</router-link>
+      <router-link to="/userlogin" style="margin-right:15px" class="link">Login</router-link>
+      <router-link to="/register" style="margin-right:15px" class="link">Sign up</router-link>
       <router-link to="/cart" class="shopping-cart-icon"  style="margin-right:15px"><i class="fas fa-shopping-cart"></i></router-link>
     </div>
   </nav>

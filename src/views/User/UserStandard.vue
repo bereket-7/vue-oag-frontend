@@ -1,6 +1,6 @@
 <template>
-  <div class="standards-table">
-    <table class="table table-striped">
+  <div>
+    <table v-if="standards.length > 0" class="table">
       <thead>
         <tr>
           <th>ID</th>
@@ -16,6 +16,7 @@
         </tr>
       </tbody>
     </table>
+    <p v-else>No standards available.</p>
   </div>
 </template>
 

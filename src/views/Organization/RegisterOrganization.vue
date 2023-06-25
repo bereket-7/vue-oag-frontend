@@ -5,7 +5,7 @@
     <hr class="mx-n3">
     <br>
     <form @submit.prevent="registerOrganization">
-      <input type="text" placeholder="Name" v-model="name" required />
+      <input type="text" placeholder="Name" v-model="firstname" required />
       <span v-if="errors.name" class="error">{{ errors.name }}</span>
 
       <input type="email"  placeholder="Email" v-model="email" required />
@@ -54,8 +54,8 @@ export default {
   methods: {
     async register() {
       try {
-        await axios.post('http://localhost:8082/api/organization/add', {
-          name:this.name,
+        await axios.post('http://localhost:8082/api/v1/registration/register', {
+          firstname:this.firstname,
           email: this.email,
           phone: this.phone,
           address: this.address,
@@ -113,7 +113,6 @@ export default {
 }
   }
 };
-
 </script>
 
 <style scoped>

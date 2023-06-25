@@ -20,6 +20,13 @@ const routes = [
   //meta: { requiresAuth: true }
 },
 {
+  path: '/createOrder',
+  name: 'Create Order',
+  component: () => import('../views/shopping/CreateOrder.vue'),
+  
+  //meta: { requiresAuth: true }
+},
+{
   path: '/profilePicture',
   name: 'Profile Picture',
   component: () => import('../components/ProfilePicture.vue'),

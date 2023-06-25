@@ -46,6 +46,7 @@
       </div>
     </div>
   </div>
+<FooterView/>
 </template>
 
 <script>
@@ -57,6 +58,7 @@ import MyArt from '@/views/Artwork/MyArt.vue';
 import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
 import UserStandard from '@/views/User/UserStandard.vue';
+import FooterView from '@/components/FooterView.vue'
 
 import axios from 'axios';
 
@@ -69,7 +71,8 @@ export default {
     ProfileSetting,
     EventDisplay,
     UserStandard,
-    NotificationList
+    NotificationList,
+    FooterView
   },
   data() {
     return {
@@ -106,7 +109,7 @@ export default {
   .dashboard {
     display: flex;
     flex-direction: row;
-    margin-top: 100px;
+    margin-top: 70px;
   }
   
   .sidebar {

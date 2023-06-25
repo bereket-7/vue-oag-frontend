@@ -35,7 +35,7 @@
       </div>
       <br>
       <hr class="mx-n3">
-      <button type="submit">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 
@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 .form-container {
-  margin-top: 100px !important;
+  margin-top: 10px !important;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
@@ -124,7 +124,6 @@ textarea[type="number"] {
 }
 
 button {
-  background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -134,15 +133,12 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
-  background-color: #3e8e41;
-}
 label {
   font-weight:600;
   text-align: left;
 }
 h1 {
-  color:#3e8e41;
+  color:black;
 }
 
 .form-container:hover {

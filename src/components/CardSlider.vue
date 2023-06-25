@@ -17,16 +17,19 @@
       <div class="carousel-item">
         <img :src="require('../assets/img/slide2.jpg')" style="width: 100%; height: 450px; opacity: 1;">
         <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
-        <router-link class="btn btn-lg btn-primary" to="">Sign up today</router-link>
+          <div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <h4 class="card-title">Kelem Online Art Gallery</h4>
+    <p class="card-text">An online art gallery, where pixels become masterpieces.</p>
+    <router-link class="btn btn-outline-light" to="/artworkList">SHOP NOW</router-link>
+  </div>
+</div>
+        
       </div>
       </div>
       <div class="carousel-item">
         <img :src="require('../assets/img/slide3.jpg')" style="width: 100%; height: 450px; opacity: 1;">
         <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
       </div>
       </div>
     </div>
@@ -58,5 +61,9 @@ export default {
 }
 .firstSlide h1{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.card{
+  margin-left: 650px;
+  background-color:#1c1c1c ;
 }
 </style>

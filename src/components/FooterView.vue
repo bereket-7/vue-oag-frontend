@@ -14,10 +14,9 @@
         <div class="footer-col">
           <h4>Categories</h4>
           <ul>
-            <li><router-link to="" >Ethiopian Cultural</router-link></li>
-            <li><router-link to="" >Acyclic</router-link></li>
-            <li><router-link to="" >Abstract</router-link></li>
-            <li><router-link to="" >Oil</router-link></li>
+            <li><router-link to="/artworkList" >Paintings</router-link></li>
+            <li><router-link to="/artworkList" >Sculpture</router-link></li>
+            <li><router-link to="/artworkList" >Mixed Art</router-link></li>
           </ul>
         </div>
         <div class="footer-col">

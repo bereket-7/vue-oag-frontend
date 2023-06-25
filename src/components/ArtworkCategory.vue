@@ -10,13 +10,13 @@
       <div id="carouselExampleAutoplaying" class="carousel slide float-end" data-bs-ride="carousel" style="margin-top: 20px; width: 50%;">
 <div class="carousel-inner">
   <div class="carousel-item active">
-    <img :src="require('../assets/img/acry.jpg')" class="d-block w-100" alt="a" style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/painting1.jpg')" class="d-block w-100" alt="a" style="width: 100%; height: 400px;">
   </div>
   <div class="carousel-item">
-    <img :src="require('../assets/img/art-landscape.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/painting2.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
   </div>
   <div class="carousel-item">
-    <img :src="require('../assets/img/art.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
+    <img :src="require('../assets/img/painting3.jpg')" class="d-block w-100" alt="..." style="width: 100%; height: 400px;">
   </div>
 </div>
 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

@@ -63,7 +63,7 @@
     </div>
     <p v-if="passwordError">{{ passwordError }}</p>
     <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-    <button type="submit">submit</button>
+    <button type="submit" class="btn btn-primary">submit</button>
   </form>
   </div>
 
@@ -168,14 +168,13 @@ button {
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  background-color: #3e8e41;
   color: #fff;
   cursor: pointer;
 }
 
-button:hover {
+/* button:hover {
   background-color: #054607;
-}
+} */
 
 .error {
   color: red;

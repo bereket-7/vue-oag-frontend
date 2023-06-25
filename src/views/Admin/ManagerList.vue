@@ -63,7 +63,7 @@
     methods: {
       fetchUsers() {
         axios
-          .get('http://localhost:8082/api/users/all')
+          .get('http://localhost:8082/api/users/manager-list')
           .then((response) => {
             this.users = response.data;
           })

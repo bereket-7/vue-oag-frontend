@@ -14,8 +14,8 @@
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="" required></div>
-                        <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                        <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" placeholder="first name" value="" required></div>
+                        <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" value="" placeholder="last name"></div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Enter Old Password</label><input type="text" class="form-control" placeholder="enter old password" value=""></div>
@@ -39,7 +39,7 @@
     }
     </script>
     
-    <style>
+    <style scoped>
     .form-control:focus {
         box-shadow: none;
         border-color: black

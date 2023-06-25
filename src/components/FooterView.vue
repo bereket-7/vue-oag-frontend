@@ -31,9 +31,9 @@
         <div class="footer-col">
           <h4>Follow us</h4>
           <div class="social-links">
-            <router-link to="" ><i class="fab fa-facebook-f"></i></router-link>
-            <router-link to="" ><i class="fab fa-twitter"></i></router-link>
-            <router-link to="" ><i class="fab fa-instagram"></i></router-link>
+            <a href="https://www.facebook.com/profile.php?id=100092538513954&mibextid=ZbWKwL"><i class="fab fa-facebook-f" style="color:#1759A6"></i></a>
+            <a href="https://instagram.com/kelem_arts?igshid=ZDdkNTZiNTM="><i class="fab fa-instagram" style="color:#F05523"></i></a>
+            <a href="#"><i class="fab fa-twitter fa-lg" style="color:#2E88D7"></i></a>
             <router-link to="" ><i class="fab fa-linkedin-in"></i></router-link>
           </div>
         </div>

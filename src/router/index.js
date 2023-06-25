@@ -45,6 +45,13 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/organizationDashboard',
+    name: 'organizationDashboard',
+    component: () => import('../views/Organization/OrganizationPanel.vue'),
+    // meta: { requiresAuth: true }
+  },
+
+  {
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue'),

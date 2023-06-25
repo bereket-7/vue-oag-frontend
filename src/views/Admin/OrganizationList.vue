@@ -4,11 +4,9 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Name</th>
             <th>Username</th>
             <th>Address</th>
-            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -17,10 +15,8 @@
             <tr v-for="user in users" :key="user.id">
               <td>{{ user.id }}</td>
               <td>{{ user.firstname }}</td>
-              <td>{{ user.lastname }}</td>
               <td>{{ user.username }}</td>
               <td>{{ user.address }}</td>
-              <td>{{ user.role }}</td>
               <td>
                 <button @click="editUser(user.id)">
                   <i class="fa fa-edit"></i>
@@ -63,7 +59,7 @@
     methods: {
       fetchUsers() {
         axios
-          .get('http://localhost:8082/api/users/all')
+          .get('http://localhost:8082/api/users/organization-list')
           .then((response) => {
             this.users = response.data;
           })

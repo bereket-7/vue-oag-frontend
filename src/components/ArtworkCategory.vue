@@ -11,7 +11,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">Paintings</h5>
-            <p class="card-text">Painting is a two-dimensional visual art form that involves applying pigments, colors</p>
+            <p class="card-text">Painting is a two-dimensional visual art form that involves applying pigments, colors.</p>
             <router-link class="btn-collection" to="/artworkList">View Collections</router-link>
           </div>
         </div>

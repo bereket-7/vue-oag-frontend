@@ -84,7 +84,6 @@
     <!-- Popup section -->
     <div class="container">
       <div class="popup" id="popup" :class="{ 'open-popup': isPopupOpen }">
-        <img src="tick.png" alt="tick">
         <h2>Thank You</h2>
         <p>You have Successfully submitted your Artwork for approval.</p>
         <button type="button" @click="closePopup">OK</button>

@@ -1,148 +1,140 @@
 <template>
-    <div class="artwork-upload">
-      <h2>Upload Artwork</h2>
-      <form @submit.prevent="uploadArtwork" class="upload-form">
-        <div class="form-group">
-          <label for="artworkName">Artwork Name</label>
-          <input type="text" id="artworkName" v-model="artworkName" required>
-        </div>
-        <div class="form-group">
-          <label for="price">Price</label>
-          <input type="number" id="price" v-model="price" required>
-        </div>
-        <div class="form-group">
-          <label for="size">Size</label>
-          <input type="text" id="size" v-model="size" required>
-        </div>
-        <div class="form-group">
-          <label for="artworkDescription">Artwork Description</label>
-          <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="artworkCategory">Artwork Category</label>
-          <input type="text" id="artworkCategory" v-model="artworkCategory" required>
-        </div>
-        <div class="form-group file-upload">
-          <label for="image">Image</label>
-          <input type="file" id="image" @change="handleImageUpload" required>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        artworkName: '',
-        price: 0,
-        size: '',
-        artworkDescription: '',
-        artworkCategory: '',
-        image: null,
-      };
-    },
-    methods: {
-      handleImageUpload(event) {
-        this.image = event.target.files[0];
-      },
-      uploadArtwork() {
-        const formData = new FormData();
-        formData.append('artworkName', this.artworkName);
-        formData.append('price', this.price);
-        formData.append('size', this.size);
-        formData.append('artworkDescription', this.artworkDescription);
-        formData.append('artworkCategory', this.artworkCategory);
-        formData.append('image', this.image);
-  
-        axios
-          .post('http://localhost:8082/api/artworks/saveArtwork', formData)
-          .then(response => {
-            console.log(response.data);
-            // Handle success response
-          })
-          .catch(error => {
-            console.error(error);
-            // Handle error response
-          });
-      },
-    },
-  };
-  </script>
-  
+  <div>
+    <h1>Upload Artwork</h1>
+    <form @submit.prevent="uploadArtwork">
+      <div>
+        <label for="artworkName">Artwork Name:</label>
+        <input type="text" id="artworkName" v-model="artworkName" required>
+      </div>
+      <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" v-model="price" required>
+      </div>
+      <div>
+        <label for="size">Size:</label>
+        <input type="text" id="size" v-model="size" required>
+      </div>
+      <div>
+        <label for="artworkDescription">Artwork Description:</label>
+        <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
+      </div>
+      <div>
+        <label for="artworkCategory">Artwork Category:</label>
+        <input type="text" id="artworkCategory" v-model="artworkCategory" required>
+      </div>
+      <div>
+        <label for="image">Image:</label>
+        <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
+      </div>
+      <div>
+        <button type="submit">Upload</button>
+      </div>
+    </form>
 
-  <style scoped>
-  .artwork-upload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .upload-form {
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
-  button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #4285f4;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: flex-end; /* Move button to the right */
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #2a75e1;
-  }
-  
-  .file-upload {
-    display: flex;
-    align-items: center;
-  }
-  
-  .file-upload label {
-    padding: 10px 30px;
-    background-color: #7a7978;
-    color: #a09f9f;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .file-upload label:hover {
-    background-color: #fafbfc;
-  }
-  
-  .file-upload input[type="file"] {
-    display: none;
-  }
-  </style>
-  
+    <div class="container">
+      <div class="popup" :class="{ 'open-popup': isPopupOpen }">
+        <h2>Thank You</h2>
+        <p>You have Successfully submitted your Artwork for approval.</p>
+        <button type="button" @click="closePopup">OK</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.open-popup {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+</style>
+
+<script>
+import api from '@/utils/api';
+import { isAuthenticated } from '@/utils/auth';
+
+export default {
+  data() {
+    return {
+      artworkName: '',
+      price: 0,
+      size: '',
+      artworkDescription: '',
+      artworkCategory: '',
+      image: null,
+      isLoading: false,
+      errorMessage: '',
+      isPopupOpen: false,
+    };
+  },
+
+  methods: {
+    async uploadArtwork() {
+      this.isLoading = true;
+      this.errorMessage = '';
+
+      const formData = new FormData();
+      formData.append('artworkName', this.artworkName);
+      formData.append('price', this.price);
+      formData.append('size', this.size);
+      formData.append('artworkDescription', this.artworkDescription);
+      formData.append('artworkCategory', this.artworkCategory);
+      formData.append('image', this.image);
+
+      if (isAuthenticated()) {
+        try {
+         await api.post('artworks/saveArtwork', formData);
+          this.showSuccessPopup();
+        } catch (error) {
+          console.error(error);
+          this.errorMessage = 'Error uploading artwork. Please try again.';
+        } finally {
+          this.isLoading = false;
+        }
+      } else {
+        this.errorMessage = 'You need to be logged in to upload artwork.';
+        this.isLoading = false;
+      }
+    },
+
+    handleImageChange(event) {
+      const file = event.target.files[0];
+      this.image = file;
+    },
+
+    showSuccessPopup() {
+      this.isPopupOpen = true;
+    },
+
+    closePopup() {
+      this.isPopupOpen = false;
+    },
+  },
+};
+</script>

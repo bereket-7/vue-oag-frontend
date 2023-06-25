@@ -9,10 +9,7 @@
           <a @click="changeTab(tab)">{{ tab }}</a>
         </li>
         <li class="sidebar-menu-item logout">
-import ManageStandards from '@/components/ManageStandards.vue';
-import SendNotification from '@/components/SendNotification.vue';
           <button @click="showConfirmationDialog = true"><i class="fas fa-sign-out-alt"></i></button>
-import VerifyArtwork from './VerifyArtwork.vue';
           <div v-if="showConfirmationDialog" class="confirmation-dialog">
             <p>Are you sure you want to logout?</p>
             <button @click="logoutUser">Yes</button>

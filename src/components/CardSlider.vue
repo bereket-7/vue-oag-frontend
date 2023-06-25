@@ -11,7 +11,7 @@
         <div class="carousel-caption d-none d-md-block firstSlide">
         <h1 style="font-size: 100px;">KELEM</h1>
         <h3 style="font-size: 50px;" >ONLINE ART GALLERY</h3>
-        <router-link to="/register" class="btn btn-outline-light">JOIN NOW</router-link>
+        <router-link to="/register" class="btn btn-outline-light">JOIN OUR COMMUNITY</router-link>
       </div>
       </div>
       <div class="carousel-item">

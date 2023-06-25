@@ -115,8 +115,8 @@ const routes = [
   },
   {
     path: '/paymentSuccess',
-    name: 'PaypalSuccess',
-    component: () => import('../views/shopping/PaypalSuccess.vue')
+    name: 'PaymentSuccess',
+    component: () => import('../views/shopping/PaymentSuccess.vue')
   },
   {
     path: '/paymentError',

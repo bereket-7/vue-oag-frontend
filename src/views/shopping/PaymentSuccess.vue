@@ -3,7 +3,7 @@
       <h1>Payment Successful!</h1>
       <p>Thank you for your payment. Your transaction has been successfully processed.</p>
     </div>
-  </template>
+</template>
   <script>
      export default {
 

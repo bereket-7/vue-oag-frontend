@@ -62,13 +62,13 @@ const routes = [
     path: '/eventDisplay',
     name: 'eventDisplay',
     component: () => import('../views/Organization/EventDisplay.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
   {
     path: '/eventRequest',
     name: 'EventRequest',
     component: () => import('../views/Manager/EventRequest.vue'),
-    meta: { requiresAuth: true }
+    //meta: { requiresAuth: true }
   },
 
   {

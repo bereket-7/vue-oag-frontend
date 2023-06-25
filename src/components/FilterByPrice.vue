@@ -15,6 +15,7 @@
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
 
@@ -37,7 +38,7 @@ export default {
   },
   methods: {
     getArtworksByPriceRange() {
-      axios.get(`/artworks/priceRange?minPrice=${this.minPrice}&maxPrice=${this.maxPrice}`)
+      axios.get(`http://localhost:8082/api/artworks/priceRange?minPrice=${this.minPrice}&maxPrice=${this.maxPrice}`)
         .then((response) => {
           this.artworks = response.data;
         })

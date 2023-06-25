@@ -11,7 +11,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Item Name</th>
+                  <th>Artwork Name</th>
                   <th>Price</th>
                   <th></th>
                 </tr>

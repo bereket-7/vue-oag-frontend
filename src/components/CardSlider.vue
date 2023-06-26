@@ -3,7 +3,6 @@
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -25,11 +24,6 @@
   </div>
 </div>
         
-      </div>
-      </div>
-      <div class="carousel-item">
-        <img :src="require('../assets/img/slide3.jpg')" style="width: 100%; height: 450px; opacity: 1;">
-        <div class="carousel-caption d-none d-md-block">
       </div>
       </div>
     </div>

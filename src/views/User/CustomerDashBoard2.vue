@@ -46,22 +46,22 @@
               
                 <div class="p-3 py-5">
                   <div class="dashboardText">
-                <p>from your account dashboard you can manage your profile, navigate to different artworks, add to your wishlist</p>
+                <p>The user dashboard on an online art gallery allows you to easily navigate, discover, and engage with artworks, artists, and personalized features.</p>
               </div>
                     <div class="row">
                         <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/about"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/contactUs"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/"><button type="button" class="btn btn-outline-secondary w-100 h-1 m-1 text" style="height:70px;">Home</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/about"><button type="button" class="btn btn-outline-secondary w-100 h-1 m-1 text" style="height:70px;">About</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/contactUs"><button type="button" class="btn btn-outline-secondary w-100 h-1 m-1 text" style="height:70px;">Contact Us</button></router-link></div>
                          
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/artworkList"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Paintings</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/customerDashboard"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">My Account</button></router-link></div>
-                        <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Details</button></router-link></div>  
+                        <div class="col-md-4"><router-link to="/artworkList"><button type="button" class="btn btn-outline-secondary w-100 h-1 m-1 text" style="height:70px;">Paintings</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/customerDashboard"><button type="button" class="btn btn-outline-secondary w-100 h-1 m-1 text" style="height:70px;">My Account</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1 text" style="height:70px;">Account Details</button></router-link></div>  
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Wishlist</button></router-link></div>
+                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1 text" style="height:70px;">Wishlist</button></router-link></div>
                     </div>
 
                     </div>
@@ -177,5 +177,8 @@
 
 .nav-link{
   color:rgb(89, 89, 89);
+}
+.text{
+  font-size:x-large;
 }
 </style>

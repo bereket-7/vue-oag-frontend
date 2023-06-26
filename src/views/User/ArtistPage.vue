@@ -72,7 +72,7 @@ export default {
     EventDisplay,
     UserStandard,
     NotificationList,
-    FooterView
+    FooterView,
   },
   data() {
     return {

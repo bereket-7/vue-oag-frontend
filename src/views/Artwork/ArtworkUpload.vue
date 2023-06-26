@@ -1,34 +1,44 @@
 <template>
   <div>
-    <h1>Upload Artwork</h1>
-    <form @submit.prevent="uploadArtwork">
-      <div>
-        <label for="artworkName">Artwork Name:</label>
-        <input type="text" id="artworkName" v-model="artworkName" required>
+<div class="form-container">
+  <h1>Upload Artwork</h1>
+  <form @submit.prevent="uploadArtwork">
+    <div class="col">
+
+    </div>
+    <div class="row form-group">
+      <label for="artworkName">Artwork Name:</label>
+      <input type="text" id="artworkName" v-model="artworkName" required>
+    </div>
+    <div class="row form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" v-model="price" required>
+    </div>
+     <div class="row form-group">
+      <label for="size">Size:</label>
+      <input type="text" id="size" v-model="size" required>
+    </div>
+    <div class="row form-group">
+      <label for="artworkDescription" class="form-group">Artwork Description:</label>
+      <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
       </div>
-      <div>
-        <label for="price">Price:</label>
-        <input type="number" id="price" v-model="price" required>
-      </div>
-      <div>
-        <label for="size">Size:</label>
-        <input type="text" id="size" v-model="size" required>
-      </div>
-      <div>
-        <label for="artworkDescription">Artwork Description:</label>
-        <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
-      </div>
-      <div>
+      <div class="row form-group">
         <label for="artworkCategory">Artwork Category:</label>
-        <input type="text" id="artworkCategory" v-model="artworkCategory" required>
+    <select name="dog-names" id="artworkCategory" v-model="artworkCategory" required> 
+        <option value="Painting">Painting</option> 
+        <option value="Sculpture">Sculpture</option> 
+        <option value="Mixed-Art">Mixed Art</option> 
+    </select>
+  
+    </div>
+    <div class="row form-group">
+      <label for="image">Image:</label>
+      <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-submit">Upload</button>
       </div>
-      <div>
-        <label for="image">Image:</label>
-        <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
-      </div>
-      <div>
-        <button type="submit">Upload</button>
-      </div>
+
     </form>
 
     <div class="container">
@@ -37,11 +47,176 @@
         <p>You have Successfully submitted your Artwork for approval.</p>
         <button type="button" @click="closePopup">OK</button>
       </div>
+      </div>
+
     </div>
-  </div>
+    </div>
+
+    
+
+
+    <!-- <div class="form-group">
+      <label for="size">Size:</label>
+      <input type="text" id="size" v-model="size" required>
+    </div>
+    <div class="form-group">
+      <label for="artworkDescription" class="form-group">Artwork Description:</label>
+      <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="artworkCategory">Artwork Category:</label>
+        <input type="text" id="artworkCategory" v-model="artworkCategory" required>
+    </div>
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-submit">Upload</button>
+      </div>
+  </form>
+</div>
+  </div> -->
+
+
+
+  
+    <!-- <form @submit.prevent="uploadArtwork">
+      <div class="row justify-content-center">
+      <h1>Upload Artwork</h1>
+      <div class="col-4">
+        <label for="artworkName">Artwork Name:</label>
+    </div>
+    <div class="col-4">
+      <input type="text" id="artworkName" v-model="artworkName" required>
+    </div>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label for="price">Price:</label>
+    </div>
+    <div class="col-4">
+      <input type="number" id="price" v-model="price" required>
+    </div>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label for="size">Size:</label>
+    </div>
+    <div class="col-4">
+      <input type="text" id="size" v-model="size" required>
+    </div>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label for="artworkDescription" class="form-group">Artwork Description:</label>
+    </div>
+    <div class="col-4">
+      <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
+    </div>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label for="artworkCategory">Artwork Category:</label>
+    </div>
+    <div class="col-4">
+      <input type="text" id="artworkCategory" v-model="artworkCategory" required>
+    </div>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <label for="image">Image:</label>
+    </div>
+    <div class="col-4">
+      <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
+    </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-submit">Upload</button>
+      </div>
+
+
+    </form> -->
+    
+    
+    <!-- <form @submit.prevent="uploadArtwork">
+      <div class="">
+        <label for="artworkName">Artwork Name:</label>
+        <input type="text" id="artworkName" v-model="artworkName" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" v-model="price" required>
+      </div>
+      <div class="form-group">
+        <label for="size">Size:</label>
+        <input type="text" id="size" v-model="size" required>
+      </div>
+      <div class="form-group">
+        <label for="artworkDescription" class="form-group">Artwork Description:</label>
+        <textarea id="artworkDescription" v-model="artworkDescription" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="artworkCategory">Artwork Category:</label>
+        <input type="text" id="artworkCategory" v-model="artworkCategory" required>
+      </div>
+      <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="file" id="image" ref="imageInput" @change="handleImageChange" accept="image/*" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn-submit">Upload</button>
+      </div>
+    </form> -->
+
+    <!-- <div class="container">
+      <div class="popup" :class="{ 'open-popup': isPopupOpen }">
+        <h2>Thank You</h2>
+        <p>You have Successfully submitted your Artwork for approval.</p>
+        <button type="button" @click="closePopup">OK</button>
+      </div>
+    </div> -->
+
 </template>
 
 <style scoped>
+/* .container {
+    max-width: 400px;
+    margin: 0 auto;
+  } */
+  .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  .row{
+    margin:10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .btn-submit {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-submit:hover {
+    background-color: #45a049;
+  }
+    
 .container {
   position: fixed;
   top: 0;
@@ -51,7 +226,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   z-index: 999;
   pointer-events: none;
 }
@@ -72,7 +247,7 @@
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
-}
+} 
 </style>
 
 <script>

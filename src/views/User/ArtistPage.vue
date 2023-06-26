@@ -19,7 +19,7 @@
       </ul>
     </nav>
     <div class="content">
-      <div v-if="activeTab === 'My Art'">
+      <div  v-if="activeTab === 'My Art'">
         <MyArt />
       </div>
       <div v-else-if="activeTab === 'Profile'">
@@ -32,7 +32,7 @@
         <ArtworkUpload />
       </div>
       <div v-else-if="activeTab === 'Change Password'">
-        <AboutUs />
+        <ChangePassword />
       </div>
       <div v-else-if="activeTab === 'Events'">
         <EventDisplay />
@@ -51,7 +51,6 @@
 
 <script>
 import NotificationList from '@/views/User/NotificationList.vue'
-import AboutUs from '@/components/AboutUs.vue';
 import EventDisplay from '@/views/Organization/EventDisplay.vue'
 import ProfileSetting from '@/views/User/ProfileSetting.vue'
 import MyArt from '@/views/Artwork/MyArt.vue';
@@ -59,12 +58,12 @@ import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
 import UserStandard from '@/views/User/UserStandard.vue';
 import FooterView from '@/components/FooterView.vue'
+import ChangePassword from '@/components/ChangePassword.vue'
 
 import axios from 'axios';
 
 export default {
   components: {
-    AboutUs,
     ArtworkUpload,
     MyArt,
     DisplayCompetition,
@@ -73,10 +72,11 @@ export default {
     UserStandard,
     NotificationList,
     FooterView,
+    ChangePassword
   },
   data() {
     return {
-      activeTab: 'Profile',
+      activeTab: 'My Art',
       tabs: ['My Art', 'Profile', 'Competition', 'Change Password', 'Upload Artwork', 'Events','Notification', 'Standard'],
       showConfirmationDialog: false,
     };
@@ -143,9 +143,12 @@ export default {
     color: #fff;
     text-decoration: none;
   }
-  
+  .sidebar-menu-item:hover {
+    cursor: pointer;
+  }
   .sidebar-menu-item.active {
     background-color: #555;
+    cursor: pointer;
   }
   .sidebar-menu-item.logout {
   position: relative;
@@ -200,6 +203,9 @@ export default {
   .content {
     flex: 1;
     padding: 20px;
+  }
+  .tabs{
+    cursor: pointer;
   }
   
   @media screen and (max-width: 768px) {

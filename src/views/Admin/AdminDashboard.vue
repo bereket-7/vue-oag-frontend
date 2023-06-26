@@ -22,6 +22,9 @@
       <div v-else-if="activeTab === 'Organization'">
         <OrganizationList/>
       </div>
+      <div v-else-if="activeTab === 'Register Organization'">
+        <RegisterOrganization/>
+      </div>
       <div v-else-if="activeTab === 'Managers'">
         <ManagerList/>
       </div>
@@ -44,18 +47,20 @@ import ArtistList from '@/views/Admin/ArtistList.vue'
 import CustomerList from '@/views/Admin/ArtistList.vue'
 import OrganizationList from '@/views/Admin/OrganizationList.vue'
 import ManagerList from '@/views/Admin/OrganizationList.vue'
+import RegisterOrganization from '@/views/Organization/RegisterOrganization.vue'
 import axios from 'axios';
 export default {
   components: { 
     ArtistList,
     CustomerList,
     OrganizationList,
-    ManagerList
+    ManagerList,
+    RegisterOrganization
   },
   data() {
     return {
       activeTab: 'My Art',
-      tabs: ['Artists', 'Customers', 'Organization', 'Managers', 'Logout'],
+      tabs: ['Artists', 'Customers', 'Organization', 'Register Organization','Managers', 'Logout'],
       showConfirmationDialog: false,
     };
   },

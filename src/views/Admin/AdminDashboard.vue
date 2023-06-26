@@ -2,7 +2,7 @@
   <div class="dashboard">
     <nav class="sidebar">
       <div class="sidebar-header">
-        <h3>Artist Dashboard</h3>
+        <h3>Admin Dashboard</h3>
       </div>
       <ul class="sidebar-menu">
         <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">

@@ -9,7 +9,7 @@ const routes = [
   {
   path: '/customerDashboard', 
   name: 'Customer Dashboard',
-  component: () => import('../views/User/CustomerDashBoard2.vue'),
+  component: () => import('../views/User/CustomerDashBoard.vue'),
   //meta: { requiresAuth: true }
 },
 {

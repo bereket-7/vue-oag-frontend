@@ -6,13 +6,13 @@
                   <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
                   <span class="font-weight-bold">Bereket</span>
               </div>
-              <div class="sidebar">
+              <div class="sidebar border-right">
                   <ul class="navbar-list">
       <li class="nav-item">
-        <router-link to="/" class="nav-link">Home</router-link>
+        <router-link to="/" class="nav-link border-bottom">Home</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/about" class="nav-link">About</router-link>
+        <router-link to="/about" class="nav-link border-bottom">About</router-link>
       </li>
       <li class="nav-item">
         <router-link to="/contactUs" class="nav-link">Contact Us</router-link>

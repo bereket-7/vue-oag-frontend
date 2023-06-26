@@ -1,7 +1,11 @@
 <template>
-    <div class="container-fluid rounded bg-white mt-5">
+    <div class="container-fluid rounded bg-white">
+      <div class="justify-content-between align-items-center border-bottom border-top dashboard">
+                        <h2 class="text-start font-weight-bold">MY ACCOUNT</h2>
+                        <h6 class="text-start">DASHBOARD</h6>
+                    </div>
         <div class="row">
-            <div class="col-md-3 border-right sidebar">
+            <div class="col-md-3 sidebar">
                 <div class="d-flex flex-column align-items-center text-center p-3  user-p">
                     <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
                     <span class="font-weight-bold">Bereket</span>
@@ -9,19 +13,19 @@
                 <div class="sidebar">
                     <ul class="navbar-list">
         <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
+          <router-link to="/" class="nav-link border-bottom text-start">HOME</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about" class="nav-link">About</router-link>
+          <router-link to="/about" class="nav-link border-bottom  text-start">ABOUT</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
+          <router-link to="/contactUs" class="nav-link border-bottom text-start">CONTACT US</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Admin</router-link>
+          <router-link to="/adminPanel" class="nav-link border-bottom text-start">ADMIN</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
+          <router-link to="/adminPanel" class="nav-link border-bottom text-start">ACCOUNT DETAIL</router-link>
         </li>
       
         <li class="nav-item">  
@@ -33,14 +37,17 @@
     </div>
  </li>
       </ul> 
+
+                  </div>
+                    
                 </div>
-            </div>
+  
             <div class="col-md-8 border-right">
+              
                 <div class="p-3 py-5">
-                    <div class="justify-content-between align-items-center mb-3 myaccount">
-                        <h2 class="text-center">MY ACCOUNT</h2>
-                        <h5 class="text-center">DASHBOARD</h5>
-                    </div>
+                  <div class="dashboardText">
+                <p>from your account dashboard you can manage your profile, navigate to different artworks, add to your wishlist</p>
+              </div>
                     <div class="row">
                         <div class="row mt-2">
                         <div class="col-md-4"><router-link to="/"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
@@ -49,14 +56,12 @@
                          
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Detail</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
+                        <div class="col-md-4"><router-link to="/artworkList"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Paintings</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/customerDashboard"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">My Account</button></router-link></div>
+                        <div class="col-md-4"><router-link to="/edit-account"><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Account Details</button></router-link></div>  
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Home</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">About</button></router-link></div>
-                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Contact Us</button></router-link></div>  
+                        <div class="col-md-4"><router-link to=""><button type="button" class="btn btn-outline-secondary w-100 h-10 m-1">Wishlist</button></router-link></div>
                     </div>
 
                     </div>
@@ -102,7 +107,7 @@
     }
     </script>
     
-    <style>
+    <style scoped>
     .form-control:focus {
         box-shadow: none;
         border-color: black
@@ -133,7 +138,7 @@
     }
 
     .sidebar{
-        background-color: #f1f1f1;
+        background-color: rgb(250, 250, 250);
         color:black;
     }
     .user-p img{
@@ -146,16 +151,31 @@
 }
 .nav-item{
     margin: 5px;
+    margin-bottom: 12px;
+    
 }
 .navbar-list{
     text-decoration: none;
 }
-.nav-item:hover{
-    background-color: rgb(74, 73, 72);
-  color: white;
+.nav-link:hover{
+  color: black;
 }
-.myaccount{
-    background-color:rgb(65, 74, 48) ;
-    color: white;
+.dashboard{
+  margin-top: 70px;
+  margin-bottom:10px;
+    background-color:rgb(250,250,250);
+    color: black;
+    
+}
+.dashboard h2,h6{
+  color:rgb(89, 89, 89);
+  margin-top: 10px;
+}
+.text-start{
+  margin-left: 120px;
+}
+
+.nav-link{
+  color:rgb(89, 89, 89);
 }
 </style>

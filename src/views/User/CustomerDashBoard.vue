@@ -13,19 +13,19 @@
                 <div class="sidebar">
                     <ul class="navbar-list">
         <li class="nav-item">
-          <router-link to="/" class="nav-link border-bottom text-start">HOME</router-link>
+          <router-link to="/" class="nav-link border-bottom text-start sideNavList">HOME</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about" class="nav-link border-bottom  text-start">ABOUT</router-link>
+          <router-link to="/about" class="nav-link border-bottom  text-start sideNavList">ABOUT</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link border-bottom text-start">CONTACT US</router-link>
+          <router-link to="/contactUs" class="nav-link border-bottom text-start sideNavList">CONTACT US</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link border-bottom text-start">ADMIN</router-link>
+          <router-link to="/adminPanel" class="nav-link border-bottom text-start sideNavList">ADMIN</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link border-bottom text-start">ACCOUNT DETAIL</router-link>
+          <router-link to="/adminPanel" class="nav-link border-bottom text-start sideNavList">ACCOUNT DETAIL</router-link>
         </li>
       
         <li class="nav-item">  
@@ -173,6 +173,11 @@
 }
 .text-start{
   margin-left: 120px;
+ 
+}
+.sideNavList{
+  font-family:sans-serif;
+ font-size: medium;
 }
 
 .nav-link{

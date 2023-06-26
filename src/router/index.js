@@ -294,9 +294,9 @@ const routes = [
     component: () => import('../views/Organization/OrganizationLogin.vue')
   },
   {
-    path: '/uploadArtwork',
-    name: 'UploadArtwork',
-    component: () => import('../views/Artwork/UploadArtwork.vue'),
+    path: '/artworkUpload',
+    name: 'ArtworkUpload',
+    component: () => import('../views/Artwork/ArtworkUpload.vue'),
     meta: { requiresAuth: true }
   },
   {

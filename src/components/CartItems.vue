@@ -26,65 +26,78 @@
   </div>
 </template>
 
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    name:'CartItems',
-    data() {
-      return {
-        cartItems: [],
-      };
+<script>
+import { isAuthenticated } from '@/utils/auth';
+import api from '@/utils/api';
+import router from '@/router';
+
+export default {
+  name: 'CartItems',
+  data() {
+    return {
+      cartItems: [],
+    };
+  },
+  mounted() {
+    this.fetchCartItems();
+  },
+  methods: {
+    removeFromCart(cartItemId) {
+      if (!isAuthenticated()) {
+        router.push('/userLogin');
+        return;
+      }
+
+      api
+        .delete(`/cart/remove/${cartItemId}`)
+        .then((response) => {
+          console.log(response);
+          console.log('Item removed from cart successfully!');
+          this.fetchCartItems();
+        })
+        .catch((error) => {
+          console.error('Failed to remove item from cart:', error);
+        });
     },
-    mounted() {
-      this.fetchCartItems();
+    clearCart() {
+      if (!isAuthenticated()) {
+        router.push('/userLogin');
+        return;
+      }
+
+      api
+        .delete(`/cart/clear`)
+        .then((response) => {
+          console.log(response);
+          console.log('Cart cleared successfully!');
+          this.fetchCartItems();
+        })
+        .catch((error) => {
+          console.error('Failed to clear cart:', error);
+        });
     },
-    methods: {
-      removeFromCart(cartItemId) {
-        axios
-          .delete(`http://localhost:8082/cart/remove/${cartItemId}`)
-          .then(response => {
-            console.log(response);
-            console.log('Item removed from cart successfully!');
-            this.fetchCartItems(); 
-          })
-          .catch(error => {
-            console.error('Failed to remove item from cart:', error);
-          });
-      },
-      clearCart() {
-        axios
-          .delete(`http://localhost:8082/cart/clear`)
-          .then(response => {
-            console.log(response);
-            console.log('Cart cleared successfully!');
-            this.fetchCartItems();
-          })
-          .catch(error => {
-            console.error('Failed to clear cart:', error);
-          });
-      },
-      fetchCartItems() {
-        axios
-          .get(`http://localhost:8082/cart/items`)
-          .then(response => {
-            this.cartItems = response.data;
-          })
-          .catch(error => {
-            console.error('Failed to fetch cart items:', error);
-          });
-      },
-      calculateTotalPrice() {
-        let totalPrice = 0;
-        for (const cartItem of this.cartItems) {
-          totalPrice += cartItem.artwork.price * cartItem.quantity;
-        }
-        return totalPrice;
-      },
+    fetchCartItems() {
+      api
+        .get(`/cart`)
+        .then((response) => {
+          this.cartItems = response.data;
+        })
+        .catch((error) => {
+          console.error('Failed to fetch cart items:', error);
+        });
     },
-  };
-  </script>
+    calculateTotalPrice() {
+      let totalPrice = 0;
+      for (const cartItem of this.cartItems) {
+        totalPrice += cartItem.artwork.price * cartItem.quantity;
+      }
+      return totalPrice;
+    },
+  },
+};
+</script>
+
+
   
 
   <style scoped>

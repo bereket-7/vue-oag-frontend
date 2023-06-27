@@ -28,6 +28,9 @@
       <div v-else-if="activeTab === 'Managers'">
         <ManagerList/>
       </div>
+      <div v-else-if="activeTab === 'Contact'">
+        <ContactUser/>
+      </div>
 
       <div v-else-if="activeTab === 'Logout'">
   <button @click="showConfirmationDialog = true">Logout</button> 
@@ -48,6 +51,7 @@ import CustomerList from '@/views/Admin/ArtistList.vue'
 import OrganizationList from '@/views/Admin/OrganizationList.vue'
 import ManagerList from '@/views/Admin/OrganizationList.vue'
 import RegisterOrganization from '@/views/Organization/RegisterOrganization.vue'
+import ContactUser from '@/views/Manager/ContactUser.vue'
 import axios from 'axios';
 export default {
   components: { 
@@ -55,12 +59,13 @@ export default {
     CustomerList,
     OrganizationList,
     ManagerList,
-    RegisterOrganization
+    RegisterOrganization,
+    ContactUser
   },
   data() {
     return {
       activeTab: 'My Art',
-      tabs: ['Artists', 'Customers', 'Organization', 'Register Organization','Managers', 'Logout'],
+      tabs: ['Artists', 'Customers', 'Organization', 'Register Organization','Managers','Contact', 'Logout'],
       showConfirmationDialog: false,
     };
   },
@@ -92,7 +97,7 @@ export default {
 .dashboard {
   display: flex;
   flex-direction: row;
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .sidebar {

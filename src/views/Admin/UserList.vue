@@ -1,4 +1,5 @@
 <template>
+  <SearchUser/>
   <div>
     <table>
       <thead>
@@ -49,6 +50,7 @@
 
 <script>
 import axios from 'axios';
+import SearchUser from '@/components/SearchUser.vue'
 
 export default {
   data() {
@@ -57,6 +59,9 @@ export default {
       selectedUsers: []
     };
   },
+  components:{
+      SearchUser
+    },
   mounted() {
     this.fetchUsers();
   },

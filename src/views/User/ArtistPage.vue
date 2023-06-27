@@ -86,8 +86,8 @@ export default {
       this.activeTab = tab;
     },
     logoutUser() {
-      axios
-        .get('http://localhost:8082/api/logout')
+      api
+        .get('auth/logout')
         .then(response => {
           localStorage.removeItem('accessToken');
           localStorage.removeItem('userInfo');

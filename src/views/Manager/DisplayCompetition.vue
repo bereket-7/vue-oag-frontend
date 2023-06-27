@@ -31,7 +31,7 @@
       };
     },
     mounted() {
-      axios.get('http://localhost:8082/api/competition/most-recent')
+      api .get('/competition/most-recent')
         .then(response => {
           this.competition = response.data;
         })

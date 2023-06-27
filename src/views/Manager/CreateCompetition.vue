@@ -218,7 +218,7 @@ export default {
   methods: {
     async addCompetition() {
       try {
-        await axios.post('http://localhost:8081/competition/add', this.competition);
+        await api.post('/competition/add', this.competition);
         alert("successfully registered");
         this.resetForm();
       } catch (error) {

@@ -16,8 +16,7 @@ const routes = [
   path: '/artistDashboard',
   name: 'Artist Dashboard',
   component: () => import('../views/User/ArtistPage.vue'),
-  
-  //meta: { requiresAuth: true }
+  meta: { requiresAuth: true }
 },
 {
   path: '/createOrder',
@@ -159,11 +158,7 @@ const routes = [
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../components/AboutUs.vue')
   },
-  {
-    path: '/shopView',
-    name: 'ShopView',
-    component: () => import(/* webpackChunkName: "about" */ '../components/ShopView.vue')
-  },
+
   {
     path: '/searchByCategory',
     name: 'SearchArtwork',
@@ -185,11 +180,6 @@ const routes = [
     component: () => import('../views/User/UserStandard.vue')
   },
   {
-    path: '/artistDashboard',
-    name: 'ArtistDashboard',
-    component: () => import('../views/User/ArtistDashboard.vue')
-  },
-  {
     path: '/recentArtwork',
     name: 'RecentArtwork',
     component: () => import('../views/Artwork/RecentArtWork.vue'),
@@ -204,17 +194,6 @@ const routes = [
     path: '/vote',
     name: 'VoteForArtwork',
     component: () => import('../views/Artwork/VoteForArtwork.vue')
-  },
-
-  {
-    path: '/paypal',
-    name: 'PaypalPayment',
-    component: () => import('../views/shopping/PaypalPayment.vue')
-  },
-  {
-    path: '/cancel',
-    name: 'PaypalFail',
-    component: () => import('../views/shopping/PaypalFail.vue')
   },
   {
     path: '/userList',
@@ -288,10 +267,6 @@ const routes = [
     path: '/forgotPassword',
     name: 'ForgotPassword',
     component: () => import('../components/ForgotPassword.vue')
-  }, {
-    path: '/organizationLogin',
-    name: 'OrganizationLogin',
-    component: () => import('../views/Organization/OrganizationLogin.vue')
   },
   {
     path: '/artworkUpload',

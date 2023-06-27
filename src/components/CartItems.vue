@@ -4,27 +4,34 @@
     <table class="cart-table">
       <thead>
         <tr>
+          <th>Artwork ID</th>
           <th>Artwork Name</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="cartItem in cartItems" :key="cartItem.id" class="cart-item">
-          <td>{{ cartItem.artwork.artworkName }}</td>
+        <tr v-for="cartItem in cartItems" :key="cartItem.id">
+          <td>{{ cartItem.id }}</td>
+          <td>{{ cartItem.artworkName }}</td>
           <td>{{ cartItem.quantity }}</td>
-          <td>{{ cartItem.artwork.price }}</td>
-          <td>
-            <button class="btn btn-remove" @click="removeFromCart(cartItem.id)">Remove</button>
-          </td>
+          <td>{{ cartItem.price }}</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+          <td>{{ totalPrice }}</td>
+        </tr>
+      </tfoot>
     </table>
-    <p class="total-price">Total Price: {{ calculateTotalPrice() }}</p>
-    <button class="btn btn-clear" @click="clearCart">Clear Cart</button>
+    <div class="checkout-buttons">
+      <button class="btn" @click="checkout">Checkout</button>
+      <button class="btn" @click="cashOnDelivery">Cash on Delivery</button>
+    </div>
   </div>
 </template>
+
 
 <script>
 import { isAuthenticated } from '@/utils/auth';
@@ -41,7 +48,25 @@ export default {
   mounted() {
     this.fetchCartItems();
   },
+  computed: {
+    totalPrice() {
+      return this.cartItems.reduce((total, cartItem) => {
+        return total + cartItem.quantity * cartItem.price;
+      }, 0);
+    }
+  },
   methods: {
+    checkout() {
+      api
+      .post('payment/initialize')
+        .then(response => {
+          const checkoutUrl = response.data.checkOutUrl;
+          window.location.href = checkoutUrl;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     removeFromCart(cartItemId) {
       if (!isAuthenticated()) {
         router.push('/userLogin');
@@ -77,22 +102,22 @@ export default {
         });
     },
     fetchCartItems() {
-      api
-        .get(`/cart`)
-        .then((response) => {
-          this.cartItems = response.data;
-        })
-        .catch((error) => {
-          console.error('Failed to fetch cart items:', error);
-        });
-    },
+  api
+    .get(`/cart`)
+    .then((response) => {
+      this.cartItems = response.data; 
+    })
+    .catch((error) => {
+      console.error('Failed to fetch cart items:', error);
+    });
+},
     calculateTotalPrice() {
       let totalPrice = 0;
       for (const cartItem of this.cartItems) {
-        totalPrice += cartItem.artwork.price * cartItem.quantity;
+        totalPrice += cartItem.price * cartItem.quantity;
       }
       return totalPrice;
-    },
+   },
   },
 };
 </script>

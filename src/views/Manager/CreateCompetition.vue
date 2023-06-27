@@ -34,7 +34,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 150px;
+  margin-top: 5px;
 }
 
 .image-container {

@@ -114,7 +114,7 @@ export default {
   .dashboard {
     display: flex;
     flex-direction: row;
-    margin-top: 100px;
+    margin-top: 70px;
   }
   
   .sidebar {

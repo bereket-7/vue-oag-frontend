@@ -28,9 +28,6 @@
         <div v-else-if="activeTab === 'Competition'">
           <DisplayCompetition />
         </div>
-        <div v-else-if="activeTab === 'Upload Artwork'">
-          <ArtworkUpload />
-        </div>
         <div v-else-if="activeTab === 'Post Event'">
           <EventRegister />
         </div>

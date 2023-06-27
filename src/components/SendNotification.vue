@@ -1,37 +1,10 @@
 <template>
-    <div class="container-fluid rounded bg-white mt-5">
+    <div class="container-fluid rounded bg-white mt-0">
+      <h1 class="Heading">Send Notification</h1>
         <div class="row">
-            <div class="col-md-3 border-right sidebar">
-              <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                  <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
-                  <span class="font-weight-bold">Bereket</span>
-              </div>
-              <div class="sidebar">
-                  <ul class="navbar-list">
-      <li class="nav-item">
-        <router-link to="/" class="nav-link">Home</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/about" class="nav-link">About</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/logout" class="nav-link">Logout</router-link>
-      </li>
-    </ul> 
-              </div>
-          </div>
           <div class="col-md-8 border-right">
               <div class="p-3 py-5">
-                <form>
+                <form class="form-container">
     <label for="Email">Email</label>
     <input type="text" id="Email" name="firstname" placeholder="Your Email">
 
@@ -45,20 +18,10 @@
     </div>
     </div>
     </div>
-    <FooterView/>
-  
 </template>
 
 <script>
-import FooterView from '@/components/FooterView.vue';
-export default{
-name:{
 
-},
-components:{
-    FooterView
-}
-}
 </script>
 
 
@@ -73,6 +36,9 @@ input[type=text],textarea {
   margin-bottom: 16px; 
   resize: vertical
 }
+.form-container{
+  margin-left: 150px;
+}
 input[type=submit] {
   background-color: #04AA6D;
   color: white;
@@ -80,6 +46,9 @@ input[type=submit] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.Heading{
+  margin-left: 150px;
 }
 
 /* When moving the mouse over the submit button, add a darker green color */
@@ -94,15 +63,6 @@ input[type=submit]:hover {
 .form-control:focus {
       box-shadow: none;
       border-color: black
-  }
-  
-  .profile-button {
-      box-shadow: none;
-      border: none
-  }
-  .profile-button:active {
-      background: #682773;
-      box-shadow: none
   }
   .back:hover {
       color: #682773;
@@ -119,31 +79,5 @@ input[type=submit]:hover {
       cursor: pointer;
       border: solid 1px #BA68C8
   }
-
-  .sidebar{
-      background-color: #f1f1f1;
-      color:black;
-  }
-  .user-p img{
-  width: 50%;
-  border-radius: 50%;
-}
-.navbar-list{
-  text-align: center;
-  list-style-type: none;
-}
-.nav-item{
-  margin: 5px;
-}
-.navbar-list{
-  text-decoration: none;
-}
-.nav-item:hover{
-  background-color: rgb(74, 73, 72);
-color: white;
-}
-.myaccount{
-  background-color:rgb(65, 74, 48) ;
-  color: white;
-}
+  
 </style>

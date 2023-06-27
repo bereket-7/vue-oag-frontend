@@ -6,7 +6,7 @@
           <div class="carousel-slide" v-for="artwork in slicedArtworks" :key="artwork.id">
             <div class="artwork-card">
               <div class="artwork-image">
-                <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" />
+                <img :src="getArtworkImageUrl(artwork.artworkId)" alt="Artwork Image" />
                 <button class="wishlist-button" @click="addToWishlist(artwork)">
                   <i class="fas fa-heart"></i>
                 </button>
@@ -61,6 +61,7 @@ import api from '@/utils/api';
 import { isAuthenticated } from '@/utils/auth';
 import StarRating from '@/components/StarRating';
 import router from '@/router';
+import axios from 'axios';
 
 export default {
   components: {
@@ -90,9 +91,9 @@ export default {
   },
   methods: {
     openModal(artwork) {
-      this.selectedArtwork = artwork;
-      document.body.classList.add('modal-open');
-    },
+  this.selectedArtwork = artwork;
+  document.body.classList.add('modal-open');
+},
     closeModal() {
       this.selectedArtwork = null;
       document.body.classList.remove('modal-open');
@@ -117,16 +118,35 @@ export default {
         this.currentIndex++;
       }
     },
-    getArtworkImageUrl(artworkId) {
-      return `http://localhost:8082/api/artworks/${artworkId}/image`;
-    },
+  //   getArtworkImageUrl(artworkId) {
+  //  api.get(`artworks/${artworkId}/image`)
+  //   .then(response => {
+  //     return response.data.imageUrl; // Assuming the response contains the image URL
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //     return ''; // Return an empty string or a default image URL in case of an error
+  //   });
+  // },
+  getArtworkImageUrl(artworkId) {
+  return axios.get(`artworks/${artworkId}/image`)
+    .then(response => {
+      // Assuming the response contains the image data as a Blob or ArrayBuffer
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+      return URL.createObjectURL(blob);
+    })
+    .catch(error => {
+      console.log(error);
+      return ''; // Return an empty string or a default image URL in case of an error
+    });
+},
     submitRating(rating) {
       const artworkId = this.selectedArtwork.id;
       if (!isAuthenticated()) {
         router.push('/userLogin');
         return;
       }
-      api
+      axios
         .post(`/rating/artworks/${artworkId}/rate`, { rating })
         .then((response) => {
           console.log(response);

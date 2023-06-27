@@ -3,10 +3,12 @@
   <CardSlider/>
   <ArtworkCategory/>
   <ShopView />
-  <FooterView/>
+  <ArtworkImage />
+  <FooterView />
 </template>
 
 <script>
+import ArtworkImage from '@/components/ArtworkImage.vue';
 import FooterView from '@/components/FooterView.vue'
 import CardSlider from '@/components/CardSlider.vue'
 import ArtworkCategory from '@/components/ArtworkCategory.vue';
@@ -17,7 +19,8 @@ export default {
     FooterView,
     CardSlider,
     ArtworkCategory,
-    ShopView
+    ShopView,
+    ArtworkImage
 },
 }
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <UserHeader/>
   <CardSlider/>
   <ArtworkCategory/>
   <ArtworkList />
@@ -14,13 +13,5 @@ import ArtworkCategory from '@/components/ArtworkCategory.vue';
 </script>
 
 <style scoped>
-   .card {
-  width: 18rem;
-}
-
-@media (max-width: 576px) {
-  .card {
-    width: 100%;
-  }
-}
+/* Modern home page styles */
 </style>

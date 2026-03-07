@@ -1,63 +1,241 @@
 <template>
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" style="margin-top: 85px;">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-          <img :src="require('../assets/img/slide1.jpg')" class="overlay-image" alt="Hot Air Balloons" style="width: 100%; height: 450px; opacity: 1;">
-        <div class="carousel-caption d-none d-md-block firstSlide">
-        <h1 style="font-size: 100px;">KELEM</h1>
-        <h3 style="font-size: 50px;" >ONLINE ART GALLERY</h3>
-        <router-link to="/register" class="btn btn-outline-light">JOIN OUR COMMUNITY</router-link>
-      </div>
-      </div>
-      <div class="carousel-item">
-        <img :src="require('../assets/img/slide2.jpg')" style="width: 100%; height: 450px; opacity: 1;">
-        <div class="carousel-caption d-none d-md-block">
-          <div class="card" style="width: 20rem;">
-  <div class="card-body">
-    <h4 class="card-title">Kelem Online Art Gallery</h4>
-    <p class="card-text">An online art gallery, where pixels become masterpieces.</p>
-    <router-link class="btn btn-outline-light" to="/artworkList">SHOP NOW</router-link>
-  </div>
-</div>
-        
-      </div>
+  <div class="hero-slider">
+    <div class="hero-slide active" :style="{ backgroundImage: `url(${slides[currentSlide].image})` }">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">{{ slides[currentSlide].title }}</h1>
+        <p class="hero-subtitle">{{ slides[currentSlide].subtitle }}</p>
+        <router-link :to="slides[currentSlide].link" class="hero-btn">{{ slides[currentSlide].btnText }}</router-link>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <div class="slider-controls">
+      <button @click="prevSlide" class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+      <button @click="nextSlide" class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="slider-dots">
+      <span v-for="(slide, index) in slides" :key="index" 
+            :class="['dot', { active: currentSlide === index }]"
+            @click="goToSlide(index)"></span>
+    </div>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 
-<script>
-export default {
-  name: 'CardSlider',
-  components: {
+const currentSlide = ref(0);
+let autoplayInterval = null;
+
+const slides = [
+  {
+    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600',
+    title: 'Discover Extraordinary Art',
+    subtitle: 'Curated collection of contemporary masterpieces',
+    link: '/artworkList',
+    btnText: 'Explore Gallery'
   },
-  methods: {
+  {
+    image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1600',
+    title: 'Where Art Meets Passion',
+    subtitle: 'Connect with artists and collectors worldwide',
+    link: '/register',
+    btnText: 'Join Community'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1600',
+    title: 'Elevate Your Space',
+    subtitle: 'Find the perfect piece for your collection',
+    link: '/artworkList',
+    btnText: 'Shop Now'
   }
-}
+];
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.length;
+};
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length;
+};
+
+const goToSlide = (index) => {
+  currentSlide.value = index;
+};
+
+onMounted(() => {
+  autoplayInterval = setInterval(nextSlide, 5000);
+});
+
+onUnmounted(() => {
+  if (autoplayInterval) clearInterval(autoplayInterval);
+});
 </script>
 
-<style>
-.carousel-caption{
-  margin-bottom: 100px;
+<style scoped>
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  margin-top: 70px;
+  overflow: hidden;
 }
-.firstSlide h1{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+.hero-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-in-out;
 }
-.card{
-  margin-left: 650px;
-  background-color:#1c1c1c ;
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: slideUp 1s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  animation: slideUp 1s ease-out 0.2s both;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  background: white;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  animation: slideUp 1s ease-out 0.4s both;
+}
+
+.hero-btn:hover {
+  background: #000;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.slider-controls {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 3;
+}
+
+.slider-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.slider-btn:hover {
+  background: white;
+  color: #000;
+  transform: scale(1.1);
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 3;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: white;
+  width: 40px;
+  border-radius: 6px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 60vh;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .slider-controls {
+    padding: 0 15px;
+  }
+  
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+  }
 }
 </style>

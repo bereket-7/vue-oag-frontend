@@ -59,8 +59,7 @@ import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
 import UserStandard from '@/views/User/UserStandard.vue';
 import FooterView from '@/components/FooterView.vue'
 import ChangePassword from '@/components/ChangePassword.vue'
-
-import axios from 'axios';
+import api from '@/services/api';
 
 export default {
   components: {

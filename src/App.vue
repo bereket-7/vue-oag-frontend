@@ -1,10 +1,12 @@
 <template>
  <UserHeader/>
   <router-view/>
+  <ToastNotification />
 </template>
 
 <script setup>
 import UserHeader from '@/views/User/UserHeader.vue';
+import ToastNotification from '@/components/common/ToastNotification.vue';
 </script>
 
 <style scoped>

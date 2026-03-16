@@ -1,95 +1,203 @@
 <template>
-  <nav class="navbar" :class="{ 'navbar--scrolled': scrolled, 'navbar--open': menuOpen }">
-    <div class="navbar__container">
-      <!-- Logo -->
-      <router-link to="/" class="navbar__brand" @click="closeMenu">
-        <img src="@/assets/img/Kelem.png" alt="Kelem Art Gallery" />
-      </router-link>
-
-      <!-- Desktop Nav Links -->
-      <ul class="navbar__links">
-        <li v-for="link in navLinks" :key="link.to">
-          <router-link :to="link.to" class="navbar__link" @click="closeMenu">
-            {{ link.label }}
-          </router-link>
-        </li>
-      </ul>
-
-      <!-- Right Actions -->
-      <div class="navbar__actions">
-        <!-- Authenticated -->
-        <template v-if="authStore.isAuthenticated">
-          <router-link to="/cart" class="navbar__icon-btn" title="Cart" @click="closeMenu">
-            <i class="fas fa-shopping-cart"></i>
-            <span v-if="cartCount > 0" class="navbar__badge">{{ cartCount }}</span>
-          </router-link>
-
-          <!-- User Dropdown -->
-          <div class="navbar__dropdown" ref="dropdownRef">
-            <button class="navbar__avatar-btn" @click="toggleDropdown" :aria-expanded="dropdownOpen">
-              <i class="fas fa-user-circle"></i>
-              <span class="navbar__username">{{ userName }}</span>
-              <i class="fas fa-chevron-down navbar__chevron" :class="{ 'rotated': dropdownOpen }"></i>
-            </button>
-            <transition name="dropdown">
-              <ul v-if="dropdownOpen" class="navbar__dropdown-menu">
-                <li><router-link :to="dashboardRoute" @click="closeAll"><i class="fas fa-tachometer-alt"></i> Dashboard</router-link></li>
-                <li><router-link to="/edit-account" @click="closeAll"><i class="fas fa-user-cog"></i> Profile</router-link></li>
-                <li v-if="authStore.isArtist"><router-link to="/artworkUpload" @click="closeAll"><i class="fas fa-upload"></i> Upload Art</router-link></li>
-                <li class="navbar__dropdown-divider"></li>
-                <li><button class="navbar__logout-btn" @click="handleLogout"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
-              </ul>
-            </transition>
+  <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" :class="{ 'bg-white/95 backdrop-blur-md shadow-lg': scrolled, 'bg-transparent': !scrolled }">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <!-- Logo -->
+        <router-link to="/" class="flex items-center space-x-2 group" @click="closeMenu">
+          <div class="relative">
+            <img src="@/assets/img/Kelem.png" alt="Kelem Art Gallery" class="h-10 lg:h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
+            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
           </div>
-        </template>
+        </router-link>
 
-        <!-- Guest -->
-        <template v-else>
-          <router-link to="/userlogin" class="navbar__btn navbar__btn--ghost">Login</router-link>
-          <router-link to="/register" class="navbar__btn navbar__btn--primary">Sign Up</router-link>
-        </template>
+        <!-- Desktop Nav Links -->
+        <div class="hidden lg:flex items-center space-x-1">
+          <div v-for="link in navLinks" :key="link.to" class="relative group">
+            <router-link 
+              :to="link.to" 
+              class="px-4 py-2 text-gray-700 hover:text-purple-600 font-medium transition-all duration-200 relative group"
+              @click="closeMenu"
+            >
+              {{ link.label }}
+              <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-indigo-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+            </router-link>
+          </div>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center space-x-3">
+          <!-- Search Button (Desktop) -->
+          <button class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 group">
+            <i class="fas fa-search text-gray-600 group-hover:text-purple-600 transition-colors duration-200"></i>
+          </button>
+
+          <!-- Authenticated -->
+          <template v-if="authStore.isAuthenticated">
+            <!-- Cart -->
+            <router-link to="/cart" class="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-purple-100 transition-all duration-200 group" @click="closeMenu">
+              <i class="fas fa-shopping-cart text-gray-600 group-hover:text-purple-600 transition-colors duration-200"></i>
+              <span v-if="cartCount > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">{{ cartCount }}</span>
+            </router-link>
+
+            <!-- Notifications -->
+            <button class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 group relative">
+              <i class="fas fa-bell text-gray-600 group-hover:text-purple-600 transition-colors duration-200"></i>
+              <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
+            <!-- User Dropdown -->
+            <div class="relative" ref="dropdownRef">
+              <button 
+                @click="toggleDropdown" 
+                class="flex items-center space-x-3 px-3 py-2 rounded-xl bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 transition-all duration-200 group"
+                :aria-expanded="dropdownOpen"
+              >
+                <div class="relative">
+                  <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-user text-white text-sm"></i>
+                  </div>
+                  <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <span class="hidden xl:block text-sm font-medium text-gray-700">{{ userName }}</span>
+                <i class="fas fa-chevron-down text-xs text-gray-500 transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }"></i>
+              </button>
+              
+              <transition name="dropdown">
+                <div v-if="dropdownOpen" class="absolute top-full right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                  <div class="p-4 border-b border-gray-100">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-gray-800">{{ userName }}</p>
+                        <p class="text-xs text-gray-500">{{ authStore.user?.email }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="p-2">
+                    <router-link 
+                      :to="dashboardRoute" 
+                      @click="closeAll" 
+                      class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group"
+                    >
+                      <i class="fas fa-tachometer-alt text-gray-400 group-hover:text-purple-600 w-5"></i>
+                      <span class="text-gray-700 group-hover:text-gray-900">Dashboard</span>
+                    </router-link>
+                    
+                    <router-link 
+                      to="/edit-account" 
+                      @click="closeAll" 
+                      class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group"
+                    >
+                      <i class="fas fa-user-cog text-gray-400 group-hover:text-purple-600 w-5"></i>
+                      <span class="text-gray-700 group-hover:text-gray-900">Profile Settings</span>
+                    </router-link>
+                    
+                    <router-link 
+                      v-if="authStore.isArtist" 
+                      to="/artworkUpload" 
+                      @click="closeAll" 
+                      class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group"
+                    >
+                      <i class="fas fa-upload text-gray-400 group-hover:text-purple-600 w-5"></i>
+                      <span class="text-gray-700 group-hover:text-gray-900">Upload Artwork</span>
+                    </router-link>
+                    
+                    <div class="border-t border-gray-100 my-2"></div>
+                    
+                    <button 
+                      @click="handleLogout" 
+                      class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-red-50 transition-colors duration-200 group w-full"
+                    >
+                      <i class="fas fa-sign-out-alt text-gray-400 group-hover:text-red-600 w-5"></i>
+                      <span class="text-gray-700 group-hover:text-red-600">Logout</span>
+                    </button>
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </template>
+
+          <!-- Guest -->
+          <template v-else>
+            <router-link 
+              to="/userlogin" 
+              class="hidden lg:flex items-center px-4 py-2 text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200"
+            >
+              Login
+            </router-link>
+            <router-link 
+              to="/register" 
+              class="flex items-center px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
+            >
+              Sign Up
+            </router-link>
+          </template>
+
+          <!-- Hamburger -->
+          <button 
+            @click="toggleMenu" 
+            :aria-expanded="menuOpen" 
+            aria-label="Toggle menu"
+            class="lg:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+          >
+            <span class="w-5 h-0.5 bg-gray-600 transition-all duration-300" :class="{ 'rotate-45 translate-y-1.5': menuOpen }"></span>
+            <span class="w-5 h-0.5 bg-gray-600 my-1 transition-all duration-300" :class="{ 'opacity-0': menuOpen }"></span>
+            <span class="w-5 h-0.5 bg-gray-600 transition-all duration-300" :class="{ '-rotate-45 -translate-y-1.5': menuOpen }"></span>
+          </button>
+        </div>
       </div>
-
-      <!-- Hamburger -->
-      <button class="navbar__hamburger" @click="toggleMenu" :aria-expanded="menuOpen" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
 
     <!-- Mobile Menu -->
     <transition name="mobile-menu">
-      <div v-if="menuOpen" class="navbar__mobile">
-        <ul class="navbar__mobile-links">
-          <li v-for="link in navLinks" :key="link.to">
-            <router-link :to="link.to" class="navbar__mobile-link" @click="closeMenu">
-              {{ link.label }}
+      <div v-if="menuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl">
+        <div class="p-4 space-y-2">
+          <div v-for="link in navLinks" :key="link.to">
+            <router-link 
+              :to="link.to" 
+              class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group"
+              @click="closeMenu"
+            >
+              <i class="fas fa-chevron-right text-gray-400 group-hover:text-purple-600 text-sm"></i>
+              <span class="text-gray-700 group-hover:text-gray-900">{{ link.label }}</span>
             </router-link>
-          </li>
-        </ul>
-        <div class="navbar__mobile-actions">
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-100 p-4">
           <template v-if="authStore.isAuthenticated">
-            <router-link :to="dashboardRoute" class="navbar__mobile-link" @click="closeMenu">
-              <i class="fas fa-tachometer-alt"></i> Dashboard
+            <router-link :to="dashboardRoute" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group">
+              <i class="fas fa-tachometer-alt text-gray-400 group-hover:text-purple-600 w-5"></i>
+              <span class="text-gray-700 group-hover:text-gray-900">Dashboard</span>
             </router-link>
-            <router-link to="/edit-account" class="navbar__mobile-link" @click="closeMenu">
-              <i class="fas fa-user-cog"></i> Profile
+            <router-link to="/edit-account" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group">
+              <i class="fas fa-user-cog text-gray-400 group-hover:text-purple-600 w-5"></i>
+              <span class="text-gray-700 group-hover:text-gray-900">Profile</span>
             </router-link>
-            <router-link v-if="authStore.isArtist" to="/artworkUpload" class="navbar__mobile-link" @click="closeMenu">
-              <i class="fas fa-upload"></i> Upload Art
+            <router-link v-if="authStore.isArtist" to="/artworkUpload" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group">
+              <i class="fas fa-upload text-gray-400 group-hover:text-purple-600 w-5"></i>
+              <span class="text-gray-700 group-hover:text-gray-900">Upload Art</span>
             </router-link>
-            <router-link to="/cart" class="navbar__mobile-link" @click="closeMenu">
-              <i class="fas fa-shopping-cart"></i> Cart
-              <span v-if="cartCount > 0" class="navbar__badge navbar__badge--inline">{{ cartCount }}</span>
+            <router-link to="/cart" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-200 group">
+              <i class="fas fa-shopping-cart text-gray-400 group-hover:text-purple-600 w-5"></i>
+              <span class="text-gray-700 group-hover:text-gray-900">Cart</span>
+              <span v-if="cartCount > 0" class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto">{{ cartCount }}</span>
             </router-link>
-            <button class="navbar__btn navbar__btn--danger" @click="handleLogout">
-              <i class="fas fa-sign-out-alt"></i> Logout
+            <button @click="handleLogout" class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-red-50 transition-colors duration-200 group w-full">
+              <i class="fas fa-sign-out-alt text-gray-400 group-hover:text-red-600 w-5"></i>
+              <span class="text-gray-700 group-hover:text-red-600">Logout</span>
             </button>
           </template>
           <template v-else>
-            <router-link to="/userlogin" class="navbar__btn navbar__btn--ghost" @click="closeMenu">Login</router-link>
-            <router-link to="/register" class="navbar__btn navbar__btn--primary" @click="closeMenu">Sign Up</router-link>
+            <router-link to="/userlogin" class="flex items-center justify-center w-full px-6 py-3 text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">
+              Login
+            </router-link>
+            <router-link to="/register" class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+              Sign Up
+            </router-link>
           </template>
         </div>
       </div>
@@ -97,7 +205,7 @@
   </nav>
 
   <!-- Spacer so content doesn't hide under fixed navbar -->
-  <div class="navbar__spacer"></div>
+  <div class="h-16 lg:h-20"></div>
 </template>
 
 <script setup>
@@ -172,396 +280,28 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* ── Base ── */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
+/* Modern styles are handled by Tailwind CSS classes */
+/* Add any custom animations or overrides here if needed */
 
-.navbar--scrolled {
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-}
-
-.navbar__spacer {
-  height: 72px;
-}
-
-/* ── Container ── */
-.navbar__container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-/* ── Brand ── */
-.navbar__brand img {
-  height: 48px;
-  width: auto;
-  display: block;
-  transition: opacity 0.2s;
-}
-.navbar__brand:hover img { opacity: 0.8; }
-
-/* ── Desktop Links ── */
-.navbar__links {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-  justify-content: center;
-}
-
-.navbar__link {
-  position: relative;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #374151;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.navbar__link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 60%;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  border-radius: 2px;
-  transition: transform 0.25s ease;
-}
-
-.navbar__link:hover,
-.navbar__link.router-link-active {
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.07);
-}
-
-.navbar__link.router-link-exact-active::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-/* ── Actions ── */
-.navbar__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-left: auto;
-}
-
-/* ── Icon Button (cart) ── */
-.navbar__icon-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  color: #374151;
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-}
-.navbar__icon-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
-  color: #6366f1;
-}
-
-/* ── Badge ── */
-.navbar__badge {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  background: #ef4444;
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  line-height: 1;
-}
-.navbar__badge--inline {
-  position: static;
-  margin-left: 6px;
-}
-
-/* ── Buttons ── */
-.navbar__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 1.1rem;
-  border-radius: 10px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.navbar__btn--ghost {
-  color: #374151;
-  background: transparent;
-  border: 1.5px solid #d1d5db;
-}
-.navbar__btn--ghost:hover {
-  border-color: #6366f1;
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.05);
-}
-
-.navbar__btn--primary {
-  color: #fff;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
-}
-.navbar__btn--primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
-}
-
-.navbar__btn--danger {
-  color: #fff;
-  background: #ef4444;
-  width: 100%;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-.navbar__btn--danger:hover { background: #dc2626; }
-
-/* ── User Dropdown ── */
-.navbar__dropdown {
-  position: relative;
-}
-
-.navbar__avatar-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.75rem;
-  background: rgba(99, 102, 241, 0.08);
-  border: 1.5px solid rgba(99, 102, 241, 0.2);
-  border-radius: 10px;
-  color: #374151;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.navbar__avatar-btn:hover {
-  background: rgba(99, 102, 241, 0.14);
-  border-color: #6366f1;
-  color: #6366f1;
-}
-.navbar__avatar-btn .fa-user-circle { font-size: 1.2rem; color: #6366f1; }
-
-.navbar__username {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.navbar__chevron {
-  font-size: 0.7rem;
-  transition: transform 0.25s;
-}
-.navbar__chevron.rotated { transform: rotate(180deg); }
-
-.navbar__dropdown-menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  min-width: 200px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding: 0.5rem;
-  list-style: none;
-  margin: 0;
-  z-index: 200;
-}
-
-.navbar__dropdown-menu li a,
-.navbar__dropdown-menu li button {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.55rem 0.85rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  text-align: left;
-}
-.navbar__dropdown-menu li a:hover,
-.navbar__dropdown-menu li button:hover {
-  background: rgba(99, 102, 241, 0.08);
-  color: #6366f1;
-}
-.navbar__dropdown-menu li a i,
-.navbar__dropdown-menu li button i {
-  width: 16px;
-  text-align: center;
-  color: #9ca3af;
-}
-
-.navbar__dropdown-divider {
-  height: 1px;
-  background: #f3f4f6;
-  margin: 0.35rem 0.5rem;
-}
-
-.navbar__logout-btn { color: #ef4444 !important; }
-.navbar__logout-btn i { color: #ef4444 !important; }
-.navbar__logout-btn:hover { background: rgba(239,68,68,0.08) !important; }
-
-/* ── Hamburger ── */
-.navbar__hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background 0.2s;
-  margin-left: auto;
-}
-.navbar__hamburger:hover { background: rgba(99,102,241,0.08); }
-.navbar__hamburger span {
-  display: block;
-  height: 2px;
-  background: #374151;
-  border-radius: 2px;
+.dropdown-enter-active,
+.dropdown-leave-active {
   transition: all 0.3s ease;
 }
 
-/* Hamburger → X animation */
-.navbar--open .navbar__hamburger span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.navbar--open .navbar__hamburger span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.navbar--open .navbar__hamburger span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ── Mobile Menu ── */
-.navbar__mobile {
-  border-top: 1px solid rgba(0,0,0,0.06);
-  background: rgba(255,255,255,0.98);
-  padding: 1rem 1.5rem 1.5rem;
-}
-
-.navbar__mobile-links {
-  list-style: none;
-  margin: 0 0 1rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.navbar__mobile-link {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 0.85rem;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #374151;
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
-}
-.navbar__mobile-link:hover,
-.navbar__mobile-link.router-link-active {
-  background: rgba(99,102,241,0.08);
-  color: #6366f1;
-}
-
-.navbar__mobile-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f3f4f6;
-}
-
-/* ── Transitions ── */
-.dropdown-enter-active,
-.dropdown-leave-active {
-  transition: opacity 0.18s ease, transform 0.18s ease;
-}
 .dropdown-enter-from,
 .dropdown-leave-to {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(-10px) scale(0.95);
 }
 
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transition: all 0.3s ease;
 }
+
 .mobile-menu-enter-from,
 .mobile-menu-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .navbar__links,
-  .navbar__actions {
-    display: none;
-  }
-  .navbar__hamburger {
-    display: flex;
-  }
-  .navbar__container {
-    gap: 0;
-  }
+  transform: translateY(-10px);
 }
 </style>

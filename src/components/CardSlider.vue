@@ -1,21 +1,103 @@
 <template>
-  <div class="hero-slider">
-    <div class="hero-slide active" :style="{ backgroundImage: `url(${slides[currentSlide].image})` }">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">{{ slides[currentSlide].title }}</h1>
-        <p class="hero-subtitle">{{ slides[currentSlide].subtitle }}</p>
-        <router-link :to="slides[currentSlide].link" class="hero-btn">{{ slides[currentSlide].btnText }}</router-link>
+  <div class="relative w-full h-screen overflow-hidden">
+    <!-- Hero Slides -->
+    <div class="relative h-full">
+      <div 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        :class="[
+          'absolute inset-0 transition-all duration-1000 ease-in-out',
+          currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+        ]"
+      >
+        <div 
+          class="w-full h-full bg-cover bg-center bg-no-repeat"
+          :style="{ backgroundImage: `url(${slide.image})` }"
+        >
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+          
+          <!-- Content -->
+          <div class="relative h-full flex items-center">
+            <div class="container mx-auto px-4">
+              <div class="max-w-2xl">
+                <h1 
+                  :class="[
+                    'text-5xl md:text-7xl font-bold text-white mb-6 transition-all duration-1000 delay-300',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  {{ slide.title }}
+                </h1>
+                <p 
+                  :class="[
+                    'text-xl md:text-2xl text-white/90 mb-8 transition-all duration-1000 delay-500',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  {{ slide.subtitle }}
+                </p>
+                <div 
+                  :class="[
+                    'flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-700',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  <router-link 
+                    :to="slide.link" 
+                    class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
+                  >
+                    {{ slide.btnText }}
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </router-link>
+                  <router-link 
+                    to="/about" 
+                    class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-all duration-300"
+                  >
+                    Learn More
+                    <i class="fas fa-info-circle ml-2"></i>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="slider-controls">
-      <button @click="prevSlide" class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
-      <button @click="nextSlide" class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+
+    <!-- Navigation Controls -->
+    <button 
+      @click="prevSlide" 
+      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+    >
+      <i class="fas fa-chevron-left group-hover:scale-110 transition-transform"></i>
+    </button>
+    
+    <button 
+      @click="nextSlide" 
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+    >
+      <i class="fas fa-chevron-right group-hover:scale-110 transition-transform"></i>
+    </button>
+
+    <!-- Slide Indicators -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
+      <button 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        @click="goToSlide(index)"
+        :class="[
+          'h-2 transition-all duration-300 rounded-full',
+          currentSlide === index 
+            ? 'w-12 bg-white' 
+            : 'w-2 bg-white/50 hover:bg-white/70'
+        ]"
+      />
     </div>
-    <div class="slider-dots">
-      <span v-for="(slide, index) in slides" :key="index" 
-            :class="['dot', { active: currentSlide === index }]"
-            @click="goToSlide(index)"></span>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <i class="fas fa-chevron-down text-white/60 text-xl"></i>
     </div>
   </div>
 </template>
@@ -30,21 +112,21 @@ const slides = [
   {
     image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600',
     title: 'Discover Extraordinary Art',
-    subtitle: 'Curated collection of contemporary masterpieces',
+    subtitle: 'Curated collection of contemporary masterpieces from talented artists worldwide',
     link: '/artworkList',
     btnText: 'Explore Gallery'
   },
   {
     image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1600',
     title: 'Where Art Meets Passion',
-    subtitle: 'Connect with artists and collectors worldwide',
+    subtitle: 'Connect with artists and collectors in our vibrant creative community',
     link: '/register',
     btnText: 'Join Community'
   },
   {
     image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1600',
     title: 'Elevate Your Space',
-    subtitle: 'Find the perfect piece for your collection',
+    subtitle: 'Find the perfect piece that speaks to your soul and transforms your environment',
     link: '/artworkList',
     btnText: 'Shop Now'
   }
@@ -63,7 +145,7 @@ const goToSlide = (index) => {
 };
 
 onMounted(() => {
-  autoplayInterval = setInterval(nextSlide, 5000);
+  autoplayInterval = setInterval(nextSlide, 6000);
 });
 
 onUnmounted(() => {
@@ -72,170 +154,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.hero-slider {
-  position: relative;
-  width: 100%;
-  height: 85vh;
-  margin-top: 70px;
-  overflow: hidden;
-}
-
-.hero-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: white;
-  max-width: 800px;
-  padding: 0 20px;
-}
-
-.hero-title {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  animation: slideUp 1s ease-out;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  font-weight: 300;
-  animation: slideUp 1s ease-out 0.2s both;
-}
-
-.hero-btn {
-  display: inline-block;
-  padding: 15px 40px;
-  background: white;
-  color: #000;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  animation: slideUp 1s ease-out 0.4s both;
-}
-
-.hero-btn:hover {
-  background: #000;
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.slider-controls {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
-  z-index: 3;
-}
-
-.slider-btn {
-  background: rgba(255,255,255,0.2);
-  border: 2px solid white;
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.slider-btn:hover {
-  background: white;
-  color: #000;
-  transform: scale(1.1);
-}
-
-.slider-dots {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  z-index: 3;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot.active {
-  background: white;
-  width: 40px;
-  border-radius: 6px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-slider {
-    height: 60vh;
-  }
-  
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .slider-controls {
-    padding: 0 15px;
-  }
-  
-  .slider-btn {
-    width: 40px;
-    height: 40px;
-  }
-}
+/* Modern styles are handled by Tailwind CSS classes */
+/* Add any custom animations or overrides here if needed */
 </style>

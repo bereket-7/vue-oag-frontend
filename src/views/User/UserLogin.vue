@@ -1,243 +1,429 @@
 <template>
-  <div class="login">
-    
-      <form class="login__form" @submit.prevent="submitForm">
-      <h2 class="login__title">Log In</h2>
-      <div class="login__input-container">
-        <input v-model="email" type="email" placeholder="Email" class="login__input" />
-        <div class="login__input-underline"></div>
+  <div class="auth-page">
+    <!-- Left panel: artwork showcase -->
+    <div class="auth-panel auth-panel--art" aria-hidden="true">
+      <div class="art-overlay"></div>
+      <div class="art-content">
+        <div class="art-logo">
+          <img src="@/assets/img/Kelem.png" alt="Kelem" />
+        </div>
+        <blockquote class="art-quote">
+          <p>"Art enables us to find ourselves and lose ourselves at the same time."</p>
+          <cite>— Thomas Merton</cite>
+        </blockquote>
+        <div class="art-dots">
+          <span></span><span></span><span></span>
+        </div>
       </div>
-      <div class="login__input-container">
-        <input v-model="password" type="password" placeholder="Password" class="login__input" />
-        <div class="login__input-underline"></div>
+    </div>
+
+    <!-- Right panel: form -->
+    <div class="auth-panel auth-panel--form">
+      <div class="auth-form-wrap">
+        <div class="auth-header">
+          <h1 class="auth-title">Welcome back</h1>
+          <p class="auth-subtitle">Sign in to your Kelem account</p>
+        </div>
+
+        <transition name="fade">
+          <div v-if="errorMessage" class="auth-alert">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ errorMessage }}
+          </div>
+        </transition>
+
+        <form @submit.prevent="submitForm" class="auth-form" novalidate>
+          <!-- Email -->
+          <div class="field" :class="{ 'field--error': fieldErrors.email, 'field--filled': email }">
+            <label for="login-email" class="field__label">Email or Username</label>
+            <div class="field__input-wrap">
+              <i class="fas fa-envelope field__icon"></i>
+              <input
+                id="login-email"
+                v-model="email"
+                type="text"
+                class="field__input"
+                placeholder="you@example.com"
+                autocomplete="username"
+                @blur="validateField('email')"
+              />
+            </div>
+            <span v-if="fieldErrors.email" class="field__error">{{ fieldErrors.email }}</span>
+          </div>
+
+          <!-- Password -->
+          <div class="field" :class="{ 'field--error': fieldErrors.password, 'field--filled': password }">
+            <label for="login-password" class="field__label">Password</label>
+            <div class="field__input-wrap">
+              <i class="fas fa-lock field__icon"></i>
+              <input
+                id="login-password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                class="field__input"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                @blur="validateField('password')"
+              />
+              <button type="button" class="field__toggle" @click="showPassword = !showPassword" :aria-label="showPassword ? 'Hide password' : 'Show password'">
+                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </button>
+            </div>
+            <span v-if="fieldErrors.password" class="field__error">{{ fieldErrors.password }}</span>
+          </div>
+
+          <div class="auth-form__row">
+            <router-link to="/forgotPassword" class="auth-link">Forgot password?</router-link>
+          </div>
+
+          <button type="submit" class="auth-btn" :disabled="loading">
+            <span v-if="!loading">Sign In</span>
+            <span v-else class="auth-btn__spinner"><i class="fas fa-circle-notch fa-spin"></i> Signing in...</span>
+          </button>
+        </form>
+
+        <p class="auth-switch">
+          Don't have an account?
+          <router-link to="/register" class="auth-link auth-link--bold">Create one</router-link>
+        </p>
       </div>
-      <button type="submit" class="login__button">Log In</button>
-      <router-link to="/forgotPassword" class="login__forgot-password">Forgot Password?</router-link>
-    </form>
-    <div class="login__signup-wrapper">
-    <div class="login__signup">
-      <p class="login__signup-message">Don't have an account?</p>
-      <router-link to="/register"><button class="login__signup-button">Sign Up</button></router-link>
     </div>
   </div>
-  </div>
-  <FooterView/>
 </template>
-
-
 
 <script>
 import { setAuthToken } from '@/utils/auth';
 import axios from 'axios';
 import { ref } from 'vue';
 import router from '@/router';
-import FooterView from '@/components/FooterView.vue';
-export default {
-  name:{
 
-  },
-  components:{
-    FooterView
-  },
+export default {
+  name: 'UserLogin',
   setup() {
     const email = ref('');
     const password = ref('');
     const errorMessage = ref('');
-    const submitForm = async () => {
-  try {
-    const response = await axios.post('http://localhost:8082/api/auth/login', {
-      username: email.value,
-      password: password.value,
-    });
+    const loading = ref(false);
+    const showPassword = ref(false);
+    const fieldErrors = ref({ email: '', password: '' });
 
-    if (response.data.accessToken && response.data.role) {
-      const jwtToken = response.data.accessToken;
-      const role = response.data.role;
-      setAuthToken(jwtToken);
-      localStorage.setItem('token', jwtToken);
-      localStorage.setItem('role', role); 
-      console.log(response.data.accessToken);
-      
-      if (role === 'ADMIN') {
-        router.push('/adminDashboard');
-      } else if (role === 'CUSTOMER') {
-        router.push('/customerDashboard');
-      } else if (role === 'ARTIST') {
-        router.push('/artistDashboard');
-      } else if (role === 'MANAGER') {
-        router.push('/managerDashboard');
-      } else if (role === 'ORGANIZATION') {
-        router.push('/managerDashboard');
+    function validateField(field) {
+      if (field === 'email' && !email.value.trim()) {
+        fieldErrors.value.email = 'Email or username is required.';
       } else {
-        console.log('Unknown role');
+        fieldErrors.value.email = '';
       }
-    } else {
-      console.log('No access token or role received');
+      if (field === 'password' && !password.value) {
+        fieldErrors.value.password = 'Password is required.';
+      } else if (field === 'password') {
+        fieldErrors.value.password = '';
+      }
     }
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.message) {
-      errorMessage.value = error.response.data.message;
-    } else {
-      errorMessage.value = 'Username or password incorrect';
-    }
-    console.log(error);
-  }
-};
 
-    return {
-      email,
-      password,
-      errorMessage,
-      submitForm,
+    function validate() {
+      validateField('email');
+      validateField('password');
+      return !fieldErrors.value.email && !fieldErrors.value.password;
+    }
+
+    const submitForm = async () => {
+      errorMessage.value = '';
+      if (!validate()) return;
+      loading.value = true;
+      try {
+        const response = await axios.post('http://localhost:8082/api/auth/login', {
+          username: email.value,
+          password: password.value,
+        });
+
+        if (response.data.accessToken && response.data.role) {
+          const jwtToken = response.data.accessToken;
+          const role = response.data.role;
+          setAuthToken(jwtToken);
+          localStorage.setItem('token', jwtToken);
+          localStorage.setItem('role', role);
+
+          const routes = {
+            ADMIN: '/adminDashboard',
+            CUSTOMER: '/customerDashboard',
+            ARTIST: '/artistDashboard',
+            MANAGER: '/managerDashboard',
+            ORGANIZATION: '/managerDashboard',
+          };
+          router.push(routes[role] || '/');
+        }
+      } catch (error) {
+        errorMessage.value = error.response?.data?.message || 'Incorrect username or password.';
+      } finally {
+        loading.value = false;
+      }
     };
+
+    return { email, password, errorMessage, loading, showPassword, fieldErrors, validateField, submitForm };
   },
 };
 </script>
 
 <style scoped>
-
-.login {
+/* ── Layout ── */
+.auth-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 110vh;
-  background-color: #f5f5f5;
-  background-size: cover;
-  background-position: center center;
+  min-height: 100vh;
 }
 
-.login__form {
+.auth-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Art Panel ── */
+.auth-panel--art {
+  position: relative;
+  background: url('@/assets/img/art-landscape.jpg') center/cover no-repeat;
+  flex: 1.1;
+}
+
+.art-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,0.82) 0%, rgba(139,92,246,0.75) 50%, rgba(17,24,39,0.85) 100%);
+}
+
+.art-content {
+  position: relative;
+  z-index: 1;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+  max-width: 480px;
+}
+
+.art-logo img {
+  height: 56px;
+  filter: brightness(0) invert(1);
+}
+
+.art-quote {
+  margin: 0;
+  border-left: 3px solid rgba(255,255,255,0.5);
+  padding-left: 1.25rem;
+}
+.art-quote p {
+  font-size: 1.25rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.7;
+  margin: 0 0 0.75rem;
+}
+.art-quote cite {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.6);
+  font-style: normal;
+}
+
+.art-dots {
+  display: flex;
+  gap: 8px;
+}
+.art-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+}
+.art-dots span:first-child { background: #fff; width: 24px; border-radius: 4px; }
+
+/* ── Form Panel ── */
+.auth-panel--form {
+  background: #fafafa;
+  padding: 2rem;
+}
+
+.auth-form-wrap {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-header { text-align: left; }
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.5px;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Alert ── */
+.auth-alert {
+  display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 450px;
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #dc2626;
+  font-size: 0.875rem;
 }
 
-.login__title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #0a87ee;
+/* ── Form ── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
 }
 
-.login__input-container {
+/* ── Field ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field__input-wrap {
   position: relative;
-  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
 }
 
-.login__input {
+.field__icon {
+  position: absolute;
+  left: 0.9rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.field__input {
   width: 100%;
-  padding: 0.5rem 0.5rem;
-  font-size: 1.2rem;
-  border: none;
-  border-bottom: 2px solid #ccc;
+  padding: 0.75rem 2.75rem 0.75rem 2.5rem;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.login__input-underline {
+.field__input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+.field__input:focus ~ .field__icon,
+.field__input-wrap:focus-within .field__icon {
+  color: #6366f1;
+}
+
+.field--error .field__input {
+  border-color: #ef4444;
+}
+.field--error .field__input:focus {
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
+}
+
+.field__toggle {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 4px;
-  background-color: #3498db;
-  transition: width 0.2s ease-in-out;
-}
-
-.login__input:focus + .login__input-underline {
-  width: 100%;
-}
-
-.login__button {
-  width: 100%;
-  padding: 1rem;
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #3498db;
+  right: 0.9rem;
+  background: none;
   border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: color 0.2s;
+}
+.field__toggle:hover { color: #6366f1; }
+
+.field__error {
+  font-size: 0.78rem;
+  color: #ef4444;
 }
 
-.login__button:hover {
-  background-color: #2980b9;
+/* ── Row ── */
+.auth-form__row {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.login__forgot-password {
-  margin-top: 1rem;
+/* ── Submit Button ── */
+.auth-btn {
+  width: 100%;
+  padding: 0.85rem;
   font-size: 1rem;
-  text-decoration: none;
-  color: #3498db;
-  transition: color 0.2s ease-in-out;
-}
-
-.login__forgot-password:hover {
-  color: #2980b9;
-}
-
-.login__signup-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30rem;
-  position: absolute;
-  /* bottom: 2rem; */
-  left: 0;
-  width: 100%;
-}
-
-.login__signup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.2rem;
-  color: #333;
-  position: relative;
-  margin-top: 2rem;
-}
-
-.login__signup-message {
-  margin-bottom: 0.5rem;
-}
-
-.login__signup-button {
-  padding: 1rem;
-  font-size: 1.2rem;
+  font-weight: 700;
   color: #fff;
-  background-color: #3498db;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  width: 100%;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.4);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  margin-top: 0.5rem;
+}
+.auth-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.5);
+}
+.auth-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.auth-btn__spinner { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+
+/* ── Links ── */
+.auth-link {
+  font-size: 0.875rem;
+  color: #6366f1;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.auth-link:hover { color: #4f46e5; text-decoration: underline; }
+.auth-link--bold { font-weight: 700; }
+
+.auth-switch {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
 }
 
-.login__signup-button:hover {
-  background-color: #2980b9;
-}
+/* ── Transition ── */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
-@media only screen and (max-width: 600px) {
-  .login__form {
-    border-radius: 0;
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .auth-panel--art { display: none; }
+  .auth-panel--form {
+    background: #fff;
+    padding: 2rem 1.5rem;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding-top: 5rem;
   }
-
-  .login__button {
-    border-radius: 0;
-  }
-
-  .login__signup-button {
-    border-radius: 0;
-    width: 100%;
-  }
+  .auth-form-wrap { max-width: 100%; }
+  .auth-title { font-size: 1.75rem; }
 }
 </style>

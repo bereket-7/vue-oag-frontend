@@ -1,63 +1,159 @@
 <template>
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" style="margin-top: 85px;">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+  <div class="relative w-full h-screen overflow-hidden">
+    <!-- Hero Slides -->
+    <div class="relative h-full">
+      <div 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        :class="[
+          'absolute inset-0 transition-all duration-1000 ease-in-out',
+          currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+        ]"
+      >
+        <div 
+          class="w-full h-full bg-cover bg-center bg-no-repeat"
+          :style="{ backgroundImage: `url(${slide.image})` }"
+        >
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+          
+          <!-- Content -->
+          <div class="relative h-full flex items-center">
+            <div class="container mx-auto px-4">
+              <div class="max-w-2xl">
+                <h1 
+                  :class="[
+                    'text-5xl md:text-7xl font-bold text-white mb-6 transition-all duration-1000 delay-300',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  {{ slide.title }}
+                </h1>
+                <p 
+                  :class="[
+                    'text-xl md:text-2xl text-white/90 mb-8 transition-all duration-1000 delay-500',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  {{ slide.subtitle }}
+                </p>
+                <div 
+                  :class="[
+                    'flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-700',
+                    currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  ]"
+                >
+                  <router-link 
+                    :to="slide.link" 
+                    class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
+                  >
+                    {{ slide.btnText }}
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </router-link>
+                  <router-link 
+                    to="/about" 
+                    class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-all duration-300"
+                  >
+                    Learn More
+                    <i class="fas fa-info-circle ml-2"></i>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-          <img :src="require('../assets/img/slide1.jpg')" class="overlay-image" alt="Hot Air Balloons" style="width: 100%; height: 450px; opacity: 1;">
-        <div class="carousel-caption d-none d-md-block firstSlide">
-        <h1 style="font-size: 100px;">KELEM</h1>
-        <h3 style="font-size: 50px;" >ONLINE ART GALLERY</h3>
-        <router-link to="/register" class="btn btn-outline-light">JOIN OUR COMMUNITY</router-link>
-      </div>
-      </div>
-      <div class="carousel-item">
-        <img :src="require('../assets/img/slide2.jpg')" style="width: 100%; height: 450px; opacity: 1;">
-        <div class="carousel-caption d-none d-md-block">
-          <div class="card" style="width: 20rem;">
-  <div class="card-body">
-    <h4 class="card-title">Kelem Online Art Gallery</h4>
-    <p class="card-text">An online art gallery, where pixels become masterpieces.</p>
-    <router-link class="btn btn-outline-light" to="/artworkList">SHOP NOW</router-link>
-  </div>
-</div>
-        
-      </div>
-      </div>
+
+    <!-- Navigation Controls -->
+    <button 
+      @click="prevSlide" 
+      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+    >
+      <i class="fas fa-chevron-left group-hover:scale-110 transition-transform"></i>
+    </button>
+    
+    <button 
+      @click="nextSlide" 
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+    >
+      <i class="fas fa-chevron-right group-hover:scale-110 transition-transform"></i>
+    </button>
+
+    <!-- Slide Indicators -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
+      <button 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        @click="goToSlide(index)"
+        :class="[
+          'h-2 transition-all duration-300 rounded-full',
+          currentSlide === index 
+            ? 'w-12 bg-white' 
+            : 'w-2 bg-white/50 hover:bg-white/70'
+        ]"
+      />
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <i class="fas fa-chevron-down text-white/60 text-xl"></i>
+    </div>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 
-<script>
-export default {
-  name: 'CardSlider',
-  components: {
+const currentSlide = ref(0);
+let autoplayInterval = null;
+
+const slides = [
+  {
+    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600',
+    title: 'Discover Extraordinary Art',
+    subtitle: 'Curated collection of contemporary masterpieces from talented artists worldwide',
+    link: '/artworkList',
+    btnText: 'Explore Gallery'
   },
-  methods: {
+  {
+    image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1600',
+    title: 'Where Art Meets Passion',
+    subtitle: 'Connect with artists and collectors in our vibrant creative community',
+    link: '/register',
+    btnText: 'Join Community'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1600',
+    title: 'Elevate Your Space',
+    subtitle: 'Find the perfect piece that speaks to your soul and transforms your environment',
+    link: '/artworkList',
+    btnText: 'Shop Now'
   }
-}
+];
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.length;
+};
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length;
+};
+
+const goToSlide = (index) => {
+  currentSlide.value = index;
+};
+
+onMounted(() => {
+  autoplayInterval = setInterval(nextSlide, 6000);
+});
+
+onUnmounted(() => {
+  if (autoplayInterval) clearInterval(autoplayInterval);
+});
 </script>
 
-<style>
-.carousel-caption{
-  margin-bottom: 100px;
-}
-.firstSlide h1{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.card{
-  margin-left: 650px;
-  background-color:#1c1c1c ;
-}
+<style scoped>
+/* Modern styles are handled by Tailwind CSS classes */
+/* Add any custom animations or overrides here if needed */
 </style>

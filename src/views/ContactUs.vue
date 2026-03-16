@@ -1,71 +1,148 @@
 <template>
-  <div class="container" data-aos="fade-up">
-    <br><br>
-    <h2>Contact Us</h2>
-    <div class="row gy-4">
-      <div class="col-lg-6">
-        <form @submit="sendEmail" class="php-email-form">
-          <div class="row gy-4">
-             <div class="col-md-6">
-              <input v-model="recipient" type="text" name="name" class="form-control" placeholder="Kelem.oag.app@gmail.com" required>
-            </div>
-            <div class="col-md-6">
-              <input v-model="sender" type="email" class="form-control" name="email" placeholder="Your Email" required>
-            </div>
-            <div class="col-md-12">
-              <input v-model="subject" type="text" class="form-control" name="subject" placeholder="Subject" required>
-            </div>
-            <div class="col-md-12">
-              <textarea v-model="message" class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-            </div>
-            <div class="col-md-12 text-center">
-              <div class="error-message"></div>
-              <button type="submit" class="btn btn-primary">Send Message</button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-
-<div class="col-lg-6">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="contact-info">
-        <i class="fas fa-phone fa-3x" style="color:#2F7633"></i>
-        <h4>Phone Number</h4>
-        <p>+251943578915</p>
-        <p>+251942085855</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="contact-info">
-        <i class="fas fa-map-marker-alt fa-3x" style="color:#020202"></i>
-        <h4>Address</h4>
-        <p>Adama science and technology University(ASTU), Adama, Ethiopia</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="contact-info">
-        <i class="fas fa-envelope fa-3x" style="color:#9C1E1E"></i>
-        <h4>Email</h4>
-        <p>kelem.oag.app@gmail.com</p>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="contact-info">
-        <i class="fab fa-facebook-f fa-3x" style="color:#1759A6"></i>
-        <h4>Follow Us</h4>
-        <div class="social-links">
-          <a href="https://www.facebook.com/profile.php?id=100092538513954&mibextid=ZbWKwL"><i class="fab fa-facebook-f fa-lg" style="color:#1759A6"></i></a>
-          <a href="#"><i class="fab fa-twitter fa-lg" style="color:#2E88D7"></i></a>
-          <a href="https://instagram.com/kelem_arts?igshid=ZDdkNTZiNTM="><i class="fab fa-instagram fa-lg" style="color:#F05523"></i></a>
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center" data-aos="fade-up">
+          <h1 class="text-5xl font-bold mb-4">Get In Touch</h1>
+          <p class="text-xl opacity-90">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         </div>
       </div>
+      <div class="absolute bottom-0 left-0 right-0">
+        <svg class="w-full h-12" viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 48L1440 0V48H0Z" fill="#F9FAFB"/>
+        </svg>
+      </div>
     </div>
-  </div>
-</div>
+
+    <!-- Contact Content -->
+    <div class="container mx-auto px-4 py-16">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8" data-aos="fade-right">
+          <h2 class="text-3xl font-bold text-gray-800 mb-6">Send us a Message</h2>
+          <form @submit="sendEmail" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                <input 
+                  v-model="sender" 
+                  type="text" 
+                  name="name" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                  placeholder="John Doe" 
+                  required
+                >
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Your Email</label>
+                <input 
+                  v-model="sender" 
+                  type="email" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                  placeholder="john@example.com" 
+                  required
+                >
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+              <input 
+                v-model="subject" 
+                type="text" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                placeholder="How can we help?" 
+                required
+              >
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+              <textarea 
+                v-model="message" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 resize-none"
+                rows="6" 
+                placeholder="Tell us more about your inquiry..." 
+                required
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="space-y-8" data-aos="fade-left">
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4 group">
+                <div class="bg-purple-100 p-3 rounded-lg group-hover:bg-purple-200 transition-colors duration-200">
+                  <i class="fas fa-phone text-purple-600 text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Phone</h4>
+                  <p class="text-gray-600">+251 943 578 915</p>
+                  <p class="text-gray-600">+251 942 085 855</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4 group">
+                <div class="bg-indigo-100 p-3 rounded-lg group-hover:bg-indigo-200 transition-colors duration-200">
+                  <i class="fas fa-envelope text-indigo-600 text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Email</h4>
+                  <p class="text-gray-600">kelem.oag.app@gmail.com</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4 group">
+                <div class="bg-green-100 p-3 rounded-lg group-hover:bg-green-200 transition-colors duration-200">
+                  <i class="fas fa-map-marker-alt text-green-600 text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Address</h4>
+                  <p class="text-gray-600">Adama Science and Technology University (ASTU)</p>
+                  <p class="text-gray-600">Adama, Ethiopia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Follow Us</h3>
+            <div class="flex space-x-4">
+              <a 
+                href="https://www.facebook.com/profile.php?id=100092538513954&mibextid=ZbWKwL" 
+                class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transform hover:scale-110 transition-all duration-200"
+                target="_blank"
+              >
+                <i class="fab fa-facebook-f text-xl"></i>
+              </a>
+              <a 
+                href="https://instagram.com/kelem_arts?igshid=ZDdkNTZiNTM=" 
+                class="bg-pink-600 text-white p-3 rounded-lg hover:bg-pink-700 transform hover:scale-110 transition-all duration-200"
+                target="_blank"
+              >
+                <i class="fab fa-instagram text-xl"></i>
+              </a>
+              <a 
+                href="#" 
+                class="bg-sky-500 text-white p-3 rounded-lg hover:bg-sky-600 transform hover:scale-110 transition-all duration-200"
+                target="_blank"
+              >
+                <i class="fab fa-twitter text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <footer-view/>
@@ -84,7 +161,7 @@ export default {
   data() {
     return {
       recipient: 'kelem.oag.app@gmail.com',
-      email: '',
+      sender: '',
       subject: '',
       message: ''
     };
@@ -92,22 +169,40 @@ export default {
   methods: {
     async sendEmail(event) {
       event.preventDefault();
-      const formData = new FormData(event.target);
+      
+      if (!this.sender || !this.subject || !this.message) {
+        this.showNotification('Please fill in all required fields', 'error');
+        return;
+      }
+
       const emailDetail = {
-        recipient: formData.get('email'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
-        sender: formData.get('email'),
+        recipient: this.recipient,
+        subject: this.subject,
+        message: this.message,
+        sender: this.sender,
         attachment: null 
       };
 
       try {
         await axios.post('http://localhost:8082/email/sendEmail', emailDetail);
-        event.target.reset();
-        alert('Email sent successfully!');
+        this.resetForm();
+        this.showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
       } catch (error) {
-        console.error(error);
-        alert('An error occurred while sending the email.');
+        console.error('Error sending email:', error);
+        this.showNotification('Failed to send message. Please try again later.', 'error');
+      }
+    },
+    resetForm() {
+      this.sender = '';
+      this.subject = '';
+      this.message = '';
+    },
+    showNotification(message, type) {
+      // Simple notification - you can replace with a toast library
+      if (type === 'success') {
+        alert(message);
+      } else {
+        alert(message);
       }
     }
   }
@@ -115,70 +210,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin-top: 120px;
-  margin-bottom: 30px;
-}
-
-.contact-info {
-  text-align: center;
-}
-
-.contact-info i {
-  font-size: 3rem;
-  color: #333;
-  margin-bottom: 10px;
-  transition: color 0.3s ease-in-out;
-}
-
-.contact-info h4 {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.contact-info p {
-  margin-bottom: 20px;
-}
-
-.contact-info i.fa-phone {
-  color: #FF0000;
-}
-
-.contact-info i.fa-map-marker-alt .fa-3x {
-  color: #00FF00; 
-}
-
-.contact-info i.fa-envelope {
-  color: #0000FF;
-}
-
-.contact-info i.fa-facebook-f {
-  color: #FF00FF;
-}
-
-.contact-info i:hover {
-  color: #FFA500; 
-}
-.social-links a {
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 20px;
-  color: #333;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  text-align: center;
-  line-height: 36px;
-  transition: background-color 0.3s ease-in-out;
-}
-.social-links a i {
-  font-size: 3rem;
-  color: #333; 
-  transition: color 0.3s ease-in-out;
-}
-
-.social-links a:hover i {
-  color: #FF0000;
-}
-
+/* Modern styles are handled by Tailwind CSS classes */
+/* Add any custom animations or overrides here if needed */
 </style>

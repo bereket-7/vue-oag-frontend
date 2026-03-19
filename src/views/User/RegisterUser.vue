@@ -311,7 +311,7 @@ export default {
   top: 0;
   height: 100vh;
   flex: 0 0 380px;
-  background: url('@/assets/img/painting1.jpg') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&q=80') center/cover no-repeat;
 }
 
 .art-overlay {

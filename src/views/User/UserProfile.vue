@@ -22,8 +22,8 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="card card-profile mb-4">
-                  <div class="card-header" src="require('@/assets/img/three.jpg')"></div>
-                  <div class="card-body text-center"><img :src="require('@/assets/img/miki.jpg')" class="card-profile-img" alt="avatar">
+                  <div class="card-header"></div>
+                  <div class="card-body text-center"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" class="card-profile-img" alt="avatar">
                     <h3 class="mb-3">Bereket Getachew</h3>
                     <p class="mb-4">Customer</p>
                   </div>
@@ -35,7 +35,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row mb-3">
-                      <div class="col-auto d-flex align-items-center"><img :src="require('@/assets/img/two.jpg')" class="avatar avatar-lg p-1" alt="avatar"></div>
+                      <div class="col-auto d-flex align-items-center"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" class="avatar avatar-lg p-1" alt="avatar"></div>
                       <div class="col">
                         <input class="form-control" placeholder="Customer Name">
                       </div>

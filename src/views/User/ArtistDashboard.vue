@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-3 border-right sidebar">
                 <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                    <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
+                    <img class="rounded-circle mt-5" width="150px" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80">
                     <span class="font-weight-bold">Bereket</span>
                 </div>
                 <div class="sidebar">

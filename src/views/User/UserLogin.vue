@@ -181,7 +181,7 @@ export default {
 /* ── Art Panel ── */
 .auth-panel--art {
   position: relative;
-  background: url('@/assets/img/art-landscape.jpg') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1400&q=80') center/cover no-repeat;
   flex: 1.1;
 }
 

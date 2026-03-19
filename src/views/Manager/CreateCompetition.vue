@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="image-container">
-      <img src="@/assets/img/competition.png" alt="Competition image">
+      <img src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=900&q=80" alt="Competition image">
     </div>
   <div class="form-container">
     <form @submit.prevent="addCompetition" class="form">

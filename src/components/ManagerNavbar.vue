@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg">
-      <router-link to="/" class="navbar-brand"> <img src="@/assets/img/Kelem.png" alt="Logo" width="100" height="60"></router-link>
+      <router-link to="/" class="navbar-brand"> <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=80&h=48&fit=crop&q=80" alt="Logo" width="100" height="60"></router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

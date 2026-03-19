@@ -5,7 +5,10 @@
       <div class="art-overlay"></div>
       <div class="art-content">
         <div class="art-logo">
-          <img src="@/assets/img/Kelem.png" alt="Kelem" />
+          <div class="auth-brand">
+            <span class="auth-brand__kelem">KELEM</span>
+            <span class="auth-brand__sub">Online Art Gallery</span>
+          </div>
         </div>
         <div class="art-tagline">
           <h2>Join Kelem</h2>
@@ -311,7 +314,7 @@ export default {
   top: 0;
   height: 100vh;
   flex: 0 0 380px;
-  background: url('@/assets/img/painting1.jpg') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&q=80') center/cover no-repeat;
 }
 
 .art-overlay {
@@ -334,6 +337,26 @@ export default {
 .art-logo img {
   height: 52px;
   filter: brightness(0) invert(1);
+}
+
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.auth-brand__kelem {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #fff;
+  line-height: 1;
+}
+.auth-brand__sub {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
 }
 
 .art-tagline h2 {

@@ -61,7 +61,7 @@
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
-  background-image: url("~@/assets/img/background.jpg");
+  background-image: url("https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1400&q=80");
   background-size: cover;
   background-position: center center;
 }
@@ -138,7 +138,7 @@ justify-content: center;
 align-items: center;
 height: 100vh;
 background-color: #f5f5f5;
-background-image: url("~@/assets/img/buetyback.png");
+background-image: url("https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1400&q=80");
 background-size: cover;
 background-position: center center;
 }

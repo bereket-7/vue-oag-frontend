@@ -23,7 +23,7 @@
         <div class="order-2 lg:order-1" data-aos="fade-right">
           <div class="relative">
             <img 
-              :src="require('@/assets/img/three.jpg')" 
+              src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=900&q=80" 
               class="rounded-2xl shadow-2xl w-full" 
               alt="Kelem Art Gallery Team"
             >

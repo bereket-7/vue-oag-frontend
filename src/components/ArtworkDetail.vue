@@ -33,7 +33,7 @@ export default {
         rating: 3,
         price: '10000 ETB',
         category: 'water color painting',
-        image: require('../assets/img/eye.jpg'),
+        image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80',
       }
     }
   }

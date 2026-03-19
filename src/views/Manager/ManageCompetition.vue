@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-3 border-right sidebar">
                 <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                    <img class="rounded-circle mt-5" width="150px" src="@/assets/img/bekam.jpg">
+                    <img class="rounded-circle mt-5" width="150px" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80">
                     <span class="font-weight-bold">Bereket</span>
                 </div>
                 <div class="sidebar">
@@ -38,7 +38,7 @@
                         <div class="row mt-3">
                         <div class="col-md-4 mb-3">
                             <div class="card">
-                            <img class="card-img-top" src="@/assets/img/abstract-landscape-bold.jpg" alt="Card image cap" height="300" >
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80" alt="Competition artwork" height="300" >
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="card">
-                            <img class="card-img-top" src="@/assets/img/acry.jpg" alt="Card image cap" height="300">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80" alt="Competition artwork" height="300">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="card">
-                            <img class="card-img-top" src="@/assets/img/art.jpg" alt="Card image cap" height="300">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=600&q=80" alt="Competition artwork" height="300">
                             <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

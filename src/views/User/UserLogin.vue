@@ -5,7 +5,10 @@
       <div class="art-overlay"></div>
       <div class="art-content">
         <div class="art-logo">
-          <img src="@/assets/img/Kelem.png" alt="Kelem" />
+          <div class="auth-brand">
+            <span class="auth-brand__kelem">KELEM</span>
+            <span class="auth-brand__sub">Online Art Gallery</span>
+          </div>
         </div>
         <blockquote class="art-quote">
           <p>"Art enables us to find ourselves and lose ourselves at the same time."</p>
@@ -205,6 +208,26 @@ export default {
 .art-logo img {
   height: 56px;
   filter: brightness(0) invert(1);
+}
+
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.auth-brand__kelem {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #fff;
+  line-height: 1;
+}
+.auth-brand__sub {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
 }
 
 .art-quote {

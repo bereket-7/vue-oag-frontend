@@ -2,12 +2,10 @@
   <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" :class="{ 'bg-white/95 backdrop-blur-md shadow-lg': scrolled, 'bg-transparent': !scrolled }">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16 lg:h-20">
-        <!-- Logo -->
-        <router-link to="/" class="flex items-center space-x-2 group" @click="closeMenu">
-          <div class="relative">
-            <img src="@/assets/img/Kelem.png" alt="Kelem Art Gallery" class="h-10 lg:h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
-            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-          </div>
+        <!-- Brand -->
+        <router-link to="/" class="brand-link group" @click="closeMenu">
+          <span class="brand-kelem">KELEM</span>
+          <span class="brand-sub">Online Art Gallery</span>
         </router-link>
 
         <!-- Desktop Nav Links -->
@@ -281,6 +279,36 @@ onUnmounted(() => {
 
 <style scoped>
 /* Modern styles are handled by Tailwind CSS classes */
+
+/* ── Brand ── */
+.brand-link {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-decoration: none;
+  gap: 2px;
+}
+.brand-kelem {
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: opacity 0.2s;
+}
+.brand-link:hover .brand-kelem { opacity: 0.85; }
+.brand-sub {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  -webkit-text-fill-color: #9ca3af;
+  transition: color 0.2s;
+}
+.brand-link:hover .brand-sub { color: #6366f1; -webkit-text-fill-color: #6366f1; }
 /* Add any custom animations or overrides here if needed */
 
 .dropdown-enter-active,

@@ -116,7 +116,7 @@ const openModal = (artwork) => {
   showModal.value = true;
 };
 
-const handleAddToCart = async (artwork) => {
+const handleAddToCart = async (_artwork) => {
   if (!authStore.isAuthenticated) {
     showError('Please login to add items to cart');
     router.push('/userLogin');

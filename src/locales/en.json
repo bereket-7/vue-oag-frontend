@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "auctions": "Auctions",
+    "collections": "Collections",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "cart": "Cart",
+    "logout": "Logout"
+  },
+  "auth": {
+    "welcome": "Welcome back",
+    "email": "Email",
+    "password": "Password",
+    "login": "Log In",
+    "forgotPassword": "Forgot Password?"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shipping": "Shipping",
+    "payment": "Payment",
+    "placeOrder": "Place Order"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

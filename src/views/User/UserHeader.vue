@@ -24,6 +24,11 @@
 
         <!-- Right Actions -->
         <div class="flex items-center space-x-3">
+          <!-- Dark mode toggle -->
+          <button @click="toggleTheme" class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all" aria-label="Toggle dark mode">
+            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'" class="text-gray-600"></i>
+          </button>
+
           <!-- Search Button (Desktop) -->
           <button class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 group">
             <i class="fas fa-search text-gray-600 group-hover:text-purple-600 transition-colors duration-200"></i>
@@ -220,12 +225,20 @@ const scrolled = ref(false);
 const menuOpen = ref(false);
 const dropdownOpen = ref(false);
 const dropdownRef = ref(null);
+const isDark = ref(localStorage.getItem('theme') === 'dark');
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value;
+  document.documentElement.classList.toggle('dark', isDark.value);
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light');
+};
 
 const navLinks = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/recentArtwork', label: 'New Arts' },
   { to: '/allArtwork', label: 'Gallery' },
+  { to: '/search', label: 'Search' },
+  { to: '/collections', label: 'Collections' },
+  { to: '/auctions', label: 'Auctions' },
   { to: '/contactUs', label: 'Contact' },
 ];
 

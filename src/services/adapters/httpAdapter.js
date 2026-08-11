@@ -13,7 +13,8 @@ export const httpAdapter = {
     register: wrap((userData) => api.post('/auth/register', userData)),
     logout: wrap(() => api.post('/auth/logout')),
     forgotPassword: wrap((email) => api.post('/auth/forgot-password', { email })),
-    confirmEmail: wrap((token) => api.get(`/auth/confirm/${token}`))
+    confirmEmail: wrap((token) => api.get(`/auth/confirm/${token}`)),
+    changePassword: wrap((data) => api.post('/auth/change-password', data))
   },
   artwork: {
     getAll: wrap((params) => api.get('/artworks', { params })),

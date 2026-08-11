@@ -86,11 +86,10 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
 import { BaseModal, BaseButton } from '@/components/common';
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     required: true
@@ -107,7 +106,6 @@ const props = defineProps({
 
 const emit = defineEmits(['change-tab']);
 
-const router = useRouter();
 const { logout } = useAuth();
 
 const sidebarOpen = ref(false);

@@ -122,7 +122,8 @@ const markAllRead = async () => {
   success('All notifications marked as read');
 };
 
-const deleteNotification = async (id) => {
+const deleteNotification = async (_id) => {
+  void _id;
   // Implement delete logic
   success('Notification deleted');
 };

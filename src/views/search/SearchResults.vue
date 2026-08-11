@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 pt-20 dark:bg-gray-950 transition-colors">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Search Results</h1>
       <div class="flex flex-wrap gap-4 mb-6">

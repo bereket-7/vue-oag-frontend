@@ -9,3 +9,4 @@ export { default as StatCard } from './StatCard.vue';
 export { default as EmptyState } from './EmptyState.vue';
 export { default as ErrorState } from './ErrorState.vue';
 export { default as PageLoader } from './PageLoader.vue';
+export { default as PageHeader } from './PageHeader.vue';

@@ -1,76 +1,48 @@
 <template>
-    <div class="container my-5">
-      <form>
-        <h2>Checkout</h2>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" v-model="firstName">
+  <div class="min-h-screen bg-gray-50 pt-20">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <CheckoutSteps :step="step" />
+      <div class="mt-8 bg-white rounded-xl shadow-md p-8">
+        <div v-if="step === 1">
+          <h2 class="text-xl font-bold mb-4">Review Cart</h2>
+          <div v-for="item in cartStore.items" :key="item.id" class="flex justify-between py-3 border-b">
+            <span>{{ item.artworkName }} × {{ item.quantity }}</span>
+            <span>{{ formatPrice(item.price * item.quantity) }}</span>
           </div>
-          <div class="col-md-6">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" v-model="lastName">
-          </div>
+          <OrderSummary :subtotal="subtotal()" :shipping="shipping()" :tax="tax()" :total="total()" class="mt-6" />
         </div>
-        <div class="mb-3">
-          <label for="address" class="form-label">Address</label>
-          <input type="text" class="form-control" id="address" v-model="address">
+        <ShippingForm v-else-if="step === 2" v-model="shippingAddress" />
+        <PaymentStep v-else-if="step === 3" @pay="handlePay" :loading="loading" :subtotal="subtotal()" :shipping="shipping()" :tax="tax()" :total="total()" />
+        <div v-else-if="step === 4" class="text-center py-8">
+          <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+          <h2 class="text-2xl font-bold">Order Confirmed!</h2>
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" v-model="email">
+        <div class="flex justify-between mt-8">
+          <BaseButton v-if="step > 1 && step < 4" variant="outline" @click="prevStep">Back</BaseButton>
+          <div v-else></div>
+          <BaseButton v-if="step === 1" @click="nextStep" :disabled="!cartStore.items.length">Continue</BaseButton>
+          <BaseButton v-else-if="step === 2" @click="nextStep">Continue to Payment</BaseButton>
         </div>
-        <div class="mb-3">
-          <label for="phone" class="form-label">Phone</label>
-          <input type="text" class="form-control" id="phone" v-model="phone">
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control" id="city" v-model="city">
-          </div>
-          <div class="col-md-4">
-            <label for="state" class="form-label">State</label>
-            <select id="state" class="form-select" v-model="state">
-              <option value="AL">Ethiopia</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <label for="zip" class="form-label">Zip</label>
-            <input type="text" placeholder="1000" class="form-control" id="zip" v-model="zip">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </div>
     </div>
-    <FooterView/>
-  </template>
-  
-  <script>
-  import FooterView from '@/components/FooterView.vue'
-  export default {
-    data() {
-      return {
-        firstName: '',
-        lastName: '',
-        address: '',
-        email: '',
-        phone: '',
-        city: '',
-        state: '',
-        zip: ''
-      }
-    },
-    components:{
-FooterView
-}
-  }
-  
-  </script>
+  </div>
+</template>
 
-  <style>
-    .container{
-      padding-top: 30px;
-    }
-  </style>
-  
+<script setup>
+import { onMounted } from 'vue';
+import { useCartStore } from '@/stores/cart';
+import { useCheckout } from '@/composables/useCheckout';
+import { formatPrice } from '@/utils/currency';
+import { BaseButton } from '@/components/common';
+import CheckoutSteps from './checkout/CheckoutSteps.vue';
+import ShippingForm from './checkout/ShippingForm.vue';
+import PaymentStep from './checkout/PaymentStep.vue';
+import OrderSummary from './checkout/OrderSummary.vue';
+
+const cartStore = useCartStore();
+const { step, loading, shippingAddress, subtotal, shipping, tax, total, nextStep, prevStep, placeOrder } = useCheckout();
+
+const handlePay = async () => { await placeOrder('mock'); };
+
+onMounted(() => cartStore.fetchCart());
+</script>

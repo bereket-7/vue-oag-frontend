@@ -50,51 +50,34 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
-import { authService } from '@/services/authService';
+import { useRoute } from 'vue-router';
+import { useAuth } from '@/composables/useAuth';
 import FooterView from '@/components/FooterView.vue';
 
-const router = useRouter();
-const authStore = useAuthStore();
+const route = useRoute();
+const { login, redirectByRole } = useAuth();
 
-const credentials = ref({
-  email: '',
-  password: ''
-});
-
+const credentials = ref({ email: '', password: '' });
 const loading = ref(false);
 const error = ref('');
 
 const handleLogin = async () => {
   loading.value = true;
   error.value = '';
-  
-  try {
-    const response = await authService.login({
-      username: credentials.value.email,
-      password: credentials.value.password
-    });
-
-    const { accessToken, role } = response.data;
-    
-    authStore.setAuth(accessToken, response.data.user, role);
-
-    // Route based on role
-    const roleRoutes = {
-      'ADMIN': '/adminDashboard',
-      'CUSTOMER': '/customerDashboard',
-      'ARTIST': '/artistDashboard',
-      'MANAGER': '/managerDashboard',
-      'ORGANIZATION': '/organizationDashboard'
-    };
-
-    router.push(roleRoutes[role] || '/');
-  } catch (err) {
-    error.value = err.response?.data?.message || 'Username or password incorrect';
-  } finally {
-    loading.value = false;
+  const result = await login({
+    username: credentials.value.email,
+    password: credentials.value.password
+  });
+  if (result.success) {
+    if (route.query.redirect) {
+      window.location.href = route.query.redirect;
+    } else {
+      redirectByRole();
+    }
+  } else {
+    error.value = result.error;
   }
+  loading.value = false;
 };
 </script>
 

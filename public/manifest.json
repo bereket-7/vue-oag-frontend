@@ -1,0 +1,10 @@
+{
+  "name": "KELEM Online Art Gallery",
+  "short_name": "KELEM",
+  "description": "Discover, collect, and showcase extraordinary art",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": []
+}

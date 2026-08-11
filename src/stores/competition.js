@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import api from '@/services/api';
+import { competitionService } from '@/services/competitionService';
 
 export const useCompetitionStore = defineStore('competition', () => {
   const competitions = ref([]);
@@ -10,49 +10,26 @@ export const useCompetitionStore = defineStore('competition', () => {
   const fetchCompetitions = async () => {
     loading.value = true;
     try {
-      const response = await api.get('/competitions');
-      competitions.value = response.data;
-      return response.data;
+      competitions.value = await competitionService.getAll();
+      return competitions.value;
     } finally {
       loading.value = false;
     }
   };
 
-  const fetchCompetitionById = async (id) => {
-    loading.value = true;
-    try {
-      const response = await api.get(`/competitions/${id}`);
-      currentCompetition.value = response.data;
-      return response.data;
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  const createCompetition = async (competitionData) => {
-    const response = await api.post('/competitions', competitionData);
-    competitions.value.unshift(response.data);
-    return response.data;
+  const createCompetition = async (data) => {
+    const comp = await competitionService.create(data);
+    competitions.value.unshift(comp);
+    return comp;
   };
 
   const registerForCompetition = async (competitionId, artworkId) => {
-    const response = await api.post(`/competitions/${competitionId}/register`, { artworkId });
-    return response.data;
+    return competitionService.register(competitionId, artworkId);
   };
 
   const voteForArtwork = async (competitionId, artworkId) => {
-    const response = await api.post(`/competitions/${competitionId}/vote`, { artworkId });
-    return response.data;
+    return competitionService.vote(competitionId, artworkId);
   };
 
-  return {
-    competitions,
-    currentCompetition,
-    loading,
-    fetchCompetitions,
-    fetchCompetitionById,
-    createCompetition,
-    registerForCompetition,
-    voteForArtwork
-  };
+  return { competitions, currentCompetition, loading, fetchCompetitions, createCompetition, registerForCompetition, voteForArtwork };
 });

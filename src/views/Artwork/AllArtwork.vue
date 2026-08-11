@@ -113,35 +113,47 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useArtworkStore } from '@/stores/artwork';
+import { useCartStore } from '@/stores/cart';
+import { useNotification } from '@/composables/useNotification';
+import { parsePrice } from '@/utils/currency';
 import FooterView from '@/components/FooterView.vue';
 
 const artworkStore = useArtworkStore();
-const categories = ['All', ...new Set(artworkStore.artworks.map(a => a.artworkCategory))];
+const cartStore = useCartStore();
+const { success } = useNotification();
+
+const categories = computed(() => ['All', ...new Set(artworkStore.artworks.map(a => a.category || a.artworkCategory))]);
 const activeCategory = ref('All');
 const sortBy = ref('default');
 const search = ref('');
 const selectedArtwork = ref(null);
 
+const getTitle = (a) => a.title || a.artworkName;
+const getArtist = (a) => a.artistName || a.artist;
+const getCategory = (a) => a.category || a.artworkCategory;
+const getPrice = (a) => typeof a.price === 'number' ? a.price : parsePrice(a.price);
+const getRating = (a) => a.rating ?? a.averageRating ?? 0;
+
 const filteredArtworks = computed(() => {
   let list = activeCategory.value === 'All'
     ? [...artworkStore.artworks]
-    : artworkStore.artworks.filter(a => a.artworkCategory === activeCategory.value);
+    : artworkStore.artworks.filter(a => getCategory(a) === activeCategory.value);
 
   if (search.value.trim()) {
     const q = search.value.toLowerCase();
     list = list.filter(a =>
-      a.artworkName.toLowerCase().includes(q) ||
-      a.artist.toLowerCase().includes(q) ||
-      a.artworkCategory.toLowerCase().includes(q)
+      getTitle(a).toLowerCase().includes(q) ||
+      getArtist(a).toLowerCase().includes(q) ||
+      getCategory(a).toLowerCase().includes(q)
     );
   }
 
-  if (sortBy.value === 'price-asc') list.sort((a, b) => parseFloat(a.price.replace(/\D/g,'')) - parseFloat(b.price.replace(/\D/g,'')));
-  else if (sortBy.value === 'price-desc') list.sort((a, b) => parseFloat(b.price.replace(/\D/g,'')) - parseFloat(a.price.replace(/\D/g,'')));
-  else if (sortBy.value === 'rating') list.sort((a, b) => b.averageRating - a.averageRating);
-  else if (sortBy.value === 'newest') list.sort((a, b) => b.year - a.year);
+  if (sortBy.value === 'price-asc') list.sort((a, b) => getPrice(a) - getPrice(b));
+  else if (sortBy.value === 'price-desc') list.sort((a, b) => getPrice(b) - getPrice(a));
+  else if (sortBy.value === 'rating') list.sort((a, b) => getRating(b) - getRating(a));
+  else if (sortBy.value === 'newest') list.sort((a, b) => (b.year || 0) - (a.year || 0));
   return list;
 });
 
@@ -153,9 +165,12 @@ function closeModal() {
   selectedArtwork.value = null;
   document.body.style.overflow = '';
 }
-function addToCart(artwork) {
-  alert(`"${artwork.artworkName}" added to cart!`);
+async function addToCart(artwork) {
+  await cartStore.addToCart(artwork);
+  success(`"${getTitle(artwork)}" added to cart!`);
 }
+
+onMounted(() => artworkStore.fetchArtworks());
 </script>
 
 <style scoped>

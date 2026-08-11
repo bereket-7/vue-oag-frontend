@@ -1,11 +1,5 @@
 <template>
-  <DashboardLayout
-    title="My Account"
-    :tabs="tabs"
-    :active-tab="activeTab"
-    @change-tab="setTab"
-  >
-    <!-- Overview -->
+  <div class="p-4 sm:p-6 lg:p-8">
     <div v-if="activeTab.key === 'overview'">
       <PageHeader title="Welcome back" :subtitle="`Hello, ${userName}!`" eyebrow="Customer" />
 
@@ -19,27 +13,25 @@
 
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        <button
+        <router-link
           v-for="action in quickActions"
           :key="action.key"
-          type="button"
-          class="page-card p-5 text-left hover:border-purple-300 dark:hover:border-purple-700 transition-all group"
-          @click="action.tab ? setTab(tabs.find(t => t.key === action.tab)) : $router.push(action.path)"
+          :to="action.to"
+          class="page-card p-5 text-left hover:border-purple-300 dark:hover:border-purple-700 transition-all group block"
         >
           <i :class="action.icon" class="text-2xl text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 mb-3 transition-colors" />
           <p class="font-medium text-gray-900 dark:text-white text-sm">{{ action.label }}</p>
-        </button>
+        </router-link>
       </div>
     </div>
 
     <ProfileSetting v-else-if="activeTab.key === 'profile'" embedded />
     <ChangePassword v-else-if="activeTab.key === 'password'" embedded />
-  </DashboardLayout>
+  </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import DashboardLayout from '@/components/layout/DashboardLayout.vue';
 import ProfileSetting from '@/views/User/ProfileSetting.MODERN.vue';
 import ChangePassword from '@/components/ChangePassword.MODERN.vue';
 import { PageHeader } from '@/components/common';
@@ -54,7 +46,7 @@ const tabs = [
   { key: 'password', label: 'Change Password', icon: 'fas fa-lock' },
 ];
 
-const { activeTab, setTab } = useDashboardRoute(tabs, 'overview');
+const { activeTab } = useDashboardRoute(tabs, 'overview');
 
 const userName = computed(() => user.value?.firstName || user.value?.firstname || user.value?.username || 'there');
 
@@ -66,14 +58,14 @@ const stats = [
 ];
 
 const quickActions = [
-  { key: 'gallery', label: 'Browse Gallery', icon: 'fas fa-palette', path: '/allArtwork' },
-  { key: 'wishlist', label: 'Wishlist', icon: 'fas fa-heart', path: '/wishlist' },
-  { key: 'cart', label: 'Cart', icon: 'fas fa-shopping-cart', path: '/cart' },
-  { key: 'orders', label: 'Orders', icon: 'fas fa-receipt', path: '/account/orders' },
-  { key: 'collection', label: 'My Collection', icon: 'fas fa-layer-group', path: '/account/collection' },
-  { key: 'auctions', label: 'Auctions', icon: 'fas fa-gavel', path: '/auctions' },
-  { key: 'messages', label: 'Messages', icon: 'fas fa-envelope', path: '/messages' },
-  { key: 'profile', label: 'Profile', icon: 'fas fa-user-cog', tab: 'profile' },
+  { key: 'gallery', label: 'Browse Gallery', icon: 'fas fa-palette', to: '/allArtwork' },
+  { key: 'wishlist', label: 'Wishlist', icon: 'fas fa-heart', to: '/wishlist' },
+  { key: 'cart', label: 'Cart', icon: 'fas fa-shopping-cart', to: '/cart' },
+  { key: 'orders', label: 'Orders', icon: 'fas fa-receipt', to: '/account/orders' },
+  { key: 'collection', label: 'My Collection', icon: 'fas fa-layer-group', to: '/account/collection' },
+  { key: 'auctions', label: 'Auctions', icon: 'fas fa-gavel', to: '/auctions' },
+  { key: 'messages', label: 'Messages', icon: 'fas fa-envelope', to: '/messages' },
+  { key: 'profile', label: 'Profile', icon: 'fas fa-user-cog', to: { path: '/customerDashboard', query: { tab: 'profile' } } },
 ];
 </script>
 

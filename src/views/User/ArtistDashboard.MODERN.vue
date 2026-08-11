@@ -1,10 +1,5 @@
 <template>
-  <DashboardLayout
-    title="Artist Dashboard"
-    :tabs="tabs"
-    :active-tab="activeTab"
-    @change-tab="setTab"
-  >
+  <div class="p-4 sm:p-6 lg:p-8">
     <MyArt v-if="activeTab.key === 'my-art'" @upload="setTab(tabs.find(t => t.key === 'upload'))" />
     <ProfileSetting v-else-if="activeTab.key === 'profile'" embedded />
     <DisplayCompetition v-else-if="activeTab.key === 'competition'" embedded />
@@ -13,11 +8,10 @@
     <EventDisplay v-else-if="activeTab.key === 'events'" embedded />
     <NotificationList v-else-if="activeTab.key === 'notifications'" embedded />
     <UserStandard v-else-if="activeTab.key === 'standards'" embedded />
-  </DashboardLayout>
+  </div>
 </template>
 
 <script setup>
-import DashboardLayout from '@/components/layout/DashboardLayout.vue';
 import NotificationList from '@/views/User/NotificationList.MODERN.vue';
 import EventDisplay from '@/views/Organization/EventDisplay.MODERN.vue';
 import ProfileSetting from '@/views/User/ProfileSetting.MODERN.vue';
@@ -40,6 +34,5 @@ const tabs = [
 ];
 
 const { activeTab, setTab } = useDashboardRoute(tabs, 'my-art');
-
 const onUploaded = () => setTab(tabs.find((t) => t.key === 'my-art'));
 </script>

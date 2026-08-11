@@ -6,10 +6,9 @@ import i18n from './i18n';
 import './assets/tailwind.css';
 import './assets/style.css';
 import '@fortawesome/fontawesome-free/js/all';
+import { initTheme } from '@/composables/useTheme';
 
-if (localStorage.getItem('theme') === 'dark') {
-  document.documentElement.classList.add('dark');
-}
+initTheme();
 
 const pinia = createPinia();
 const app = createApp(App);

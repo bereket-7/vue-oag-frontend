@@ -55,8 +55,8 @@
   </style>
   
   <script>
-import { isAuthenticated } from '@/utils/auth';
-import api from '@/utils/api';
+import { useAuthStore } from '@/stores/auth';
+import api from '@/services/api';
 
 export default {
   data() {
@@ -68,19 +68,20 @@ export default {
   },
   methods: {
     async changePassword() {
-      if (!isAuthenticated()) {
-        return;
-      }
+      const authStore = useAuthStore();
+      if (!authStore.isAuthenticated) return;
 
       try {
-        const response = await api.post('users/password/change', {
+        await api.post('users/password/change', {
           oldPassword: this.oldPassword,
           newPassword: this.newPassword,
           confirmPassword: this.confirmPassword
         });
-        console.log(response.data); 
+        this.oldPassword = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
       } catch (error) {
-        console.error(error.response.data); 
+        console.error(error?.response?.data || error);
       }
     }
   }

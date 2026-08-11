@@ -1,114 +1,99 @@
 <template>
-    <div class="competition">
-      <h2>Most Recent Competition</h2>
-      <div v-if="competition" class="competition-card">
-        <h3>{{ competition.competitionTitle }}</h3>
-        <p>{{ competition.competitionDescription }}</p>
-        <p>Number of Competitors: {{ competition.numberOfCompetitor }}</p>
-        <p>Expiry Date: {{ competition.expiryDate }}</p>
-        <router-link to="/registerCompetitor">  <button class="apply-button">Apply</button></router-link>
-      </div>
-      <div v-else>
-        <p>No competition found.</p>
+  <div>
+    <PageHeader
+      title="Art Competitions"
+      subtitle="Enter your work and compete for recognition and prizes"
+      eyebrow="Compete"
+    />
+
+    <PageLoader v-if="loading" />
+
+    <EmptyState
+      v-else-if="!competitions.length"
+      title="No active competitions"
+      message="Check back soon for upcoming art challenges."
+      icon="fas fa-trophy"
+    />
+
+    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div
+        v-for="comp in competitions"
+        :key="comp.id"
+        class="comp-card"
+      >
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/30">
+            <i class="fas fa-trophy text-white text-lg" />
+          </div>
+          <span
+            class="px-3 py-1 text-xs font-semibold rounded-full capitalize"
+            :class="comp.status === 'active'
+              ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+              : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+          >
+            {{ comp.status }}
+          </span>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ comp.title }}</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">{{ comp.description }}</p>
+
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <div class="stat-pill">
+            <i class="fas fa-users text-purple-500 mb-1" />
+            <p class="text-xs text-gray-500 dark:text-gray-400">Entries</p>
+            <p class="font-bold text-gray-900 dark:text-white">{{ comp.entries || 0 }}</p>
+          </div>
+          <div class="stat-pill">
+            <i class="fas fa-calendar text-purple-500 mb-1" />
+            <p class="text-xs text-gray-500 dark:text-gray-400">Deadline</p>
+            <p class="font-bold text-gray-900 dark:text-white text-sm">{{ formatDate(comp.endDate) }}</p>
+          </div>
+        </div>
+
+        <router-link
+          v-if="comp.status === 'active'"
+          to="/registerCompetitor"
+          class="btn-apply"
+        >
+          <i class="fas fa-paper-plane mr-2" />Apply Now
+        </router-link>
+        <p v-else class="text-sm text-gray-500 dark:text-gray-400 italic">Registration opens {{ formatDate(comp.startDate) }}</p>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import api from '@/services/api';
-  
-  export default {
-    name: 'DisplayCompetition',
-    data() {
-      return {
-        competition: {
-        competitionTitle: 'Sample Competition',
-        competitionDescription: 'This is a sample competition description.',
-        numberOfCompetitor: 10,
-        expiryDate: '2023-07-01'
-      }
-       // competition: null
-      };
-    },
-    mounted() {
-      api .get('/competition/most-recent')
-        .then(response => {
-          this.competition = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  };
-  </script>
+  </div>
+</template>
 
+<script setup>
+import { ref, onMounted } from 'vue';
+import { competitionService } from '@/services/competitionService';
+import { PageHeader, PageLoader, EmptyState } from '@/components/common';
+
+defineProps({
+  embedded: { type: Boolean, default: false }
+});
+
+const competitions = ref([]);
+const loading = ref(true);
+
+const formatDate = (date) => {
+  if (!date) return '—';
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
+
+onMounted(async () => {
+  try {
+    competitions.value = await competitionService.getAll();
+  } catch {
+    competitions.value = [];
+  } finally {
+    loading.value = false;
+  }
+});
+</script>
 
 <style scoped>
-.competition {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.competition-card {
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 400px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.competition-card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.competition-card h3 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.competition-card p {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.apply-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.apply-button:hover {
-  background-color: #0056b3;
-}
-
-@media (max-width: 768px) {
-  .competition-card {
-    max-width: 90%;
-    padding: 10px;
-  }
-
-  .competition-card h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-
-  .competition-card p {
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
-
-  .apply-button {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
+.comp-card { @apply bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm hover:shadow-lg hover:shadow-purple-500/5 transition-all; }
+.stat-pill { @apply bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-center; }
+.btn-apply { @apply inline-flex items-center justify-center w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg shadow-purple-500/20 transition-all text-sm; }
 </style>
-  

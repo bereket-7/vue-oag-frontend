@@ -1,0 +1,23 @@
+<template>
+  <div class="space-y-6">
+    <h2 class="text-xl font-bold">Payment</h2>
+    <OrderSummary :subtotal="subtotal" :shipping="shipping" :tax="tax" :total="total" />
+    <div class="border rounded-lg p-6 space-y-4">
+      <PaypalButton v-if="!isMockMode" @success="$emit('pay')" />
+      <BaseButton v-else full-width size="lg" :loading="loading" @click="$emit('pay')">
+        <i class="fas fa-credit-card mr-2"></i> Pay Now (Demo)
+      </BaseButton>
+      <p class="text-xs text-gray-500 text-center">Mock mode — no real charge will be made.</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { isMockMode } from '@/services/adapters';
+import { BaseButton } from '@/components/common';
+import PaypalButton from '@/components/PaypalButton.vue';
+import OrderSummary from './OrderSummary.vue';
+
+defineProps({ loading: Boolean, subtotal: Number, shipping: Number, tax: Number, total: Number });
+defineEmits(['pay']);
+</script>

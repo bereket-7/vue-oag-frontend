@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "home": "መነሻ",
+    "gallery": "ጋለሪ",
+    "auctions": "ጨረታዎች",
+    "collections": "مجموعات",
+    "login": "ግባ",
+    "register": "ተመዝገብ",
+    "cart": "سلة",
+    "logout": "ውጣ"
+  }
+}

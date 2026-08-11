@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useAuth } from '@/composables/useAuth';
 import { BaseModal, BaseButton } from '@/components/common';
 
@@ -111,7 +111,11 @@ const quickActions = [
   { path: '/edit-account', label: 'Account Details', icon: 'fas fa-cog' },
   { path: '/wishlist', label: 'Wishlist', icon: 'fas fa-heart' },
   { path: '/cart', label: 'Cart', icon: 'fas fa-shopping-cart' },
-  { path: '/allArtwork', label: 'Browse Art', icon: 'fas fa-images' }
+  { path: '/account/orders', label: 'Orders', icon: 'fas fa-receipt' },
+  { path: '/account/collection', label: 'My Collection', icon: 'fas fa-collection' },
+  { path: '/messages', label: 'Messages', icon: 'fas fa-envelope' },
+  { path: '/auctions', label: 'Auctions', icon: 'fas fa-gavel' },
+  { path: '/collections', label: 'Collections', icon: 'fas fa-layer-group' },
 ];
 
 const handleLogout = () => {

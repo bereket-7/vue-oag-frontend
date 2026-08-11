@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import api from '@/services/api';
+import { cartService } from '@/services/cartService';
 
 export const useCartStore = defineStore('cart', () => {
   const items = ref([]);
@@ -12,22 +12,15 @@ export const useCartStore = defineStore('cart', () => {
   const fetchCart = async () => {
     loading.value = true;
     try {
-      const response = await api.get('/cart');
-      items.value = response.data;
+      items.value = await cartService.getAll();
     } finally {
       loading.value = false;
     }
   };
 
   const addToCart = async (artwork, quantity = 1) => {
-    const existingItem = items.value.find(item => item.artworkId === artwork.id);
-    
-    if (existingItem) {
-      await updateQuantity(existingItem.id, existingItem.quantity + quantity);
-    } else {
-      const response = await api.post('/cart', { artworkId: artwork.id, quantity });
-      items.value.push(response.data);
-    }
+    await cartService.add(artwork.id, quantity);
+    await fetchCart();
   };
 
   const updateQuantity = async (itemId, quantity) => {
@@ -35,19 +28,17 @@ export const useCartStore = defineStore('cart', () => {
       await removeFromCart(itemId);
       return;
     }
-    
-    const response = await api.put(`/cart/${itemId}`, { quantity });
-    const index = items.value.findIndex(item => item.id === itemId);
-    if (index !== -1) items.value[index] = response.data;
+    await cartService.update(itemId, quantity);
+    await fetchCart();
   };
 
   const removeFromCart = async (itemId) => {
-    await api.delete(`/cart/${itemId}`);
-    items.value = items.value.filter(item => item.id !== itemId);
+    await cartService.remove(itemId);
+    await fetchCart();
   };
 
   const clearCart = async () => {
-    await api.delete('/cart');
+    await cartService.clear();
     items.value = [];
   };
 

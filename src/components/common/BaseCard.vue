@@ -33,7 +33,7 @@ const props = defineProps({
 });
 
 const cardClasses = computed(() => {
-  const base = 'bg-white rounded-xl shadow-md overflow-hidden transition-shadow';
+  const base = 'bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden transition-shadow border border-transparent dark:border-gray-800';
   const hover = props.hoverable ? 'hover:shadow-lg' : '';
   return `${base} ${hover}`;
 });

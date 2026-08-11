@@ -5,3 +5,7 @@ export { default as BaseModal } from './BaseModal.vue';
 export { default as LoadingSpinner } from './LoadingSpinner.vue';
 export { default as ToastNotification } from './ToastNotification.vue';
 export { default as DataTable } from './DataTable.vue';
+export { default as StatCard } from './StatCard.vue';
+export { default as EmptyState } from './EmptyState.vue';
+export { default as ErrorState } from './ErrorState.vue';
+export { default as PageLoader } from './PageLoader.vue';

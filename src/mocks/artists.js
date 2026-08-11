@@ -1,0 +1,7 @@
+export const MOCK_ARTISTS = [
+  { id: 1, slug: 'elena-rodriguez', name: 'Elena Rodriguez', bio: 'Abstract painter exploring celestial themes and cosmic wonder.', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80', specialty: 'Abstract Painting', verified: true, artworkIds: [1], socialLinks: { instagram: '#', twitter: '#' } },
+  { id: 2, slug: 'marcus-chen', name: 'Marcus Chen', bio: 'Urban landscape artist capturing the pulse of modern cities.', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', specialty: 'Urban Landscapes', verified: true, artworkIds: [2], socialLinks: { instagram: '#' } },
+  { id: 3, slug: 'sophie-laurent', name: 'Sophie Laurent', bio: 'Floral impressionist with a soft pastel palette.', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80', specialty: 'Floral Art', verified: true, artworkIds: [3], socialLinks: {} },
+  { id: 5, slug: 'amara-diallo', name: 'Amara Diallo', bio: 'Seascape and cultural narrative artist from West Africa.', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80', specialty: 'Seascapes', verified: true, artworkIds: [5, 16], socialLinks: { instagram: '#' } },
+  { id: 6, slug: 'yuki-tanaka', name: 'Yuki Tanaka', bio: 'Mixed media artist blending Eastern and Western techniques.', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80', specialty: 'Mixed Media', verified: false, artworkIds: [6], socialLinks: {} }
+];

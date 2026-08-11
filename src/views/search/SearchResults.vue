@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-screen bg-gray-50 pt-20">
+  <div class="min-h-screen bg-gray-50 pt-20 dark:bg-gray-950 transition-colors">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-6">Search Results</h1>
+      <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Search Results</h1>
       <div class="flex flex-wrap gap-4 mb-6">
-        <input v-model="filters.q" placeholder="Search..." class="flex-1 min-w-[200px] border rounded-lg px-4 py-2" @keyup.enter="search" />
-        <select v-model="filters.category" class="border rounded-lg px-4 py-2">
+        <input v-model="filters.q" placeholder="Search..." class="flex-1 min-w-[200px] border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white" @keyup.enter="search" />
+        <select v-model="filters.category" class="border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
           <option value="">All Categories</option>
           <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
         </select>
-        <select v-model="filters.sort" class="border rounded-lg px-4 py-2">
+        <select v-model="filters.sort" class="border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
           <option value="default">Default</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>

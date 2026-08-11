@@ -1,69 +1,45 @@
 <template>
-    <div class="paypal-button-container">
-      <div id="paypal-button"></div>
+  <div class="paypal-button-container">
+    <div v-if="isMockMode">
+      <button class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700" @click="$emit('success')">
+        Pay with PayPal (Demo)
+      </button>
     </div>
-  </template>
-  
-  <script>
-  import { onMounted } from 'vue';
-  
-  export default {
-    mounted() {
-      onMounted(() => {
-        this.initializePayPalButton();
-      });
-    },
-    methods: {
-      initializePayPalButton() {
-        window.paypal
-          .Buttons({
-            createOrder: () => {
-              return fetch('http://localhost:8082/paypal/pay', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ price: 10, currency: 'USD' }),
-              })
-                .then((res) => res.json())
-                .then((data) => data.id);
-            },
-            onApprove: (data) => {
-              return fetch('http://localhost:8080/paypal/success', {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                params: { paymentId: data.orderID, payerId: data.payerID },
-              })
-                .then((res) => res.text())
-                .then((result) => {
-                  console.log(result);
-                  this.$router.push('/paymentSuccess');
-                })
-                .catch((error) => {
-                  console.error(error);
-                  this.$router.push('/paymentError');
-                });
-            },
-          })
-          .render('#paypal-button');
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .paypal-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    <div v-else id="paypal-button"></div>
+  </div>
+</template>
+
+<script>
+import { loadScript } from '@paypal/paypal-js';
+import { isMockMode } from '@/services/adapters';
+
+export default {
+  name: 'PaypalButton',
+  emits: ['success', 'error'],
+  data() {
+    return { isMockMode: isMockMode() };
+  },
+  mounted() {
+    if (!this.isMockMode) this.initializePayPalButton();
+  },
+  methods: {
+    async initializePayPalButton() {
+      const clientId = process.env.VUE_APP_PAYPAL_CLIENT_ID;
+      if (!clientId) return;
+      const paypal = await loadScript({ 'client-id': clientId });
+      paypal.Buttons({
+        createOrder: () => fetch(`${process.env.VUE_APP_API_BASE_URL}/paypal/pay`, { method: 'POST' }).then((r) => r.json()),
+        onApprove: (data) => {
+          this.$emit('success', data);
+          this.$router?.push('/paymentSuccess');
+        },
+        onError: () => this.$emit('error')
+      }).render('#paypal-button');
+    }
   }
-  
-  #paypal-button {
-    width: 200px;
-    height: 50px;
-  }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+.paypal-button-container { min-height: 45px; }
+</style>

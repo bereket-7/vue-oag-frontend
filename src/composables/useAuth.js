@@ -1,6 +1,8 @@
 import { computed } from 'vue';
-import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+import { getDashboardRouteForRole } from '@/constants/routes';
+import { normalizeRole } from '@/constants/roles';
 
 export function useAuth() {
   const authStore = useAuthStore();
@@ -12,24 +14,28 @@ export function useAuth() {
 
   const login = async (credentials) => {
     try {
-      await authStore.login(credentials);
-      return { success: true };
+      const response = await authStore.login(credentials);
+      return { success: true, data: response };
     } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Login failed' };
+      return {
+        success: false,
+        error: error.message || error.response?.data?.message || 'Login failed'
+      };
     }
   };
 
-  const logout = () => {
-    authStore.logout();
+  const logout = async () => {
+    await authStore.logout();
     router.push('/userLogin');
   };
 
-  const hasRole = (requiredRole) => {
-    return authStore.role === requiredRole;
-  };
+  const hasRole = (requiredRole) => authStore.hasRole(requiredRole);
+  const hasAnyRole = (roles) => authStore.hasAnyRole(roles);
 
-  const hasAnyRole = (roles) => {
-    return roles.includes(authStore.role);
+  const redirectByRole = (userRole = authStore.role) => {
+    const route = getDashboardRouteForRole(normalizeRole(userRole));
+    router.push(route);
+    return route;
   };
 
   return {
@@ -40,6 +46,7 @@ export function useAuth() {
     logout,
     hasRole,
     hasAnyRole,
+    redirectByRole,
     isArtist: computed(() => authStore.isArtist),
     isCustomer: computed(() => authStore.isCustomer),
     isManager: computed(() => authStore.isManager),

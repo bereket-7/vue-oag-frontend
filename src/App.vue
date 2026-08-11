@@ -3,14 +3,15 @@
     Skip to content
   </a>
   <UserHeader />
-    <main id="main-content" class="transition-colors">
-    <router-view />
+  <main id="main-content" class="pt-16 lg:pt-20 transition-colors">
+    <AppLayout />
   </main>
   <ToastNotification />
 </template>
 
 <script setup>
 import UserHeader from '@/views/User/UserHeader.vue';
+import AppLayout from '@/components/layout/AppLayout.vue';
 import ToastNotification from '@/components/common/ToastNotification.vue';
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <label v-if="label" :for="id" class="block text-sm font-medium text-gray-700 mb-1">
+    <label v-if="label" :for="id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
       {{ label }}
       <span v-if="required" class="text-red-500">*</span>
     </label>
@@ -54,9 +54,9 @@ defineEmits(['update:modelValue', 'blur', 'focus']);
 const inputClasses = computed(() => {
   const base = 'block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-offset-0 outline-none transition-all';
   const state = props.error 
-    ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
-    : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500';
-  const disabled = props.disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white';
+    ? 'border-red-300 dark:border-red-700 focus:border-red-500 focus:ring-red-500' 
+    : 'border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500';
+  const disabled = props.disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white';
   
   return `${base} ${state} ${disabled}`;
 });

@@ -1,58 +1,162 @@
 <template>
-  <div class="login">
-    <form class="login__form" @submit.prevent="handleLogin">
-      <h2 class="login__title">Log In</h2>
-      
-      <div v-if="error" class="login__error">{{ error }}</div>
-      
-      <div class="login__input-container">
-        <input 
-          v-model="credentials.email" 
-          type="email" 
-          placeholder="Email" 
-          class="login__input"
-          required
-        />
-        <div class="login__input-underline"></div>
+  <div class="min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)] flex">
+    <!-- Brand panel -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl" />
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-300 rounded-full blur-3xl" />
       </div>
-      
-      <div class="login__input-container">
-        <input 
-          v-model="credentials.password" 
-          type="password" 
-          placeholder="Password" 
-          class="login__input"
-          required
-        />
-        <div class="login__input-underline"></div>
-      </div>
-      
-      <button type="submit" class="login__button" :disabled="loading">
-        {{ loading ? 'Logging in...' : 'Log In' }}
-      </button>
-      
-      <router-link to="/forgotPassword" class="login__forgot-password">
-        Forgot Password?
-      </router-link>
-    </form>
-    
-    <div class="login__signup-wrapper">
-      <div class="login__signup">
-        <p class="login__signup-message">Don't have an account?</p>
-        <router-link to="/register">
-          <button class="login__signup-button">Sign Up</button>
+      <div class="relative z-10 flex flex-col justify-between p-12 text-white w-full">
+        <router-link to="/" class="inline-flex flex-col leading-none no-underline group">
+          <span class="text-2xl font-black tracking-[0.15em]">KELEM</span>
+          <span class="text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-white/70 group-hover:text-white transition-colors">Online Art Gallery</span>
         </router-link>
+
+        <div>
+          <h1 class="text-4xl xl:text-5xl font-bold leading-tight mb-4">
+            Discover art<br />that moves you
+          </h1>
+          <p class="text-lg text-white/80 max-w-md">
+            Browse curated collections, bid on exclusive auctions, and connect with talented artists worldwide.
+          </p>
+        </div>
+
+        <div class="flex gap-8 text-sm text-white/70">
+          <div>
+            <p class="text-2xl font-bold text-white">2k+</p>
+            <p>Artworks</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">500+</p>
+            <p>Artists</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">50+</p>
+            <p>Auctions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form panel -->
+    <div class="flex-1 flex items-center justify-center px-4 py-10 sm:px-8 bg-gray-50 dark:bg-gray-950">
+      <div class="w-full max-w-md">
+        <div class="lg:hidden text-center mb-8">
+          <router-link to="/" class="inline-flex flex-col leading-none no-underline">
+            <span class="text-2xl font-black tracking-[0.15em] bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">KELEM</span>
+          </router-link>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl shadow-purple-500/5 dark:shadow-none border border-gray-100 dark:border-gray-800 p-8 sm:p-10">
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Welcome back</h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Sign in to continue to your account</p>
+          </div>
+
+          <!-- Demo credentials hint -->
+          <div class="mb-6 p-3 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/50">
+            <p class="text-xs font-medium text-purple-700 dark:text-purple-300 mb-2">Demo accounts (mock mode)</p>
+            <div class="flex flex-wrap gap-1.5">
+              <button
+                v-for="demo in demoAccounts"
+                :key="demo.label"
+                type="button"
+                class="text-xs px-2 py-1 rounded-md bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-700 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors"
+                @click="fillDemo(demo)"
+              >
+                {{ demo.label }}
+              </button>
+            </div>
+          </div>
+
+          <form @submit.prevent="handleLogin" class="space-y-5">
+            <div v-if="error" class="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+              <i class="fas fa-exclamation-circle shrink-0" />
+              {{ error }}
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email or username</label>
+              <div class="relative">
+                <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                <input
+                  id="email"
+                  v-model="credentials.email"
+                  type="text"
+                  placeholder="you@example.com"
+                  required
+                  autocomplete="username"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <router-link to="/forgotPassword" class="text-xs font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
+                  Forgot password?
+                </router-link>
+              </div>
+              <div class="relative">
+                <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                <input
+                  id="password"
+                  v-model="credentials.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  placeholder="••••••••"
+                  required
+                  autocomplete="current-password"
+                  class="w-full pl-10 pr-11 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                  @click="showPassword = !showPassword"
+                >
+                  <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" class="text-sm" />
+                </button>
+              </div>
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input v-model="rememberMe" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500" />
+              <span class="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+            </label>
+
+            <button
+              type="submit"
+              :disabled="loading"
+              class="w-full py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-60 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5"
+            >
+              <span v-if="loading" class="inline-flex items-center gap-2">
+                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                Signing in...
+              </span>
+              <span v-else>Sign in</span>
+            </button>
+          </form>
+
+          <p class="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+            Don't have an account?
+            <router-link to="/register" class="font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
+              Create one free
+            </router-link>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  <FooterView/>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
-import FooterView from '@/components/FooterView.vue';
 
 const route = useRoute();
 const { login, redirectByRole } = useAuth();
@@ -60,6 +164,19 @@ const { login, redirectByRole } = useAuth();
 const credentials = ref({ email: '', password: '' });
 const loading = ref(false);
 const error = ref('');
+const showPassword = ref(false);
+const rememberMe = ref(false);
+
+const demoAccounts = [
+  { label: 'Customer', email: 'customer', password: 'customer123' },
+  { label: 'Artist', email: 'artist', password: 'artist123' },
+  { label: 'Admin', email: 'admin', password: 'admin123' },
+];
+
+const fillDemo = (demo) => {
+  credentials.value.email = demo.email;
+  credentials.value.password = demo.password;
+};
 
 const handleLogin = async () => {
   loading.value = true;
@@ -75,170 +192,8 @@ const handleLogin = async () => {
       redirectByRole();
     }
   } else {
-    error.value = result.error;
+    error.value = result.error || 'Invalid email or password';
   }
   loading.value = false;
 };
 </script>
-
-<style scoped>
-.login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 110vh;
-  background-color: #f5f5f5;
-  background-size: cover;
-  background-position: center center;
-}
-
-.login__form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 450px;
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.login__title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #0a87ee;
-}
-
-.login__error {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  background-color: #fee;
-  color: #c33;
-  border-radius: 0.5rem;
-  text-align: center;
-}
-
-.login__input-container {
-  position: relative;
-  margin-bottom: 1.1rem;
-  width: 100%;
-}
-
-.login__input {
-  width: 100%;
-  padding: 0.5rem 0.5rem;
-  font-size: 1.2rem;
-  border: none;
-  border-bottom: 2px solid #ccc;
-  outline: none;
-}
-
-.login__input-underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 4px;
-  background-color: #3498db;
-  transition: width 0.2s ease-in-out;
-}
-
-.login__input:focus + .login__input-underline {
-  width: 100%;
-}
-
-.login__button {
-  width: 100%;
-  padding: 1rem;
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #3498db;
-  border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.login__button:hover:not(:disabled) {
-  background-color: #2980b9;
-}
-
-.login__button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.login__forgot-password {
-  margin-top: 1rem;
-  font-size: 1rem;
-  text-decoration: none;
-  color: #3498db;
-  transition: color 0.2s ease-in-out;
-}
-
-.login__forgot-password:hover {
-  color: #2980b9;
-}
-
-.login__signup-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30rem;
-  position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-.login__signup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.2rem;
-  color: #333;
-  position: relative;
-  margin-top: 2rem;
-}
-
-.login__signup-message {
-  margin-bottom: 0.5rem;
-}
-
-.login__signup-button {
-  padding: 1rem;
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #3498db;
-  border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  width: 100%;
-}
-
-.login__signup-button:hover {
-  background-color: #2980b9;
-}
-
-@media only screen and (max-width: 600px) {
-  .login__form {
-    border-radius: 0;
-  }
-
-  .login__button {
-    border-radius: 0;
-  }
-
-  .login__signup-button {
-    border-radius: 0;
-    width: 100%;
-  }
-}
-</style>

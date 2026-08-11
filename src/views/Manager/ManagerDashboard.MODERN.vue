@@ -91,11 +91,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import DashboardLayout from '@/components/layout/DashboardLayout.vue';
-import { BaseCard } from '@/components/common';
+import { BaseCard, StatCard } from '@/components/common';
 import EventDisplay from '@/views/Organization/EventDisplay.vue';
-import ProfileSetting from '@/views/User/ProfileSetting.vue';
+import ProfileSetting from '@/views/User/ProfileSetting.MODERN.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
-import VerifyArtwork from '@/views/Manager/VerifyArtwork.vue';
+import VerifyArtwork from '@/views/admin/VerifyArtworkPage.vue';
 import ManageStandards from '@/components/ManageStandards.vue';
 import SendNotification from '@/components/SendNotification.vue';
 import CreateCompetition from '@/views/Manager/CreateCompetition.vue';
@@ -135,35 +135,6 @@ const quickActions = [
 
 const changeTab = (tab) => {
   activeTab.value = tab;
-};
-
-const StatCard = ({ title, value, icon, color }) => {
-  const colors = {
-    yellow: 'bg-yellow-100 text-yellow-600',
-    blue: 'bg-blue-100 text-blue-600',
-    green: 'bg-green-100 text-green-600',
-    purple: 'bg-purple-100 text-purple-600'
-  };
-
-  return {
-    template: `
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm text-gray-600 mb-1">{{ title }}</p>
-            <p class="text-3xl font-bold text-gray-900">{{ value }}</p>
-          </div>
-          <div :class="['w-12 h-12 rounded-lg flex items-center justify-center', colors[color]]">
-            <i :class="icon" class="text-xl"></i>
-          </div>
-        </div>
-      </div>
-    `,
-    props: ['title', 'value', 'icon', 'color'],
-    setup() {
-      return { colors };
-    }
-  };
 };
 
 onMounted(() => {

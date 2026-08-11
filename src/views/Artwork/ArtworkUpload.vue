@@ -117,8 +117,8 @@
 </style>
 
 <script>
-import api from '@/utils/api';
-import { isAuthenticated } from '@/utils/auth';
+import api from '@/services/api';
+import { useAuthStore } from '@/stores/auth';
 
 export default {
   data() {
@@ -148,7 +148,8 @@ export default {
       formData.append('artworkCategory', this.artworkCategory);
       formData.append('image', this.image);
 
-      if (isAuthenticated()) {
+      const authStore = useAuthStore();
+      if (authStore.isAuthenticated) {
         try {
          await api.post('artworks/saveArtwork', formData);
           this.showSuccessPopup();

@@ -285,9 +285,12 @@ Auth state persists across page refreshes via `localStorage` (token, user, role)
 Copy `.env.example` to `.env.development` and configure:
 
 ```env
+VUE_APP_USE_MOCK=true
 VUE_APP_API_BASE_URL=http://localhost:8082/api
 VUE_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
 ```
+
+Set `VUE_APP_USE_MOCK=false` when connecting to a live backend. See `docs/IMPLEMENTATION.md` for mock credentials and API swap instructions.
 
 ---
 

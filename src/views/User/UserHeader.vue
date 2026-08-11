@@ -106,11 +106,11 @@
                       <i class="fas fa-tachometer-alt w-5" />
                       <span>Dashboard</span>
                     </router-link>
-                    <router-link to="/edit-account" @click="closeAll" class="dropdown-link">
+                    <router-link :to="profileRoute" @click="closeAll" class="dropdown-link">
                       <i class="fas fa-user-cog w-5" />
                       <span>Profile Settings</span>
                     </router-link>
-                    <router-link v-if="authStore.isArtist" to="/artworkUpload" @click="closeAll" class="dropdown-link">
+                    <router-link v-if="authStore.isArtist" :to="uploadRoute" @click="closeAll" class="dropdown-link">
                       <i class="fas fa-upload w-5" />
                       <span>Upload Artwork</span>
                     </router-link>
@@ -177,11 +177,11 @@
               <i class="fas fa-tachometer-alt w-5" />
               <span>Dashboard</span>
             </router-link>
-            <router-link to="/edit-account" class="mobile-link" @click="closeMenu">
+            <router-link :to="profileRoute" class="mobile-link" @click="closeMenu">
               <i class="fas fa-user-cog w-5" />
               <span>Profile</span>
             </router-link>
-            <router-link v-if="authStore.isArtist" to="/artworkUpload" class="mobile-link" @click="closeMenu">
+            <router-link v-if="authStore.isArtist" :to="uploadRoute" class="mobile-link" @click="closeMenu">
               <i class="fas fa-upload w-5" />
               <span>Upload Art</span>
             </router-link>
@@ -254,6 +254,16 @@ const dashboardRoute = computed(() => {
   if (authStore.isOrganization) return '/organizationDashboard';
   return '/customerDashboard';
 });
+
+const profileRoute = computed(() => ({
+  path: dashboardRoute.value,
+  query: { tab: 'profile' }
+}));
+
+const uploadRoute = computed(() => ({
+  path: '/artistDashboard',
+  query: { tab: 'upload' }
+}));
 
 function toggleMenu() { menuOpen.value = !menuOpen.value; }
 function closeMenu() { menuOpen.value = false; }

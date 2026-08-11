@@ -3,7 +3,7 @@
     Skip to content
   </a>
   <UserHeader />
-  <main id="main-content">
+    <main id="main-content" class="transition-colors">
     <router-view />
   </main>
   <ToastNotification />

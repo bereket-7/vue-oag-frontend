@@ -35,14 +35,14 @@
 <script setup>
 import { ref } from 'vue';
 import DashboardLayout from '@/components/layout/DashboardLayout.vue';
-import NotificationList from '@/views/User/NotificationList.vue';
-import EventDisplay from '@/views/Organization/EventDisplay.vue';
-import ProfileSetting from '@/views/User/ProfileSetting.vue';
-import MyArt from '@/views/Artwork/MyArt.vue';
-import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
+import NotificationList from '@/views/User/NotificationList.MODERN.vue';
+import EventDisplay from '@/views/Organization/EventDisplay.MODERN.vue';
+import ProfileSetting from '@/views/User/ProfileSetting.MODERN.vue';
+import MyArt from '@/views/Artwork/MyArt.MODERN.vue';
+import ArtworkUpload from '@/views/Artwork/ArtworkUpload.MODERN.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
-import UserStandard from '@/views/User/UserStandard.vue';
-import ChangePassword from '@/components/ChangePassword.vue';
+import UserStandard from '@/views/User/UserStandard.MODERN.vue';
+import ChangePassword from '@/components/ChangePassword.MODERN.vue';
 
 const activeTab = ref('My Art');
 

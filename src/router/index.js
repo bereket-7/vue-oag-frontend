@@ -31,10 +31,13 @@ const routes = [
   { path: '/account/orders', name: 'OrderHistory', component: () => import('../views/account/OrderHistory.vue'), meta: { requiresAuth: true } },
   { path: '/account/orders/:id', name: 'OrderDetail', component: () => import('../views/account/OrderDetail.vue'), meta: { requiresAuth: true } },
   { path: '/account/collection', name: 'MyCollection', component: () => import('../views/account/MyCollection.vue'), meta: { requiresAuth: true } },
-  { path: '/edit-account', name: 'ProfileSetting', component: () => import('../views/User/ProfileSetting.MODERN.vue'), meta: { requiresAuth: true } },
+  { path: '/edit-account', redirect: () => {
+    const authStore = useAuthStore();
+    return { path: getDashboardRouteForRole(authStore.role), query: { tab: 'profile' } };
+  }, meta: { requiresAuth: true } },
   { path: '/messages', name: 'Inbox', component: () => import('../views/messages/Inbox.vue'), meta: { requiresAuth: true } },
   { path: '/messages/:threadId', name: 'MessageThread', component: () => import('../views/messages/Thread.vue'), meta: { requiresAuth: true } },
-  { path: '/artworkUpload', name: 'ArtworkUpload', component: () => import('../views/Artwork/ArtworkUpload.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.ARTIST] } },
+  { path: '/artworkUpload', redirect: { path: '/artistDashboard', query: { tab: 'upload' } }, meta: { requiresAuth: true, roles: [ROLES.ARTIST] } },
   { path: '/customerDashboard', name: 'CustomerDashboard', component: () => import('../views/User/CustomerDashBoard.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.CUSTOMER] } },
   { path: '/artistDashboard', name: 'ArtistDashboard', component: () => import('../views/User/ArtistDashboard.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.ARTIST] } },
   { path: '/managerDashboard', name: 'ManagerDashboard', component: () => import('../views/Manager/ManagerDashboard.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },

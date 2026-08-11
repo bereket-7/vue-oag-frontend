@@ -94,6 +94,12 @@ export const mockAdapter = {
     async confirmEmail() {
       await delay(300);
       return { success: true };
+    },
+    async changePassword({ currentPassword, newPassword }) {
+      await delay(400);
+      void currentPassword;
+      void newPassword;
+      return { success: true, message: 'Password updated successfully' };
     }
   },
 

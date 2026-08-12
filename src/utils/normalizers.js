@@ -70,8 +70,12 @@ export function normalizeUser(raw) {
     lastName: raw.lastName || raw.lastname || '',
     role: String(raw.role || '').toUpperCase(),
     avatar: raw.avatar || raw.profilePicture || null,
+    phone: raw.phone || '',
+    address: raw.address || '',
+    status: raw.status || 'active',
+    joinedAt: raw.joinedAt || raw.createdAt || null,
     followedArtistIds: raw.followedArtistIds || [],
-    createdAt: raw.createdAt || new Date().toISOString()
+    createdAt: raw.createdAt || raw.joinedAt || new Date().toISOString()
   };
 }
 

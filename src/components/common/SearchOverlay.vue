@@ -4,15 +4,19 @@
       <div
         v-if="open"
         class="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4"
-        @click.self="close"
       >
-        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" aria-hidden="true" />
+        <div
+          class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"
+          aria-hidden="true"
+          @click="close"
+        />
 
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Search artworks"
           class="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
+          @click.stop
         >
           <form @submit.prevent="submit" class="flex items-center gap-3 p-4 border-b border-gray-100 dark:border-gray-700">
             <i class="fas fa-search text-purple-500 text-lg" aria-hidden="true" />

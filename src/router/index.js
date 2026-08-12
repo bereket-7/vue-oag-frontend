@@ -35,6 +35,7 @@ const routes = [
     const authStore = useAuthStore();
     return { path: getDashboardRouteForRole(authStore.role), query: { tab: 'profile' } };
   }, meta: { requiresAuth: true } },
+  { path: '/notifications', name: 'Notifications', component: () => import('../views/User/NotificationList.MODERN.vue'), meta: { requiresAuth: true } },
   { path: '/messages', name: 'Inbox', component: () => import('../views/messages/Inbox.vue'), meta: { requiresAuth: true } },
   { path: '/messages/:threadId', name: 'MessageThread', component: () => import('../views/messages/Thread.vue'), meta: { requiresAuth: true } },
   { path: '/artworkUpload', redirect: { path: '/artistDashboard', query: { tab: 'upload' } }, meta: { requiresAuth: true, roles: [ROLES.ARTIST] } },

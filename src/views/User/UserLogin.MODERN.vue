@@ -53,20 +53,10 @@
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Sign in to continue to your account</p>
           </div>
 
-          <!-- Demo credentials hint -->
-          <div class="mb-6 p-3 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/50">
-            <p class="text-xs font-medium text-purple-700 dark:text-purple-300 mb-2">Demo accounts (mock mode)</p>
-            <div class="flex flex-wrap gap-1.5">
-              <button
-                v-for="demo in demoAccounts"
-                :key="demo.label"
-                type="button"
-                class="text-xs px-2 py-1 rounded-md bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-700 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors"
-                @click="fillDemo(demo)"
-              >
-                {{ demo.label }}
-              </button>
-            </div>
+          <div v-if="isMock" class="mb-6 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50">
+            <p class="text-xs font-medium text-amber-800 dark:text-amber-300">
+              Mock mode is on. Use local demo accounts from the project docs — not for production.
+            </p>
           </div>
 
           <form @submit.prevent="handleLogin" class="space-y-5">
@@ -120,11 +110,6 @@
               </div>
             </div>
 
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input v-model="rememberMe" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500" />
-              <span class="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-            </label>
-
             <button
               type="submit"
               :disabled="loading"
@@ -155,28 +140,20 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
+import { isMockMode } from '@/services/adapters';
+import { getSafeInternalPath } from '@/utils/security';
 
 const route = useRoute();
+const router = useRouter();
 const { login, redirectByRole } = useAuth();
 
 const credentials = ref({ email: '', password: '' });
 const loading = ref(false);
 const error = ref('');
 const showPassword = ref(false);
-const rememberMe = ref(false);
-
-const demoAccounts = [
-  { label: 'Customer', email: 'customer', password: 'customer123' },
-  { label: 'Artist', email: 'artist', password: 'artist123' },
-  { label: 'Admin', email: 'admin', password: 'admin123' },
-];
-
-const fillDemo = (demo) => {
-  credentials.value.email = demo.email;
-  credentials.value.password = demo.password;
-};
+const isMock = isMockMode();
 
 const handleLogin = async () => {
   loading.value = true;
@@ -186,8 +163,9 @@ const handleLogin = async () => {
     password: credentials.value.password
   });
   if (result.success) {
-    if (route.query.redirect) {
-      window.location.href = route.query.redirect;
+    const redirect = getSafeInternalPath(route.query.redirect, '');
+    if (redirect) {
+      router.replace(redirect);
     } else {
       redirectByRole();
     }

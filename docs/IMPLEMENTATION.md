@@ -3,9 +3,11 @@
 ## Mock Mode
 
 Set `VUE_APP_USE_MOCK=true` in `.env.development` to use mock adapters.
-Set `VUE_APP_USE_MOCK=false` to use live HTTP API.
+Set `VUE_APP_USE_MOCK=false` in `.env.production` (required for production builds).
 
-## Mock Credentials
+## Mock Credentials (local development only)
+
+Never show these on the login page or ship them in a production build.
 
 | Role | Username | Password |
 |---|---|---|

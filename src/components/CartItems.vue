@@ -60,8 +60,10 @@ export default {
       api
       .post('payment/initialize')
         .then(response => {
-          const checkoutUrl = response.data.checkOutUrl;
-          window.location.href = checkoutUrl;
+          const checkoutUrl = response.data?.checkOutUrl;
+          if (typeof checkoutUrl === 'string' && checkoutUrl.startsWith('/') && !checkoutUrl.startsWith('//')) {
+            router.push(checkoutUrl);
+          }
         })
         .catch(error => {
           console.error(error);

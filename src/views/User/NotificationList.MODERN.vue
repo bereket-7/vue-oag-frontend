@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-2xl font-bold text-gray-900">Notifications</h2>
       <BaseButton v-if="unreadCount > 0" variant="outline" size="sm" @click="markAllRead">

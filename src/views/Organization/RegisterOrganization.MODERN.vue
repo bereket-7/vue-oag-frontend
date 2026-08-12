@@ -27,7 +27,7 @@
       <BaseInput v-model="form.address" label="Address" placeholder="Bole, Addis Ababa" :error="errors.address" required />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <BaseInput v-model="form.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 6 characters" required />
+        <BaseInput v-model="form.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 8 characters, with upper, lower, and a number" required />
         <BaseInput v-model="form.confirmPassword" type="password" label="Confirm Password" placeholder="••••••••" :error="errors.confirmPassword" required />
       </div>
 
@@ -48,6 +48,7 @@ import { useRouter } from 'vue-router';
 import { authService } from '@/services/authService';
 import { useNotification } from '@/composables/useNotification';
 import { BaseInput, PageHeader } from '@/components/common';
+import { isStrongPassword } from '@/utils/security';
 
 const props = defineProps({
   embedded: { type: Boolean, default: false }
@@ -83,7 +84,7 @@ const validate = () => {
   }
   if (!form.address) errors.value.address = 'Address is required';
   if (!form.password) errors.value.password = 'Password is required';
-  else if (form.password.length < 6) passwordError.value = 'Password must be at least 6 characters';
+  else if (!isStrongPassword(form.password)) passwordError.value = 'Use 8+ characters with upper, lower, and a number';
   if (!form.confirmPassword) errors.value.confirmPassword = 'Please confirm password';
   else if (form.password !== form.confirmPassword) passwordError.value = 'Passwords do not match';
   return Object.keys(errors.value).length === 0 && !passwordError.value;

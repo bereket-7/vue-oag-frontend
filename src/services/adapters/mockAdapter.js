@@ -97,8 +97,17 @@ export const mockAdapter = {
     },
     async changePassword({ currentPassword, newPassword }) {
       await delay(400);
-      void currentPassword;
-      void newPassword;
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const account = MOCK_USERS.find(
+        (u) => u.id === stored?.id || u.username === stored?.username || u.email === stored?.email
+      );
+      if (!account || account.password !== currentPassword) {
+        throw new Error('Current password is incorrect');
+      }
+      if (!newPassword || newPassword.length < 8) {
+        throw new Error('New password does not meet requirements');
+      }
+      account.password = newPassword;
       return { success: true, message: 'Password updated successfully' };
     }
   },

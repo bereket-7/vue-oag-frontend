@@ -105,11 +105,9 @@
             <BaseInput v-model="formData.username" label="Username" placeholder="Choose a username" :error="errors.username" required />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <BaseInput v-model="formData.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 6 characters" required />
+              <BaseInput v-model="formData.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 8 characters, with upper, lower, and a number" required />
               <BaseInput v-model="formData.confirmPassword" type="password" label="Confirm Password" placeholder="••••••••" :error="errors.confirmPassword" required />
             </div>
-
-            <p v-if="passwordError" class="text-sm text-red-600 dark:text-red-400">{{ passwordError }}</p>
 
             <button
               type="submit"
@@ -145,6 +143,7 @@ import { useRouter } from 'vue-router';
 import { authService } from '@/services/authService';
 import { useNotification } from '@/composables/useNotification';
 import { BaseInput } from '@/components/common';
+import { isStrongPassword } from '@/utils/security';
 
 const router = useRouter();
 const { success, error: showError } = useNotification();
@@ -175,13 +174,11 @@ const formData = reactive({
 });
 
 const errors = ref({});
-const passwordError = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
 
 const validateForm = () => {
   errors.value = {};
-  passwordError.value = '';
 
   if (!formData.firstname) errors.value.firstname = 'First name is required';
   if (!formData.lastname) errors.value.lastname = 'Last name is required';
@@ -211,17 +208,17 @@ const validateForm = () => {
 
   if (!formData.password) {
     errors.value.password = 'Password is required';
-  } else if (formData.password.length < 6) {
-    passwordError.value = 'Password must be at least 6 characters';
+  } else if (!isStrongPassword(formData.password)) {
+    errors.value.password = 'Use 8+ characters with upper, lower, and a number';
   }
 
   if (!formData.confirmPassword) {
     errors.value.confirmPassword = 'Please confirm your password';
   } else if (formData.password !== formData.confirmPassword) {
-    passwordError.value = 'Passwords do not match';
+    errors.value.confirmPassword = 'Passwords do not match';
   }
 
-  return Object.keys(errors.value).length === 0 && !passwordError.value;
+  return Object.keys(errors.value).length === 0;
 };
 
 const handleRegister = async () => {

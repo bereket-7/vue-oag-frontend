@@ -66,8 +66,9 @@ export default {
         description: this.description
       })
       .then(response => {
-        if (response.data.approvalUrl) {
-          window.location.href = response.data.approvalUrl;
+        const approvalUrl = response.data?.approvalUrl;
+        if (approvalUrl && /^https:\/\/(www\.)?(sandbox\.)?paypal\.com\//i.test(approvalUrl)) {
+          window.location.href = approvalUrl;
         }
       })
       .catch(error => {

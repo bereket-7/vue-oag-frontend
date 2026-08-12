@@ -60,14 +60,81 @@
               <span v-if="cartCount > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ cartCount }}</span>
             </router-link>
 
-            <button
-              type="button"
-              class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group relative"
-              aria-label="Notifications"
-            >
-              <i class="fas fa-bell text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200" />
-              <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
+            <div class="relative" ref="notifRef">
+              <button
+                type="button"
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group relative"
+                aria-label="Notifications"
+                :aria-expanded="notifOpen"
+                @click="toggleNotifications"
+              >
+                <i class="fas fa-bell text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200" />
+                <span
+                  v-if="unreadCount > 0"
+                  class="absolute -top-1 -right-1 min-w-[1.25rem] h-5 px-1 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+                >
+                  {{ unreadCount > 9 ? '9+' : unreadCount }}
+                </span>
+              </button>
+
+              <transition name="dropdown">
+                <div
+                  v-if="notifOpen"
+                  class="absolute top-full right-0 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50"
+                >
+                  <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                    <button
+                      v-if="unreadCount > 0"
+                      type="button"
+                      class="text-xs font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                      @click="markAllRead"
+                    >
+                      Mark all read
+                    </button>
+                  </div>
+
+                  <div class="max-h-80 overflow-y-auto">
+                    <p v-if="notifLoading" class="px-4 py-8 text-center text-sm text-gray-500">Loading...</p>
+                    <p v-else-if="!notifications.length" class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                      No notifications yet
+                    </p>
+                    <button
+                      v-else
+                      v-for="item in notifications.slice(0, 8)"
+                      :key="item.id"
+                      type="button"
+                      class="w-full text-left px-4 py-3 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors border-b border-gray-50 dark:border-gray-800 last:border-0"
+                      :class="{ 'bg-purple-50/60 dark:bg-purple-900/10': !item.read }"
+                      @click="openNotification(item)"
+                    >
+                      <div class="flex gap-3">
+                        <div
+                          class="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                          :class="notifIconClass(item.type)"
+                        >
+                          <i :class="notifIcon(item.type)" class="text-sm" />
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ item.title }}</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">{{ item.message }}</p>
+                          <p class="text-[11px] text-gray-400 mt-1">{{ formatNotifTime(item.createdAt) }}</p>
+                        </div>
+                        <span v-if="!item.read" class="w-2 h-2 rounded-full bg-purple-500 mt-2 shrink-0" />
+                      </div>
+                    </button>
+                  </div>
+
+                  <router-link
+                    to="/notifications"
+                    class="block text-center px-4 py-3 text-sm font-medium text-purple-600 dark:text-purple-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-t border-gray-100 dark:border-gray-700"
+                    @click="closeAll"
+                  >
+                    View all notifications
+                  </router-link>
+                </div>
+              </transition>
+            </div>
 
             <!-- User Dropdown -->
             <div class="relative" ref="dropdownRef">
@@ -185,6 +252,11 @@
               <i class="fas fa-upload w-5" />
               <span>Upload Art</span>
             </router-link>
+            <router-link to="/notifications" class="mobile-link" @click="closeMenu">
+              <i class="fas fa-bell w-5" />
+              <span>Notifications</span>
+              <span v-if="unreadCount > 0" class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto">{{ unreadCount }}</span>
+            </router-link>
             <router-link to="/cart" class="mobile-link" @click="closeMenu">
               <i class="fas fa-shopping-cart w-5" />
               <span>Cart</span>
@@ -212,23 +284,28 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useCartStore } from '@/stores/cart';
+import { useUserStore } from '@/stores/user';
 import { useTheme } from '@/composables/useTheme';
 import SearchOverlay from '@/components/common/SearchOverlay.vue';
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
+const userStore = useUserStore();
 const router = useRouter();
 const { isDark, toggleTheme } = useTheme();
 
 const scrolled = ref(false);
 const menuOpen = ref(false);
 const dropdownOpen = ref(false);
+const notifOpen = ref(false);
+const notifLoading = ref(false);
 const searchOpen = ref(false);
 const dropdownRef = ref(null);
+const notifRef = ref(null);
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -246,6 +323,8 @@ const userName = computed(() => {
 });
 
 const cartCount = computed(() => cartStore.itemCount ?? 0);
+const notifications = computed(() => userStore.notifications || []);
+const unreadCount = computed(() => notifications.value.filter((n) => !n.read).length);
 
 const dashboardRoute = computed(() => {
   if (authStore.isAdmin) return '/adminDashboard';
@@ -267,8 +346,66 @@ const uploadRoute = computed(() => ({
 
 function toggleMenu() { menuOpen.value = !menuOpen.value; }
 function closeMenu() { menuOpen.value = false; }
-function toggleDropdown() { dropdownOpen.value = !dropdownOpen.value; }
-function closeAll() { menuOpen.value = false; dropdownOpen.value = false; }
+function toggleDropdown() {
+  dropdownOpen.value = !dropdownOpen.value;
+  notifOpen.value = false;
+}
+async function toggleNotifications() {
+  dropdownOpen.value = false;
+  notifOpen.value = !notifOpen.value;
+  if (notifOpen.value && !notifications.value.length) {
+    notifLoading.value = true;
+    try {
+      await userStore.fetchNotifications();
+    } finally {
+      notifLoading.value = false;
+    }
+  }
+}
+function closeAll() {
+  menuOpen.value = false;
+  dropdownOpen.value = false;
+  notifOpen.value = false;
+}
+
+function notifIcon(type) {
+  return ({
+    success: 'fas fa-check-circle',
+    warning: 'fas fa-exclamation-triangle',
+    error: 'fas fa-times-circle',
+    message: 'fas fa-envelope'
+  }[type]) || 'fas fa-info-circle';
+}
+
+function notifIconClass(type) {
+  return ({
+    success: 'bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-400',
+    warning: 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
+    error: 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
+    message: 'bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-400'
+  }[type]) || 'bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400';
+}
+
+function formatNotifTime(date) {
+  if (!date) return '';
+  const diff = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (diff < 60) return 'Just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}
+
+async function markAllRead() {
+  for (const item of notifications.value) {
+    if (!item.read) await userStore.markNotificationRead(item.id);
+  }
+}
+
+async function openNotification(item) {
+  if (!item.read) await userStore.markNotificationRead(item.id);
+  closeAll();
+  router.push('/notifications');
+}
 
 function openSearchFromMobile() {
   closeMenu();
@@ -289,6 +426,9 @@ function handleClickOutside(e) {
   if (dropdownRef.value && !dropdownRef.value.contains(e.target)) {
     dropdownOpen.value = false;
   }
+  if (notifRef.value && !notifRef.value.contains(e.target)) {
+    notifOpen.value = false;
+  }
 }
 
 function handleSearchShortcut(e) {
@@ -297,6 +437,15 @@ function handleSearchShortcut(e) {
     searchOpen.value = true;
   }
 }
+
+watch(
+  () => authStore.isAuthenticated,
+  (loggedIn) => {
+    if (loggedIn) userStore.fetchNotifications().catch(() => {});
+    else notifOpen.value = false;
+  },
+  { immediate: true }
+);
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);

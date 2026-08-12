@@ -60,8 +60,13 @@ const ROLE_SECTIONS = {
   [ROLES.ADMIN]: {
     title: 'Administration',
     items: [
-      { key: 'admin-home', label: 'Dashboard', icon: 'fas fa-tachometer-alt', to: '/adminDashboard' },
-      { key: 'users', label: 'Users', icon: 'fas fa-users', to: '/admin/users' },
+      dashTab(ROLES.ADMIN, 'overview', 'Overview', 'fas fa-tachometer-alt'),
+      dashTab(ROLES.ADMIN, 'artists', 'Artists', 'fas fa-palette'),
+      dashTab(ROLES.ADMIN, 'customers', 'Customers', 'fas fa-users'),
+      dashTab(ROLES.ADMIN, 'organizations', 'Organizations', 'fas fa-building'),
+      dashTab(ROLES.ADMIN, 'managers', 'Managers', 'fas fa-user-tie'),
+      dashTab(ROLES.ADMIN, 'register-org', 'Register Org', 'fas fa-plus-circle'),
+      dashTab(ROLES.ADMIN, 'contact', 'Contact Users', 'fas fa-envelope'),
       { key: 'moderation', label: 'Moderation', icon: 'fas fa-flag', to: '/admin/moderation' },
       { key: 'analytics', label: 'Analytics', icon: 'fas fa-chart-bar', to: '/admin/analytics' },
       { key: 'settings', label: 'Settings', icon: 'fas fa-cog', to: '/admin/settings' },

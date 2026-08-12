@@ -19,14 +19,14 @@
         <div class="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/50">
           <p class="text-xs font-semibold text-purple-700 dark:text-purple-300 mb-2">Password tips</p>
           <ul class="text-xs text-purple-600 dark:text-purple-400 space-y-1">
-            <li><i class="fas fa-check mr-1.5 opacity-60" />At least 6 characters</li>
-            <li><i class="fas fa-check mr-1.5 opacity-60" />Mix letters and numbers</li>
+            <li><i class="fas fa-check mr-1.5 opacity-60" />At least 8 characters</li>
+            <li><i class="fas fa-check mr-1.5 opacity-60" />Uppercase, lowercase, and a number</li>
             <li><i class="fas fa-check mr-1.5 opacity-60" />Avoid common words</li>
           </ul>
         </div>
 
         <BaseInput v-model="formData.currentPassword" type="password" label="Current Password" :error="errors.currentPassword" required />
-        <BaseInput v-model="formData.newPassword" type="password" label="New Password" :error="errors.newPassword" hint="At least 6 characters" required />
+        <BaseInput v-model="formData.newPassword" type="password" label="New Password" :error="errors.newPassword" hint="At least 8 characters, with upper, lower, and a number" required />
         <BaseInput v-model="formData.confirmPassword" type="password" label="Confirm New Password" :error="errors.confirmPassword" required />
 
         <button type="submit" class="btn-primary w-full" :disabled="loading">
@@ -43,6 +43,7 @@ import { ref, reactive } from 'vue';
 import { authService } from '@/services/authService';
 import { useNotification } from '@/composables/useNotification';
 import { BaseInput, PageHeader } from '@/components/common';
+import { isStrongPassword } from '@/utils/security';
 
 defineProps({
   embedded: { type: Boolean, default: false }
@@ -61,8 +62,8 @@ const validateForm = () => {
   if (!formData.currentPassword) errors.value.currentPassword = 'Required';
   if (!formData.newPassword) {
     errors.value.newPassword = 'Required';
-  } else if (formData.newPassword.length < 6) {
-    errors.value.newPassword = 'Must be at least 6 characters';
+  } else if (!isStrongPassword(formData.newPassword)) {
+    errors.value.newPassword = 'Use 8+ chars with upper, lower, and a number';
   }
   if (!formData.confirmPassword) {
     errors.value.confirmPassword = 'Required';

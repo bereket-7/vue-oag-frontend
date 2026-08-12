@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { getDashboardRouteForRole } from '@/constants/routes';
 import { ROLES } from '@/constants/roles';
+import { isTokenExpired } from '@/utils/security';
 
 const routes = [
   { path: '/', name: 'Home', component: () => import('../views/HomeView.vue') },
@@ -25,9 +26,9 @@ const routes = [
   { path: '/cart', name: 'Cart', component: () => import('../components/cart/ShoppingCart.vue'), meta: { requiresAuth: true } },
   { path: '/wishlist', name: 'WishList', component: () => import('../views/shopping/WishList.MODERN.vue'), meta: { requiresAuth: true } },
   { path: '/checkout', name: 'CheckOut', component: () => import('../views/shopping/CheckOut.vue'), meta: { requiresAuth: true } },
-  { path: '/paymentSuccess', name: 'PaymentSuccess', component: () => import('../views/shopping/PaymentSuccess.vue') },
-  { path: '/paymentError', name: 'PaymentError', component: () => import('../views/shopping/PaymentError.vue') },
-  { path: '/payment/cancel', name: 'PaymentCancel', component: () => import('../views/shopping/PaypalFail.vue') },
+  { path: '/paymentSuccess', name: 'PaymentSuccess', component: () => import('../views/shopping/PaymentSuccess.vue'), meta: { requiresAuth: true } },
+  { path: '/paymentError', name: 'PaymentError', component: () => import('../views/shopping/PaymentError.vue'), meta: { requiresAuth: true } },
+  { path: '/payment/cancel', name: 'PaymentCancel', component: () => import('../views/shopping/PaypalFail.vue'), meta: { requiresAuth: true } },
   { path: '/account/orders', name: 'OrderHistory', component: () => import('../views/account/OrderHistory.vue'), meta: { requiresAuth: true } },
   { path: '/account/orders/:id', name: 'OrderDetail', component: () => import('../views/account/OrderDetail.vue'), meta: { requiresAuth: true } },
   { path: '/account/collection', name: 'MyCollection', component: () => import('../views/account/MyCollection.vue'), meta: { requiresAuth: true } },
@@ -51,16 +52,16 @@ const routes = [
   { path: '/manager/verify-artwork', name: 'VerifyArtwork', component: () => import('../views/admin/VerifyArtworkPage.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },
   { path: '/manager/competitions', name: 'ManageCompetition', component: () => import('../views/Manager/ManageCompetition.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },
   { path: '/createCompetition', name: 'CreateCompetition', component: () => import('../views/Manager/CreateCompetition.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },
-  { path: '/displayCompetition', name: 'DisplayCompetition', component: () => import('../views/Manager/DisplayCompetition.vue') },
+  { path: '/displayCompetition', name: 'DisplayCompetition', component: () => import('../views/Manager/DisplayCompetition.vue'), meta: { requiresAuth: true } },
   { path: '/registerCompetitor', name: 'RegisterCompetitor', component: () => import('../views/User/RegisterCompetitor.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.ARTIST] } },
-  { path: '/vote', name: 'VoteForArtwork', component: () => import('../views/Artwork/VoteForArtwork.vue') },
+  { path: '/vote', name: 'VoteForArtwork', component: () => import('../views/Artwork/VoteForArtwork.vue'), meta: { requiresAuth: true } },
   { path: '/auctions', name: 'AuctionList', component: () => import('../views/auctions/AuctionList.vue') },
   { path: '/auctions/:id', name: 'AuctionDetail', component: () => import('../views/auctions/AuctionDetail.vue') },
   { path: '/manager/auctions/create', name: 'CreateAuction', component: () => import('../views/auctions/CreateAuction.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER, ROLES.ARTIST] } },
   { path: '/eventRegister', name: 'EventRegister', component: () => import('../views/Organization/EventRegister.vue'), meta: { requiresAuth: true, roles: [ROLES.ORGANIZATION] } },
   { path: '/updateEvent', name: 'UpdateEvent', component: () => import('../views/Organization/UpdateEvent.vue'), meta: { requiresAuth: true, roles: [ROLES.ORGANIZATION] } },
   { path: '/eventDisplay', name: 'EventDisplay', component: () => import('../views/Organization/EventDisplay.MODERN.vue') },
-  { path: '/registerOrganization', name: 'RegisterOrganization', component: () => import('../views/Organization/RegisterOrganization.MODERN.vue'), meta: { requiresAuth: true } },
+  { path: '/registerOrganization', name: 'RegisterOrganization', component: () => import('../views/Organization/RegisterOrganization.MODERN.vue'), meta: { requiresAuth: true, roles: [ROLES.ADMIN] } },
   { path: '/displayStandard', name: 'UserStandard', component: () => import('../views/User/UserStandard.MODERN.vue') },
   { path: '/addStandard', name: 'AddStandard', component: () => import('../views/Manager/CompanyStandard.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },
   { path: '/sendNotification', name: 'SendNotification', component: () => import('../components/SendNotification.vue'), meta: { requiresAuth: true, roles: [ROLES.MANAGER] } },
@@ -80,6 +81,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+
+  if (authStore.token && isTokenExpired(authStore.token)) {
+    authStore.clearAuth();
+  }
 
   if (to.meta.guestOnly && authStore.isAuthenticated) {
     return next(getDashboardRouteForRole(authStore.role));

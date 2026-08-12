@@ -1,9 +1,12 @@
 <template>
   <div class="paypal-button-container">
     <div v-if="isMockMode">
-      <button class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700" @click="$emit('success')">
+      <button type="button" class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700" @click="$emit('success')">
         Pay with PayPal (Demo)
       </button>
+    </div>
+    <div v-else-if="!clientId" class="text-sm text-gray-500 dark:text-gray-400">
+      PayPal is not configured.
     </div>
     <div v-else id="paypal-button"></div>
   </div>
@@ -12,29 +15,43 @@
 <script>
 import { loadScript } from '@paypal/paypal-js';
 import { isMockMode } from '@/services/adapters';
+import api from '@/services/api';
 
 export default {
   name: 'PaypalButton',
   emits: ['success', 'error'],
   data() {
-    return { isMockMode: isMockMode() };
+    return {
+      isMockMode: isMockMode(),
+      clientId: process.env.VUE_APP_PAYPAL_CLIENT_ID || ''
+    };
   },
   mounted() {
-    if (!this.isMockMode) this.initializePayPalButton();
+    if (!this.isMockMode && this.clientId) this.initializePayPalButton();
   },
   methods: {
     async initializePayPalButton() {
-      const clientId = process.env.VUE_APP_PAYPAL_CLIENT_ID;
-      if (!clientId) return;
-      const paypal = await loadScript({ 'client-id': clientId });
-      paypal.Buttons({
-        createOrder: () => fetch(`${process.env.VUE_APP_API_BASE_URL}/paypal/pay`, { method: 'POST' }).then((r) => r.json()),
-        onApprove: (data) => {
-          this.$emit('success', data);
-          this.$router?.push('/paymentSuccess');
-        },
-        onError: () => this.$emit('error')
-      }).render('#paypal-button');
+      try {
+        const paypal = await loadScript({ 'client-id': this.clientId });
+        paypal.Buttons({
+          createOrder: async () => {
+            const { data } = await api.post('/paypal/pay');
+            return data.id || data.orderId;
+          },
+          onApprove: async (details) => {
+            const { data } = await api.post('/paypal/capture', { orderId: details.orderID });
+            if (!data?.success && !data?.id) {
+              this.$emit('error');
+              return;
+            }
+            this.$emit('success', data);
+            this.$router?.push('/paymentSuccess');
+          },
+          onError: () => this.$emit('error')
+        }).render('#paypal-button');
+      } catch {
+        this.$emit('error');
+      }
     }
   }
 };

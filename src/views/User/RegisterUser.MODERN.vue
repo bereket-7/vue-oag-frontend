@@ -7,18 +7,27 @@
         <div class="absolute bottom-10 right-0 w-72 h-72 bg-pink-400 rounded-full blur-3xl" />
       </div>
       <div class="relative z-10 flex flex-col justify-center p-12 text-white">
-        <router-link to="/" class="absolute top-12 left-12 inline-flex flex-col leading-none no-underline group">
+        <router-link
+          to="/"
+          class="absolute top-12 left-12 inline-flex flex-col leading-none no-underline group"
+        >
           <span class="text-2xl font-black tracking-[0.15em]">KELEM</span>
           <span class="text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-white/70">Online Art Gallery</span>
         </router-link>
 
-        <h1 class="text-3xl xl:text-4xl font-bold leading-tight mb-4">Join our creative community</h1>
+        <h1 class="text-3xl xl:text-4xl font-bold leading-tight mb-4">
+          Join our creative community
+        </h1>
         <p class="text-white/80 leading-relaxed mb-8">
           Whether you're collecting masterpieces or showcasing your own work, KELEM is your home for art.
         </p>
 
         <ul class="space-y-4">
-          <li v-for="feature in features" :key="feature" class="flex items-center gap-3 text-white/90">
+          <li
+            v-for="feature in features"
+            :key="feature"
+            class="flex items-center gap-3 text-white/90"
+          >
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 shrink-0">
               <i class="fas fa-check text-xs" />
             </span>
@@ -32,19 +41,32 @@
     <div class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950 px-4 py-10 sm:px-8">
       <div class="max-w-2xl mx-auto">
         <div class="lg:hidden text-center mb-8">
-          <router-link to="/" class="inline-flex flex-col leading-none no-underline">
+          <router-link
+            to="/"
+            class="inline-flex flex-col leading-none no-underline"
+          >
             <span class="text-2xl font-black tracking-[0.15em] bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">KELEM</span>
           </router-link>
         </div>
 
         <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl shadow-purple-500/5 dark:shadow-none border border-gray-100 dark:border-gray-800 p-8 sm:p-10">
           <div class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Create your account</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Start your art journey in minutes</p>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+              Create your account
+            </h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              Start your art journey in minutes
+            </p>
           </div>
 
-          <form @submit.prevent="handleRegister" class="space-y-6">
-            <div v-if="errorMessage" class="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+          <form
+            class="space-y-6"
+            @submit.prevent="handleRegister"
+          >
+            <div
+              v-if="errorMessage"
+              class="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm"
+            >
               <i class="fas fa-exclamation-circle shrink-0" />
               {{ errorMessage }}
             </div>
@@ -63,7 +85,11 @@
                     : 'border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-700'"
                   @click="formData.role = role.value"
                 >
-                  <i :class="role.icon" class="text-2xl" :style="{ color: formData.role === role.value ? '#9333ea' : '#9ca3af' }" />
+                  <i
+                    :class="role.icon"
+                    class="text-2xl"
+                    :style="{ color: formData.role === role.value ? '#9333ea' : '#9ca3af' }"
+                  />
                   <span class="font-semibold text-sm text-gray-900 dark:text-white">{{ role.label }}</span>
                   <span class="text-xs text-gray-500 dark:text-gray-400 text-center">{{ role.desc }}</span>
                 </button>
@@ -71,18 +97,57 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <BaseInput v-model="formData.firstname" label="First Name" placeholder="John" :error="errors.firstname" required />
-              <BaseInput v-model="formData.lastname" label="Last Name" placeholder="Doe" :error="errors.lastname" required />
+              <BaseInput
+                v-model="formData.firstname"
+                label="First Name"
+                placeholder="John"
+                :error="errors.firstname"
+                required
+              />
+              <BaseInput
+                v-model="formData.lastname"
+                label="Last Name"
+                placeholder="Doe"
+                :error="errors.lastname"
+                required
+              />
             </div>
 
-            <BaseInput v-model="formData.email" type="email" label="Email Address" placeholder="you@example.com" :error="errors.email" required />
+            <BaseInput
+              v-model="formData.email"
+              type="email"
+              label="Email Address"
+              placeholder="you@example.com"
+              :error="errors.email"
+              required
+            />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <BaseInput v-model="formData.phone" type="tel" label="Phone Number" placeholder="0912345678" :error="errors.phone" required />
-              <BaseInput v-model="formData.age" type="number" label="Age" placeholder="18" :error="errors.age" required />
+              <BaseInput
+                v-model="formData.phone"
+                type="tel"
+                label="Phone Number"
+                placeholder="0912345678"
+                :error="errors.phone"
+                required
+              />
+              <BaseInput
+                v-model="formData.age"
+                type="number"
+                label="Age"
+                placeholder="18"
+                :error="errors.age"
+                required
+              />
             </div>
 
-            <BaseInput v-model="formData.address" label="Address" placeholder="Your address" :error="errors.address" required />
+            <BaseInput
+              v-model="formData.address"
+              label="Address"
+              placeholder="Your address"
+              :error="errors.address"
+              required
+            />
 
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gender</label>
@@ -95,18 +160,49 @@
                     ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300'
                     : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-purple-300'"
                 >
-                  <input v-model="formData.sex" type="radio" :value="option" class="sr-only" />
+                  <input
+                    v-model="formData.sex"
+                    type="radio"
+                    :value="option"
+                    class="sr-only"
+                  >
                   {{ option }}
                 </label>
               </div>
-              <p v-if="errors.sex" class="mt-1 text-sm text-red-600">{{ errors.sex }}</p>
+              <p
+                v-if="errors.sex"
+                class="mt-1 text-sm text-red-600"
+              >
+                {{ errors.sex }}
+              </p>
             </div>
 
-            <BaseInput v-model="formData.username" label="Username" placeholder="Choose a username" :error="errors.username" required />
+            <BaseInput
+              v-model="formData.username"
+              label="Username"
+              placeholder="Choose a username"
+              :error="errors.username"
+              required
+            />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <BaseInput v-model="formData.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 8 characters, with upper, lower, and a number" required />
-              <BaseInput v-model="formData.confirmPassword" type="password" label="Confirm Password" placeholder="••••••••" :error="errors.confirmPassword" required />
+              <BaseInput
+                v-model="formData.password"
+                type="password"
+                label="Password"
+                placeholder="••••••••"
+                :error="errors.password"
+                hint="At least 8 characters, with upper, lower, and a number"
+                required
+              />
+              <BaseInput
+                v-model="formData.confirmPassword"
+                type="password"
+                label="Confirm Password"
+                placeholder="••••••••"
+                :error="errors.confirmPassword"
+                required
+              />
             </div>
 
             <button
@@ -114,10 +210,28 @@
               :disabled="loading"
               class="w-full py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-60 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
             >
-              <span v-if="loading" class="inline-flex items-center gap-2">
-                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              <span
+                v-if="loading"
+                class="inline-flex items-center gap-2"
+              >
+                <svg
+                  class="animate-spin h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  />
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
                 </svg>
                 Creating account...
               </span>
@@ -126,7 +240,10 @@
 
             <p class="text-center text-sm text-gray-600 dark:text-gray-400">
               Already have an account?
-              <router-link to="/userLogin" class="font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700">
+              <router-link
+                to="/userLogin"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700"
+              >
                 Sign in
               </router-link>
             </p>

@@ -104,7 +104,7 @@
             </li>
             <li>
               <router-link
-                to="/standards"
+                to="/privacy"
                 class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
               >
                 <i class="fas fa-shield-alt text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
@@ -113,7 +113,7 @@
             </li>
             <li>
               <router-link
-                to="/standards"
+                to="/terms"
                 class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
               >
                 <i class="fas fa-file-contract text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
@@ -210,10 +210,12 @@
               href="#"
               class="text-gray-400 hover:text-white transition-colors duration-200"
             >Sitemap</a>
-            <a
-              href="#"
+            <router-link
+              to="/privacy#cookies"
               class="text-gray-400 hover:text-white transition-colors duration-200"
-            >Cookie Policy</a>
+            >
+              Cookie Policy
+            </router-link>
           </div>
         </div>
       </div>

@@ -1,28 +1,57 @@
 <template>
-    <div class="container">
-      <h1>Submit Report</h1>
-      <form @submit.prevent="submitReport">
-        <div class="form-group">
-          <label for="reportTitle">Report Title</label>
-          <input type="text" class="form-control" id="reportTitle" v-model="reporter.reportTitle" required>
-        </div>
-        <div class="form-group">
-          <label for="reportDetail">Report Detail</label>
-          <textarea class="form-control" id="reportDetail" v-model="reporter.reportDetail" rows="4" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="reporterName">Reporter Name</label>
-          <input type="text" class="form-control" id="reporterName" v-model="reporter.reporterName" required>
-        </div>
-        <div class="form-group">
-          <label for="reporterEmail">Reporter Email</label>
-          <input type="email" class="form-control" id="reporterEmail" v-model="reporter.reporterEmail" required>
-        </div>
-        <button type="submit" class="btn btn-s">Submit</button>
-      </form>
-      <br><br><br>
-    </div>
-  </template>
+  <div class="container">
+    <h1>Submit Report</h1>
+    <form @submit.prevent="submitReport">
+      <div class="form-group">
+        <label for="reportTitle">Report Title</label>
+        <input
+          id="reportTitle"
+          v-model="reporter.reportTitle"
+          type="text"
+          class="form-control"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="reportDetail">Report Detail</label>
+        <textarea
+          id="reportDetail"
+          v-model="reporter.reportDetail"
+          class="form-control"
+          rows="4"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="reporterName">Reporter Name</label>
+        <input
+          id="reporterName"
+          v-model="reporter.reporterName"
+          type="text"
+          class="form-control"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="reporterEmail">Reporter Email</label>
+        <input
+          id="reporterEmail"
+          v-model="reporter.reporterEmail"
+          type="email"
+          class="form-control"
+          required
+        >
+      </div>
+      <button
+        type="submit"
+        class="btn btn-s"
+      >
+        Submit
+      </button>
+    </form>
+    <br><br><br>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

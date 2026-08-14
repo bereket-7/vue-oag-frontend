@@ -6,5 +6,6 @@ export const competitionService = {
   getAll: () => adapter().getAll(),
   create: (data) => adapter().create(data),
   register: (competitionId, artworkId) => adapter().register(competitionId, artworkId),
-  vote: (competitionId, artworkId) => adapter().vote(competitionId, artworkId)
+  vote: (competitionId, artworkId) => adapter().vote(competitionId, artworkId),
+  getCompetitors: () => adapter().getCompetitors()
 };

@@ -1,8 +1,11 @@
 <template>
   <div class="auth-page">
     <!-- Left art panel -->
-    <div class="auth-panel auth-panel--art" aria-hidden="true">
-      <div class="art-overlay"></div>
+    <div
+      class="auth-panel auth-panel--art"
+      aria-hidden="true"
+    >
+      <div class="art-overlay" />
       <div class="art-content">
         <div class="art-logo">
           <div class="auth-brand">
@@ -15,12 +18,12 @@
           <p>Discover, collect, and showcase extraordinary art from talented artists around the world.</p>
         </div>
         <div class="art-swatches">
-          <span style="background:#815A8F"></span>
-          <span style="background:#6730EC"></span>
-          <span style="background:#9ED763"></span>
-          <span style="background:#FBD400"></span>
-          <span style="background:#FF9000"></span>
-          <span style="background:#F73F52"></span>
+          <span style="background:#815A8F" />
+          <span style="background:#6730EC" />
+          <span style="background:#9ED763" />
+          <span style="background:#FBD400" />
+          <span style="background:#FF9000" />
+          <span style="background:#F73F52" />
         </div>
       </div>
     </div>
@@ -29,157 +32,346 @@
     <div class="auth-panel auth-panel--form">
       <div class="auth-form-wrap">
         <div class="auth-header">
-          <h1 class="auth-title">Create account</h1>
-          <p class="auth-subtitle">Start your art journey today</p>
+          <h1 class="auth-title">
+            Create account
+          </h1>
+          <p class="auth-subtitle">
+            Start your art journey today
+          </p>
         </div>
 
         <transition name="fade">
-          <div v-if="errorMessage" class="auth-alert auth-alert--error">
-            <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+          <div
+            v-if="errorMessage"
+            class="auth-alert auth-alert--error"
+          >
+            <i class="fas fa-exclamation-circle" /> {{ errorMessage }}
           </div>
         </transition>
 
-        <form @submit.prevent="submitForm" class="auth-form" novalidate>
+        <form
+          class="auth-form"
+          novalidate
+          @submit.prevent="submitForm"
+        >
           <!-- Row: First + Last name -->
           <div class="form-row">
-            <div class="field" :class="{ 'field--error': errors.firstname }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.firstname }"
+            >
               <label class="field__label">First Name</label>
               <div class="field__input-wrap">
-                <i class="fas fa-user field__icon"></i>
-                <input v-model="firstname" type="text" class="field__input" placeholder="John" autocomplete="given-name" />
+                <i class="fas fa-user field__icon" />
+                <input
+                  v-model="firstname"
+                  type="text"
+                  class="field__input"
+                  placeholder="John"
+                  autocomplete="given-name"
+                >
               </div>
-              <span v-if="errors.firstname" class="field__error">{{ errors.firstname }}</span>
+              <span
+                v-if="errors.firstname"
+                class="field__error"
+              >{{ errors.firstname }}</span>
             </div>
-            <div class="field" :class="{ 'field--error': errors.lastname }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.lastname }"
+            >
               <label class="field__label">Last Name</label>
               <div class="field__input-wrap">
-                <i class="fas fa-user field__icon"></i>
-                <input v-model="lastname" type="text" class="field__input" placeholder="Doe" autocomplete="family-name" />
+                <i class="fas fa-user field__icon" />
+                <input
+                  v-model="lastname"
+                  type="text"
+                  class="field__input"
+                  placeholder="Doe"
+                  autocomplete="family-name"
+                >
               </div>
-              <span v-if="errors.lastname" class="field__error">{{ errors.lastname }}</span>
+              <span
+                v-if="errors.lastname"
+                class="field__error"
+              >{{ errors.lastname }}</span>
             </div>
           </div>
 
           <!-- Email -->
-          <div class="field" :class="{ 'field--error': errors.email }">
+          <div
+            class="field"
+            :class="{ 'field--error': errors.email }"
+          >
             <label class="field__label">Email</label>
             <div class="field__input-wrap">
-              <i class="fas fa-envelope field__icon"></i>
-              <input v-model="email" type="email" class="field__input" placeholder="you@example.com" autocomplete="email" />
+              <i class="fas fa-envelope field__icon" />
+              <input
+                v-model="email"
+                type="email"
+                class="field__input"
+                placeholder="you@example.com"
+                autocomplete="email"
+              >
             </div>
-            <span v-if="errors.email" class="field__error">{{ errors.email }}</span>
+            <span
+              v-if="errors.email"
+              class="field__error"
+            >{{ errors.email }}</span>
           </div>
 
           <!-- Row: Phone + Age -->
           <div class="form-row">
-            <div class="field" :class="{ 'field--error': errors.phone }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.phone }"
+            >
               <label class="field__label">Phone</label>
               <div class="field__input-wrap">
-                <i class="fas fa-phone field__icon"></i>
-                <input v-model="phone" type="tel" class="field__input" placeholder="09xxxxxxxx" autocomplete="tel" />
+                <i class="fas fa-phone field__icon" />
+                <input
+                  v-model="phone"
+                  type="tel"
+                  class="field__input"
+                  placeholder="09xxxxxxxx"
+                  autocomplete="tel"
+                >
               </div>
-              <span v-if="errors.phone" class="field__error">{{ errors.phone }}</span>
+              <span
+                v-if="errors.phone"
+                class="field__error"
+              >{{ errors.phone }}</span>
             </div>
-            <div class="field" :class="{ 'field--error': errors.age }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.age }"
+            >
               <label class="field__label">Age</label>
               <div class="field__input-wrap">
-                <i class="fas fa-calendar field__icon"></i>
-                <input v-model="age" type="number" class="field__input" placeholder="25" min="18" />
+                <i class="fas fa-calendar field__icon" />
+                <input
+                  v-model="age"
+                  type="number"
+                  class="field__input"
+                  placeholder="25"
+                  min="18"
+                >
               </div>
-              <span v-if="errors.age" class="field__error">{{ errors.age }}</span>
+              <span
+                v-if="errors.age"
+                class="field__error"
+              >{{ errors.age }}</span>
             </div>
           </div>
 
           <!-- Address -->
-          <div class="field" :class="{ 'field--error': errors.address }">
+          <div
+            class="field"
+            :class="{ 'field--error': errors.address }"
+          >
             <label class="field__label">Address</label>
             <div class="field__input-wrap">
-              <i class="fas fa-map-marker-alt field__icon"></i>
-              <input v-model="address" type="text" class="field__input" placeholder="Addis Ababa, Ethiopia" autocomplete="street-address" />
+              <i class="fas fa-map-marker-alt field__icon" />
+              <input
+                v-model="address"
+                type="text"
+                class="field__input"
+                placeholder="Addis Ababa, Ethiopia"
+                autocomplete="street-address"
+              >
             </div>
-            <span v-if="errors.address" class="field__error">{{ errors.address }}</span>
+            <span
+              v-if="errors.address"
+              class="field__error"
+            >{{ errors.address }}</span>
           </div>
 
           <!-- Row: Gender + Role -->
           <div class="form-row">
-            <div class="field" :class="{ 'field--error': errors.sex }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.sex }"
+            >
               <label class="field__label">Gender</label>
               <div class="radio-group">
-                <label class="radio-option" :class="{ active: sex === 'female' }">
-                  <input type="radio" v-model="sex" value="female" /> Female
+                <label
+                  class="radio-option"
+                  :class="{ active: sex === 'female' }"
+                >
+                  <input
+                    v-model="sex"
+                    type="radio"
+                    value="female"
+                  > Female
                 </label>
-                <label class="radio-option" :class="{ active: sex === 'male' }">
-                  <input type="radio" v-model="sex" value="male" /> Male
+                <label
+                  class="radio-option"
+                  :class="{ active: sex === 'male' }"
+                >
+                  <input
+                    v-model="sex"
+                    type="radio"
+                    value="male"
+                  > Male
                 </label>
               </div>
-              <span v-if="errors.sex" class="field__error">{{ errors.sex }}</span>
+              <span
+                v-if="errors.sex"
+                class="field__error"
+              >{{ errors.sex }}</span>
             </div>
-            <div class="field" :class="{ 'field--error': errors.role }">
+            <div
+              class="field"
+              :class="{ 'field--error': errors.role }"
+            >
               <label class="field__label">I am a</label>
               <div class="field__input-wrap">
-                <i class="fas fa-id-badge field__icon"></i>
-                <select v-model="role" class="field__input field__select">
-                  <option value="" disabled>Select role</option>
-                  <option value="CUSTOMER">Art Collector</option>
-                  <option value="ARTIST">Artist</option>
+                <i class="fas fa-id-badge field__icon" />
+                <select
+                  v-model="role"
+                  class="field__input field__select"
+                >
+                  <option
+                    value=""
+                    disabled
+                  >
+                    Select role
+                  </option>
+                  <option value="CUSTOMER">
+                    Art Collector
+                  </option>
+                  <option value="ARTIST">
+                    Artist
+                  </option>
                 </select>
               </div>
-              <span v-if="errors.role" class="field__error">{{ errors.role }}</span>
+              <span
+                v-if="errors.role"
+                class="field__error"
+              >{{ errors.role }}</span>
             </div>
           </div>
 
           <!-- Username -->
-          <div class="field" :class="{ 'field--error': errors.username }">
+          <div
+            class="field"
+            :class="{ 'field--error': errors.username }"
+          >
             <label class="field__label">Username</label>
             <div class="field__input-wrap">
-              <i class="fas fa-at field__icon"></i>
-              <input v-model="username" type="text" class="field__input" placeholder="johndoe" autocomplete="username" />
+              <i class="fas fa-at field__icon" />
+              <input
+                v-model="username"
+                type="text"
+                class="field__input"
+                placeholder="johndoe"
+                autocomplete="username"
+              >
             </div>
-            <span v-if="errors.username" class="field__error">{{ errors.username }}</span>
+            <span
+              v-if="errors.username"
+              class="field__error"
+            >{{ errors.username }}</span>
           </div>
 
           <!-- Password -->
-          <div class="field" :class="{ 'field--error': errors.password }">
+          <div
+            class="field"
+            :class="{ 'field--error': errors.password }"
+          >
             <label class="field__label">Password</label>
             <div class="field__input-wrap">
-              <i class="fas fa-lock field__icon"></i>
-              <input v-model="password" :type="showPassword ? 'text' : 'password'" class="field__input" placeholder="Min. 6 characters" autocomplete="new-password" />
-              <button type="button" class="field__toggle" @click="showPassword = !showPassword">
-                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              <i class="fas fa-lock field__icon" />
+              <input
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                class="field__input"
+                placeholder="Min. 6 characters"
+                autocomplete="new-password"
+              >
+              <button
+                type="button"
+                class="field__toggle"
+                @click="showPassword = !showPassword"
+              >
+                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" />
               </button>
             </div>
-            <div v-if="password" class="password-strength">
+            <div
+              v-if="password"
+              class="password-strength"
+            >
               <div class="password-strength__bar">
-                <div class="password-strength__fill" :style="{ width: strengthPercent + '%', background: strengthColor }"></div>
+                <div
+                  class="password-strength__fill"
+                  :style="{ width: strengthPercent + '%', background: strengthColor }"
+                />
               </div>
-              <span class="password-strength__label" :style="{ color: strengthColor }">{{ strengthLabel }}</span>
+              <span
+                class="password-strength__label"
+                :style="{ color: strengthColor }"
+              >{{ strengthLabel }}</span>
             </div>
-            <span v-if="errors.password" class="field__error">{{ errors.password }}</span>
+            <span
+              v-if="errors.password"
+              class="field__error"
+            >{{ errors.password }}</span>
           </div>
 
           <!-- Confirm Password -->
-          <div class="field" :class="{ 'field--error': errors.confirmPassword || passwordError }">
+          <div
+            class="field"
+            :class="{ 'field--error': errors.confirmPassword || passwordError }"
+          >
             <label class="field__label">Confirm Password</label>
             <div class="field__input-wrap">
-              <i class="fas fa-lock field__icon"></i>
-              <input v-model="confirmPassword" :type="showConfirm ? 'text' : 'password'" class="field__input" placeholder="Repeat password" autocomplete="new-password" />
-              <button type="button" class="field__toggle" @click="showConfirm = !showConfirm">
-                <i :class="showConfirm ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              <i class="fas fa-lock field__icon" />
+              <input
+                v-model="confirmPassword"
+                :type="showConfirm ? 'text' : 'password'"
+                class="field__input"
+                placeholder="Repeat password"
+                autocomplete="new-password"
+              >
+              <button
+                type="button"
+                class="field__toggle"
+                @click="showConfirm = !showConfirm"
+              >
+                <i :class="showConfirm ? 'fas fa-eye-slash' : 'fas fa-eye'" />
               </button>
             </div>
-            <span v-if="errors.confirmPassword" class="field__error">{{ errors.confirmPassword }}</span>
-            <span v-if="passwordError" class="field__error">{{ passwordError }}</span>
+            <span
+              v-if="errors.confirmPassword"
+              class="field__error"
+            >{{ errors.confirmPassword }}</span>
+            <span
+              v-if="passwordError"
+              class="field__error"
+            >{{ passwordError }}</span>
           </div>
 
-          <button type="submit" class="auth-btn" :disabled="loading">
+          <button
+            type="submit"
+            class="auth-btn"
+            :disabled="loading"
+          >
             <span v-if="!loading">Create Account</span>
-            <span v-else class="auth-btn__spinner"><i class="fas fa-circle-notch fa-spin"></i> Creating...</span>
+            <span
+              v-else
+              class="auth-btn__spinner"
+            ><i class="fas fa-circle-notch fa-spin" /> Creating...</span>
           </button>
         </form>
 
         <p class="auth-switch">
           Already have an account?
-          <router-link to="/userlogin" class="auth-link auth-link--bold">Sign in</router-link>
+          <router-link
+            to="/userlogin"
+            class="auth-link auth-link--bold"
+          >
+            Sign in
+          </router-link>
         </p>
       </div>
     </div>

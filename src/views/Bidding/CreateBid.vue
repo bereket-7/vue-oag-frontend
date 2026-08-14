@@ -1,41 +1,94 @@
 <template>
   <div class="form-container">
     <h1>Bid Art</h1>
-    <form @submit="saveBidArt" enctype="multipart/form-data">
+    <form
+      enctype="multipart/form-data"
+      @submit="saveBidArt"
+    >
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" v-model="title" placeholder="Enter the title" required />
+        <input
+          id="title"
+          v-model="title"
+          type="text"
+          placeholder="Enter the title"
+          required
+        >
       </div>
       <div class="form-group">
         <label for="initialAmount">Initial Amount</label>
-        <input type="number" id="initialAmount" v-model="initialAmount" placeholder="Enter the initial amount" required />
+        <input
+          id="initialAmount"
+          v-model="initialAmount"
+          type="number"
+          placeholder="Enter the initial amount"
+          required
+        >
       </div>
       <div class="form-group">
         <label for="artist">Artist</label>
-        <input type="text" id="artist" v-model="artist" placeholder="Enter the artist's name" required />
+        <input
+          id="artist"
+          v-model="artist"
+          type="text"
+          placeholder="Enter the artist's name"
+          required
+        >
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" v-model="description" placeholder="Enter a description" required></textarea>
+        <textarea
+          id="description"
+          v-model="description"
+          placeholder="Enter a description"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="startingTime">Starting Time</label>
-        <input type="datetime-local" id="startingTime" v-model="startingTime" required />
+        <input
+          id="startingTime"
+          v-model="startingTime"
+          type="datetime-local"
+          required
+        >
       </div>
       <br>
       <div class="form-group">
         <label for="bidEndTime">Bid End Time</label>
-        <input type="datetime-local" id="bidEndTime" v-model="bidEndTime" required />
+        <input
+          id="bidEndTime"
+          v-model="bidEndTime"
+          type="datetime-local"
+          required
+        >
       </div>
       <br>
       <div class="form-group">
         <label for="image">Image</label>
-        <input type="file" id="image" ref="fileInput" required />
+        <input
+          id="image"
+          ref="fileInput"
+          type="file"
+          required
+        >
       </div>
       <br>
-      <button type="submit">Submit</button>
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-      <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+      <button type="submit">
+        Submit
+      </button>
+      <p
+        v-if="errorMessage"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </p>
+      <p
+        v-if="successMessage"
+        class="success-message"
+      >
+        {{ successMessage }}
+      </p>
     </form>
   </div>
   <br><br>

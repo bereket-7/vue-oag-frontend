@@ -205,6 +205,19 @@
               />
             </div>
 
+            <p class="text-xs text-center text-gray-500 dark:text-gray-400">
+              By creating an account you agree to our
+              <router-link
+                to="/terms"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:underline"
+              >Terms</router-link>
+              and
+              <router-link
+                to="/privacy"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:underline"
+              >Privacy Policy</router-link>.
+            </p>
+
             <button
               type="submit"
               :disabled="loading"

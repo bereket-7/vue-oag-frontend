@@ -1,15 +1,28 @@
 <template>
   <div>
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">Events</h2>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Events
+    </h2>
 
-    <LoadingSpinner v-if="loading" size="lg" />
+    <LoadingSpinner
+      v-if="loading"
+      size="lg"
+    />
 
-    <div v-else-if="events.length === 0" class="text-center py-12">
-      <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4"></i>
-      <p class="text-gray-500">No events available</p>
+    <div
+      v-else-if="events.length === 0"
+      class="text-center py-12"
+    >
+      <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4" />
+      <p class="text-gray-500">
+        No events available
+      </p>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      v-else
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
       <div
         v-for="event in events"
         :key="event.id"
@@ -17,7 +30,7 @@
       >
         <div class="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600">
           <div class="absolute inset-0 flex items-center justify-center">
-            <i class="fas fa-calendar-alt text-6xl text-white opacity-20"></i>
+            <i class="fas fa-calendar-alt text-6xl text-white opacity-20" />
           </div>
           <div class="absolute top-4 right-4">
             <span class="px-3 py-1 bg-white text-blue-600 text-xs font-bold rounded-full">
@@ -27,58 +40,102 @@
         </div>
 
         <div class="p-6">
-          <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventTitle }}</h3>
-          <p class="text-sm text-gray-600 mb-4 line-clamp-3">{{ event.eventDescription }}</p>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            {{ event.eventTitle }}
+          </h3>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+            {{ event.eventDescription }}
+          </p>
 
           <div class="space-y-2 mb-4">
             <div class="flex items-center text-sm text-gray-600">
-              <i class="fas fa-calendar w-5"></i>
+              <i class="fas fa-calendar w-5" />
               <span>{{ formatDate(event.eventDate) }}</span>
             </div>
             <div class="flex items-center text-sm text-gray-600">
-              <i class="fas fa-clock w-5"></i>
+              <i class="fas fa-clock w-5" />
               <span>{{ event.eventTime }}</span>
             </div>
             <div class="flex items-center text-sm text-gray-600">
-              <i class="fas fa-map-marker-alt w-5"></i>
+              <i class="fas fa-map-marker-alt w-5" />
               <span>{{ event.location }}</span>
             </div>
           </div>
 
-          <BaseButton variant="primary" size="sm" full-width @click="viewDetails(event)">
+          <BaseButton
+            variant="primary"
+            size="sm"
+            full-width
+            @click="viewDetails(event)"
+          >
             View Details
           </BaseButton>
         </div>
       </div>
     </div>
 
-    <BaseModal v-model="showDetailsModal" :title="selectedEvent?.eventTitle" size="lg">
-      <div v-if="selectedEvent" class="space-y-4">
-        <p class="text-gray-700">{{ selectedEvent.eventDescription }}</p>
+    <BaseModal
+      v-model="showDetailsModal"
+      :title="selectedEvent?.eventTitle"
+      size="lg"
+    >
+      <div
+        v-if="selectedEvent"
+        class="space-y-4"
+      >
+        <p class="text-gray-700">
+          {{ selectedEvent.eventDescription }}
+        </p>
         
         <div class="grid grid-cols-2 gap-4 py-4 border-t border-b">
           <div>
-            <p class="text-sm text-gray-600">Date</p>
-            <p class="font-semibold">{{ formatDate(selectedEvent.eventDate) }}</p>
+            <p class="text-sm text-gray-600">
+              Date
+            </p>
+            <p class="font-semibold">
+              {{ formatDate(selectedEvent.eventDate) }}
+            </p>
           </div>
           <div>
-            <p class="text-sm text-gray-600">Time</p>
-            <p class="font-semibold">{{ selectedEvent.eventTime }}</p>
+            <p class="text-sm text-gray-600">
+              Time
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.eventTime }}
+            </p>
           </div>
           <div>
-            <p class="text-sm text-gray-600">Location</p>
-            <p class="font-semibold">{{ selectedEvent.location }}</p>
+            <p class="text-sm text-gray-600">
+              Location
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.location }}
+            </p>
           </div>
           <div>
-            <p class="text-sm text-gray-600">Organizer</p>
-            <p class="font-semibold">{{ selectedEvent.organizerName }}</p>
+            <p class="text-sm text-gray-600">
+              Organizer
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.organizerName }}
+            </p>
           </div>
         </div>
       </div>
 
       <template #footer>
-        <BaseButton variant="secondary" @click="showDetailsModal = false">Close</BaseButton>
-        <BaseButton variant="primary" @click="registerForEvent">Register</BaseButton>
+        <BaseButton
+          variant="secondary"
+          @click="showDetailsModal = false"
+        >
+          Close
+        </BaseButton>
+        <BaseButton
+          variant="primary"
+          @click="registerForEvent"
+        >
+          Register
+        </BaseButton>
       </template>
     </BaseModal>
   </div>

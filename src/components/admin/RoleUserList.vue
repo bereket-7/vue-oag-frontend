@@ -1,7 +1,14 @@
 <template>
   <div>
-    <PageHeader :title="title" :subtitle="subtitle" :eyebrow="eyebrow">
-      <template v-if="$slots.actions" #actions>
+    <PageHeader
+      :title="title"
+      :subtitle="subtitle"
+      :eyebrow="eyebrow"
+    >
+      <template
+        v-if="$slots.actions"
+        #actions
+      >
         <slot name="actions" />
       </template>
     </PageHeader>
@@ -15,16 +22,24 @@
           type="search"
           placeholder="Search by name, email, username..."
           class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
-        />
+        >
       </div>
       <select
         v-model="statusFilter"
         class="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
       >
-        <option value="">All statuses</option>
-        <option value="active">Active</option>
-        <option value="pending">Pending</option>
-        <option value="suspended">Suspended</option>
+        <option value="">
+          All statuses
+        </option>
+        <option value="active">
+          Active
+        </option>
+        <option value="pending">
+          Pending
+        </option>
+        <option value="suspended">
+          Suspended
+        </option>
       </select>
       <span class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
         {{ filtered.length }} result{{ filtered.length === 1 ? '' : 's' }}
@@ -40,16 +55,29 @@
       icon="fas fa-users"
     />
 
-    <div v-else class="page-card overflow-hidden">
+    <div
+      v-else
+      class="page-card overflow-hidden"
+    >
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
             <tr class="border-b border-gray-100 dark:border-gray-800 bg-gray-50/80 dark:bg-gray-800/50">
-              <th class="th">User</th>
-              <th class="th hidden md:table-cell">Contact</th>
-              <th class="th hidden lg:table-cell">Joined</th>
-              <th class="th">Status</th>
-              <th class="th text-right">Actions</th>
+              <th class="th">
+                User
+              </th>
+              <th class="th hidden md:table-cell">
+                Contact
+              </th>
+              <th class="th hidden lg:table-cell">
+                Joined
+              </th>
+              <th class="th">
+                Status
+              </th>
+              <th class="th text-right">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -64,29 +92,50 @@
                     {{ initials(user) }}
                   </div>
                   <div class="min-w-0">
-                    <p class="font-semibold text-gray-900 dark:text-white truncate">{{ displayName(user) }}</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">@{{ user.username }}</p>
+                    <p class="font-semibold text-gray-900 dark:text-white truncate">
+                      {{ displayName(user) }}
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      @{{ user.username }}
+                    </p>
                   </div>
                 </div>
               </td>
               <td class="td hidden md:table-cell">
-                <p class="text-sm text-gray-700 dark:text-gray-300">{{ user.email }}</p>
-                <p class="text-xs text-gray-400">{{ user.phone || '—' }}</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                  {{ user.email }}
+                </p>
+                <p class="text-xs text-gray-400">
+                  {{ user.phone || '—' }}
+                </p>
               </td>
               <td class="td hidden lg:table-cell text-sm text-gray-500 dark:text-gray-400">
                 {{ formatDate(user.joinedAt) }}
               </td>
               <td class="td">
-                <span class="status-pill" :class="statusClass(user.status)">
+                <span
+                  class="status-pill"
+                  :class="statusClass(user.status)"
+                >
                   {{ user.status || 'active' }}
                 </span>
               </td>
               <td class="td text-right">
                 <div class="inline-flex items-center gap-1">
-                  <button type="button" class="icon-btn" title="View" @click="$emit('view', user)">
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    title="View"
+                    @click="$emit('view', user)"
+                  >
                     <i class="fas fa-eye" />
                   </button>
-                  <button type="button" class="icon-btn text-red-500 hover:!bg-red-50 dark:hover:!bg-red-900/20" title="Delete" @click="confirmDelete(user)">
+                  <button
+                    type="button"
+                    class="icon-btn text-red-500 hover:!bg-red-50 dark:hover:!bg-red-900/20"
+                    title="Delete"
+                    @click="confirmDelete(user)"
+                  >
                     <i class="fas fa-trash" />
                   </button>
                 </div>
@@ -96,20 +145,52 @@
         </table>
       </div>
 
-      <div v-if="pageCount > 1" class="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-800">
-        <button type="button" class="pager-btn" :disabled="page === 1" @click="page--">Previous</button>
+      <div
+        v-if="pageCount > 1"
+        class="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-800"
+      >
+        <button
+          type="button"
+          class="pager-btn"
+          :disabled="page === 1"
+          @click="page--"
+        >
+          Previous
+        </button>
         <span class="text-sm text-gray-500">Page {{ page }} of {{ pageCount }}</span>
-        <button type="button" class="pager-btn" :disabled="page === pageCount" @click="page++">Next</button>
+        <button
+          type="button"
+          class="pager-btn"
+          :disabled="page === pageCount"
+          @click="page++"
+        >
+          Next
+        </button>
       </div>
     </div>
 
-    <BaseModal v-model="showDelete" title="Delete user" size="sm">
+    <BaseModal
+      v-model="showDelete"
+      title="Delete user"
+      size="sm"
+    >
       <p class="text-gray-700 dark:text-gray-300">
         Delete <strong>{{ selected ? displayName(selected) : '' }}</strong>? This cannot be undone.
       </p>
       <template #footer>
-        <BaseButton variant="secondary" @click="showDelete = false">Cancel</BaseButton>
-        <BaseButton variant="danger" :loading="deleting" @click="handleDelete">Delete</BaseButton>
+        <BaseButton
+          variant="secondary"
+          @click="showDelete = false"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          variant="danger"
+          :loading="deleting"
+          @click="handleDelete"
+        >
+          Delete
+        </BaseButton>
       </template>
     </BaseModal>
   </div>

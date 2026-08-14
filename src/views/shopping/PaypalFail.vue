@@ -1,8 +1,8 @@
 <template>
-    <div class="failure-page">
-      <h2>Payment Failed!</h2>
-      <p>Oops! Something went wrong with your payment. Please try again later.</p>
-    </div>
+  <div class="failure-page">
+    <h2>Payment Failed!</h2>
+    <p>Oops! Something went wrong with your payment. Please try again later.</p>
+  </div>
 </template>
   
   <style scoped>

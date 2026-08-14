@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { competitionService } from '@/services/competitionService';
 
 export default {
   data() {
@@ -29,19 +29,16 @@ export default {
   methods: {
     async getCompetitionAndCompetitor() {
       try {
-        const response = await axios.get('/api/competition-competitor-data');
-        this.competition = response.data.competition;
-        this.competitor = response.data.competitor;
+        const data = await competitionService.getCompetitors();
+        this.competition = data.competition;
+        this.competitor = data.competitor;
       } catch (error) {
         console.error(error);
       }
     },
     async vote() {
       try {
-        await axios.post('/api/competitors/vote', {
-          competitionId: this.competition.id,
-          competitorId: this.competitor.id,
-        });
+        await competitionService.vote(this.competition.id, this.competitor.id);
         this.message = 'Thank you for voting!';
       } catch (error) {
         this.message = error.response.data;

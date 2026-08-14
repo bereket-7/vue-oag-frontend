@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+  <div class="max-w-4xl mx-auto text-gray-900 dark:text-gray-100">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
       Community Standards
     </h2>
 
@@ -19,7 +19,7 @@
         class="hover:shadow-lg transition-shadow"
       >
         <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center flex-shrink-0">
             <i
               :class="getIcon(standard.category)"
               class="text-2xl text-blue-600"
@@ -27,10 +27,10 @@
           </div>
 
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               {{ standard.title }}
             </h3>
-            <p class="text-gray-700 mb-3">
+            <p class="text-gray-700 dark:text-gray-300 mb-3">
               {{ standard.description }}
             </p>
 

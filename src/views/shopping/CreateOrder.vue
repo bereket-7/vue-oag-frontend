@@ -1,23 +1,110 @@
 <template>
-    <div class="create-order">
-      <h2>Order</h2>
-      <form @submit.prevent="createOrder" class="order-form">
-        <input type="text" v-model="firstName" placeholder="First Name" required><br>
-        <input type="text" v-model="lastName" placeholder="Last Name" required><br>
-        <input type="text" v-model="phone" placeholder="Phone" required><br>
-        <input type="text" v-model="address" placeholder="Address" required><br>
-        <button type="submit" class="submit-button">Submit</button>
-      </form>
-      <div v-if="successMessage" class="success-message">
-        {{ successMessage }}
-      </div>
-      <div v-if="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
+  <div class="create-order">
+    <h2>Order</h2>
+    <form
+      class="order-form"
+      @submit.prevent="createOrder"
+    >
+      <input
+        v-model="firstName"
+        type="text"
+        placeholder="First Name"
+        required
+      ><br>
+      <input
+        v-model="lastName"
+        type="text"
+        placeholder="Last Name"
+        required
+      ><br>
+      <input
+        v-model="phone"
+        type="text"
+        placeholder="Phone"
+        required
+      ><br>
+      <input
+        v-model="address"
+        type="text"
+        placeholder="Address"
+        required
+      ><br>
+      <button
+        type="submit"
+        class="submit-button"
+      >
+        Submit
+      </button>
+    </form>
+    <div
+      v-if="successMessage"
+      class="success-message"
+    >
+      {{ successMessage }}
     </div>
-  </template>
+    <div
+      v-if="errorMessage"
+      class="error-message"
+    >
+      {{ errorMessage }}
+    </div>
+  </div>
+</template>
   
-  <style scoped>
+  <script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      phone: '',
+      address: '',
+      successMessage: null,
+      errorMessage: null
+    };
+  },
+  methods: {
+    validateForm(){
+        this.errors = {}
+      const ethiopiaCode = '+251'
+        if (!this.phone) {
+        this.errors.phone = 'Phone number is required.'
+      } else if (
+        !(
+          (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
+          || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
+          || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
+        )
+      ) {
+        this.errors.phone = 'Invalid phone number format.'
+      }
+    },
+    createOrder() {
+      const payload = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phone: this.phone,
+        address: this.address,
+      };
+
+      axios.post('http://localhost:8082/api/order/create', payload)
+        .then(response => {
+          console.log(response.data);
+          this.successMessage = "Order created successfully.";
+        })
+        .catch(error => {
+          console.error(error); 
+          this.errorMessage = "Error creating order. Please try again."; 
+        });
+    },
+  },
+};
+</script>
+  
+
+<style scoped>
   .create-order {
     text-align: center;
     margin: 20px;
@@ -78,56 +165,3 @@
     }
   }
   </style>
-  
-
-<script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      address: '',
-      successMessage: null,
-      errorMessage: null
-    };
-  },
-  methods: {
-    validateForm(){
-        this.errors = {}
-      const ethiopiaCode = '+251'
-        if (!this.phone) {
-        this.errors.phone = 'Phone number is required.'
-      } else if (
-        !(
-          (this.phone.startsWith('0' + '9') || this.phone.startsWith('0' + '7')) && this.phone.length === 10
-          || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
-          || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
-        )
-      ) {
-        this.errors.phone = 'Invalid phone number format.'
-      }
-    },
-    createOrder() {
-      const payload = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone,
-        address: this.address,
-      };
-
-      axios.post('http://localhost:8082/api/order/create', payload)
-        .then(response => {
-          console.log(response.data);
-          this.successMessage = "Order created successfully.";
-        })
-        .catch(error => {
-          console.error(error); 
-          this.errorMessage = "Error creating order. Please try again."; 
-        });
-    },
-  },
-};
-</script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
     <!-- Hero Section -->
     <div class="relative bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-24">
       <div class="container mx-auto px-4">
@@ -24,7 +24,8 @@
         >
           <path
             d="M0 64L1440 0V64H0Z"
-            fill="#F9FAFB"
+            fill="currentColor"
+            class="text-gray-50 dark:text-gray-950"
           />
         </svg>
       </div>

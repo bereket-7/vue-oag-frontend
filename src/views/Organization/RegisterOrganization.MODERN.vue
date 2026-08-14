@@ -6,11 +6,20 @@
       eyebrow="Administration"
     />
 
-    <form class="page-card p-6 sm:p-8 space-y-5" @submit.prevent="handleSubmit">
-      <div v-if="successMessage" class="alert-success">
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="handleSubmit"
+    >
+      <div
+        v-if="successMessage"
+        class="alert-success"
+      >
         <i class="fas fa-check-circle mr-2" />{{ successMessage }}
       </div>
-      <div v-if="errorMessage" class="alert-error">
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
         <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
       </div>
 
@@ -21,21 +30,77 @@
         </p>
       </div>
 
-      <BaseInput v-model="form.name" label="Organization Name" placeholder="Heritage Gallery" :error="errors.name" required />
-      <BaseInput v-model="form.email" type="email" label="Email" placeholder="hello@gallery.et" :error="errors.email" required />
-      <BaseInput v-model="form.phone" type="tel" label="Phone" placeholder="0912345678" :error="errors.phone" required />
-      <BaseInput v-model="form.address" label="Address" placeholder="Bole, Addis Ababa" :error="errors.address" required />
+      <BaseInput
+        v-model="form.name"
+        label="Organization Name"
+        placeholder="Heritage Gallery"
+        :error="errors.name"
+        required
+      />
+      <BaseInput
+        v-model="form.email"
+        type="email"
+        label="Email"
+        placeholder="hello@gallery.et"
+        :error="errors.email"
+        required
+      />
+      <BaseInput
+        v-model="form.phone"
+        type="tel"
+        label="Phone"
+        placeholder="0912345678"
+        :error="errors.phone"
+        required
+      />
+      <BaseInput
+        v-model="form.address"
+        label="Address"
+        placeholder="Bole, Addis Ababa"
+        :error="errors.address"
+        required
+      />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <BaseInput v-model="form.password" type="password" label="Password" placeholder="••••••••" :error="errors.password" hint="At least 8 characters, with upper, lower, and a number" required />
-        <BaseInput v-model="form.confirmPassword" type="password" label="Confirm Password" placeholder="••••••••" :error="errors.confirmPassword" required />
+        <BaseInput
+          v-model="form.password"
+          type="password"
+          label="Password"
+          placeholder="••••••••"
+          :error="errors.password"
+          hint="At least 8 characters, with upper, lower, and a number"
+          required
+        />
+        <BaseInput
+          v-model="form.confirmPassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="••••••••"
+          :error="errors.confirmPassword"
+          required
+        />
       </div>
 
-      <p v-if="passwordError" class="text-sm text-red-600 dark:text-red-400">{{ passwordError }}</p>
+      <p
+        v-if="passwordError"
+        class="text-sm text-red-600 dark:text-red-400"
+      >
+        {{ passwordError }}
+      </p>
 
-      <button type="submit" class="btn-primary w-full sm:w-auto" :disabled="loading">
-        <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
-        <i v-else class="fas fa-building mr-2" />
+      <button
+        type="submit"
+        class="btn-primary w-full sm:w-auto"
+        :disabled="loading"
+      >
+        <i
+          v-if="loading"
+          class="fas fa-spinner fa-spin mr-2"
+        />
+        <i
+          v-else
+          class="fas fa-building mr-2"
+        />
         Register Organization
       </button>
     </form>

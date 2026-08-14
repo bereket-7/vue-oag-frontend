@@ -238,8 +238,8 @@ const faqs = [
 const quickLinks = [
   { label: 'Browse gallery', icon: 'fas fa-images', to: '/artworkList' },
   { label: 'Live auctions', icon: 'fas fa-gavel', to: '/auctions' },
-  { label: 'Create account', icon: 'fas fa-user-plus', to: '/register' },
-  { label: 'Community standards', icon: 'fas fa-balance-scale', to: '/displayStandard' },
+  { label: 'Privacy Policy', icon: 'fas fa-shield-alt', to: '/privacy' },
+  { label: 'Terms and Conditions', icon: 'fas fa-file-contract', to: '/terms' },
 ];
 
 const filteredFaqs = computed(() => {

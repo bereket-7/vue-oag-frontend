@@ -1,13 +1,43 @@
 <template>
   <div class="min-h-screen bg-gray-50 pt-20">
     <div class="container mx-auto px-4 py-8 max-w-lg">
-      <h1 class="text-2xl font-bold mb-6">Create Auction</h1>
-      <form @submit.prevent="submit" class="bg-white rounded-xl shadow-md p-8 space-y-4">
-        <BaseInput v-model="form.artworkId" label="Artwork ID" type="number" required />
-        <BaseInput v-model="form.startPrice" label="Starting Price" type="number" required />
-        <BaseInput v-model="form.minIncrement" label="Min Bid Increment" type="number" required />
-        <BaseInput v-model="form.endsAt" label="End Date" type="datetime-local" required />
-        <BaseButton type="submit" :loading="loading">Create Auction</BaseButton>
+      <h1 class="text-2xl font-bold mb-6">
+        Create Auction
+      </h1>
+      <form
+        class="bg-white rounded-xl shadow-md p-8 space-y-4"
+        @submit.prevent="submit"
+      >
+        <BaseInput
+          v-model="form.artworkId"
+          label="Artwork ID"
+          type="number"
+          required
+        />
+        <BaseInput
+          v-model="form.startPrice"
+          label="Starting Price"
+          type="number"
+          required
+        />
+        <BaseInput
+          v-model="form.minIncrement"
+          label="Min Bid Increment"
+          type="number"
+          required
+        />
+        <BaseInput
+          v-model="form.endsAt"
+          label="End Date"
+          type="datetime-local"
+          required
+        />
+        <BaseButton
+          type="submit"
+          :loading="loading"
+        >
+          Create Auction
+        </BaseButton>
       </form>
     </div>
   </div>

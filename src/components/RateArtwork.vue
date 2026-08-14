@@ -1,9 +1,15 @@
 <template>
-    <div>
-      <span v-for="i in 5" :key="i" class="star" :class="{ 'filled': i <= selected }" @click="select(i)">
-        <i class="fa fa-star"></i>
-      </span>
-    </div>
+  <div>
+    <span
+      v-for="i in 5"
+      :key="i"
+      class="star"
+      :class="{ 'filled': i <= selected }"
+      @click="select(i)"
+    >
+      <i class="fa fa-star" />
+    </span>
+  </div>
 </template>
 
 <script>

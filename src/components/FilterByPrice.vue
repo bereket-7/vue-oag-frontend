@@ -2,15 +2,34 @@
   <div>
     <div class="slider-container">
       <label for="minPrice">Minimum Price:</label>
-      <input type="range" id="minPrice" v-model="minPrice" :min="minPossiblePrice" :max="maxPossiblePrice" @input="filterArtworks" />
+      <input
+        id="minPrice"
+        v-model="minPrice"
+        type="range"
+        :min="minPossiblePrice"
+        :max="maxPossiblePrice"
+        @input="filterArtworks"
+      >
       <span>{{ minPrice }}</span>
       <br>
       <label for="maxPrice">Maximum Price:</label>
-      <input type="range" id="maxPrice" v-model="maxPrice" :min="minPossiblePrice" :max="maxPossiblePrice" @input="filterArtworks" />
+      <input
+        id="maxPrice"
+        v-model="maxPrice"
+        type="range"
+        :min="minPossiblePrice"
+        :max="maxPossiblePrice"
+        @input="filterArtworks"
+      >
       <span>{{ maxPrice }}</span>
     </div>
     <ul>
-      <li v-for="artwork in filteredArtworks" :key="artwork.id">{{ artwork.artworkName }}</li>
+      <li
+        v-for="artwork in filteredArtworks"
+        :key="artwork.id"
+      >
+        {{ artwork.artworkName }}
+      </li>
     </ul>
   </div>
 </template>
@@ -36,6 +55,9 @@ export default {
       });
     },
   },
+  mounted() {
+    this.getArtworksByPriceRange();
+  },
   methods: {
     getArtworksByPriceRange() {
       axios.get(`http://localhost:8082/api/artworks/priceRange?minPrice=${this.minPrice}&maxPrice=${this.maxPrice}`)
@@ -49,9 +71,6 @@ export default {
     filterArtworks() {
       this.getArtworksByPriceRange();
     },
-  },
-  mounted() {
-    this.getArtworksByPriceRange();
   },
 };
 </script>

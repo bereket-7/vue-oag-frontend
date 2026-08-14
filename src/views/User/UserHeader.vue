@@ -8,7 +8,11 @@
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16 lg:h-20">
         <!-- Brand -->
-        <router-link to="/" class="brand-link group" @click="closeMenu">
+        <router-link
+          to="/"
+          class="brand-link group"
+          @click="closeMenu"
+        >
           <span class="brand-kelem">KELEM</span>
           <span class="brand-sub dark:!text-gray-500">Online Art Gallery</span>
         </router-link>
@@ -57,10 +61,16 @@
               @click="closeMenu"
             >
               <i class="fas fa-shopping-cart text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200" />
-              <span v-if="cartCount > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ cartCount }}</span>
+              <span
+                v-if="cartCount > 0"
+                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"
+              >{{ cartCount }}</span>
             </router-link>
 
-            <div class="relative" ref="notifRef">
+            <div
+              ref="notifRef"
+              class="relative"
+            >
               <button
                 type="button"
                 class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group relative"
@@ -83,7 +93,9 @@
                   class="absolute top-full right-0 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50"
                 >
                   <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">
+                      Notifications
+                    </h3>
                     <button
                       v-if="unreadCount > 0"
                       type="button"
@@ -95,13 +107,21 @@
                   </div>
 
                   <div class="max-h-80 overflow-y-auto">
-                    <p v-if="notifLoading" class="px-4 py-8 text-center text-sm text-gray-500">Loading...</p>
-                    <p v-else-if="!notifications.length" class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                    <p
+                      v-if="notifLoading"
+                      class="px-4 py-8 text-center text-sm text-gray-500"
+                    >
+                      Loading...
+                    </p>
+                    <p
+                      v-else-if="!notifications.length"
+                      class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400"
+                    >
                       No notifications yet
                     </p>
                     <button
-                      v-else
                       v-for="item in notifications.slice(0, 8)"
+                      v-else
                       :key="item.id"
                       type="button"
                       class="w-full text-left px-4 py-3 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors border-b border-gray-50 dark:border-gray-800 last:border-0"
@@ -113,14 +133,26 @@
                           class="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                           :class="notifIconClass(item.type)"
                         >
-                          <i :class="notifIcon(item.type)" class="text-sm" />
+                          <i
+                            :class="notifIcon(item.type)"
+                            class="text-sm"
+                          />
                         </div>
                         <div class="min-w-0 flex-1">
-                          <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ item.title }}</p>
-                          <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">{{ item.message }}</p>
-                          <p class="text-[11px] text-gray-400 mt-1">{{ formatNotifTime(item.createdAt) }}</p>
+                          <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                            {{ item.title }}
+                          </p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">
+                            {{ item.message }}
+                          </p>
+                          <p class="text-[11px] text-gray-400 mt-1">
+                            {{ formatNotifTime(item.createdAt) }}
+                          </p>
                         </div>
-                        <span v-if="!item.read" class="w-2 h-2 rounded-full bg-purple-500 mt-2 shrink-0" />
+                        <span
+                          v-if="!item.read"
+                          class="w-2 h-2 rounded-full bg-purple-500 mt-2 shrink-0"
+                        />
                       </div>
                     </button>
                   </div>
@@ -137,7 +169,10 @@
             </div>
 
             <!-- User Dropdown -->
-            <div class="relative" ref="dropdownRef">
+            <div
+              ref="dropdownRef"
+              class="relative"
+            >
               <button
                 type="button"
                 class="flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-2 rounded-xl bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/30 dark:to-indigo-900/30 hover:from-purple-100 hover:to-indigo-100 dark:hover:from-purple-900/50 dark:hover:to-indigo-900/50 transition-all duration-200"
@@ -151,38 +186,65 @@
                   <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-900" />
                 </div>
                 <span class="hidden xl:block text-sm font-medium text-gray-700 dark:text-gray-200">{{ userName }}</span>
-                <i class="fas fa-chevron-down text-xs text-gray-500 dark:text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }" />
+                <i
+                  class="fas fa-chevron-down text-xs text-gray-500 dark:text-gray-400 transition-transform duration-200"
+                  :class="{ 'rotate-180': dropdownOpen }"
+                />
               </button>
 
               <transition name="dropdown">
-                <div v-if="dropdownOpen" class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div
+                  v-if="dropdownOpen"
+                  class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
+                >
                   <div class="p-4 border-b border-gray-100 dark:border-gray-700">
                     <div class="flex items-center space-x-3">
                       <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
                         <i class="fas fa-user text-white" />
                       </div>
                       <div class="min-w-0">
-                        <p class="font-semibold text-gray-800 dark:text-white truncate">{{ userName }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ authStore.user?.email }}</p>
+                        <p class="font-semibold text-gray-800 dark:text-white truncate">
+                          {{ userName }}
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {{ authStore.user?.email }}
+                        </p>
                       </div>
                     </div>
                   </div>
 
                   <div class="p-2">
-                    <router-link :to="dashboardRoute" @click="closeAll" class="dropdown-link">
+                    <router-link
+                      :to="dashboardRoute"
+                      class="dropdown-link"
+                      @click="closeAll"
+                    >
                       <i class="fas fa-tachometer-alt w-5" />
                       <span>Dashboard</span>
                     </router-link>
-                    <router-link :to="profileRoute" @click="closeAll" class="dropdown-link">
+                    <router-link
+                      :to="profileRoute"
+                      class="dropdown-link"
+                      @click="closeAll"
+                    >
                       <i class="fas fa-user-cog w-5" />
                       <span>Profile Settings</span>
                     </router-link>
-                    <router-link v-if="authStore.isArtist" :to="uploadRoute" @click="closeAll" class="dropdown-link">
+                    <router-link
+                      v-if="authStore.isArtist"
+                      :to="uploadRoute"
+                      class="dropdown-link"
+                      @click="closeAll"
+                    >
                       <i class="fas fa-upload w-5" />
                       <span>Upload Artwork</span>
                     </router-link>
                     <div class="border-t border-gray-100 dark:border-gray-700 my-2" />
-                    <button type="button" @click="handleLogout" class="dropdown-link text-red-600 dark:text-red-400 hover:!bg-red-50 dark:hover:!bg-red-900/20 w-full">
+                    <button
+                      type="button"
+                      class="dropdown-link text-red-600 dark:text-red-400 hover:!bg-red-50 dark:hover:!bg-red-900/20 w-full"
+                      @click="handleLogout"
+                    >
                       <i class="fas fa-sign-out-alt w-5" />
                       <span>Logout</span>
                     </button>
@@ -216,9 +278,18 @@
             aria-label="Toggle menu"
             @click="toggleMenu"
           >
-            <span class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 transition-all duration-300" :class="{ 'rotate-45 translate-y-1.5': menuOpen }" />
-            <span class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 my-1 transition-all duration-300" :class="{ 'opacity-0': menuOpen }" />
-            <span class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 transition-all duration-300" :class="{ '-rotate-45 -translate-y-1.5': menuOpen }" />
+            <span
+              class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 transition-all duration-300"
+              :class="{ 'rotate-45 translate-y-1.5': menuOpen }"
+            />
+            <span
+              class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 my-1 transition-all duration-300"
+              :class="{ 'opacity-0': menuOpen }"
+            />
+            <span
+              class="w-5 h-0.5 bg-gray-600 dark:bg-gray-300 transition-all duration-300"
+              :class="{ '-rotate-45 -translate-y-1.5': menuOpen }"
+            />
           </button>
         </div>
       </div>
@@ -226,13 +297,26 @@
 
     <!-- Mobile Menu -->
     <transition name="mobile-menu">
-      <div v-if="menuOpen" class="lg:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 shadow-xl">
+      <div
+        v-if="menuOpen"
+        class="lg:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 shadow-xl"
+      >
         <div class="p-4 space-y-1">
-          <button type="button" class="mobile-link w-full text-left" @click="openSearchFromMobile">
+          <button
+            type="button"
+            class="mobile-link w-full text-left"
+            @click="openSearchFromMobile"
+          >
             <i class="fas fa-search w-5 text-purple-500" />
             <span>Search</span>
           </button>
-          <router-link v-for="link in navLinks" :key="link.to" :to="link.to" class="mobile-link" @click="closeMenu">
+          <router-link
+            v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            class="mobile-link"
+            @click="closeMenu"
+          >
             <i class="fas fa-chevron-right text-xs text-gray-400" />
             <span>{{ link.label }}</span>
           </router-link>
@@ -240,36 +324,77 @@
 
         <div class="border-t border-gray-100 dark:border-gray-800 p-4 space-y-1">
           <template v-if="authStore.isAuthenticated">
-            <router-link :to="dashboardRoute" class="mobile-link" @click="closeMenu">
+            <router-link
+              :to="dashboardRoute"
+              class="mobile-link"
+              @click="closeMenu"
+            >
               <i class="fas fa-tachometer-alt w-5" />
               <span>Dashboard</span>
             </router-link>
-            <router-link :to="profileRoute" class="mobile-link" @click="closeMenu">
+            <router-link
+              :to="profileRoute"
+              class="mobile-link"
+              @click="closeMenu"
+            >
               <i class="fas fa-user-cog w-5" />
               <span>Profile</span>
             </router-link>
-            <router-link v-if="authStore.isArtist" :to="uploadRoute" class="mobile-link" @click="closeMenu">
+            <router-link
+              v-if="authStore.isArtist"
+              :to="uploadRoute"
+              class="mobile-link"
+              @click="closeMenu"
+            >
               <i class="fas fa-upload w-5" />
               <span>Upload Art</span>
             </router-link>
-            <router-link to="/notifications" class="mobile-link" @click="closeMenu">
+            <router-link
+              to="/notifications"
+              class="mobile-link"
+              @click="closeMenu"
+            >
               <i class="fas fa-bell w-5" />
               <span>Notifications</span>
-              <span v-if="unreadCount > 0" class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto">{{ unreadCount }}</span>
+              <span
+                v-if="unreadCount > 0"
+                class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto"
+              >{{ unreadCount }}</span>
             </router-link>
-            <router-link to="/cart" class="mobile-link" @click="closeMenu">
+            <router-link
+              to="/cart"
+              class="mobile-link"
+              @click="closeMenu"
+            >
               <i class="fas fa-shopping-cart w-5" />
               <span>Cart</span>
-              <span v-if="cartCount > 0" class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto">{{ cartCount }}</span>
+              <span
+                v-if="cartCount > 0"
+                class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto"
+              >{{ cartCount }}</span>
             </router-link>
-            <button type="button" class="mobile-link w-full text-red-600 dark:text-red-400" @click="handleLogout">
+            <button
+              type="button"
+              class="mobile-link w-full text-red-600 dark:text-red-400"
+              @click="handleLogout"
+            >
               <i class="fas fa-sign-out-alt w-5" />
               <span>Logout</span>
             </button>
           </template>
           <template v-else>
-            <router-link to="/userLogin" class="mobile-link justify-center font-semibold" @click="closeMenu">Login</router-link>
-            <router-link to="/register" class="flex items-center justify-center w-full px-6 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl" @click="closeMenu">
+            <router-link
+              to="/userLogin"
+              class="mobile-link justify-center font-semibold"
+              @click="closeMenu"
+            >
+              Login
+            </router-link>
+            <router-link
+              to="/register"
+              class="flex items-center justify-center w-full px-6 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl"
+              @click="closeMenu"
+            >
               Sign Up
             </router-link>
           </template>

@@ -5,7 +5,10 @@
     :active-tab="activeTab"
     @change-tab="changeTab"
   >
-    <div v-if="activeTab === 'Overview'" class="space-y-6">
+    <div
+      v-if="activeTab === 'Overview'"
+      class="space-y-6"
+    >
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Pending Artworks"
@@ -36,13 +39,24 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <BaseCard title="Recent Activities">
           <div class="space-y-3">
-            <div v-for="activity in recentActivities" :key="activity.id" class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg">
+            <div
+              v-for="activity in recentActivities"
+              :key="activity.id"
+              class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg"
+            >
               <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <i :class="activity.icon" class="text-blue-600"></i>
+                <i
+                  :class="activity.icon"
+                  class="text-blue-600"
+                />
               </div>
               <div class="flex-1">
-                <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
-                <p class="text-xs text-gray-500">{{ activity.time }}</p>
+                <p class="text-sm font-medium text-gray-900">
+                  {{ activity.title }}
+                </p>
+                <p class="text-xs text-gray-500">
+                  {{ activity.time }}
+                </p>
               </div>
             </div>
           </div>
@@ -53,11 +67,16 @@
             <button
               v-for="action in quickActions"
               :key="action.tab"
-              @click="changeTab(action.tab)"
               class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+              @click="changeTab(action.tab)"
             >
-              <i :class="action.icon" class="text-2xl text-gray-600 mb-2"></i>
-              <p class="text-sm font-medium text-gray-700">{{ action.label }}</p>
+              <i
+                :class="action.icon"
+                class="text-2xl text-gray-600 mb-2"
+              />
+              <p class="text-sm font-medium text-gray-700">
+                {{ action.label }}
+              </p>
             </button>
           </div>
         </BaseCard>

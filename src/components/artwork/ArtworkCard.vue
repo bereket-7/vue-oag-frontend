@@ -1,6 +1,6 @@
 <template>
-  <div class="group relative bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-xl">
-    <div class="relative aspect-square overflow-hidden bg-gray-200">
+  <div class="group relative bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-xl border border-transparent dark:border-gray-800">
+    <div class="relative aspect-square overflow-hidden bg-gray-200 dark:bg-gray-800">
       <img
         :src="artwork.imageUrl || '/placeholder.jpg'"
         :alt="artwork.title"
@@ -19,12 +19,12 @@
       <div class="absolute top-2 right-2 flex gap-2">
         <button
           v-if="showWishlist"
-          class="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           @click.prevent="toggleWishlist"
         >
           <svg
             class="w-5 h-5"
-            :class="isInWishlist ? 'text-red-500 fill-current' : 'text-gray-600'"
+            :class="isInWishlist ? 'text-red-500 fill-current' : 'text-gray-600 dark:text-gray-300'"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -42,7 +42,7 @@
     
     <div class="p-4">
       <div class="flex items-start justify-between mb-2">
-        <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
           {{ displayTitle }}
         </h3>
         <span
@@ -63,12 +63,12 @@
         </span>
       </div>
       
-      <p class="text-sm text-gray-600 mb-2">
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
         by {{ artwork.artistName || 'Unknown Artist' }}
       </p>
       
       <div class="flex items-center justify-between">
-        <span class="text-xl font-bold text-gray-900">{{ formatPrice(displayPrice) }}</span>
+        <span class="text-xl font-bold text-gray-900 dark:text-white">{{ formatPrice(displayPrice) }}</span>
         
         <div
           v-if="artwork.rating"

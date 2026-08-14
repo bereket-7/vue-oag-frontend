@@ -17,8 +17,11 @@
                 :src="profileImage"
                 alt="Profile"
                 class="w-full h-full object-cover"
-              />
-              <div v-else class="w-full h-full flex items-center justify-center">
+              >
+              <div
+                v-else
+                class="w-full h-full flex items-center justify-center"
+              >
                 <i class="fas fa-user text-4xl text-purple-400" />
               </div>
             </div>
@@ -29,33 +32,86 @@
             >
               <i class="fas fa-camera text-sm" />
             </button>
-            <input ref="profileImageInput" type="file" accept="image/*" class="hidden" @change="handleProfileImageChange" />
+            <input
+              ref="profileImageInput"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              @change="handleProfileImageChange"
+            >
           </div>
-          <h3 class="font-bold text-gray-900 dark:text-white">{{ formData.firstname }} {{ formData.lastname }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ formData.email }}</p>
+          <h3 class="font-bold text-gray-900 dark:text-white">
+            {{ formData.firstname }} {{ formData.lastname }}
+          </h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            {{ formData.email }}
+          </p>
           <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 capitalize">
             {{ authStore.role?.toLowerCase() }}
           </span>
         </div>
 
         <!-- Form -->
-        <form class="lg:col-span-2 page-card p-6 sm:p-8 space-y-6" @submit.prevent="handleSubmit">
-          <div v-if="successMessage" class="alert-success">{{ successMessage }}</div>
-          <div v-if="errorMessage" class="alert-error">{{ errorMessage }}</div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <BaseInput v-model="formData.firstname" label="First Name" :error="errors.firstname" required />
-            <BaseInput v-model="formData.lastname" label="Last Name" :error="errors.lastname" required />
+        <form
+          class="lg:col-span-2 page-card p-6 sm:p-8 space-y-6"
+          @submit.prevent="handleSubmit"
+        >
+          <div
+            v-if="successMessage"
+            class="alert-success"
+          >
+            {{ successMessage }}
+          </div>
+          <div
+            v-if="errorMessage"
+            class="alert-error"
+          >
+            {{ errorMessage }}
           </div>
 
-          <BaseInput v-model="formData.email" type="email" label="Email Address" :error="errors.email" disabled />
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <BaseInput v-model="formData.phone" type="tel" label="Phone Number" :error="errors.phone" />
-            <BaseInput v-model="formData.age" type="number" label="Age" :error="errors.age" />
+            <BaseInput
+              v-model="formData.firstname"
+              label="First Name"
+              :error="errors.firstname"
+              required
+            />
+            <BaseInput
+              v-model="formData.lastname"
+              label="Last Name"
+              :error="errors.lastname"
+              required
+            />
           </div>
 
-          <BaseInput v-model="formData.address" label="Address" :error="errors.address" />
+          <BaseInput
+            v-model="formData.email"
+            type="email"
+            label="Email Address"
+            :error="errors.email"
+            disabled
+          />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <BaseInput
+              v-model="formData.phone"
+              type="tel"
+              label="Phone Number"
+              :error="errors.phone"
+            />
+            <BaseInput
+              v-model="formData.age"
+              type="number"
+              label="Age"
+              :error="errors.age"
+            />
+          </div>
+
+          <BaseInput
+            v-model="formData.address"
+            label="Address"
+            :error="errors.address"
+          />
 
           <div>
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gender</label>
@@ -68,7 +124,12 @@
                   ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300'
                   : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'"
               >
-                <input v-model="formData.sex" type="radio" :value="option" class="sr-only" />
+                <input
+                  v-model="formData.sex"
+                  type="radio"
+                  :value="option"
+                  class="sr-only"
+                >
                 {{ option }}
               </label>
             </div>
@@ -85,11 +146,24 @@
           </div>
 
           <div class="flex flex-wrap gap-3 pt-2">
-            <button type="submit" class="btn-primary" :disabled="loading">
-              <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
+            <button
+              type="submit"
+              class="btn-primary"
+              :disabled="loading"
+            >
+              <i
+                v-if="loading"
+                class="fas fa-spinner fa-spin mr-2"
+              />
               Save Changes
             </button>
-            <button type="button" class="btn-secondary" @click="resetForm">Reset</button>
+            <button
+              type="button"
+              class="btn-secondary"
+              @click="resetForm"
+            >
+              Reset
+            </button>
           </div>
         </form>
       </div>

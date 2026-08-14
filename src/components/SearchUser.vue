@@ -1,7 +1,17 @@
 <template>
-    <input type="text" v-model="searchTerm" @input="searchUsers" placeholder="Search users" />
+  <input
+    v-model="searchTerm"
+    type="text"
+    placeholder="Search users"
+    @input="searchUsers"
+  >
   <ul>
-    <li v-for="user in filteredUsers" :key="user.id">{{ user.name }}</li>
+    <li
+      v-for="user in filteredUsers"
+      :key="user.id"
+    >
+      {{ user.name }}
+    </li>
   </ul>
 </template>
 

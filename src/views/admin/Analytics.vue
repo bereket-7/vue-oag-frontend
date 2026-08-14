@@ -1,24 +1,55 @@
 <template>
   <div class="min-h-[calc(100vh-5rem)] bg-gray-50 dark:bg-gray-950 p-4 sm:p-6 lg:p-8 transition-colors">
-    <PageHeader title="Analytics" subtitle="Platform performance and growth metrics" eyebrow="Administration" />
+    <PageHeader
+      title="Analytics"
+      subtitle="Platform performance and growth metrics"
+      eyebrow="Administration"
+    />
 
     <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
-      <div v-for="kpi in kpis" :key="kpi.label" class="page-card p-5">
-        <div class="w-10 h-10 rounded-xl mb-3 flex items-center justify-center" :class="kpi.bg">
+      <div
+        v-for="kpi in kpis"
+        :key="kpi.label"
+        class="page-card p-5"
+      >
+        <div
+          class="w-10 h-10 rounded-xl mb-3 flex items-center justify-center"
+          :class="kpi.bg"
+        >
           <i :class="[kpi.icon, kpi.color]" />
         </div>
-        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ kpi.value }}</p>
-        <p class="text-sm text-gray-500 dark:text-gray-400">{{ kpi.label }}</p>
-        <p v-if="kpi.change" class="text-xs font-semibold text-green-600 dark:text-green-400 mt-1">{{ kpi.change }}</p>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+          {{ kpi.value }}
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          {{ kpi.label }}
+        </p>
+        <p
+          v-if="kpi.change"
+          class="text-xs font-semibold text-green-600 dark:text-green-400 mt-1"
+        >
+          {{ kpi.change }}
+        </p>
       </div>
     </div>
 
     <div class="page-card p-6">
-      <h3 class="font-bold text-gray-900 dark:text-white mb-2">GMV trend</h3>
-      <p class="text-sm text-gray-500 mb-6">Last 6 months</p>
+      <h3 class="font-bold text-gray-900 dark:text-white mb-2">
+        GMV trend
+      </h3>
+      <p class="text-sm text-gray-500 mb-6">
+        Last 6 months
+      </p>
       <div class="flex items-end gap-3 h-40">
-        <div v-for="bar in bars" :key="bar.m" class="flex-1 flex flex-col items-center justify-end gap-2 h-full">
-          <div class="w-full rounded-t-lg bg-gradient-to-t from-purple-600 to-indigo-400" :style="{ height: `${bar.h}%` }" />
+        <div
+          v-for="bar in bars"
+          :key="bar.m"
+          class="flex-1 flex flex-col items-center justify-end gap-2 h-full"
+        >
+          <div
+            class="w-full rounded-t-lg bg-gradient-to-t from-purple-600 to-indigo-400"
+            :style="{ height: `${bar.h}%` }"
+          />
           <span class="text-xs text-gray-500">{{ bar.m }}</span>
         </div>
       </div>

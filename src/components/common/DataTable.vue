@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="p-6 border-b border-gray-200">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <h3 class="text-lg font-semibold text-gray-900">{{ title }}</h3>
+        <h3 class="text-lg font-semibold text-gray-900">
+          {{ title }}
+        </h3>
         
         <div class="flex gap-3">
           <div class="relative">
@@ -12,16 +14,16 @@
               type="text"
               placeholder="Search..."
               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-            />
-            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            >
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400" />
           </div>
           
           <button
             v-if="showAddButton"
-            @click="$emit('add')"
             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            @click="$emit('add')"
           >
-            <i class="fas fa-plus mr-2"></i>
+            <i class="fas fa-plus mr-2" />
             Add New
           </button>
         </div>
@@ -40,25 +42,34 @@
             >
               {{ column.label }}
             </th>
-            <th v-if="showActions" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th
+              v-if="showActions"
+              class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
               Actions
             </th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <tr v-if="loading">
-            <td :colspan="columns.length + (showActions ? 1 : 0)" class="px-6 py-12 text-center">
+            <td
+              :colspan="columns.length + (showActions ? 1 : 0)"
+              class="px-6 py-12 text-center"
+            >
               <LoadingSpinner size="md" />
             </td>
           </tr>
           <tr v-else-if="filteredData.length === 0">
-            <td :colspan="columns.length + (showActions ? 1 : 0)" class="px-6 py-12 text-center text-gray-500">
+            <td
+              :colspan="columns.length + (showActions ? 1 : 0)"
+              class="px-6 py-12 text-center text-gray-500"
+            >
               No data found
             </td>
           </tr>
           <tr
-            v-else
             v-for="row in paginatedData"
+            v-else
             :key="row.id"
             class="hover:bg-gray-50 transition-colors"
           >
@@ -67,23 +78,32 @@
               :key="column.key"
               class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
             >
-              <slot :name="`cell-${column.key}`" :row="row">
+              <slot
+                :name="`cell-${column.key}`"
+                :row="row"
+              >
                 {{ row[column.key] }}
               </slot>
             </td>
-            <td v-if="showActions" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <slot name="actions" :row="row">
+            <td
+              v-if="showActions"
+              class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+            >
+              <slot
+                name="actions"
+                :row="row"
+              >
                 <button
-                  @click="$emit('edit', row)"
                   class="text-blue-600 hover:text-blue-900 mr-3"
+                  @click="$emit('edit', row)"
                 >
-                  <i class="fas fa-edit"></i>
+                  <i class="fas fa-edit" />
                 </button>
                 <button
-                  @click="$emit('delete', row)"
                   class="text-red-600 hover:text-red-900"
+                  @click="$emit('delete', row)"
                 >
-                  <i class="fas fa-trash"></i>
+                  <i class="fas fa-trash" />
                 </button>
               </slot>
             </td>
@@ -93,16 +113,19 @@
     </div>
 
     <!-- Pagination -->
-    <div v-if="totalPages > 1" class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+    <div
+      v-if="totalPages > 1"
+      class="px-6 py-4 border-t border-gray-200 flex items-center justify-between"
+    >
       <div class="text-sm text-gray-700">
         Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filteredData.length }} results
       </div>
       
       <div class="flex gap-2">
         <button
-          @click="currentPage--"
           :disabled="currentPage === 1"
           class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          @click="currentPage--"
         >
           Previous
         </button>
@@ -110,21 +133,21 @@
         <button
           v-for="page in visiblePages"
           :key="page"
-          @click="currentPage = page"
           :class="[
             'px-3 py-1 border rounded-lg',
             currentPage === page
               ? 'bg-blue-600 text-white border-blue-600'
               : 'border-gray-300 hover:bg-gray-50'
           ]"
+          @click="currentPage = page"
         >
           {{ page }}
         </button>
         
         <button
-          @click="currentPage++"
           :disabled="currentPage === totalPages"
           class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          @click="currentPage++"
         >
           Next
         </button>

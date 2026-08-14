@@ -18,16 +18,16 @@
           >
             <div
               v-if="$slots.header || title"
-              class="flex items-center justify-between p-6 border-b border-gray-200"
+              class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800"
             >
               <slot name="header">
-                <h3 class="text-xl font-semibold text-gray-900">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                   {{ title }}
                 </h3>
               </slot>
               <button
                 v-if="closable"
-                class="text-gray-400 hover:text-gray-600 transition-colors"
+                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                 @click="close"
               >
                 <svg
@@ -52,7 +52,7 @@
             
             <div
               v-if="$slots.footer"
-              class="flex items-center justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50"
+              class="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/60"
             >
               <slot name="footer" />
             </div>
@@ -83,7 +83,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'close']);
 
 const modalClasses = computed(() => {
-  const base = 'relative bg-white rounded-xl shadow-xl transform transition-all';
+  const base = 'relative bg-white dark:bg-gray-900 rounded-xl shadow-xl transform transition-all border border-transparent dark:border-gray-800';
   const sizes = {
     sm: 'max-w-md w-full',
     md: 'max-w-lg w-full',

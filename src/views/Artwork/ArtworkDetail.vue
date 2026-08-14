@@ -1,23 +1,23 @@
 
 <template>
-    <div>
-      <h1>Artwork Details</h1>
-      <div v-if="artwork">
-        <ArtworkImage :artworkId="artwork.id" />
-        <div>
-          <h2>{{ artwork.artworkName }}</h2>
-          <p>{{ artwork.artworkDescription }}</p>
-          <p>{{ artwork.artworkCategory }}</p>
-          <p>{{ artwork.price }}</p>
-          <p>{{ artwork.size }}</p>
-          <p>{{ artwork.username }}</p>
-        </div>
-      </div>
-      <div v-else>
-        <p>No artwork found.</p>
+  <div>
+    <h1>Artwork Details</h1>
+    <div v-if="artwork">
+      <ArtworkImage :artwork-id="artwork.id" />
+      <div>
+        <h2>{{ artwork.artworkName }}</h2>
+        <p>{{ artwork.artworkDescription }}</p>
+        <p>{{ artwork.artworkCategory }}</p>
+        <p>{{ artwork.price }}</p>
+        <p>{{ artwork.size }}</p>
+        <p>{{ artwork.username }}</p>
       </div>
     </div>
-  </template>
+    <div v-else>
+      <p>No artwork found.</p>
+    </div>
+  </div>
+</template>
   
   <script>
   import { ref, onMounted } from 'vue';

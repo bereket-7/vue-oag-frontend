@@ -1,15 +1,18 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <CardSlider/>
+    <CardSlider />
     
     <!-- Categories Section -->
-    <ArtworkCategory/>
+    <ArtworkCategory />
     
     <!-- Featured Artists Section -->
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+        >
           <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Featured <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Artists</span>
           </h2>
@@ -31,20 +34,33 @@
                 :src="artist.image" 
                 :alt="artist.name" 
                 class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ artist.name }}</h3>
-            <p class="text-gray-600 mb-3">{{ artist.specialty }}</p>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {{ artist.name }}
+            </h3>
+            <p class="text-gray-600 mb-3">
+              {{ artist.specialty }}
+            </p>
             <div class="flex justify-center space-x-3">
-              <a :href="artist.social.facebook" class="text-gray-400 hover:text-blue-600 transition-colors">
-                <i class="fab fa-facebook-f"></i>
+              <a
+                :href="artist.social.facebook"
+                class="text-gray-400 hover:text-blue-600 transition-colors"
+              >
+                <i class="fab fa-facebook-f" />
               </a>
-              <a :href="artist.social.instagram" class="text-gray-400 hover:text-pink-600 transition-colors">
-                <i class="fab fa-instagram"></i>
+              <a
+                :href="artist.social.instagram"
+                class="text-gray-400 hover:text-pink-600 transition-colors"
+              >
+                <i class="fab fa-instagram" />
               </a>
-              <a :href="artist.social.twitter" class="text-gray-400 hover:text-blue-400 transition-colors">
-                <i class="fab fa-twitter"></i>
+              <a
+                :href="artist.social.twitter"
+                class="text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <i class="fab fa-twitter" />
               </a>
             </div>
           </div>
@@ -56,7 +72,7 @@
             class="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
           >
             <span>Become a Featured Artist</span>
-            <i class="fas fa-star"></i>
+            <i class="fas fa-star" />
           </router-link>
         </div>
       </div>
@@ -67,20 +83,45 @@
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-4 gap-8 text-center">
           <div data-aos="fade-up">
-            <div class="text-5xl font-bold mb-2">500+</div>
-            <div class="text-purple-200">Artworks</div>
+            <div class="text-5xl font-bold mb-2">
+              500+
+            </div>
+            <div class="text-purple-200">
+              Artworks
+            </div>
           </div>
-          <div data-aos="fade-up" data-aos-delay="100">
-            <div class="text-5xl font-bold mb-2">100+</div>
-            <div class="text-purple-200">Artists</div>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="text-5xl font-bold mb-2">
+              100+
+            </div>
+            <div class="text-purple-200">
+              Artists
+            </div>
           </div>
-          <div data-aos="fade-up" data-aos-delay="200">
-            <div class="text-5xl font-bold mb-2">50+</div>
-            <div class="text-purple-200">Countries</div>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="text-5xl font-bold mb-2">
+              50+
+            </div>
+            <div class="text-purple-200">
+              Countries
+            </div>
           </div>
-          <div data-aos="fade-up" data-aos-delay="300">
-            <div class="text-5xl font-bold mb-2">1000+</div>
-            <div class="text-purple-200">Happy Customers</div>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="text-5xl font-bold mb-2">
+              1000+
+            </div>
+            <div class="text-purple-200">
+              Happy Customers
+            </div>
           </div>
         </div>
       </div>
@@ -89,25 +130,36 @@
     <!-- CTA Section -->
     <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold text-gray-800 mb-6" data-aos="fade-up">
+        <h2
+          class="text-4xl font-bold text-gray-800 mb-6"
+          data-aos="fade-up"
+        >
           Ready to Start Your Art Journey?
         </h2>
-        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+        <p
+          class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           Join our community of art lovers and discover pieces that speak to your soul
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <router-link 
             to="/artworkList" 
             class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
           >
-            <i class="fas fa-search mr-2"></i>
+            <i class="fas fa-search mr-2" />
             Explore Artworks
           </router-link>
           <router-link 
             to="/register" 
             class="inline-flex items-center justify-center px-8 py-4 border-2 border-purple-600 text-purple-600 font-semibold rounded-lg hover:bg-purple-600 hover:text-white transition-all duration-300"
           >
-            <i class="fas fa-user-plus mr-2"></i>
+            <i class="fas fa-user-plus mr-2" />
             Join Community
           </router-link>
         </div>

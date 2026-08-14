@@ -99,7 +99,8 @@
 
 
 <script>
-import axios from 'axios';
+import { paymentService } from '@/services/paymentService';
+import { isSafeExternalUrl } from '@/utils/security';
 
 export default {
   data() {
@@ -113,8 +114,8 @@ export default {
   },
   methods: {
     makePayment() {
-      axios
-      .post('localhost:/8081/paypal/pay', {
+      paymentService
+      .paypalPay({
         total: this.total,
         currency: this.currency,
         method: this.method,
@@ -122,8 +123,8 @@ export default {
         description: this.description
       })
       .then(response => {
-        const approvalUrl = response.data?.approvalUrl;
-        if (approvalUrl && /^https:\/\/(www\.)?(sandbox\.)?paypal\.com\//i.test(approvalUrl)) {
+        const approvalUrl = response?.approvalUrl;
+        if (approvalUrl && isSafeExternalUrl(approvalUrl) && /^https:\/\/(www\.)?(sandbox\.)?paypal\.com\//i.test(approvalUrl)) {
           window.location.href = approvalUrl;
         }
       })

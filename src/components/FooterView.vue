@@ -7,30 +7,42 @@
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-white mb-4 relative">
             Quick Links
-            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></span>
+            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" />
           </h3>
           <ul class="space-y-2">
             <li>
-              <router-link to="/" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Home
               </router-link>
             </li>
             <li>
-              <router-link to="/about" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/about"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 About
               </router-link>
             </li>
             <li>
-              <router-link to="/contactUs" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/contactUs"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Contact Us
               </router-link>
             </li>
             <li>
-              <router-link to="/register" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/register"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-chevron-right text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Sign Up
               </router-link>
             </li>
@@ -41,24 +53,33 @@
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-white mb-4 relative">
             Categories
-            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></span>
+            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" />
           </h3>
           <ul class="space-y-2">
             <li>
-              <router-link to="/artworkList" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-palette text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/artworkList"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-palette text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Paintings
               </router-link>
             </li>
             <li>
-              <router-link to="/artworkList" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-cube text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/artworkList"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-cube text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Sculpture
               </router-link>
             </li>
             <li>
-              <router-link to="/artworkList" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-brush text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/artworkList"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-brush text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Mixed Art
               </router-link>
             </li>
@@ -69,24 +90,33 @@
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-white mb-4 relative">
             Resources
-            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></span>
+            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" />
           </h3>
           <ul class="space-y-2">
             <li>
-              <router-link to="/FAQs" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-question-circle text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/FAQs"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-question-circle text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 FAQs
               </router-link>
             </li>
             <li>
-              <router-link to="/standards" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-shield-alt text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/standards"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-shield-alt text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Privacy Policy
               </router-link>
             </li>
             <li>
-              <router-link to="/standards" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group">
-                <i class="fas fa-file-contract text-xs mr-2 text-purple-400 group-hover:text-purple-300"></i>
+              <router-link
+                to="/standards"
+                class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+              >
+                <i class="fas fa-file-contract text-xs mr-2 text-purple-400 group-hover:text-purple-300" />
                 Terms and Conditions
               </router-link>
             </li>
@@ -97,9 +127,11 @@
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-white mb-4 relative">
             Follow Us
-            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"></span>
+            <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full" />
           </h3>
-          <p class="text-gray-300 mb-4">Connect with us on social media for updates and featured artworks</p>
+          <p class="text-gray-300 mb-4">
+            Connect with us on social media for updates and featured artworks
+          </p>
           <div class="flex space-x-3">
             <a 
               href="https://www.facebook.com/profile.php?id=100092538513954&mibextid=ZbWKwL" 
@@ -107,7 +139,7 @@
               target="_blank"
               aria-label="Facebook"
             >
-              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-facebook-f" />
             </a>
             <a 
               href="https://instagram.com/kelem_arts?igshid=ZDdkNTZiNTM=" 
@@ -115,7 +147,7 @@
               target="_blank"
               aria-label="Instagram"
             >
-              <i class="fab fa-instagram"></i>
+              <i class="fab fa-instagram" />
             </a>
             <a 
               href="#" 
@@ -123,7 +155,7 @@
               target="_blank"
               aria-label="Twitter"
             >
-              <i class="fab fa-twitter"></i>
+              <i class="fab fa-twitter" />
             </a>
             <a 
               href="#" 
@@ -131,7 +163,7 @@
               target="_blank"
               aria-label="LinkedIn"
             >
-              <i class="fab fa-linkedin-in"></i>
+              <i class="fab fa-linkedin-in" />
             </a>
           </div>
         </div>
@@ -142,8 +174,12 @@
     <div class="border-t border-gray-800">
       <div class="container mx-auto px-4 py-8">
         <div class="text-center">
-          <h3 class="text-2xl font-bold text-white mb-2">Stay Updated</h3>
-          <p class="text-gray-300 mb-6">Subscribe to our newsletter for the latest artworks and exclusive offers</p>
+          <h3 class="text-2xl font-bold text-white mb-2">
+            Stay Updated
+          </h3>
+          <p class="text-gray-300 mb-6">
+            Subscribe to our newsletter for the latest artworks and exclusive offers
+          </p>
           <div class="max-w-md mx-auto flex gap-2">
             <input 
               type="email" 
@@ -166,9 +202,18 @@
             © {{ currentYear }} Kelem Online Art Gallery. All rights reserved.
           </div>
           <div class="flex space-x-6 text-sm">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Accessibility</a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Sitemap</a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Cookie Policy</a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+            >Accessibility</a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+            >Sitemap</a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+            >Cookie Policy</a>
           </div>
         </div>
       </div>

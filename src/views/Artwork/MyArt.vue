@@ -1,39 +1,64 @@
 <template>
-    <div class="artwork-gallery">
-      <div v-for="artwork in artworks" :key="artwork.id" class="artwork-card">
-        <div class="artwork-image">
-          <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" style="width: 410px; height: 300px;" />
-        </div>
-        <div class="artwork-details">
-          <h3><b>{{ artwork.artworkName }}</b></h3>
-          <p><b>Price: {{ artwork.price }}</b></p>
-          <p>Category: {{ artwork.artworkCategory }}</p>
-          <button class="btn btn-primary quick-view" @click="openModal(artwork)">Quick View</button>
-        </div>
+  <div class="artwork-gallery">
+    <div
+      v-for="artwork in artworks"
+      :key="artwork.id"
+      class="artwork-card"
+    >
+      <div class="artwork-image">
+        <img
+          :src="getArtworkImageUrl(artwork.id)"
+          alt="Artwork Image"
+          style="width: 410px; height: 300px;"
+        >
       </div>
+      <div class="artwork-details">
+        <h3><b>{{ artwork.artworkName }}</b></h3>
+        <p><b>Price: {{ artwork.price }}</b></p>
+        <p>Category: {{ artwork.artworkCategory }}</p>
+        <button
+          class="btn btn-primary quick-view"
+          @click="openModal(artwork)"
+        >
+          Quick View
+        </button>
+      </div>
+    </div>
   
-      <div v-if="selectedArtwork" class="modal-container">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>{{ selectedArtwork.artworkName }}</h3>
-            <button class="btn btn-close" @click="closeModal"><i class="fa-solid fa-xmark"></i></button>
+    <div
+      v-if="selectedArtwork"
+      class="modal-container"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>{{ selectedArtwork.artworkName }}</h3>
+          <button
+            class="btn btn-close"
+            @click="closeModal"
+          >
+            <i class="fa-solid fa-xmark" />
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="artwork-image">
+            <img
+              :src="getArtworkImageUrl(selectedArtwork.id)"
+              alt="Artwork Image"
+              style="width: 400px; height: 300px;"
+            >
           </div>
-          <div class="modal-body">
-            <div class="artwork-image">
-              <img :src="getArtworkImageUrl(selectedArtwork.id)" alt="Artwork Image" style="width: 400px; height: 300px;" />
-            </div>
-            <div class="artwork-details">
-              <p>{{ selectedArtwork.artworkDescription }}</p>
-              <p>Price: {{ selectedArtwork.price }}</p>
-              <p>Size: {{ selectedArtwork.size }}</p>
-              <p><b>Category: {{ selectedArtwork.artworkCategory }}</b></p>
-              <hr class="mx-n3">
-            </div>
+          <div class="artwork-details">
+            <p>{{ selectedArtwork.artworkDescription }}</p>
+            <p>Price: {{ selectedArtwork.price }}</p>
+            <p>Size: {{ selectedArtwork.size }}</p>
+            <p><b>Category: {{ selectedArtwork.artworkCategory }}</b></p>
+            <hr class="mx-n3">
           </div>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   <script>
   import axios from 'axios';
   export default {

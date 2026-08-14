@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { userService } from '@/services/userService';
 
 export default {
   data() {
@@ -25,12 +26,13 @@ export default {
       filteredUsers: []
     };
   },
+  mounted() {
+    this.fetchUsers();
+  },
   methods: {
-   
     async fetchUsers() {
       try {
-        const response = await fetch('http://localhost:8081/user');
-        const data = await response.json();
+        const data = await userService.getAllUsers();
         this.users = data;
         this.searchUsers();
       } catch (error) {
@@ -39,19 +41,9 @@ export default {
     },
     searchUsers() {
       this.filteredUsers = this.users.filter(user =>
-        user.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        (user.name || '').toLowerCase().includes(this.searchTerm.toLowerCase())
       );
-
-    
-  },
-  mounted() {
-    this.fetchUsers();
+    }
   }
-}
-}
+};
 </script>
-
-<style>
-
-
-</style>

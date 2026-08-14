@@ -1,21 +1,52 @@
 <template>
   <div class="container mx-auto px-4 py-8 mt-20">
-    <h2 class="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h2>
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">
+      Shopping Cart
+    </h2>
 
-    <LoadingSpinner v-if="loading" size="lg" text="Loading cart..." />
+    <LoadingSpinner
+      v-if="loading"
+      size="lg"
+      text="Loading cart..."
+    />
 
-    <div v-else-if="cartItems.length === 0" class="text-center py-12">
-      <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+    <div
+      v-else-if="cartItems.length === 0"
+      class="text-center py-12"
+    >
+      <svg
+        class="mx-auto h-24 w-24 text-gray-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+        />
       </svg>
-      <h3 class="mt-4 text-lg font-medium text-gray-900">Your cart is empty</h3>
-      <p class="mt-2 text-gray-500">Start adding some artworks!</p>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">
+        Your cart is empty
+      </h3>
+      <p class="mt-2 text-gray-500">
+        Start adding some artworks!
+      </p>
       <router-link to="/allArtwork">
-        <BaseButton variant="primary" class="mt-6">Browse Artworks</BaseButton>
+        <BaseButton
+          variant="primary"
+          class="mt-6"
+        >
+          Browse Artworks
+        </BaseButton>
       </router-link>
     </div>
 
-    <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div
+      v-else
+      class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+    >
       <div class="lg:col-span-2 space-y-4">
         <div
           v-for="item in cartItems"
@@ -26,33 +57,39 @@
             :src="item.imageUrl"
             :alt="item.title"
             class="w-32 h-32 object-cover rounded-lg"
-          />
+          >
           
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900">{{ item.title }}</h3>
-            <p class="text-sm text-gray-600 mt-1">{{ item.artistName }}</p>
-            <p class="text-xl font-bold text-gray-900 mt-2">${{ item.price }}</p>
+            <h3 class="text-lg font-semibold text-gray-900">
+              {{ item.title }}
+            </h3>
+            <p class="text-sm text-gray-600 mt-1">
+              {{ item.artistName }}
+            </p>
+            <p class="text-xl font-bold text-gray-900 mt-2">
+              ${{ item.price }}
+            </p>
             
             <div class="flex items-center gap-4 mt-4">
               <div class="flex items-center border border-gray-300 rounded-lg">
                 <button
-                  @click="updateQuantity(item.id, item.quantity - 1)"
                   class="px-3 py-1 hover:bg-gray-100"
+                  @click="updateQuantity(item.id, item.quantity - 1)"
                 >
                   -
                 </button>
                 <span class="px-4 py-1 border-x border-gray-300">{{ item.quantity }}</span>
                 <button
-                  @click="updateQuantity(item.id, item.quantity + 1)"
                   class="px-3 py-1 hover:bg-gray-100"
+                  @click="updateQuantity(item.id, item.quantity + 1)"
                 >
                   +
                 </button>
               </div>
               
               <button
-                @click="removeItem(item.id)"
                 class="text-red-600 hover:text-red-700 text-sm font-medium"
+                @click="removeItem(item.id)"
               >
                 Remove
               </button>
@@ -69,7 +106,9 @@
 
       <div class="lg:col-span-1">
         <div class="bg-white rounded-xl shadow-md p-6 sticky top-24">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+            Order Summary
+          </h3>
           
           <div class="space-y-3 mb-4">
             <div class="flex justify-between text-gray-600">

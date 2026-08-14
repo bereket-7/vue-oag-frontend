@@ -246,7 +246,7 @@
                       @click="handleLogout"
                     >
                       <i class="fas fa-sign-out-alt w-5" />
-                      <span>Logout</span>
+                      <span>{{ t('nav.logout') }}</span>
                     </button>
                   </div>
                 </div>
@@ -260,13 +260,13 @@
               to="/userLogin"
               class="hidden lg:flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium transition-colors duration-200"
             >
-              Login
+              {{ t('nav.login') }}
             </router-link>
             <router-link
               to="/register"
               class="hidden sm:flex items-center px-5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg shadow-purple-500/20 text-sm"
             >
-              Sign Up
+              {{ t('nav.register') }}
             </router-link>
           </template>
 
@@ -367,7 +367,7 @@
               @click="closeMenu"
             >
               <i class="fas fa-shopping-cart w-5" />
-              <span>Cart</span>
+              <span>{{ t('nav.cart') }}</span>
               <span
                 v-if="cartCount > 0"
                 class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ml-auto"
@@ -379,7 +379,7 @@
               @click="handleLogout"
             >
               <i class="fas fa-sign-out-alt w-5" />
-              <span>Logout</span>
+              <span>{{ t('nav.logout') }}</span>
             </button>
           </template>
           <template v-else>
@@ -388,14 +388,14 @@
               class="mobile-link justify-center font-semibold"
               @click="closeMenu"
             >
-              Login
+              {{ t('nav.login') }}
             </router-link>
             <router-link
               to="/register"
               class="flex items-center justify-center w-full px-6 py-3 mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl"
               @click="closeMenu"
             >
-              Sign Up
+              {{ t('nav.register') }}
             </router-link>
           </template>
         </div>
@@ -415,6 +415,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useCartStore } from '@/stores/cart';
 import { useUserStore } from '@/stores/user';
 import { useTheme } from '@/composables/useTheme';
+import { useI18n } from 'vue-i18n';
 import SearchOverlay from '@/components/common/SearchOverlay.vue';
 
 const authStore = useAuthStore();
@@ -422,6 +423,7 @@ const cartStore = useCartStore();
 const userStore = useUserStore();
 const router = useRouter();
 const { isDark, toggleTheme } = useTheme();
+const { t } = useI18n();
 
 const scrolled = ref(false);
 const menuOpen = ref(false);
@@ -432,14 +434,14 @@ const searchOpen = ref(false);
 const dropdownRef = ref(null);
 const notifRef = ref(null);
 
-const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/allArtwork', label: 'Gallery' },
-  { to: '/search', label: 'Search' },
-  { to: '/collections', label: 'Collections' },
-  { to: '/auctions', label: 'Auctions' },
-  { to: '/contactUs', label: 'Contact' },
-];
+const navLinks = computed(() => [
+  { to: '/', label: t('nav.home') },
+  { to: '/allArtwork', label: t('nav.gallery') },
+  { to: '/search', label: t('nav.search') },
+  { to: '/collections', label: t('nav.collections') },
+  { to: '/auctions', label: t('nav.auctions') },
+  { to: '/contactUs', label: t('nav.contact') }
+]);
 
 const userName = computed(() => {
   const u = authStore.user;

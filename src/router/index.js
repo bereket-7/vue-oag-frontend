@@ -18,6 +18,8 @@ const routes = [
   { path: '/about', name: 'About', component: () => import('../components/AboutUs.vue') },
   { path: '/contactUs', name: 'ContactUs', component: () => import('../views/ContactUs.MODERN.vue') },
   { path: '/FAQs', name: 'FAQs', component: () => import('../views/User/FAQs.MODERN.vue') },
+  { path: '/privacy', name: 'PrivacyPolicy', component: () => import('../views/legal/PrivacyPolicy.vue') },
+  { path: '/terms', name: 'TermsAndConditions', component: () => import('../views/legal/TermsAndConditions.vue') },
   { path: '/userLogin', name: 'UserLogin', component: () => import('../views/User/UserLogin.MODERN.vue'), meta: { guestOnly: true }, alias: '/userlogin' },
   { path: '/register', name: 'RegisterUser', component: () => import('../views/User/RegisterUser.MODERN.vue'), meta: { guestOnly: true } },
   { path: '/forgotPassword', name: 'ForgotPassword', component: () => import('../components/ForgotPassword.vue'), meta: { guestOnly: true } },
@@ -74,7 +76,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to) {
+    if (to.hash) {
+      return { el: to.hash, top: 96 };
+    }
     return { top: 0 };
   }
 });

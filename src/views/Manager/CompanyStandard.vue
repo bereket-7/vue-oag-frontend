@@ -1,315 +1,114 @@
 <template>
-  <div class="container">
-    <button
-      id="add-standard"
-      onclick="document.getElementById('id01').style.display='block'"
-    >
-      Add Standard
-    </button>
-  
-    <div
-      id="id01"
-      class="modal"
-    >
-      <span
-        onclick="document.getElementById('id01').style.display='none'"
-        class="close"
-        title="Close Modal"
-      ><i class="fa-solid fa-xmark" /></span>
-      <form
-        class="modal-content"
-        action="/action_page.php"
-      >
-        <div class="container">
-          <h1 style="margin-top: 20px;">
-            Add Standard
-          </h1>
-          <p>Please enter company standards here </p>
-          <hr>
-          <label for="standardDescription"><b>Standard description</b></label>
-          <div class="input-group flex-nowrap py-3">
-            <textarea
-              id="standardDescription"
-              v-model="standardDescription"
-              type="text"
-              class="form-control form-control-lg"
-              rows="3"
-              required
-            />
-          </div>
-  
-          <div>
-            <label for="standardType"><b>Standard Type</b></label>
-            <select
-              id="standardType"
-              v-model="standardType"
-              class="form-select"
-              required
-            >
-              <option
-                value="organizational"
-                selected
-              >
-                Organizational
-              </option>
-              <option value="artwork">
-                Artwork
-              </option>
-              <option value="customer">
-                Customer
-              </option>
-            </select>
-          </div>
-  
-          <p style="margin-top: 60px;">
-            This will be displayed in the company list of <a
-              href="#"
-              style="color:dodgerblue"
-            >policy & standards.</a>
-          </p>
-  
-          <div class="clearfix">
-            <button
-              type="button"
-              onclick="document.getElementById('id01').style.display='none'"
-              class="cancelbtn"
-              style="float: left;"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="signup"
-              style="float: right;"
-              @click.prevent="saveStandard()"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+  <div class="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+    <PageHeader
+      title="Company standards"
+      subtitle="Publish a policy that artists and customers can read"
+      eyebrow="Manager"
+    />
 
-
-    <div
-      id="popup"
-      class="popup"
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="saveStandard"
     >
-      <img
-        src="tick.png"
-        alt="tick"
+      <div
+        v-if="successMessage"
+        class="alert-success"
       >
-      <h2>Thank You</h2>
-      <p>You have successfully uploaded standards</p>
+        <i class="fas fa-check-circle mr-2" />{{ successMessage }}
+      </div>
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
+        <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+          Standard description <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          v-model="standardDescription"
+          rows="4"
+          class="form-textarea"
+          required
+        />
+      </div>
+
+      <div>
+        <label
+          for="standardType"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
+        >Standard type</label>
+        <select
+          id="standardType"
+          v-model="standardType"
+          class="input"
+          required
+        >
+          <option value="organizational">
+            Organizational
+          </option>
+          <option value="artwork">
+            Artwork
+          </option>
+          <option value="customer">
+            Customer
+          </option>
+        </select>
+      </div>
+
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        This will appear in the public
+        <router-link
+          to="/displayStandard"
+          class="text-purple-600 dark:text-purple-400 font-medium"
+        >policy &amp; standards</router-link>
+        list.
+      </p>
+
       <button
-        type="button"
-        @click="closePopup()"
+        type="submit"
+        class="kelem-btn"
+        :disabled="loading"
       >
-        OK
+        <i
+          v-if="loading"
+          class="fas fa-spinner fa-spin mr-2"
+        />
+        Submit standard
       </button>
-    </div>
+    </form>
   </div>
 </template>
-  
-  
 
-<script>
-import axios from 'axios';
+<script setup>
+import { ref } from 'vue';
+import { standardService } from '@/services/standardService';
+import { PageHeader } from '@/components/common';
 
-export default {
-  data() {
-    return {
-      standardDescription: '',
-      standardType: ''
-    };
-  },
-  methods: {
-    async saveStandard() {
-      try {
-        const response = await axios.post('http://localhost:8082/standard/add', {
-          standardDescription: this.standardDescription,
-          standardType: this.standardType
-        });
-        console.log(response);
-        this.standardDescription = '';
-        this.standardType = '';
-        this.openPopup(); 
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while uploading!');
-      }
-    },
-    openPopup() {
-      let popup = document.getElementById('popup');
-      popup.classList.add('open-popup');
-      this.resetForm();
-    },
-    closePopup() {
-      let popup = document.getElementById('popup');
-      popup.classList.remove('open-popup');
-    },
-    resetForm() {
-      this.standardDescription = ''; 
-      this.standardType = '';
-    }
+const standardDescription = ref('');
+const standardType = ref('organizational');
+const loading = ref(false);
+const successMessage = ref('');
+const errorMessage = ref('');
+
+const saveStandard = async () => {
+  loading.value = true;
+  successMessage.value = '';
+  errorMessage.value = '';
+  try {
+    await standardService.create({
+      standardDescription: standardDescription.value,
+      standardType: standardType.value
+    });
+    successMessage.value = 'Standard uploaded successfully.';
+    standardDescription.value = '';
+    standardType.value = 'organizational';
+  } catch {
+    errorMessage.value = 'An error occurred while uploading.';
+  } finally {
+    loading.value = false;
   }
 };
 </script>
-
-<style scoped>
-
-
-* {box-sizing: border-box}
-  input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 15%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity:1;
-}
-
-.cancelbtn {
-  /* padding: 14px 20px; */
-  background-color: #f44336;
-}
-
-.cancelbtn, .signupbtn {
-  float: left;
-  width: 25%;
-}
-
-.container {
-  padding: 16px;
-  margin-top: 120px;
-}
-
-.modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%;
-  overflow: auto; 
-  background-color: #474e5d;
-  padding-top: 100px;
-}
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; 
-  border: 1px solid #888;
-  width: 80%; 
-}
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
-
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.popup{
-    width: 400px;
-    background: #fff;
-    border-radius: 6px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    text-align: center;
-    padding: 0 30px 30px;
-    color:#333 ;
-    visibility: hidden;
-    transition: transform 0.4s, top 0.4s;
-}
-.open-popup{
-  visibility: visible;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(1) ;
-}
-.popup img{
-    width: 100px;
-    margin-top: -50%;
-    border-radius: 50px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-
-}
-.popup h2{
-    font-size: 38px;
-    font-weight: 500;
-    margin: 30px 0 10px;
-  
-}
-.popup button{
-    width: 100px;
-    margin-top: 50px;
-    padding: 10px 0;
-    background: #6fd649;
-    color: #fff;
-    border: 0;
-    outline: none;
-    font-size: 18px;
-    border-radius:4px  ;
-    cursor: pointer;
-    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
-} 
-@media screen and (max-width: 768px) {
-  .cancelbtn, .signup {
-    width: 100%;
-  }
-
-  #add-standard{
-    width: 100%;
-  }
-}
-@media screen and (max-width: 300px) {
-  .cancelbtn, .signup {
-    width: 100%;
-  }
-
-  #add-standard{
-    width: 100%;
-  }
-}
-
-</style>

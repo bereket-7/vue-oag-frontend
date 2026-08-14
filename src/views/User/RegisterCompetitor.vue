@@ -3,40 +3,88 @@
     <h2>Apply for competition</h2>
     <form @submit.prevent="registerCompetitor">
       <div>
-        <input type="text" placeholder="First Name" id="firstName" v-model="competitor.firstName" required />
+        <input
+          id="firstName"
+          v-model="competitor.firstName"
+          type="text"
+          placeholder="First Name"
+          required
+        >
       </div>
       <div>
-        <input type="text" placeholder="Last Name" id="lastName" v-model="competitor.lastName" required />
+        <input
+          id="lastName"
+          v-model="competitor.lastName"
+          type="text"
+          placeholder="Last Name"
+          required
+        >
       </div>
       <div>
-        <input type="text" placeholder="Phone" id="phone" v-model="competitor.phone" required />
+        <input
+          id="phone"
+          v-model="competitor.phone"
+          type="text"
+          placeholder="Phone"
+          required
+        >
       </div>
       <div>
-        <input type="email" placeholder="Email" id="email" v-model="competitor.email" required />
+        <input
+          id="email"
+          v-model="competitor.email"
+          type="email"
+          placeholder="Email"
+          required
+        >
       </div>
 
       <div>
         <div>
-         <label for="category">Category</label> 
-               <div>
-                <select type="text" placeholder="First Name" id="category" v-model="competitor.category"  required >
-                <option value="painting">Painting</option>
-                <option value="sculpture">Sculpture</option>
-                <option value="mixed-media">Mixed Media</option>
-                </select>
-                </div>
-      </div>
+          <label for="category">Category</label> 
+          <div>
+            <select
+              id="category"
+              v-model="competitor.category"
+              type="text"
+              placeholder="First Name"
+              required
+            >
+              <option value="painting">
+                Painting
+              </option>
+              <option value="sculpture">
+                Sculpture
+              </option>
+              <option value="mixed-media">
+                Mixed Media
+              </option>
+            </select>
+          </div>
+        </div>
       </div><br><br>
 
       <div>
-        <textarea id="artDescription" placeholder="Artwork Description" v-model="competitor.artDescription" required></textarea>
+        <textarea
+          id="artDescription"
+          v-model="competitor.artDescription"
+          placeholder="Artwork Description"
+          required
+        />
       </div>
 
       <div>
         <label for="image">Artwork Image</label>
-        <input type="file" id="image" @change="onFileChange" required />
+        <input
+          id="image"
+          type="file"
+          required
+          @change="onFileChange"
+        >
       </div>
-      <button type="submit">Register</button>
+      <button type="submit">
+        Register
+      </button>
     </form>
   </div>
 </template>

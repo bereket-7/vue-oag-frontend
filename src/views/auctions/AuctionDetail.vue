@@ -1,16 +1,35 @@
 <template>
   <div class="min-h-screen bg-gray-50 pt-20">
     <PageLoader v-if="loading" />
-    <div v-else-if="auction" class="container mx-auto px-4 py-8">
+    <div
+      v-else-if="auction"
+      class="container mx-auto px-4 py-8"
+    >
       <div class="grid lg:grid-cols-2 gap-8">
-        <img :src="auction.artwork?.imageUrl" :alt="auction.artwork?.title" class="w-full rounded-xl shadow-md" />
+        <img
+          :src="auction.artwork?.imageUrl"
+          :alt="auction.artwork?.title"
+          class="w-full rounded-xl shadow-md"
+        >
         <div class="space-y-6">
-          <h1 class="text-3xl font-bold">{{ auction.artwork?.title }}</h1>
+          <h1 class="text-3xl font-bold">
+            {{ auction.artwork?.title }}
+          </h1>
           <AuctionCountdown :ends-at="auction.endsAt" />
-          <p class="text-3xl font-bold text-purple-600">Current Bid: {{ formatPrice(auction.currentBid) }}</p>
-          <BidPanel :auction="auction" @bid-placed="refresh" />
+          <p class="text-3xl font-bold text-purple-600">
+            Current Bid: {{ formatPrice(auction.currentBid) }}
+          </p>
+          <BidPanel
+            :auction="auction"
+            @bid-placed="refresh"
+          />
           <BidHistory :bids="auction.bidHistory" />
-          <BaseButton variant="outline" @click="toggleWatch">{{ isWatching ? 'Unwatch' : 'Watch Auction' }}</BaseButton>
+          <BaseButton
+            variant="outline"
+            @click="toggleWatch"
+          >
+            {{ isWatching ? 'Unwatch' : 'Watch Auction' }}
+          </BaseButton>
         </div>
       </div>
     </div>

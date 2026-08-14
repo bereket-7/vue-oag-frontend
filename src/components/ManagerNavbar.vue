@@ -1,36 +1,85 @@
 <template>
-    <nav class="navbar navbar-expand-lg">
-      <router-link to="/" class="navbar-brand"> <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=80&h=48&fit=crop&q=80" alt="Logo" width="100" height="60"></router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="main collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-list">
-          <li class="nav-item">
-            <router-link to="/">Home</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/verifyArtwork">Request</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/createCompetition">Competition</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/artworks">Artworks</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/userReport">Reports</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/myAccount"><i class="fa-solid fa-gear">Account</i></router-link>
-          </li>
-        </ul>
-        <router-link to="/userlogin" style="margin-right:15px">Login</router-link>
-        <router-link to="/register" style="margin-right:15px">Sign up</router-link>
-        <router-link to="/cart" class="shopping-cart-icon"  style="margin-right:15px"><i class="fas fa-shopping-cart"></i></router-link>
-      </div>
-    </nav>
-  </template>
+  <nav class="navbar navbar-expand-lg">
+    <router-link
+      to="/"
+      class="navbar-brand"
+    >
+      <img
+        src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=80&h=48&fit=crop&q=80"
+        alt="Logo"
+        width="100"
+        height="60"
+      >
+    </router-link>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" />
+    </button>
+    <div
+      id="navbarSupportedContent"
+      class="main collapse navbar-collapse"
+    >
+      <ul class="navbar-list">
+        <li class="nav-item">
+          <router-link to="/">
+            Home
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/verifyArtwork">
+            Request
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/createCompetition">
+            Competition
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/artworks">
+            Artworks
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/userReport">
+            Reports
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/myAccount">
+            <i class="fa-solid fa-gear">Account</i>
+          </router-link>
+        </li>
+      </ul>
+      <router-link
+        to="/userlogin"
+        style="margin-right:15px"
+      >
+        Login
+      </router-link>
+      <router-link
+        to="/register"
+        style="margin-right:15px"
+      >
+        Sign up
+      </router-link>
+      <router-link
+        to="/cart"
+        class="shopping-cart-icon"
+        style="margin-right:15px"
+      >
+        <i class="fas fa-shopping-cart" />
+      </router-link>
+    </div>
+  </nav>
+</template>
   
 <script>
     export default {

@@ -7,35 +7,91 @@
             <h3>Payment</h3>
             <label>Accepted Cards</label>
             <div class="icon-container">
-              <i class="fa-brands fa-cc-visa" style="color:navy;"></i>
-              <i class="fa-brands fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa-brands fa-cc-discover" style="color:orange;"></i>
-              <i class="fa-brands fa-cc-amex" style="color:blue;"></i>
+              <i
+                class="fa-brands fa-cc-visa"
+                style="color:navy;"
+              />
+              <i
+                class="fa-brands fa-cc-mastercard"
+                style="color:red;"
+              />
+              <i
+                class="fa-brands fa-cc-discover"
+                style="color:orange;"
+              />
+              <i
+                class="fa-brands fa-cc-amex"
+                style="color:blue;"
+              />
             </div>
             <label for="price">Total</label>
-            <input v-model="total" type="text" id="price" name="price" placeholder="Enter Total Amount">
+            <input
+              id="price"
+              v-model="total"
+              type="text"
+              name="price"
+              placeholder="Enter Total Amount"
+            >
             <label for="currency">Currency</label>
-            <input v-model="currency" type="text" id="currency" name="currency" placeholder="Enter Currency">
+            <input
+              id="currency"
+              v-model="currency"
+              type="text"
+              name="currency"
+              placeholder="Enter Currency"
+            >
             <label for="method">Payment Method</label>
-            <input v-model="method" type="text" id="method" name="method" placeholder="Payment Method">
+            <input
+              id="method"
+              v-model="method"
+              type="text"
+              name="method"
+              placeholder="Payment Method"
+            >
             <label for="intent">Intent</label>
-            <input v-model="intent" type="text" id="intent" name="intent" placeholder="Payment Intent">
+            <input
+              id="intent"
+              v-model="intent"
+              type="text"
+              name="intent"
+              placeholder="Payment Intent"
+            >
             <label for="description">Payment Description</label>
-            <input v-model="description" type="text" id="description" name="description" placeholder="Payment Description">
+            <input
+              id="description"
+              v-model="description"
+              type="text"
+              name="description"
+              placeholder="Payment Description"
+            >
           </div>
-          <input type="submit" value="Continue to checkout" class="btn">
+          <input
+            type="submit"
+            value="Continue to checkout"
+            class="btn"
+          >
         </form>
       </div>
     </div>
     <div class="col-25">
       <div class="container">
-        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+        <h4>
+          Cart <span
+            class="price"
+            style="color:black"
+          ><i class="fa fa-shopping-cart" /> <b>4</b></span>
+        </h4>
         <p><a href="#">painting</a> <span class="price">10000</span></p>
         <p><a href="#">mixed art</a> <span class="price">5000</span></p>
         <p><a href="#">sculpture</a> <span class="price">3000</span></p>
         <p><a href="#">acrylic art</a> <span class="price">2000</span></p>
         <hr>
-        <p>Total <span class="price" style="color:black"><b>{{ total }}</b></span></p>
+        <p>
+          Total <span
+            class="price"
+            style="color:black"
+          ><b>{{ total }}</b></span>
+        </p>
       </div>
     </div>
   </div>

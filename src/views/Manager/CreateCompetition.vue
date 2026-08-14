@@ -1,33 +1,104 @@
 <template>
   <div class="container">
     <div class="image-container">
-      <img src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=900&q=80" alt="Competition image">
+      <img
+        src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=900&q=80"
+        alt="Competition image"
+      >
     </div>
-  <div class="form-container">
-    <form @submit.prevent="addCompetition" class="form">
-      <h1>Add Competition</h1>
-      <label for="title">Title</label>
-      <input type="text" id="title" v-model="competition.competitionTitle" required><br><br>
+    <div class="form-container">
+      <form
+        class="form"
+        @submit.prevent="addCompetition"
+      >
+        <h1>Add Competition</h1>
+        <label for="title">Title</label>
+        <input
+          id="title"
+          v-model="competition.competitionTitle"
+          type="text"
+          required
+        ><br><br>
 
-      <label for="description">Description</label>
-      <input type="text" id="description" v-model="competition.competitionDescription" required><br><br>
+        <label for="description">Description</label>
+        <input
+          id="description"
+          v-model="competition.competitionDescription"
+          type="text"
+          required
+        ><br><br>
 
-      <label for="numberOfCompetitor">Number of Competitors</label>
-      <input type="number" id="numberOfCompetitor" v-model="competition.numberOfCompetitor" required><br><br>
+        <label for="numberOfCompetitor">Number of Competitors</label>
+        <input
+          id="numberOfCompetitor"
+          v-model="competition.numberOfCompetitor"
+          type="number"
+          required
+        ><br><br>
 
-      <label for="expiryDate">Expiry Date</label>
-      <input type="date" id="expiryDate" v-model="competition.expiryDate" required><br><br>
-      <!-- <button type="submit">Add Competition</button>
+        <label for="expiryDate">Expiry Date</label>
+        <input
+          id="expiryDate"
+          v-model="competition.expiryDate"
+          type="date"
+          required
+        ><br><br>
+        <!-- <button type="submit">Add Competition</button>
       <button type="button" class="btn btn-secondary">Manage Competition</button> -->
-      <button type="submit" class="btn btn-success">Add Competition</button>
-      <router-link to="/manageCompetition"><p>Manage Competition</p></router-link>
-
-    </form>
-  </div>
+        <button
+          type="submit"
+          class="btn btn-success"
+        >
+          Add Competition
+        </button>
+        <router-link to="/manageCompetition">
+          <p>Manage Competition</p>
+        </router-link>
+      </form>
+    </div>
   </div>
 </template>
 
 
+
+<script>
+import api from '@/services/api';
+
+export default {
+  name: 'AddCompetition',
+  data() {
+    return {
+      competition: {
+        competitionTitle: '',
+        competitionDescription: '',
+        numberOfCompetitor: '',
+        expiryDate: ''
+      },
+      success: false
+    }
+  },
+  methods: {
+    async addCompetition() {
+      try {
+        await api.post('/competition/add', this.competition);
+        alert("successfully registered");
+        this.resetForm();
+      } catch (error) {
+        console.error(error);
+        alert('Failed to add competition.');
+      }
+    },
+    resetForm() {
+      this.competition = {
+        competitionTitle: '',
+        competitionDescription: '',
+        numberOfCompetitor: '',
+        expiryDate: ''
+      };
+    }
+  }
+}
+</script>
 
 <style scoped>
 .container {
@@ -198,42 +269,3 @@ input[type="submit"]:hover, button:hover {
   background-color: #3e8e41;
 }
 </style>
-
-<script>
-import api from '@/services/api';
-
-export default {
-  name: 'AddCompetition',
-  data() {
-    return {
-      competition: {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      },
-      success: false
-    }
-  },
-  methods: {
-    async addCompetition() {
-      try {
-        await api.post('/competition/add', this.competition);
-        alert("successfully registered");
-        this.resetForm();
-      } catch (error) {
-        console.error(error);
-        alert('Failed to add competition.');
-      }
-    },
-    resetForm() {
-      this.competition = {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      };
-    }
-  }
-}
-</script>

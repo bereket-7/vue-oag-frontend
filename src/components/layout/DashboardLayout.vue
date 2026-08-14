@@ -12,8 +12,12 @@
       >
         <!-- Sidebar header -->
         <div class="p-5 border-b border-gray-100 dark:border-gray-800">
-          <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">Dashboard</p>
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white truncate">{{ title }}</h2>
+          <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+            Dashboard
+          </p>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white truncate">
+            {{ title }}
+          </h2>
         </div>
 
         <!-- Nav -->
@@ -22,15 +26,19 @@
             v-for="tab in normalizedTabs"
             :key="tab.key"
             type="button"
-            @click="selectTab(tab)"
             :class="[
               'w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
               isActive(tab)
                 ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/25'
                 : 'text-gray-600 dark:text-gray-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-purple-700 dark:hover:text-purple-300'
             ]"
+            @click="selectTab(tab)"
           >
-            <i v-if="tab.icon" :class="tab.icon" class="w-4 text-center shrink-0" />
+            <i
+              v-if="tab.icon"
+              :class="tab.icon"
+              class="w-4 text-center shrink-0"
+            />
             <span class="truncate">{{ tab.label }}</span>
           </button>
         </nav>
@@ -39,8 +47,8 @@
         <div class="p-3 border-t border-gray-100 dark:border-gray-800">
           <button
             type="button"
-            @click="showLogoutDialog = true"
             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            @click="showLogoutDialog = true"
           >
             <i class="fas fa-sign-out-alt w-4 text-center" />
             Logout
@@ -76,11 +84,27 @@
       </div>
     </div>
 
-    <BaseModal v-model="showLogoutDialog" title="Confirm Logout" size="sm">
-      <p class="text-gray-700 dark:text-gray-300">Are you sure you want to logout?</p>
+    <BaseModal
+      v-model="showLogoutDialog"
+      title="Confirm Logout"
+      size="sm"
+    >
+      <p class="text-gray-700 dark:text-gray-300">
+        Are you sure you want to logout?
+      </p>
       <template #footer>
-        <BaseButton variant="secondary" @click="showLogoutDialog = false">Cancel</BaseButton>
-        <BaseButton variant="danger" @click="handleLogout">Logout</BaseButton>
+        <BaseButton
+          variant="secondary"
+          @click="showLogoutDialog = false"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          variant="danger"
+          @click="handleLogout"
+        >
+          Logout
+        </BaseButton>
       </template>
     </BaseModal>
   </div>

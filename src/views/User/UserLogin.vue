@@ -1,8 +1,11 @@
 <template>
   <div class="auth-page">
     <!-- Left panel: artwork showcase -->
-    <div class="auth-panel auth-panel--art" aria-hidden="true">
-      <div class="art-overlay"></div>
+    <div
+      class="auth-panel auth-panel--art"
+      aria-hidden="true"
+    >
+      <div class="art-overlay" />
       <div class="art-content">
         <div class="art-logo">
           <div class="auth-brand">
@@ -15,7 +18,7 @@
           <cite>— Thomas Merton</cite>
         </blockquote>
         <div class="art-dots">
-          <span></span><span></span><span></span>
+          <span /><span /><span />
         </div>
       </div>
     </div>
@@ -24,23 +27,40 @@
     <div class="auth-panel auth-panel--form">
       <div class="auth-form-wrap">
         <div class="auth-header">
-          <h1 class="auth-title">Welcome back</h1>
-          <p class="auth-subtitle">Sign in to your Kelem account</p>
+          <h1 class="auth-title">
+            Welcome back
+          </h1>
+          <p class="auth-subtitle">
+            Sign in to your Kelem account
+          </p>
         </div>
 
         <transition name="fade">
-          <div v-if="errorMessage" class="auth-alert">
-            <i class="fas fa-exclamation-circle"></i>
+          <div
+            v-if="errorMessage"
+            class="auth-alert"
+          >
+            <i class="fas fa-exclamation-circle" />
             {{ errorMessage }}
           </div>
         </transition>
 
-        <form @submit.prevent="submitForm" class="auth-form" novalidate>
+        <form
+          class="auth-form"
+          novalidate
+          @submit.prevent="submitForm"
+        >
           <!-- Email -->
-          <div class="field" :class="{ 'field--error': fieldErrors.email, 'field--filled': email }">
-            <label for="login-email" class="field__label">Email or Username</label>
+          <div
+            class="field"
+            :class="{ 'field--error': fieldErrors.email, 'field--filled': email }"
+          >
+            <label
+              for="login-email"
+              class="field__label"
+            >Email or Username</label>
             <div class="field__input-wrap">
-              <i class="fas fa-envelope field__icon"></i>
+              <i class="fas fa-envelope field__icon" />
               <input
                 id="login-email"
                 v-model="email"
@@ -49,16 +69,25 @@
                 placeholder="you@example.com"
                 autocomplete="username"
                 @blur="validateField('email')"
-              />
+              >
             </div>
-            <span v-if="fieldErrors.email" class="field__error">{{ fieldErrors.email }}</span>
+            <span
+              v-if="fieldErrors.email"
+              class="field__error"
+            >{{ fieldErrors.email }}</span>
           </div>
 
           <!-- Password -->
-          <div class="field" :class="{ 'field--error': fieldErrors.password, 'field--filled': password }">
-            <label for="login-password" class="field__label">Password</label>
+          <div
+            class="field"
+            :class="{ 'field--error': fieldErrors.password, 'field--filled': password }"
+          >
+            <label
+              for="login-password"
+              class="field__label"
+            >Password</label>
             <div class="field__input-wrap">
-              <i class="fas fa-lock field__icon"></i>
+              <i class="fas fa-lock field__icon" />
               <input
                 id="login-password"
                 v-model="password"
@@ -67,27 +96,52 @@
                 placeholder="••••••••"
                 autocomplete="current-password"
                 @blur="validateField('password')"
-              />
-              <button type="button" class="field__toggle" @click="showPassword = !showPassword" :aria-label="showPassword ? 'Hide password' : 'Show password'">
-                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              >
+              <button
+                type="button"
+                class="field__toggle"
+                :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                @click="showPassword = !showPassword"
+              >
+                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" />
               </button>
             </div>
-            <span v-if="fieldErrors.password" class="field__error">{{ fieldErrors.password }}</span>
+            <span
+              v-if="fieldErrors.password"
+              class="field__error"
+            >{{ fieldErrors.password }}</span>
           </div>
 
           <div class="auth-form__row">
-            <router-link to="/forgotPassword" class="auth-link">Forgot password?</router-link>
+            <router-link
+              to="/forgotPassword"
+              class="auth-link"
+            >
+              Forgot password?
+            </router-link>
           </div>
 
-          <button type="submit" class="auth-btn" :disabled="loading">
+          <button
+            type="submit"
+            class="auth-btn"
+            :disabled="loading"
+          >
             <span v-if="!loading">Sign In</span>
-            <span v-else class="auth-btn__spinner"><i class="fas fa-circle-notch fa-spin"></i> Signing in...</span>
+            <span
+              v-else
+              class="auth-btn__spinner"
+            ><i class="fas fa-circle-notch fa-spin" /> Signing in...</span>
           </button>
         </form>
 
         <p class="auth-switch">
           Don't have an account?
-          <router-link to="/register" class="auth-link auth-link--bold">Create one</router-link>
+          <router-link
+            to="/register"
+            class="auth-link auth-link--bold"
+          >
+            Create one
+          </router-link>
         </p>
       </div>
     </div>

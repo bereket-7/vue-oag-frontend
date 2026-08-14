@@ -1,8 +1,8 @@
 <template>
-    <div class="success-page">
-      <h1>Payment Successful!</h1>
-      <p>Thank you for your payment. Your transaction has been successfully processed.</p>
-    </div>
+  <div class="success-page">
+    <h1>Payment Successful!</h1>
+    <p>Thank you for your payment. Your transaction has been successfully processed.</p>
+  </div>
 </template>
   <script>
      export default {

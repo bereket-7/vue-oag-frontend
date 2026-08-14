@@ -1,17 +1,33 @@
 <template>
   <div class="container mx-auto px-4 py-8 mt-20">
     <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-900">Discover Artworks</h2>
-      <p class="text-gray-600 mt-2">Explore our curated collection</p>
+      <h2 class="text-3xl font-bold text-gray-900">
+        Discover Artworks
+      </h2>
+      <p class="text-gray-600 mt-2">
+        Explore our curated collection
+      </p>
     </div>
 
-    <LoadingSpinner v-if="loading" size="lg" text="Loading artworks..." />
+    <LoadingSpinner
+      v-if="loading"
+      size="lg"
+      text="Loading artworks..."
+    />
 
-    <div v-else-if="artworks.length === 0" class="text-center py-12">
-      <p class="text-gray-500 text-lg">No artworks found</p>
+    <div
+      v-else-if="artworks.length === 0"
+      class="text-center py-12"
+    >
+      <p class="text-gray-500 text-lg">
+        No artworks found
+      </p>
     </div>
 
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div
+      v-else
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
       <ArtworkCard
         v-for="artwork in artworks"
         :key="artwork.id"
@@ -22,23 +38,38 @@
       />
     </div>
 
-    <BaseModal v-model="showModal" :title="selectedArtwork?.artworkName" size="lg">
-      <div v-if="selectedArtwork" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <BaseModal
+      v-model="showModal"
+      :title="selectedArtwork?.artworkName"
+      size="lg"
+    >
+      <div
+        v-if="selectedArtwork"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         <div>
           <img
             :src="getArtworkImageUrl(selectedArtwork.id)"
             :alt="selectedArtwork.artworkName"
             class="w-full h-auto rounded-lg"
-          />
+          >
         </div>
         
         <div class="space-y-4">
-          <p class="text-gray-700">{{ selectedArtwork.artworkDescription }}</p>
+          <p class="text-gray-700">
+            {{ selectedArtwork.artworkDescription }}
+          </p>
           
           <div class="space-y-2">
-            <p class="text-2xl font-bold text-gray-900">${{ selectedArtwork.price }}</p>
-            <p class="text-gray-600">Size: {{ selectedArtwork.size }}</p>
-            <p class="text-gray-600">Category: {{ selectedArtwork.artworkCategory }}</p>
+            <p class="text-2xl font-bold text-gray-900">
+              ${{ selectedArtwork.price }}
+            </p>
+            <p class="text-gray-600">
+              Size: {{ selectedArtwork.size }}
+            </p>
+            <p class="text-gray-600">
+              Category: {{ selectedArtwork.artworkCategory }}
+            </p>
           </div>
 
           <div class="border-t pt-4">
@@ -50,11 +81,18 @@
           </div>
 
           <div class="flex gap-3 pt-4">
-            <BaseButton variant="primary" full-width @click="handleAddToCart(selectedArtwork)">
+            <BaseButton
+              variant="primary"
+              full-width
+              @click="handleAddToCart(selectedArtwork)"
+            >
               Add to Cart
             </BaseButton>
-            <BaseButton variant="outline" @click="handleWishlist(selectedArtwork)">
-              <i class="fas fa-heart"></i>
+            <BaseButton
+              variant="outline"
+              @click="handleWishlist(selectedArtwork)"
+            >
+              <i class="fas fa-heart" />
             </BaseButton>
           </div>
         </div>

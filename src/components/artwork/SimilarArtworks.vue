@@ -1,8 +1,18 @@
 <template>
-  <section v-if="similar.length" class="space-y-6">
-    <h2 class="text-2xl font-bold text-gray-900">Similar Artworks</h2>
+  <section
+    v-if="similar.length"
+    class="space-y-6"
+  >
+    <h2 class="text-2xl font-bold text-gray-900">
+      Similar Artworks
+    </h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <ArtworkCard v-for="item in similar" :key="item.id" :artwork="item" @view-details="goToDetail(item)" />
+      <ArtworkCard
+        v-for="item in similar"
+        :key="item.id"
+        :artwork="item"
+        @view-details="goToDetail(item)"
+      />
     </div>
   </section>
 </template>

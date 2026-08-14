@@ -1,5 +1,5 @@
 <template>
-  <SearchUser/>
+  <SearchUser />
   <div>
     <table>
       <thead>
@@ -15,7 +15,10 @@
       </thead>
       <tbody>
         <template v-if="users.length > 0">
-          <tr v-for="user in users" :key="user.id">
+          <tr
+            v-for="user in users"
+            :key="user.id"
+          >
             <td>{{ user.id }}</td>
             <td>{{ user.firstname }}</td>
             <td>{{ user.lastname }}</td>
@@ -24,25 +27,30 @@
             <td>{{ user.role }}</td>
             <td>
               <button @click="editUser(user.id)">
-                <i class="fa fa-edit"></i>
+                <i class="fa fa-edit" />
               </button>
             </td>
             <td>
               <button @click="confirmDeleteUser(user.id)">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash" />
               </button>
             </td>
           </tr>
         </template>
         <template v-else>
           <tr>
-            <td colspan="7">No users available.</td>
+            <td colspan="7">
+              No users available.
+            </td>
           </tr>
         </template>
       </tbody>
     </table>
 
-    <button @click="deleteSelectedUsers" :disabled="selectedUsers.length === 0">
+    <button
+      :disabled="selectedUsers.length === 0"
+      @click="deleteSelectedUsers"
+    >
       Delete Selected
     </button>
   </div>
@@ -53,15 +61,15 @@ import axios from 'axios';
 import SearchUser from '@/components/SearchUser.vue'
 
 export default {
+  components:{
+      SearchUser
+    },
   data() {
     return {
       users: [],
       selectedUsers: []
     };
   },
-  components:{
-      SearchUser
-    },
   mounted() {
     this.fetchUsers();
   },

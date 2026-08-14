@@ -11,12 +11,19 @@
         ]"
       >
         <div class="p-5 border-b border-gray-100 dark:border-gray-800">
-          <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">KELEM</p>
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white truncate">{{ sidebarTitle }}</h2>
+          <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+            KELEM
+          </p>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white truncate">
+            {{ sidebarTitle }}
+          </h2>
         </div>
 
         <nav class="flex-1 p-3 overflow-y-auto space-y-4">
-          <div v-for="group in navGroups" :key="group.section">
+          <div
+            v-for="group in navGroups"
+            :key="group.section"
+          >
             <p class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
               {{ group.section }}
             </p>
@@ -29,7 +36,11 @@
                 :class="{ 'nav-item--active': isActive(item) }"
                 @click="sidebarOpen = false"
               >
-                <i v-if="item.icon" :class="item.icon" class="w-4 text-center shrink-0" />
+                <i
+                  v-if="item.icon"
+                  :class="item.icon"
+                  class="w-4 text-center shrink-0"
+                />
                 <span class="truncate">{{ item.label }}</span>
               </router-link>
             </div>
@@ -73,11 +84,27 @@
       </div>
     </div>
 
-    <BaseModal v-model="showLogoutDialog" title="Confirm Logout" size="sm">
-      <p class="text-gray-700 dark:text-gray-300">Are you sure you want to logout?</p>
+    <BaseModal
+      v-model="showLogoutDialog"
+      title="Confirm Logout"
+      size="sm"
+    >
+      <p class="text-gray-700 dark:text-gray-300">
+        Are you sure you want to logout?
+      </p>
       <template #footer>
-        <BaseButton variant="secondary" @click="showLogoutDialog = false">Cancel</BaseButton>
-        <BaseButton variant="danger" @click="handleLogout">Logout</BaseButton>
+        <BaseButton
+          variant="secondary"
+          @click="showLogoutDialog = false"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          variant="danger"
+          @click="handleLogout"
+        >
+          Logout
+        </BaseButton>
       </template>
     </BaseModal>
   </div>

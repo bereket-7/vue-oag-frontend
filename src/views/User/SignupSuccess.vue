@@ -1,8 +1,8 @@
 <template>
-    <div class="success">
-        <h1>successfully registered</h1><br /><br />
+  <div class="success">
+    <h1>successfully registered</h1><br><br>
     <h2>Check you emails ,To activate your account</h2> 
-    </div>
+  </div>
 </template>
 
 <script>

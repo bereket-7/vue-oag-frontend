@@ -1,24 +1,54 @@
 <template>
   <div class="min-h-screen bg-gray-50 pt-20">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-8">Order History</h1>
+      <h1 class="text-3xl font-bold mb-8">
+        Order History
+      </h1>
       <PageLoader v-if="loading" />
-      <div v-else-if="orders.length" class="space-y-4">
-        <router-link v-for="order in orders" :key="order.id" :to="`/account/orders/${order.id}`" class="block bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div
+        v-else-if="orders.length"
+        class="space-y-4"
+      >
+        <router-link
+          v-for="order in orders"
+          :key="order.id"
+          :to="`/account/orders/${order.id}`"
+          class="block bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
           <div class="flex justify-between items-center">
             <div>
-              <p class="font-bold">Order #{{ order.id }}</p>
-              <p class="text-sm text-gray-500">{{ new Date(order.createdAt).toLocaleDateString() }}</p>
+              <p class="font-bold">
+                Order #{{ order.id }}
+              </p>
+              <p class="text-sm text-gray-500">
+                {{ new Date(order.createdAt).toLocaleDateString() }}
+              </p>
             </div>
             <div class="text-right">
-              <span :class="statusClass(order.status)" class="px-3 py-1 rounded-full text-xs font-medium">{{ order.status }}</span>
-              <p class="font-bold mt-1">{{ formatPrice(order.total) }}</p>
+              <span
+                :class="statusClass(order.status)"
+                class="px-3 py-1 rounded-full text-xs font-medium"
+              >{{ order.status }}</span>
+              <p class="font-bold mt-1">
+                {{ formatPrice(order.total) }}
+              </p>
             </div>
           </div>
         </router-link>
       </div>
-      <EmptyState v-else title="No orders yet" message="Your purchase history will appear here.">
-        <template #action><router-link to="/allArtwork" class="text-purple-600 hover:underline">Browse Gallery</router-link></template>
+      <EmptyState
+        v-else
+        title="No orders yet"
+        message="Your purchase history will appear here."
+      >
+        <template #action>
+          <router-link
+            to="/allArtwork"
+            class="text-purple-600 hover:underline"
+          >
+            Browse Gallery
+          </router-link>
+        </template>
       </EmptyState>
     </div>
   </div>

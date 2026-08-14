@@ -8,7 +8,7 @@
   <UserHeader />
   <main
     id="main-content"
-    class="pt-16 lg:pt-20 transition-colors"
+    class="pt-16 lg:pt-20 min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors"
   >
     <AppLayout />
   </main>

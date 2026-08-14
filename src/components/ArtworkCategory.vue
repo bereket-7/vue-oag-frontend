@@ -1,15 +1,15 @@
 <template>
-  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
     <div class="container mx-auto px-4">
       <!-- Section Header -->
       <div
         class="text-center mb-16"
         data-aos="fade-up"
       >
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
           Explore <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Collections</span>
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Discover art across diverse mediums and styles, each piece carefully curated to inspire and transform your space
         </p>
       </div>

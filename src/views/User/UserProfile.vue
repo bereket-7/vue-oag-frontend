@@ -1,99 +1,163 @@
 
 <template>
   <div class="page-holder bg-gray-100">
-     <header class="header bg-white shadow align-self-end py-3 px-xl-5 w-100">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 text-center text-md-start fw-bold">
-                <p class="mb-2 mb-md-0 fw-bold">Kelem online Art Gallery</p>
-              </div>
-              <div class="col-md-6 text-center text-md-end text-gray-400">
-                <p class="mb-0">Bereket</p>
-              </div>
-            </div>
+    <header class="header bg-white shadow align-self-end py-3 px-xl-5 w-100">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start fw-bold">
+            <p class="mb-2 mb-md-0 fw-bold">
+              Kelem online Art Gallery
+            </p>
           </div>
-        </header>
-        <div class="container-fluid px-lg-4 px-xl-5 contentDiv">
-              <!-- Page Header-->
-              <div class="page-header mb-4">
-                <h1 class="page-heading">Profile</h1>
-              </div>
-          <section>
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="card card-profile mb-4">
-                  <div class="card-header"></div>
-                  <div class="card-body text-center"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" class="card-profile-img" alt="avatar">
-                    <h3 class="mb-3">Bereket Getachew</h3>
-                    <p class="mb-4">Customer</p>
-                  </div>
-                </div>
-
-                <form class="card mb-4">
-                  <div class="card-header">
-                    <h4 class="card-heading">My Profile</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="row mb-3">
-                      <div class="col-auto d-flex align-items-center"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" class="avatar avatar-lg p-1" alt="avatar"></div>
-                      <div class="col">
-                        <input class="form-control" placeholder="Customer Name">
-                      </div>
-                    </div>
-                    <div class="mb-3"> 
-                      <input class="form-control" placeholder="Email Address">
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password" value="password">
-                  </div>
-                  <div class="card-footer text-end">
-                    <button class="btn btn-primary">Save</button>
-                  </div>
-                </form>
-              </div>
-              <div class="col-lg-6">
-                <form class="card mb-4">
-                  <div class="card-header">
-                    <h2 class="card-heading">Edit Profile</h2>
-                  </div>
-                  <div class="card-body">
-                    <div class="col">
-                      <div class="col-sm-6 col-md-6">
-                        <div class="mb-4">
-                          <input class="form-control" type="text" placeholder="Username" value="">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6">
-                        <div class="mb-4">
-                          <input class="form-control" type="email" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6">
-                        <div class="mb-4">
-                          <input class="form-control" type="text" placeholder="First name">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6">
-                        <div class="mb-4">
-                          <input class="form-control" type="text" placeholder="Last Name">
-                        </div>
-                      </div>
-    
-                      <div class="col-sm-6 col-md-6">
-                        <div class="mb-4">
-                          <input class="form-control" type="text" placeholder="Address">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer text-end">
-                    <button class="btn btn-primary" type="submit">Update Profile</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </section>
+          <div class="col-md-6 text-center text-md-end text-gray-400">
+            <p class="mb-0">
+              Bereket
+            </p>
+          </div>
         </div>
       </div>
+    </header>
+    <div class="container-fluid px-lg-4 px-xl-5 contentDiv">
+      <!-- Page Header-->
+      <div class="page-header mb-4">
+        <h1 class="page-heading">
+          Profile
+        </h1>
+      </div>
+      <section>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-profile mb-4">
+              <div class="card-header" />
+              <div class="card-body text-center">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
+                  class="card-profile-img"
+                  alt="avatar"
+                >
+                <h3 class="mb-3">
+                  Bereket Getachew
+                </h3>
+                <p class="mb-4">
+                  Customer
+                </p>
+              </div>
+            </div>
+
+            <form class="card mb-4">
+              <div class="card-header">
+                <h4 class="card-heading">
+                  My Profile
+                </h4>
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="col-auto d-flex align-items-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80"
+                      class="avatar avatar-lg p-1"
+                      alt="avatar"
+                    >
+                  </div>
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      placeholder="Customer Name"
+                    >
+                  </div>
+                </div>
+                <div class="mb-3"> 
+                  <input
+                    class="form-control"
+                    placeholder="Email Address"
+                  >
+                </div>
+                <input
+                  class="form-control"
+                  placeholder="Password"
+                  type="password"
+                  value="password"
+                >
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-6">
+            <form class="card mb-4">
+              <div class="card-header">
+                <h2 class="card-heading">
+                  Edit Profile
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="col">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="mb-4">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Username"
+                        value=""
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="mb-4">
+                      <input
+                        class="form-control"
+                        type="email"
+                        placeholder="Email"
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="mb-4">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="First name"
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="mb-4">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Last Name"
+                      >
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-6 col-md-6">
+                    <div class="mb-4">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Address"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-end">
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                >
+                  Update Profile
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 
     
 
@@ -104,21 +168,56 @@
 
 
 
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">user</button>
-<div class="offcanvas offcanvas-end  show text-bg-dark" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">User profile</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <button
+    class="btn btn-primary"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasScrolling"
+    aria-controls="offcanvasScrolling"
+  >
+    user
+  </button>
+  <div
+    id="offcanvasScrolling"
+    class="offcanvas offcanvas-end  show text-bg-dark"
+    data-bs-scroll="true"
+    data-bs-backdrop="true"
+    tabindex="-1"
+    aria-labelledby="offcanvasScrollingLabel"
+  >
+    <div class="offcanvas-header">
+      <h5
+        id="offcanvasScrollingLabel"
+        class="offcanvas-title"
+      >
+        User profile
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      />
+    </div>
+    <div class="offcanvas-body">
+      <button class="btn btn-danger">
+        remove
+      </button><br><br>
+      <button class="btn btn-info">
+        wishlist
+      </button><br><br>
+      <button class="btn btn-success">
+        sign out
+      </button><br><br>
+      <button class="btn btn-secondary">
+        change password
+      </button><br><br>
+      <button class="btn btn-primary">
+        update profile
+      </button><br>
+    </div>
   </div>
-  <div class="offcanvas-body">
-    <button class="btn btn-danger">remove</button><br><br>
-    <button class="btn btn-info">wishlist</button><br><br>
-    <button class="btn btn-success">sign out</button><br><br>
-    <button class="btn btn-secondary">change password</button><br><br>
-    <button class="btn btn-primary">update profile</button><br>
-  </div>
-</div>
-<footer-view/>
+  <footer-view />
 </template>
 <script>
 import FooterView from '@/components/FooterView.vue'

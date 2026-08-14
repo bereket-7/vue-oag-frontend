@@ -1,17 +1,34 @@
 <template>
   <div class="p-4 sm:p-6 lg:p-8">
     <div v-if="activeTab.key === 'overview'">
-      <PageHeader title="Welcome back" :subtitle="`Hello, ${userName}!`" eyebrow="Customer" />
+      <PageHeader
+        title="Welcome back"
+        :subtitle="`Hello, ${userName}!`"
+        eyebrow="Customer"
+      />
 
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div v-for="stat in stats" :key="stat.label" class="page-card p-5">
-          <i :class="stat.icon" class="text-2xl text-purple-600 dark:text-purple-400 mb-3" />
-          <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stat.value }}</p>
-          <p class="text-sm text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
+        <div
+          v-for="stat in stats"
+          :key="stat.label"
+          class="page-card p-5"
+        >
+          <i
+            :class="stat.icon"
+            class="text-2xl text-purple-600 dark:text-purple-400 mb-3"
+          />
+          <p class="text-2xl font-bold text-gray-900 dark:text-white">
+            {{ stat.value }}
+          </p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ stat.label }}
+          </p>
         </div>
       </div>
 
-      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        Quick Actions
+      </h3>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         <router-link
           v-for="action in quickActions"
@@ -19,14 +36,25 @@
           :to="action.to"
           class="page-card p-5 text-left hover:border-purple-300 dark:hover:border-purple-700 transition-all group block"
         >
-          <i :class="action.icon" class="text-2xl text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 mb-3 transition-colors" />
-          <p class="font-medium text-gray-900 dark:text-white text-sm">{{ action.label }}</p>
+          <i
+            :class="action.icon"
+            class="text-2xl text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 mb-3 transition-colors"
+          />
+          <p class="font-medium text-gray-900 dark:text-white text-sm">
+            {{ action.label }}
+          </p>
         </router-link>
       </div>
     </div>
 
-    <ProfileSetting v-else-if="activeTab.key === 'profile'" embedded />
-    <ChangePassword v-else-if="activeTab.key === 'password'" embedded />
+    <ProfileSetting
+      v-else-if="activeTab.key === 'profile'"
+      embedded
+    />
+    <ChangePassword
+      v-else-if="activeTab.key === 'password'"
+      embedded
+    />
   </div>
 </template>
 

@@ -1,10 +1,21 @@
 <template>
   <div class="min-h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-10">
-    <form class="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-5" @submit.prevent="requestPasswordReset">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Forgot password</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Enter your email and we’ll send a reset link.</p>
+    <form
+      class="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-5"
+      @submit.prevent="requestPasswordReset"
+    >
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+        Forgot password
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Enter your email and we’ll send a reset link.
+      </p>
 
-      <p v-if="message" class="text-sm rounded-xl px-3 py-2" :class="error ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'">
+      <p
+        v-if="message"
+        class="text-sm rounded-xl px-3 py-2"
+        :class="error ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'"
+      >
         {{ message }}
       </p>
 
@@ -14,7 +25,7 @@
         required
         placeholder="you@example.com"
         class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
-      />
+      >
 
       <button
         type="submit"
@@ -24,7 +35,12 @@
         {{ loading ? 'Sending...' : 'Send reset link' }}
       </button>
 
-      <router-link to="/userLogin" class="block text-center text-sm text-purple-600 dark:text-purple-400">Back to login</router-link>
+      <router-link
+        to="/userLogin"
+        class="block text-center text-sm text-purple-600 dark:text-purple-400"
+      >
+        Back to login
+      </router-link>
     </form>
   </div>
 </template>

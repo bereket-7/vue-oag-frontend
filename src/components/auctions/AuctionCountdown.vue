@@ -1,5 +1,7 @@
 <template>
-  <p class="text-sm text-gray-500"><i class="fas fa-clock mr-1"></i> {{ label }}</p>
+  <p class="text-sm text-gray-500">
+    <i class="fas fa-clock mr-1" /> {{ label }}
+  </p>
 </template>
 
 <script setup>

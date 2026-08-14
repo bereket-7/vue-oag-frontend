@@ -7,7 +7,10 @@
         eyebrow="Artist"
       />
 
-      <form class="page-card p-6 sm:p-8 space-y-6" @submit.prevent="handleSubmit">
+      <form
+        class="page-card p-6 sm:p-8 space-y-6"
+        @submit.prevent="handleSubmit"
+      >
         <!-- Image dropzone -->
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -27,15 +30,32 @@
               <div class="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-cloud-upload-alt text-2xl text-purple-600 dark:text-purple-400" />
               </div>
-              <p class="text-gray-700 dark:text-gray-300 font-medium mb-1">Drag & drop your artwork here</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">or click to browse · PNG, JPG up to 10MB</p>
-              <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleFileSelect" />
+              <p class="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                Drag & drop your artwork here
+              </p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                or click to browse · PNG, JPG up to 10MB
+              </p>
+              <input
+                ref="fileInput"
+                type="file"
+                accept="image/*"
+                class="hidden"
+                @change="handleFileSelect"
+              >
               <span class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700">
                 Browse Files
               </span>
             </div>
-            <div v-else class="relative inline-block">
-              <img :src="imagePreview" alt="Preview" class="max-h-72 rounded-xl shadow-lg" />
+            <div
+              v-else
+              class="relative inline-block"
+            >
+              <img
+                :src="imagePreview"
+                alt="Preview"
+                class="max-h-72 rounded-xl shadow-lg"
+              >
               <button
                 type="button"
                 class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-red-500 text-white hover:bg-red-600 shadow-lg"
@@ -45,41 +65,109 @@
               </button>
             </div>
           </div>
-          <p v-if="errors.image" class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ errors.image }}</p>
+          <p
+            v-if="errors.image"
+            class="mt-1.5 text-sm text-red-600 dark:text-red-400"
+          >
+            {{ errors.image }}
+          </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <BaseInput v-model="formData.artworkName" label="Artwork Title" placeholder="Enter title" :error="errors.artworkName" required />
-          <BaseInput v-model="formData.price" type="number" label="Price ($)" placeholder="0.00" :error="errors.price" required />
+          <BaseInput
+            v-model="formData.artworkName"
+            label="Artwork Title"
+            placeholder="Enter title"
+            :error="errors.artworkName"
+            required
+          />
+          <BaseInput
+            v-model="formData.price"
+            type="number"
+            label="Price ($)"
+            placeholder="0.00"
+            :error="errors.price"
+            required
+          />
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Description <span class="text-red-500">*</span></label>
-          <textarea v-model="formData.artworkDescription" rows="4" class="form-textarea" placeholder="Describe your artwork, inspiration, and technique..." required />
-          <p v-if="errors.artworkDescription" class="mt-1 text-sm text-red-600">{{ errors.artworkDescription }}</p>
+          <textarea
+            v-model="formData.artworkDescription"
+            rows="4"
+            class="form-textarea"
+            placeholder="Describe your artwork, inspiration, and technique..."
+            required
+          />
+          <p
+            v-if="errors.artworkDescription"
+            class="mt-1 text-sm text-red-600"
+          >
+            {{ errors.artworkDescription }}
+          </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category <span class="text-red-500">*</span></label>
-            <select v-model="formData.artworkCategory" class="form-select" required>
-              <option value="">Select category</option>
-              <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+            <select
+              v-model="formData.artworkCategory"
+              class="form-select"
+              required
+            >
+              <option value="">
+                Select category
+              </option>
+              <option
+                v-for="cat in categories"
+                :key="cat"
+                :value="cat"
+              >
+                {{ cat }}
+              </option>
             </select>
           </div>
-          <BaseInput v-model="formData.size" label="Size" placeholder="e.g., 24×36 inches" />
+          <BaseInput
+            v-model="formData.size"
+            label="Size"
+            placeholder="e.g., 24×36 inches"
+          />
         </div>
 
-        <BaseInput v-model="formData.medium" label="Medium" placeholder="e.g., Oil on canvas" />
+        <BaseInput
+          v-model="formData.medium"
+          label="Medium"
+          placeholder="e.g., Oil on canvas"
+        />
 
-        <div v-if="errorMessage" class="alert-error">{{ errorMessage }}</div>
+        <div
+          v-if="errorMessage"
+          class="alert-error"
+        >
+          {{ errorMessage }}
+        </div>
 
         <div class="flex flex-wrap gap-3 pt-2">
-          <button type="submit" class="btn-primary flex-1 sm:flex-none" :disabled="loading">
-            <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
+          <button
+            type="submit"
+            class="btn-primary flex-1 sm:flex-none"
+            :disabled="loading"
+          >
+            <i
+              v-if="loading"
+              class="fas fa-spinner fa-spin mr-2"
+            />
             Upload Artwork
           </button>
-          <button v-if="!embedded" type="button" class="btn-secondary" @click="$router.back()">Cancel</button>
+          <button
+            v-if="!embedded"
+            type="button"
+            class="btn-secondary"
+            @click="$router.back()"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

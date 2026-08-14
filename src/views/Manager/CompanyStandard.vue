@@ -1,50 +1,160 @@
 <template>
-    <div class="container">
-      <button id="add-standard" onclick="document.getElementById('id01').style.display='block'">Add Standard</button>
+  <div class="container">
+    <button
+      id="add-standard"
+      onclick="document.getElementById('id01').style.display='block'"
+    >
+      Add Standard
+    </button>
   
-      <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"><i class="fa-solid fa-xmark"></i></span>
-        <form class="modal-content" action="/action_page.php">
-          <div class="container">
-            <h1 style="margin-top: 20px;">Add Standard</h1>
-            <p>Please enter company standards here </p>
-            <hr>
-            <label for="standardDescription"><b>Standard description</b></label>
-            <div class="input-group flex-nowrap py-3">
-              <textarea type="text" class="form-control form-control-lg" id="standardDescription" rows="3" v-model="standardDescription" required></textarea>
-            </div>
-  
-            <div>
-              <label for="standardType"><b>Standard Type</b></label>
-              <select class="form-select" id="standardType" v-model="standardType" required>
-                <option value="organizational" selected>Organizational</option>
-                <option value="artwork">Artwork</option>
-                <option value="customer">Customer</option>
-              </select>
-            </div>
-  
-            <p style="margin-top: 60px;">This will be displayed in the company list of <a href="#" style="color:dodgerblue">policy & standards.</a></p>
-  
-            <div class="clearfix">
-              <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn" style="float: left;">Cancel</button>
-              <button type="submit" class="signup" @click.prevent="saveStandard()" style="float: right;">Submit</button>
-            </div>
+    <div
+      id="id01"
+      class="modal"
+    >
+      <span
+        onclick="document.getElementById('id01').style.display='none'"
+        class="close"
+        title="Close Modal"
+      ><i class="fa-solid fa-xmark" /></span>
+      <form
+        class="modal-content"
+        action="/action_page.php"
+      >
+        <div class="container">
+          <h1 style="margin-top: 20px;">
+            Add Standard
+          </h1>
+          <p>Please enter company standards here </p>
+          <hr>
+          <label for="standardDescription"><b>Standard description</b></label>
+          <div class="input-group flex-nowrap py-3">
+            <textarea
+              id="standardDescription"
+              v-model="standardDescription"
+              type="text"
+              class="form-control form-control-lg"
+              rows="3"
+              required
+            />
           </div>
-        </form>
-      </div>
-
-
-      <div class="popup" id="popup">
-    <img src="tick.png" alt="tick">
-    <h2>Thank You</h2>
-    <p>You have successfully uploaded standards</p>
-    <button type="button" @click="closePopup()">OK</button>
-  </div>
-
+  
+          <div>
+            <label for="standardType"><b>Standard Type</b></label>
+            <select
+              id="standardType"
+              v-model="standardType"
+              class="form-select"
+              required
+            >
+              <option
+                value="organizational"
+                selected
+              >
+                Organizational
+              </option>
+              <option value="artwork">
+                Artwork
+              </option>
+              <option value="customer">
+                Customer
+              </option>
+            </select>
+          </div>
+  
+          <p style="margin-top: 60px;">
+            This will be displayed in the company list of <a
+              href="#"
+              style="color:dodgerblue"
+            >policy & standards.</a>
+          </p>
+  
+          <div class="clearfix">
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+              style="float: left;"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="signup"
+              style="float: right;"
+              @click.prevent="saveStandard()"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-  </template>
+
+
+    <div
+      id="popup"
+      class="popup"
+    >
+      <img
+        src="tick.png"
+        alt="tick"
+      >
+      <h2>Thank You</h2>
+      <p>You have successfully uploaded standards</p>
+      <button
+        type="button"
+        @click="closePopup()"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+</template>
   
   
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      standardDescription: '',
+      standardType: ''
+    };
+  },
+  methods: {
+    async saveStandard() {
+      try {
+        const response = await axios.post('http://localhost:8082/standard/add', {
+          standardDescription: this.standardDescription,
+          standardType: this.standardType
+        });
+        console.log(response);
+        this.standardDescription = '';
+        this.standardType = '';
+        this.openPopup(); 
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while uploading!');
+      }
+    },
+    openPopup() {
+      let popup = document.getElementById('popup');
+      popup.classList.add('open-popup');
+      this.resetForm();
+    },
+    closePopup() {
+      let popup = document.getElementById('popup');
+      popup.classList.remove('open-popup');
+    },
+    resetForm() {
+      this.standardDescription = ''; 
+      this.standardType = '';
+    }
+  }
+};
+</script>
 
 <style scoped>
 
@@ -203,46 +313,3 @@ hr {
 }
 
 </style>
-
-<script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      standardDescription: '',
-      standardType: ''
-    };
-  },
-  methods: {
-    async saveStandard() {
-      try {
-        const response = await axios.post('http://localhost:8082/standard/add', {
-          standardDescription: this.standardDescription,
-          standardType: this.standardType
-        });
-        console.log(response);
-        this.standardDescription = '';
-        this.standardType = '';
-        this.openPopup(); 
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while uploading!');
-      }
-    },
-    openPopup() {
-      let popup = document.getElementById('popup');
-      popup.classList.add('open-popup');
-      this.resetForm();
-    },
-    closePopup() {
-      let popup = document.getElementById('popup');
-      popup.classList.remove('open-popup');
-    },
-    resetForm() {
-      this.standardDescription = ''; 
-      this.standardType = '';
-    }
-  }
-};
-</script>

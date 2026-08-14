@@ -1,17 +1,37 @@
 <template>
   <div>
-    <select v-model="selectedSortOption" @change="fetchSortedArtworks">
-      <option value="">Sort By</option>
-      <option value="rating">Rating</option>
-      <option value="priceLowToHigh">Price: Low to High</option>
-      <option value="priceHighToLow">Price: High to Low</option>
-      <option value="latest">Latest</option>
+    <select
+      v-model="selectedSortOption"
+      @change="fetchSortedArtworks"
+    >
+      <option value="">
+        Sort By
+      </option>
+      <option value="rating">
+        Rating
+      </option>
+      <option value="priceLowToHigh">
+        Price: Low to High
+      </option>
+      <option value="priceHighToLow">
+        Price: High to Low
+      </option>
+      <option value="latest">
+        Latest
+      </option>
     </select>
 
     <div class="artwork-gallery">
-      <div v-for="artwork in sortedArtworks" :key="artwork.id" class="artwork-card">
+      <div
+        v-for="artwork in sortedArtworks"
+        :key="artwork.id"
+        class="artwork-card"
+      >
         <div class="artwork-image">
-          <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image" />
+          <img
+            :src="getArtworkImageUrl(artwork.id)"
+            alt="Artwork Image"
+          >
         </div>
         <div class="artwork-details">
           <h3><b>{{ artwork.artworkName }}</b></h3>

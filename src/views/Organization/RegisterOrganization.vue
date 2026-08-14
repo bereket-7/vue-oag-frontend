@@ -5,28 +5,82 @@
     <hr class="mx-n3">
     <br>
     <form @submit.prevent="registerOrganization">
-      <input type="text" placeholder="Name" v-model="firstname" required />
-      <span v-if="errors.name" class="error">{{ errors.name }}</span>
+      <input
+        v-model="firstname"
+        type="text"
+        placeholder="Name"
+        required
+      >
+      <span
+        v-if="errors.name"
+        class="error"
+      >{{ errors.name }}</span>
 
-      <input type="email"  placeholder="Email" v-model="email" required />
-      <span v-if="errors.email" class="error">{{ errors.email }}</span>
+      <input
+        v-model="email"
+        type="email"
+        placeholder="Email"
+        required
+      >
+      <span
+        v-if="errors.email"
+        class="error"
+      >{{ errors.email }}</span>
 
-      <input type="tel" placeholder="Phone" v-model="phone" required />
-      <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+      <input
+        v-model="phone"
+        type="tel"
+        placeholder="Phone"
+        required
+      >
+      <span
+        v-if="errors.phone"
+        class="error"
+      >{{ errors.phone }}</span>
 
-      <input type="text" v-model="address" placeholder="Address" required />
+      <input
+        v-model="address"
+        type="text"
+        placeholder="Address"
+        required
+      >
      
-      <input type="password" placeholder="Password" v-model="password" required />
-      <span v-if="errors.password" class="error">{{ errors.password }}</span>
+      <input
+        v-model="password"
+        type="password"
+        placeholder="Password"
+        required
+      >
+      <span
+        v-if="errors.password"
+        class="error"
+      >{{ errors.password }}</span>
 
-      <input type="password" placeholder="Confirm Password" v-model="confirmPassword" required />
-      <span v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword}}</span>
+      <input
+        v-model="confirmPassword"
+        type="password"
+        placeholder="Confirm Password"
+        required
+      >
+      <span
+        v-if="errors.confirmPassword"
+        class="error"
+      >{{ errors.confirmPassword }}</span>
 
-      <p v-if="passwordError">{{ passwordError }}</p>
-      <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <p v-if="passwordError">
+        {{ passwordError }}
+      </p>
+      <div
+        v-if="errorMessage"
+        class="alert alert-danger"
+      >
+        {{ errorMessage }}
+      </div>
       <br>
       <hr class="mx-n5">
-      <button type="submit">Register</button>
+      <button type="submit">
+        Register
+      </button>
     </form>
     <br>
   </div>

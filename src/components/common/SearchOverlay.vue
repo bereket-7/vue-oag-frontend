@@ -18,8 +18,14 @@
           class="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
           @click.stop
         >
-          <form @submit.prevent="submit" class="flex items-center gap-3 p-4 border-b border-gray-100 dark:border-gray-700">
-            <i class="fas fa-search text-purple-500 text-lg" aria-hidden="true" />
+          <form
+            class="flex items-center gap-3 p-4 border-b border-gray-100 dark:border-gray-700"
+            @submit.prevent="submit"
+          >
+            <i
+              class="fas fa-search text-purple-500 text-lg"
+              aria-hidden="true"
+            />
             <input
               ref="inputRef"
               v-model="query"
@@ -27,12 +33,14 @@
               placeholder="Search artworks, artists, categories..."
               class="flex-1 bg-transparent text-lg text-gray-900 dark:text-gray-100 placeholder-gray-400 outline-none"
               autocomplete="off"
-            />
+            >
             <kbd class="hidden sm:inline-flex items-center px-2 py-1 text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 rounded">Esc</kbd>
           </form>
 
           <div class="p-4">
-            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Quick links</p>
+            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+              Quick links
+            </p>
             <div class="flex flex-wrap gap-2">
               <button
                 v-for="term in suggestions"

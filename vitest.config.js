@@ -4,7 +4,8 @@ import path from 'path';
 export default defineConfig({
   test: {
     environment: 'node',
-    include: ['tests/**/*.test.js']
+    include: ['tests/**/*.test.js'],
+    pool: 'forks'
   },
   resolve: {
     alias: {

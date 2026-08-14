@@ -1,10 +1,14 @@
 <template>
-    <div class="star-rating">
-      <span v-for="star in stars" :key="star" @click="selectRating(star)">
-        <i :class="starClass(star)" />
-      </span>
-    </div>
-  </template>
+  <div class="star-rating">
+    <span
+      v-for="star in stars"
+      :key="star"
+      @click="selectRating(star)"
+    >
+      <i :class="starClass(star)" />
+    </span>
+  </div>
+</template>
   
   <script>
   export default {

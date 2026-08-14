@@ -8,7 +8,7 @@
 </template>
   
   <script>
-  import axios from 'axios';
+  import { artworkService } from '@/services/artworkService';
   
   export default {
     data() {
@@ -23,12 +23,10 @@
     methods: {
       async getArtworkImage(id) {
         try {
-          const response = await axios.get(`/api/${id}/image`, {
-            responseType: 'arraybuffer',
-          });
+          const data = await artworkService.getImage(id);
           const base64Image = btoa(
-            new Uint8Array(response.data).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
+            new Uint8Array(data).reduce(
+              (acc, byte) => acc + String.fromCharCode(byte),
               ''
             )
           );

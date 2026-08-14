@@ -2,21 +2,46 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <img :src="artwork.image" alt="Artwork Image" style="width:400px;height:300px;">
+        <img
+          :src="artwork.image"
+          alt="Artwork Image"
+          style="width:400px;height:300px;"
+        >
       </div>
       <div class="col-md-8">
-        <h3 class="title">{{ artwork.title }}</h3>
+        <h3 class="title">
+          {{ artwork.title }}
+        </h3>
         <p>By: <span class="artist"> {{ artwork.artist }}</span></p>
-        <div class="category">Category: {{ artwork.category }}</div>
-        <div class="rating">
-          <span v-for="i in 5" :key="i" :class="{ 'filled-star': i <= artwork.rating }">&#9733;</span>
+        <div class="category">
+          Category: {{ artwork.category }}
         </div>
-        <p class="price">{{ artwork.price }}</p>
+        <div class="rating">
+          <span
+            v-for="i in 5"
+            :key="i"
+            :class="{ 'filled-star': i <= artwork.rating }"
+          >&#9733;</span>
+        </div>
+        <p class="price">
+          {{ artwork.price }}
+        </p>
         <hr class="mx-n3">
-        <button type="button" id="cart" class="btn btn-danger">Add to Cart</button>
-        <button type="button" id="cart" class="btn btn-success">Back to Shopping</button>
+        <button
+          id="cart"
+          type="button"
+          class="btn btn-danger"
+        >
+          Add to Cart
+        </button>
+        <button
+          id="cart"
+          type="button"
+          class="btn btn-success"
+        >
+          Back to Shopping
+        </button>
       </div>
-      
     </div>
   </div>
 </template>

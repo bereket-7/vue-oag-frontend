@@ -1,23 +1,37 @@
 <template>
-    <div class="container-fluid rounded bg-white mt-0">
-      <h1 class="Heading">Send Notification</h1>
-        <div class="row">
-          <div class="col-md-8 border-right">
-              <div class="p-3 py-5">
-                <form class="form-container">
-    <label for="Email">Email</label>
-    <input type="text" id="Email" name="firstname" placeholder="Your Email">
+  <div class="container-fluid rounded bg-white mt-0">
+    <h1 class="Heading">
+      Send Notification
+    </h1>
+    <div class="row">
+      <div class="col-md-8 border-right">
+        <div class="p-3 py-5">
+          <form class="form-container">
+            <label for="Email">Email</label>
+            <input
+              id="Email"
+              type="text"
+              name="firstname"
+              placeholder="Your Email"
+            >
 
-    <label for="message">Message</label>
-    <textarea id="message" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="subject"
+              placeholder="Write something.."
+              style="height:200px"
+            />
 
-    <input type="submit" value="Send">
-
-  </form>          
+            <input
+              type="submit"
+              value="Send"
+            >
+          </form>          
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>

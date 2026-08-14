@@ -15,7 +15,7 @@
           :style="{ backgroundImage: `url(${slide.image})` }"
         >
           <!-- Gradient Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
           
           <!-- Content -->
           <div class="relative h-full flex items-center">
@@ -48,14 +48,14 @@
                     class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
                   >
                     {{ slide.btnText }}
-                    <i class="fas fa-arrow-right ml-2"></i>
+                    <i class="fas fa-arrow-right ml-2" />
                   </router-link>
                   <router-link 
                     to="/about" 
                     class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-all duration-300"
                   >
                     Learn More
-                    <i class="fas fa-info-circle ml-2"></i>
+                    <i class="fas fa-info-circle ml-2" />
                   </router-link>
                 </div>
               </div>
@@ -67,17 +67,17 @@
 
     <!-- Navigation Controls -->
     <button 
-      @click="prevSlide" 
-      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group" 
+      @click="prevSlide"
     >
-      <i class="fas fa-chevron-left group-hover:scale-110 transition-transform"></i>
+      <i class="fas fa-chevron-left group-hover:scale-110 transition-transform" />
     </button>
     
     <button 
-      @click="nextSlide" 
-      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group" 
+      @click="nextSlide"
     >
-      <i class="fas fa-chevron-right group-hover:scale-110 transition-transform"></i>
+      <i class="fas fa-chevron-right group-hover:scale-110 transition-transform" />
     </button>
 
     <!-- Slide Indicators -->
@@ -85,19 +85,19 @@
       <button 
         v-for="(slide, index) in slides" 
         :key="index"
-        @click="goToSlide(index)"
         :class="[
           'h-2 transition-all duration-300 rounded-full',
           currentSlide === index 
             ? 'w-12 bg-white' 
             : 'w-2 bg-white/50 hover:bg-white/70'
         ]"
+        @click="goToSlide(index)"
       />
     </div>
 
     <!-- Scroll Indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <i class="fas fa-chevron-down text-white/60 text-xl"></i>
+      <i class="fas fa-chevron-down text-white/60 text-xl" />
     </div>
   </div>
 </template>

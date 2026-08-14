@@ -1,20 +1,46 @@
 <template>
   <div class="min-h-screen bg-gray-50 pt-20">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold mb-8">Live Auctions</h1>
+      <h1 class="text-3xl font-bold mb-8">
+        Live Auctions
+      </h1>
       <PageLoader v-if="loading" />
-      <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <router-link v-for="auction in auctions" :key="auction.id" :to="`/auctions/${auction.id}`" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-          <img :src="auction.artwork?.imageUrl" :alt="auction.artwork?.title" class="w-full h-48 object-cover" loading="lazy" />
+      <div
+        v-else
+        class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <router-link
+          v-for="auction in auctions"
+          :key="auction.id"
+          :to="`/auctions/${auction.id}`"
+          class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+        >
+          <img
+            :src="auction.artwork?.imageUrl"
+            :alt="auction.artwork?.title"
+            class="w-full h-48 object-cover"
+            loading="lazy"
+          >
           <div class="p-6">
-            <h2 class="font-bold text-lg mb-1">{{ auction.artwork?.title }}</h2>
+            <h2 class="font-bold text-lg mb-1">
+              {{ auction.artwork?.title }}
+            </h2>
             <AuctionCountdown :ends-at="auction.endsAt" />
-            <p class="text-2xl font-bold text-purple-600 mt-2">{{ formatPrice(auction.currentBid) }}</p>
-            <span :class="statusBadge(auction.status)" class="inline-block mt-2 px-2 py-1 rounded text-xs">{{ auction.status }}</span>
+            <p class="text-2xl font-bold text-purple-600 mt-2">
+              {{ formatPrice(auction.currentBid) }}
+            </p>
+            <span
+              :class="statusBadge(auction.status)"
+              class="inline-block mt-2 px-2 py-1 rounded text-xs"
+            >{{ auction.status }}</span>
           </div>
         </router-link>
       </div>
-      <EmptyState v-if="!loading && !auctions.length" title="No active auctions" message="Check back soon for new auctions." />
+      <EmptyState
+        v-if="!loading && !auctions.length"
+        title="No active auctions"
+        message="Check back soon for new auctions."
+      />
     </div>
   </div>
 </template>

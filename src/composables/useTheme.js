@@ -4,6 +4,11 @@ const isDark = ref(false);
 
 function applyTheme() {
   document.documentElement.classList.toggle('dark', isDark.value);
+  document.documentElement.style.colorScheme = isDark.value ? 'dark' : 'light';
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) {
+    themeMeta.setAttribute('content', isDark.value ? '#030712' : '#6366f1');
+  }
 }
 
 export function initTheme() {

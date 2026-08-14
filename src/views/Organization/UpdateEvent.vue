@@ -1,39 +1,74 @@
 <template>
-    <div>
-      <button @click="showUpdateModal">Update Event</button>
+  <div>
+    <button @click="showUpdateModal">
+      Update Event
+    </button>
   
-      <div v-if="isUpdateModalVisible" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Update Event</h3>
-            <button @click="closeUpdateModal">Close</button>
-          </div>
+    <div
+      v-if="isUpdateModalVisible"
+      class="modal"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Update Event</h3>
+          <button @click="closeUpdateModal">
+            Close
+          </button>
+        </div>
 
-          <div class="modal-body">
-            <label for="eventName">Event Name:</label>
-            <input type="text" v-model="updatedEvent.eventName" id="eventName">
+        <div class="modal-body">
+          <label for="eventName">Event Name:</label>
+          <input
+            id="eventName"
+            v-model="updatedEvent.eventName"
+            type="text"
+          >
             
-            <label for="eventDescription">Event Description:</label>
-            <textarea v-model="updatedEvent.eventDescription" id="eventDescription"></textarea>
+          <label for="eventDescription">Event Description:</label>
+          <textarea
+            id="eventDescription"
+            v-model="updatedEvent.eventDescription"
+          />
 
-            <label for="location">Location</label>
-            <input type="text" id="location" v-model="location" required />
+          <label for="location">Location</label>
+          <input
+            id="location"
+            v-model="location"
+            type="text"
+            required
+          >
 
-            <label for="ticketPrice">Ticket Price</label>
-            <input type="number" id="ticketPrice" v-model="ticketPrice" />
+          <label for="ticketPrice">Ticket Price</label>
+          <input
+            id="ticketPrice"
+            v-model="ticketPrice"
+            type="number"
+          >
 
-            <label for="capacity">Capacity</label>
-            <input type="number" id="capacity" v-model="capacity"/>
+          <label for="capacity">Capacity</label>
+          <input
+            id="capacity"
+            v-model="capacity"
+            type="number"
+          >
 
-            <label for="eventDate">Event Date</label>
-            <input type="text" placeholder="2023-10-05" id="eventDate" v-model="eventDate" required />
-            <br><br>
-            <button @click="updateEvent">Update</button>
-          </div>
+          <label for="eventDate">Event Date</label>
+          <input
+            id="eventDate"
+            v-model="eventDate"
+            type="text"
+            placeholder="2023-10-05"
+            required
+          >
+          <br><br>
+          <button @click="updateEvent">
+            Update
+          </button>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

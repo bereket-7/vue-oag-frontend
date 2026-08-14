@@ -4,7 +4,9 @@
     <div v-if="competition && competitor">
       <h3>Competition: {{ competition.competitionTitle }}</h3>
       <h4>Competitor: {{ competitor.firstName }} {{ competitor.lastName }}</h4>
-      <button @click="vote">Vote</button>
+      <button @click="vote">
+        Vote
+      </button>
       <p>{{ message }}</p>
     </div>
   </div>
@@ -20,6 +22,9 @@ export default {
       competitor: null,
       message: '',
     };
+  },
+  mounted() {
+    this.getCompetitionAndCompetitor();
   },
   methods: {
     async getCompetitionAndCompetitor() {
@@ -42,9 +47,6 @@ export default {
         this.message = error.response.data;
       }
     },
-  },
-  mounted() {
-    this.getCompetitionAndCompetitor();
   },
 };
 </script>

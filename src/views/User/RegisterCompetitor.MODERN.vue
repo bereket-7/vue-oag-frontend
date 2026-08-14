@@ -6,40 +6,101 @@
       eyebrow="Competition Entry"
     />
 
-    <div v-if="competition" class="page-card p-5 mb-6 border-l-4 border-l-purple-500">
-      <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">Entering</p>
-      <h3 class="font-bold text-gray-900 dark:text-white">{{ competition.title }}</h3>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ competition.description }}</p>
+    <div
+      v-if="competition"
+      class="page-card p-5 mb-6 border-l-4 border-l-purple-500"
+    >
+      <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+        Entering
+      </p>
+      <h3 class="font-bold text-gray-900 dark:text-white">
+        {{ competition.title }}
+      </h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        {{ competition.description }}
+      </p>
       <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
         <i class="fas fa-calendar mr-1" />Deadline: {{ formatDate(competition.endDate) }}
       </p>
     </div>
 
-    <form class="page-card p-6 sm:p-8 space-y-5" @submit.prevent="handleSubmit">
-      <div v-if="successMessage" class="alert-success">
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="handleSubmit"
+    >
+      <div
+        v-if="successMessage"
+        class="alert-success"
+      >
         <i class="fas fa-check-circle mr-2" />{{ successMessage }}
       </div>
-      <div v-if="errorMessage" class="alert-error">
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
         <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <BaseInput v-model="form.firstName" label="First Name" placeholder="John" :error="errors.firstName" required />
-        <BaseInput v-model="form.lastName" label="Last Name" placeholder="Doe" :error="errors.lastName" required />
+        <BaseInput
+          v-model="form.firstName"
+          label="First Name"
+          placeholder="John"
+          :error="errors.firstName"
+          required
+        />
+        <BaseInput
+          v-model="form.lastName"
+          label="Last Name"
+          placeholder="Doe"
+          :error="errors.lastName"
+          required
+        />
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <BaseInput v-model="form.email" type="email" label="Email" placeholder="you@example.com" :error="errors.email" required />
-        <BaseInput v-model="form.phone" type="tel" label="Phone" placeholder="0912345678" :error="errors.phone" required />
+        <BaseInput
+          v-model="form.email"
+          type="email"
+          label="Email"
+          placeholder="you@example.com"
+          :error="errors.email"
+          required
+        />
+        <BaseInput
+          v-model="form.phone"
+          type="tel"
+          label="Phone"
+          placeholder="0912345678"
+          :error="errors.phone"
+          required
+        />
       </div>
 
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category <span class="text-red-500">*</span></label>
-        <select v-model="form.category" class="form-select" required>
-          <option value="">Select category</option>
-          <option v-for="cat in categories" :key="cat.value" :value="cat.value">{{ cat.label }}</option>
+        <select
+          v-model="form.category"
+          class="form-select"
+          required
+        >
+          <option value="">
+            Select category
+          </option>
+          <option
+            v-for="cat in categories"
+            :key="cat.value"
+            :value="cat.value"
+          >
+            {{ cat.label }}
+          </option>
         </select>
-        <p v-if="errors.category" class="mt-1 text-sm text-red-600">{{ errors.category }}</p>
+        <p
+          v-if="errors.category"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.category }}
+        </p>
       </div>
 
       <div>
@@ -51,7 +112,12 @@
           placeholder="Describe your submission — concept, medium, dimensions..."
           required
         />
-        <p v-if="errors.artDescription" class="mt-1 text-sm text-red-600">{{ errors.artDescription }}</p>
+        <p
+          v-if="errors.artDescription"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.artDescription }}
+        </p>
       </div>
 
       <!-- Image upload -->
@@ -63,22 +129,56 @@
         >
           <div v-if="!imagePreview">
             <i class="fas fa-image text-3xl text-gray-400 mb-2" />
-            <p class="text-sm text-gray-500 dark:text-gray-400">Click to upload your artwork image</p>
-            <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileChange" />
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Click to upload your artwork image
+            </p>
+            <input
+              ref="fileInput"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              @change="onFileChange"
+            >
           </div>
-          <div v-else class="relative inline-block">
-            <img :src="imagePreview" alt="Preview" class="max-h-48 rounded-xl" />
-            <button type="button" class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-red-500 text-white text-xs" @click.stop="clearImage">
+          <div
+            v-else
+            class="relative inline-block"
+          >
+            <img
+              :src="imagePreview"
+              alt="Preview"
+              class="max-h-48 rounded-xl"
+            >
+            <button
+              type="button"
+              class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-red-500 text-white text-xs"
+              @click.stop="clearImage"
+            >
               <i class="fas fa-times" />
             </button>
           </div>
         </div>
-        <p v-if="errors.image" class="mt-1 text-sm text-red-600">{{ errors.image }}</p>
+        <p
+          v-if="errors.image"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.image }}
+        </p>
       </div>
 
-      <button type="submit" class="btn-primary w-full sm:w-auto" :disabled="loading">
-        <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
-        <i v-else class="fas fa-paper-plane mr-2" />
+      <button
+        type="submit"
+        class="btn-primary w-full sm:w-auto"
+        :disabled="loading"
+      >
+        <i
+          v-if="loading"
+          class="fas fa-spinner fa-spin mr-2"
+        />
+        <i
+          v-else
+          class="fas fa-paper-plane mr-2"
+        />
         Submit Application
       </button>
     </form>

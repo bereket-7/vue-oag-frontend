@@ -1,22 +1,37 @@
 <template>
-    <div class="container">
-      <h1>User Reports</h1>
-      <div class="col">
-        <div class="col-md-3" v-for="report in reports" :key="report.id">
-          <div class="card">
-            <div class="card-body">
-              <h1 class="card-title">{{ report.reportTitle }}</h1>
-              <h6 class="card-subtitle mb-2 text-muted">{{ report.reporterName }} - {{ report.reporterEmail }}</h6>
-              <p class="card-text">{{ report.reportDetail }}</p>
-              <div class="form-check">
-                <router-link class="btn btn-primary mt-2" to="/sendNotification">Reply</router-link>
-              </div>
+  <div class="container">
+    <h1>User Reports</h1>
+    <div class="col">
+      <div
+        v-for="report in reports"
+        :key="report.id"
+        class="col-md-3"
+      >
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title">
+              {{ report.reportTitle }}
+            </h1>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ report.reporterName }} - {{ report.reporterEmail }}
+            </h6>
+            <p class="card-text">
+              {{ report.reportDetail }}
+            </p>
+            <div class="form-check">
+              <router-link
+                class="btn btn-primary mt-2"
+                to="/sendNotification"
+              >
+                Reply
+              </router-link>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

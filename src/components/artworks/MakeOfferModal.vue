@@ -1,12 +1,39 @@
 <template>
-  <BaseModal :model-value="true" title="Make an Offer" @close="$emit('close')">
-    <form @submit.prevent="submit" class="space-y-4">
-      <p class="text-gray-600">Offer for <strong>{{ artwork.title }}</strong> (listed at {{ formatPrice(artwork.price) }})</p>
-      <BaseInput v-model="amount" type="number" label="Your Offer (USD)" required />
-      <BaseInput v-model="message" label="Message (optional)" />
+  <BaseModal
+    :model-value="true"
+    title="Make an Offer"
+    @close="$emit('close')"
+  >
+    <form
+      class="space-y-4"
+      @submit.prevent="submit"
+    >
+      <p class="text-gray-600">
+        Offer for <strong>{{ artwork.title }}</strong> (listed at {{ formatPrice(artwork.price) }})
+      </p>
+      <BaseInput
+        v-model="amount"
+        type="number"
+        label="Your Offer (USD)"
+        required
+      />
+      <BaseInput
+        v-model="message"
+        label="Message (optional)"
+      />
       <div class="flex gap-3 justify-end">
-        <BaseButton variant="outline" @click="$emit('close')">Cancel</BaseButton>
-        <BaseButton type="submit" :loading="loading">Submit Offer</BaseButton>
+        <BaseButton
+          variant="outline"
+          @click="$emit('close')"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          type="submit"
+          :loading="loading"
+        >
+          Submit Offer
+        </BaseButton>
       </div>
     </form>
   </BaseModal>

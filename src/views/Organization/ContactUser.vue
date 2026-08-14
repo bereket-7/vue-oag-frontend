@@ -1,25 +1,53 @@
 <template>
-    <div class="container">
-      <h1>Send Message</h1>
-      <form @submit.prevent="sendEmail">
-        <div class="form-group">
-          <label for="recipient">Recipient:</label>
-          <input type="email" class="form-control" id="recipient" v-model="recipient" required>
-        </div>
-        <div class="form-group">
-          <label for="subject">Subject:</label>
-          <input type="text" class="form-control" id="subject" v-model="subject" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message:</label>
-          <textarea class="form-control" id="message" v-model="message" required></textarea>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Send</button>
-      </form>
-      <div v-if="status" class="alert alert-success mt-3" role="alert">{{ status }}</div>
+  <div class="container">
+    <h1>Send Message</h1>
+    <form @submit.prevent="sendEmail">
+      <div class="form-group">
+        <label for="recipient">Recipient:</label>
+        <input
+          id="recipient"
+          v-model="recipient"
+          type="email"
+          class="form-control"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <input
+          id="subject"
+          v-model="subject"
+          type="text"
+          class="form-control"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea
+          id="message"
+          v-model="message"
+          class="form-control"
+          required
+        />
+      </div>
+      <br>
+      <button
+        type="submit"
+        class="btn btn-primary"
+      >
+        Send
+      </button>
+    </form>
+    <div
+      v-if="status"
+      class="alert alert-success mt-3"
+      role="alert"
+    >
+      {{ status }}
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

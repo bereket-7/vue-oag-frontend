@@ -7,7 +7,9 @@
           <h2 class="gallery__title">
             Our <span class="gallery__title-accent">Collection</span>
           </h2>
-          <p class="gallery__subtitle">{{ filteredArtworks.length }} curated works from world-class artists</p>
+          <p class="gallery__subtitle">
+            {{ filteredArtworks.length }} curated works from world-class artists
+          </p>
         </div>
         <div class="gallery__controls">
           <!-- Category pills -->
@@ -18,15 +20,25 @@
               class="gallery__cat-btn"
               :class="{ active: activeCategory === cat }"
               @click="activeCategory = cat"
-            >{{ cat }}</button>
+            >
+              {{ cat }}
+            </button>
           </div>
           <!-- View toggle -->
           <div class="gallery__view-toggle">
-            <button :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'" title="Grid view">
-              <i class="fas fa-th"></i>
+            <button
+              :class="{ active: viewMode === 'grid' }"
+              title="Grid view"
+              @click="viewMode = 'grid'"
+            >
+              <i class="fas fa-th" />
             </button>
-            <button :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'" title="List view">
-              <i class="fas fa-list"></i>
+            <button
+              :class="{ active: viewMode === 'list' }"
+              title="List view"
+              @click="viewMode = 'list'"
+            >
+              <i class="fas fa-list" />
             </button>
           </div>
         </div>
@@ -34,7 +46,10 @@
     </div>
 
     <!-- Grid View -->
-    <div v-if="viewMode === 'grid'" class="gallery__grid">
+    <div
+      v-if="viewMode === 'grid'"
+      class="gallery__grid"
+    >
       <article
         v-for="artwork in filteredArtworks"
         :key="artwork.id"
@@ -42,21 +57,42 @@
         @click="openModal(artwork)"
       >
         <div class="gcard__img-wrap">
-          <img :src="artwork.imageUrl" :alt="artwork.artworkName" class="gcard__img" loading="lazy" />
+          <img
+            :src="artwork.imageUrl"
+            :alt="artwork.artworkName"
+            class="gcard__img"
+            loading="lazy"
+          >
           <div class="gcard__overlay">
-            <button class="gcard__quick-btn"><i class="fas fa-eye"></i> Quick View</button>
-            <button class="gcard__wish-btn" @click.stop><i class="fas fa-heart"></i></button>
+            <button class="gcard__quick-btn">
+              <i class="fas fa-eye" /> Quick View
+            </button>
+            <button
+              class="gcard__wish-btn"
+              @click.stop
+            >
+              <i class="fas fa-heart" />
+            </button>
           </div>
-          <span v-if="artwork.isNew" class="gcard__new-tag">New</span>
+          <span
+            v-if="artwork.isNew"
+            class="gcard__new-tag"
+          >New</span>
         </div>
         <div class="gcard__body">
-          <p class="gcard__cat">{{ artwork.artworkCategory }}</p>
-          <h3 class="gcard__name">{{ artwork.artworkName }}</h3>
-          <p class="gcard__artist">by {{ artwork.artist }}</p>
+          <p class="gcard__cat">
+            {{ artwork.artworkCategory }}
+          </p>
+          <h3 class="gcard__name">
+            {{ artwork.artworkName }}
+          </h3>
+          <p class="gcard__artist">
+            by {{ artwork.artist }}
+          </p>
           <div class="gcard__footer">
             <span class="gcard__price">{{ artwork.price }}</span>
             <div class="gcard__rating">
-              <i class="fas fa-star"></i> {{ artwork.averageRating }}
+              <i class="fas fa-star" /> {{ artwork.averageRating }}
             </div>
           </div>
         </div>
@@ -64,7 +100,10 @@
     </div>
 
     <!-- List View -->
-    <div v-else class="gallery__list">
+    <div
+      v-else
+      class="gallery__list"
+    >
       <article
         v-for="artwork in filteredArtworks"
         :key="artwork.id"
@@ -72,19 +111,38 @@
         @click="openModal(artwork)"
       >
         <div class="lcard__img-wrap">
-          <img :src="artwork.imageUrl" :alt="artwork.artworkName" class="lcard__img" loading="lazy" />
-          <span v-if="artwork.isNew" class="gcard__new-tag">New</span>
+          <img
+            :src="artwork.imageUrl"
+            :alt="artwork.artworkName"
+            class="lcard__img"
+            loading="lazy"
+          >
+          <span
+            v-if="artwork.isNew"
+            class="gcard__new-tag"
+          >New</span>
         </div>
         <div class="lcard__body">
           <span class="lcard__cat">{{ artwork.artworkCategory }}</span>
-          <h3 class="lcard__name">{{ artwork.artworkName }}</h3>
-          <p class="lcard__desc">{{ artwork.artworkDescription }}</p>
-          <p class="lcard__artist">by {{ artwork.artist }} · {{ artwork.year }}</p>
+          <h3 class="lcard__name">
+            {{ artwork.artworkName }}
+          </h3>
+          <p class="lcard__desc">
+            {{ artwork.artworkDescription }}
+          </p>
+          <p class="lcard__artist">
+            by {{ artwork.artist }} · {{ artwork.year }}
+          </p>
           <div class="lcard__footer">
             <span class="lcard__price">{{ artwork.price }}</span>
-            <div class="lcard__rating"><i class="fas fa-star"></i> {{ artwork.averageRating }}</div>
-            <button class="lcard__cart-btn" @click.stop="addToCart(artwork)">
-              <i class="fas fa-shopping-bag"></i> Add to Cart
+            <div class="lcard__rating">
+              <i class="fas fa-star" /> {{ artwork.averageRating }}
+            </div>
+            <button
+              class="lcard__cart-btn"
+              @click.stop="addToCart(artwork)"
+            >
+              <i class="fas fa-shopping-bag" /> Add to Cart
             </button>
           </div>
         </div>
@@ -92,35 +150,70 @@
     </div>
 
     <!-- Empty -->
-    <div v-if="filteredArtworks.length === 0" class="gallery__empty">
-      <i class="fas fa-palette"></i>
+    <div
+      v-if="filteredArtworks.length === 0"
+      class="gallery__empty"
+    >
+      <i class="fas fa-palette" />
       <p>No artworks found in this category.</p>
     </div>
 
     <!-- Modal -->
     <transition name="modal-fade">
-      <div v-if="selectedArtwork" class="modal-backdrop" @click.self="closeModal">
+      <div
+        v-if="selectedArtwork"
+        class="modal-backdrop"
+        @click.self="closeModal"
+      >
         <div class="modal-box">
-          <button class="modal-box__close" @click="closeModal"><i class="fas fa-times"></i></button>
+          <button
+            class="modal-box__close"
+            @click="closeModal"
+          >
+            <i class="fas fa-times" />
+          </button>
           <div class="modal-box__grid">
             <div class="modal-box__img-wrap">
-              <img :src="selectedArtwork.imageUrl" :alt="selectedArtwork.artworkName" />
+              <img
+                :src="selectedArtwork.imageUrl"
+                :alt="selectedArtwork.artworkName"
+              >
             </div>
             <div class="modal-box__info">
               <span class="modal-box__cat">{{ selectedArtwork.artworkCategory }}</span>
-              <h2 class="modal-box__title">{{ selectedArtwork.artworkName }}</h2>
-              <p class="modal-box__artist"><i class="fas fa-user-circle"></i> {{ selectedArtwork.artist }} · {{ selectedArtwork.year }}</p>
-              <p class="modal-box__desc">{{ selectedArtwork.artworkDescription }}</p>
+              <h2 class="modal-box__title">
+                {{ selectedArtwork.artworkName }}
+              </h2>
+              <p class="modal-box__artist">
+                <i class="fas fa-user-circle" /> {{ selectedArtwork.artist }} · {{ selectedArtwork.year }}
+              </p>
+              <p class="modal-box__desc">
+                {{ selectedArtwork.artworkDescription }}
+              </p>
               <div class="modal-box__specs">
-                <div class="spec"><i class="fas fa-ruler-combined"></i><span>{{ selectedArtwork.size }}</span></div>
-                <div class="spec"><i class="fas fa-star" style="color:#f59e0b"></i><span>{{ selectedArtwork.averageRating }} / 5</span></div>
+                <div class="spec">
+                  <i class="fas fa-ruler-combined" /><span>{{ selectedArtwork.size }}</span>
+                </div>
+                <div class="spec">
+                  <i
+                    class="fas fa-star"
+                    style="color:#f59e0b"
+                  /><span>{{ selectedArtwork.averageRating }} / 5</span>
+                </div>
               </div>
-              <div class="modal-box__price">{{ selectedArtwork.price }}</div>
+              <div class="modal-box__price">
+                {{ selectedArtwork.price }}
+              </div>
               <div class="modal-box__actions">
-                <button class="modal-btn modal-btn--primary" @click="addToCart(selectedArtwork); closeModal()">
-                  <i class="fas fa-shopping-bag"></i> Add to Cart
+                <button
+                  class="modal-btn modal-btn--primary"
+                  @click="addToCart(selectedArtwork); closeModal()"
+                >
+                  <i class="fas fa-shopping-bag" /> Add to Cart
                 </button>
-                <button class="modal-btn modal-btn--ghost"><i class="fas fa-heart"></i> Wishlist</button>
+                <button class="modal-btn modal-btn--ghost">
+                  <i class="fas fa-heart" /> Wishlist
+                </button>
               </div>
             </div>
           </div>

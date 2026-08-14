@@ -27,7 +27,7 @@
           :src="row.avatar || 'https://via.placeholder.com/40'"
           alt=""
           class="w-10 h-10 rounded-full object-cover"
-        />
+        >
       </template>
 
       <template #cell-role="{ row }">
@@ -37,11 +37,30 @@
       </template>
     </DataTable>
 
-    <BaseModal v-model="showEditModal" title="Edit User" size="md">
-      <form @submit.prevent="handleUpdate" class="space-y-4">
-        <BaseInput v-model="editForm.name" label="Name" required />
-        <BaseInput v-model="editForm.email" type="email" label="Email" required />
-        <BaseInput v-model="editForm.phone" label="Phone" />
+    <BaseModal
+      v-model="showEditModal"
+      title="Edit User"
+      size="md"
+    >
+      <form
+        class="space-y-4"
+        @submit.prevent="handleUpdate"
+      >
+        <BaseInput
+          v-model="editForm.name"
+          label="Name"
+          required
+        />
+        <BaseInput
+          v-model="editForm.email"
+          type="email"
+          label="Email"
+          required
+        />
+        <BaseInput
+          v-model="editForm.phone"
+          label="Phone"
+        />
         
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
@@ -49,30 +68,54 @@
             v-model="editForm.status"
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value="active">
+              Active
+            </option>
+            <option value="inactive">
+              Inactive
+            </option>
           </select>
         </div>
       </form>
 
       <template #footer>
-        <BaseButton variant="secondary" @click="showEditModal = false">
+        <BaseButton
+          variant="secondary"
+          @click="showEditModal = false"
+        >
           Cancel
         </BaseButton>
-        <BaseButton variant="primary" :loading="updating" @click="handleUpdate">
+        <BaseButton
+          variant="primary"
+          :loading="updating"
+          @click="handleUpdate"
+        >
           Update
         </BaseButton>
       </template>
     </BaseModal>
 
-    <BaseModal v-model="showDeleteModal" title="Confirm Delete" size="sm">
-      <p class="text-gray-700">Are you sure you want to delete this user?</p>
+    <BaseModal
+      v-model="showDeleteModal"
+      title="Confirm Delete"
+      size="sm"
+    >
+      <p class="text-gray-700">
+        Are you sure you want to delete this user?
+      </p>
       
       <template #footer>
-        <BaseButton variant="secondary" @click="showDeleteModal = false">
+        <BaseButton
+          variant="secondary"
+          @click="showDeleteModal = false"
+        >
           Cancel
         </BaseButton>
-        <BaseButton variant="danger" @click="confirmDelete" :loading="deleting">
+        <BaseButton
+          variant="danger"
+          :loading="deleting"
+          @click="confirmDelete"
+        >
           Delete
         </BaseButton>
       </template>

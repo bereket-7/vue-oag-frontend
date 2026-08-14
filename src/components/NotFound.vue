@@ -1,12 +1,21 @@
 <template>
-    <div class="not-found">
-      <div class="not-found__content">
-        <h1 class="not-found__title">404</h1>
-        <p class="not-found__message">Oops! The page you are looking for could not be found.</p>
-        <router-link class="not-found__link" to="/">Go back to the homepage</router-link>
-      </div>
+  <div class="not-found">
+    <div class="not-found__content">
+      <h1 class="not-found__title">
+        404
+      </h1>
+      <p class="not-found__message">
+        Oops! The page you are looking for could not be found.
+      </p>
+      <router-link
+        class="not-found__link"
+        to="/"
+      >
+        Go back to the homepage
+      </router-link>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   export default {

@@ -1,17 +1,41 @@
 <template>
   <div class="container">
     <div class="search-section">
-      <input type="text" v-model="keyword" placeholder="Enter keyword" class="search-input" />
-      <button @click="searchArtwork" class="search-button">Search</button>
+      <input
+        v-model="keyword"
+        type="text"
+        placeholder="Enter keyword"
+        class="search-input"
+      >
+      <button
+        class="search-button"
+        @click="searchArtwork"
+      >
+        Search
+      </button>
     </div>
 
-    <div v-if="artworkList.length === 0" class="no-artwork">
+    <div
+      v-if="artworkList.length === 0"
+      class="no-artwork"
+    >
       No artwork found.
     </div>
 
-    <div v-else class="image-gallery">
-      <div v-for="artwork in artworkList" :key="artwork.id" class="gallery-item">
-        <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork" class="artwork-image" />
+    <div
+      v-else
+      class="image-gallery"
+    >
+      <div
+        v-for="artwork in artworkList"
+        :key="artwork.id"
+        class="gallery-item"
+      >
+        <img
+          :src="getArtworkImageUrl(artwork.id)"
+          alt="Artwork"
+          class="artwork-image"
+        >
       </div>
     </div>
   </div>

@@ -1,267 +1,199 @@
 <template>
-  <div class="artwork-gallery">
-    <div
-      v-for="artwork in artworks"
-      :key="artwork.id"
-      class="artwork-card"
+  <div>
+    <PageHeader
+      title="My Artworks"
+      subtitle="Manage your portfolio and track verification status"
+      eyebrow="Portfolio"
     >
-      <div class="artwork-image">
-        <img
-          :src="getArtworkImageUrl(artwork.id)"
-          alt="Artwork Image"
-          style="width: 410px; height: 300px;"
-        >
-      </div>
-      <div class="artwork-details">
-        <h3><b>{{ artwork.artworkName }}</b></h3>
-        <p><b>Price: {{ artwork.price }}</b></p>
-        <p>Category: {{ artwork.artworkCategory }}</p>
+      <template #actions>
         <button
-          class="btn btn-primary quick-view"
-          @click="openModal(artwork)"
+          type="button"
+          class="btn-primary"
+          @click="$emit('upload')"
         >
-          Quick View
+          <i class="fas fa-plus mr-2" />Upload New
         </button>
-      </div>
-    </div>
-  
-    <div
-      v-if="selectedArtwork"
-      class="modal-container"
+      </template>
+    </PageHeader>
+
+    <PageLoader v-if="loading" />
+
+    <EmptyState
+      v-else-if="!artworks.length"
+      title="No artworks yet"
+      message="Start building your portfolio by uploading your first piece."
+      icon="fas fa-palette"
     >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>{{ selectedArtwork.artworkName }}</h3>
-          <button
-            class="btn btn-close"
-            @click="closeModal"
+      <button
+        type="button"
+        class="btn-primary mt-4"
+        @click="$emit('upload')"
+      >
+        Upload Your First Artwork
+      </button>
+    </EmptyState>
+
+    <div
+      v-else
+      class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+    >
+      <div
+        v-for="artwork in artworks"
+        :key="artwork.id"
+        class="artwork-card group"
+      >
+        <div class="relative aspect-[4/3] overflow-hidden">
+          <img
+            :src="artwork.imageUrl || artwork.image || `https://picsum.photos/seed/${artwork.id}/600/450`"
+            :alt="artwork.title || artwork.artworkName"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           >
-            <i class="fa-solid fa-xmark" />
-          </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <span
+            class="absolute top-3 right-3 px-2.5 py-1 text-xs font-semibold rounded-full backdrop-blur-sm"
+            :class="statusClass(artwork)"
+          >
+            {{ statusLabel(artwork) }}
+          </span>
         </div>
-        <div class="modal-body">
-          <div class="artwork-image">
-            <img
-              :src="getArtworkImageUrl(selectedArtwork.id)"
-              alt="Artwork Image"
-              style="width: 400px; height: 300px;"
-            >
+
+        <div class="p-5">
+          <h3 class="font-bold text-gray-900 dark:text-white mb-1 truncate">
+            {{ artwork.title || artwork.artworkName }}
+          </h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+            {{ artwork.description || artwork.artworkDescription }}
+          </p>
+
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-lg font-bold text-purple-600 dark:text-purple-400">${{ formatPrice(artwork.price) }}</span>
+            <div class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+              <i class="fas fa-star text-amber-400" />
+              {{ artwork.rating || artwork.averageRating || '—' }}
+            </div>
           </div>
-          <div class="artwork-details">
-            <p>{{ selectedArtwork.artworkDescription }}</p>
-            <p>Price: {{ selectedArtwork.price }}</p>
-            <p>Size: {{ selectedArtwork.size }}</p>
-            <p><b>Category: {{ selectedArtwork.artworkCategory }}</b></p>
-            <hr class="mx-n3">
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="btn-outline flex-1"
+              @click="viewArtwork(artwork)"
+            >
+              <i class="fas fa-eye mr-1.5" />View
+            </button>
+            <button
+              type="button"
+              class="btn-danger-icon"
+              aria-label="Delete"
+              @click="confirmDelete(artwork)"
+            >
+              <i class="fas fa-trash" />
+            </button>
           </div>
         </div>
       </div>
     </div>
+
+    <BaseModal
+      v-model="showDeleteModal"
+      title="Delete Artwork"
+      size="sm"
+    >
+      <p class="text-gray-700 dark:text-gray-300">
+        Are you sure you want to delete <strong>{{ selectedArtwork?.title || selectedArtwork?.artworkName }}</strong>? This cannot be undone.
+      </p>
+      <template #footer>
+        <BaseButton
+          variant="secondary"
+          @click="showDeleteModal = false"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          variant="danger"
+          :loading="deleting"
+          @click="handleDelete"
+        >
+          Delete
+        </BaseButton>
+      </template>
+    </BaseModal>
   </div>
 </template>
-  <script>
-  import axios from 'axios';
-  export default {
-    data() {
-      return {
-        artworks: [],
-        selectedArtwork: null,
-      };
-    },
-    mounted() {
-      this.fetchArtworks();
-    },
-    methods: {
-      openModal(artwork) {
-        this.selectedArtwork = artwork;
-        document.body.classList.add('modal-open');
-      },
-      closeModal() {
-        this.selectedArtwork = null;
-        document.body.classList.remove('modal-open');
-      },
-      fetchArtworks() {
-        axios.get('http://localhost:8082/api/artworks/my-artworks')
-          .then(response => {
-            this.artworks = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      getArtworkImageUrl(artworkId) {
-        return `http://localhost:8082/api/artworks/${artworkId}/image`;
-      },
 
-    },
-  };
-  </script>
-  
-  
-  
-  <style scoped>
-  .artwork-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 100px;
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { artworkService } from '@/services/artworkService';
+import { useNotification } from '@/composables/useNotification';
+import { BaseButton, BaseModal, PageLoader, EmptyState, PageHeader } from '@/components/common';
+
+defineEmits(['upload']);
+
+const router = useRouter();
+const { success, error: showError } = useNotification();
+
+const artworks = ref([]);
+const loading = ref(false);
+const deleting = ref(false);
+const showDeleteModal = ref(false);
+const selectedArtwork = ref(null);
+
+const formatPrice = (price) => {
+  if (typeof price === 'number') return price.toLocaleString();
+  return String(price || '0').replace(/[^0-9.]/g, '');
+};
+
+const statusLabel = (artwork) => {
+  if (artwork.status === 'published' || artwork.verified) return 'Verified';
+  if (artwork.status === 'rejected') return 'Rejected';
+  return 'Pending';
+};
+
+const statusClass = (artwork) => {
+  if (artwork.status === 'published' || artwork.verified) return 'bg-green-500/90 text-white';
+  if (artwork.status === 'rejected') return 'bg-red-500/90 text-white';
+  return 'bg-amber-500/90 text-white';
+};
+
+const fetchMyArtworks = async () => {
+  loading.value = true;
+  try {
+    artworks.value = await artworkService.getAll({ myArtworks: true });
+  } catch {
+    artworks.value = await artworkService.getAll({});
+  } finally {
+    loading.value = false;
   }
-  
-  .artwork-card {
-    width: 400px;
-    margin: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.5s ease;
+};
+
+const viewArtwork = (artwork) => router.push(`/artworks/${artwork.id}`);
+
+const confirmDelete = (artwork) => {
+  selectedArtwork.value = artwork;
+  showDeleteModal.value = true;
+};
+
+const handleDelete = async () => {
+  deleting.value = true;
+  try {
+    await artworkService.delete(selectedArtwork.value.id);
+    success('Artwork deleted');
+    showDeleteModal.value = false;
+    await fetchMyArtworks();
+  } catch {
+    showError('Failed to delete artwork');
+  } finally {
+    deleting.value = false;
   }
-  
-  .artwork-card:hover {
-    transform: scale(1.2);
-  }
-  
-  .artwork-image {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-  
-  .artwork-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  
-  .artwork-card:hover .artwork-image img {
-    transform: scale(1.1);
-  }
-  
-  .artwork-details {
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .artwork-details h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .artwork-details p {
-    margin: 5px 0;
-  }
-  
-  .wishlist-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: transparent;
-    border: none;
-    color: darkred;
-    font-size: 20px;
-  }
-  
-  .wishlist-button:hover {
-    color: red;
-  }
-  
-  .quick-view {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: rgba(11, 61, 168, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: none;
-  }
-  
-  .artwork-card:hover .quick-view {
-    display: block;
-  }
-  
-  .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    max-width: 800px;
-    width: 90%;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .modal-header h3 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .modal-header .btn-close {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 5px;
-  }
-  
-  .modal-body {
-    display: flex;
-  }
-  
-  .modal-body .artwork-image {
-    flex: 1;
-  }
-  
-  .modal-body .artwork-details {
-    flex: 1;
-  }
-  
-  .modal-body img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .btn-close {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 5px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #333;
-  }
-  
-  .btn-close:hover {
-    color: #ff0000;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .artwork-card {
-      width: 100%;
-      margin: 10px 0;
-    }
-  }
-  </style>
-  
+};
+
+onMounted(fetchMyArtworks);
+</script>
+
+<style scoped>
+.artwork-card { @apply bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300; }
+.btn-primary { @apply inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg shadow-purple-500/20 transition-all text-sm; }
+.btn-outline { @apply inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all; }
+.btn-danger-icon { @apply inline-flex items-center justify-center w-10 h-10 rounded-xl text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all; }
+</style>

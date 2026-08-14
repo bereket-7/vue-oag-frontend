@@ -1,14 +1,29 @@
 <template>
-    <div class="profile-card">
-      <div class="profile-photo" v-if="profilePhotoUrl">
-        <img :src="profilePhotoUrl" alt="Profile Photo" />
-      </div>
-      <div class="placeholder" v-else>
-        <i class="fas fa-user"></i>
-      </div>
-      <input type="file" ref="fileInput" @change="handleFileChange" />
-      <button @click="uploadProfilePhoto">Upload</button>
+  <div class="profile-card">
+    <div
+      v-if="profilePhotoUrl"
+      class="profile-photo"
+    >
+      <img
+        :src="profilePhotoUrl"
+        alt="Profile Photo"
+      >
     </div>
+    <div
+      v-else
+      class="placeholder"
+    >
+      <i class="fas fa-user" />
+    </div>
+    <input
+      ref="fileInput"
+      type="file"
+      @change="handleFileChange"
+    >
+    <button @click="uploadProfilePhoto">
+      Upload
+    </button>
+  </div>
 </template>
   
 <script>
@@ -20,6 +35,9 @@ export default {
       selectedFile: null,
       profilePhotoUrl: null,
     };
+  },
+  mounted() {
+    this.getProfilePhoto();
   },
   methods: {
     handleFileChange(event) {
@@ -53,9 +71,6 @@ export default {
         console.error('Error getting profile photo:', error);
       }
     },
-  },
-  mounted() {
-    this.getProfilePhoto();
   },
 };
 </script>

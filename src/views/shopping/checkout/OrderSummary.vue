@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
+  <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-2 text-sm text-gray-700 dark:text-gray-300">
     <div class="flex justify-between">
       <span>Subtotal</span><span>{{ formatPrice(subtotal) }}</span>
     </div>

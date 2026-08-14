@@ -2,8 +2,10 @@
   "nav": {
     "home": "Home",
     "gallery": "Gallery",
+    "search": "Search",
     "auctions": "Auctions",
     "collections": "Collections",
+    "contact": "Contact",
     "login": "Sign In",
     "register": "Sign Up",
     "cart": "Cart",
@@ -18,8 +20,10 @@
   },
   "checkout": {
     "title": "Checkout",
+    "cart": "Cart",
     "shipping": "Shipping",
     "payment": "Payment",
+    "done": "Done",
     "placeOrder": "Place Order"
   },
   "common": {

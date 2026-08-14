@@ -36,7 +36,7 @@
 
 
 <script>
-import axios from 'axios';
+import { artworkService } from '@/services/artworkService';
 
 export default {
   data() {
@@ -60,9 +60,9 @@ export default {
   },
   methods: {
     getArtworksByPriceRange() {
-      axios.get(`http://localhost:8082/api/artworks/priceRange?minPrice=${this.minPrice}&maxPrice=${this.maxPrice}`)
-        .then((response) => {
-          this.artworks = response.data;
+      artworkService.getByPriceRange(this.minPrice, this.maxPrice)
+        .then((data) => {
+          this.artworks = data;
         })
         .catch((error) => {
           console.error(error);

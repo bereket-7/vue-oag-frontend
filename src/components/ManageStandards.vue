@@ -11,9 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="standard in standards" :key="standard.id">
+        <tr
+          v-for="standard in standards"
+          :key="standard.id"
+        >
           <td>{{ standard.id }}</td>
-          <td>{{ standard.standardDescription}}</td>
+          <td>{{ standard.standardDescription }}</td>
           <td>{{ standard.standardType }}</td>
           <td>
             <button
@@ -36,14 +39,23 @@
       </tbody>
     </table>
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div
+      id="editModal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+    >
       ...
     </div>
 
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div
+      id="deleteModal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+    >
       ...
     </div>
-
   </div>  
 </template>
 

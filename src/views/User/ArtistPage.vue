@@ -5,21 +5,35 @@
         <h3>Artist Dashboard</h3>
       </div>
       <ul class="sidebar-menu">
-        <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">
+        <li
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="sidebar-menu-item"
+          :class="{ active: activeTab === tab }"
+        >
           <a @click="changeTab(tab)">{{ tab }}</a>
         </li>
         <li class="sidebar-menu-item logout">
-          <button @click="showConfirmationDialog = true"><i class="fas fa-sign-out-alt"></i></button>
-          <div v-if="showConfirmationDialog" class="confirmation-dialog">
+          <button @click="showConfirmationDialog = true">
+            <i class="fas fa-sign-out-alt" />
+          </button>
+          <div
+            v-if="showConfirmationDialog"
+            class="confirmation-dialog"
+          >
             <p>Are you sure you want to logout?</p>
-            <button @click="logoutUser">Yes</button>
-            <button @click="cancelLogout">No</button>
+            <button @click="logoutUser">
+              Yes
+            </button>
+            <button @click="cancelLogout">
+              No
+            </button>
           </div>
         </li>
       </ul>
     </nav>
     <div class="content">
-      <div  v-if="activeTab === 'My Art'">
+      <div v-if="activeTab === 'My Art'">
         <MyArt />
       </div>
       <div v-else-if="activeTab === 'Profile'">
@@ -46,7 +60,7 @@
       </div>
     </div>
   </div>
-<FooterView/>
+  <FooterView />
 </template>
 
 <script>

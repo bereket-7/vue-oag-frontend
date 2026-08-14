@@ -1,13 +1,18 @@
 <template>
-    <div class="notifications">
-      <h2>Notifications</h2>
-      <ul v-if="notifications.length > 0">
-        <li v-for="notification in notifications" :key="notification.id">
-          <span :class="{ 'unread': !notification.read }">{{ notification.message }}</span>
-        </li>
-      </ul>
-      <p v-else>No notifications</p>
-    </div>
+  <div class="notifications">
+    <h2>Notifications</h2>
+    <ul v-if="notifications.length > 0">
+      <li
+        v-for="notification in notifications"
+        :key="notification.id"
+      >
+        <span :class="{ 'unread': !notification.read }">{{ notification.message }}</span>
+      </li>
+    </ul>
+    <p v-else>
+      No notifications
+    </p>
+  </div>
 </template>
   
 <script>

@@ -31,6 +31,14 @@
     height: 100vh;
     background-color: #f4f4f4;
   }
+
+  :global(html.dark) .not-found {
+    background-color: #030712;
+  }
+
+  :global(html.dark) .not-found__message {
+    color: #d1d5db;
+  }
   
   .not-found__content {
     text-align: center;

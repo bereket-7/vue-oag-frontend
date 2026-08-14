@@ -1,87 +1,169 @@
 <template>
-    <div class="container-fluid rounded bg-white mt-5">
-        <div class="row">
-            <div class="col-md-3 border-right sidebar">
-                <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-                    <img class="rounded-circle mt-5" width="150px" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80">
-                    <span class="font-weight-bold">Bereket</span>
-                </div>
-                <div class="sidebar">
-                    <ul class="navbar-list">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link">About</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/contactUs" class="nav-link">Contact Us</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Admin</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Account Detail</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminPanel" class="nav-link">Logout</router-link>
-        </li>
-      </ul> 
-                </div>
-            </div>
-            <div class="col-md-8 border-right">
-                <div class="p-3 py-5">
-                    <div class="justify-content-between align-items-center mb-3">
-                        <h4 class="text-center">MANAGE COMPETITION</h4>
-                    </div>
-                    <div class="row">
-                        <div class="row mt-3">
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                            <img class="card-img-top" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80" alt="Competition artwork" height="300" >
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <router-link to=""><button class="btn btn-primary m-2">Edit</button></router-link>
-                                <router-link to=""><button class="btn btn-danger m-2">Delete</button></router-link>
-                            </div>
-                        </div>
-                
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                            <img class="card-img-top" src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80" alt="Competition artwork" height="300">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <router-link to=""><button class="btn btn-primary m-2">Edit</button></router-link>
-                                <router-link to=""><button class="btn btn-danger m-2">Delete</button></router-link>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="card">
-                            <img class="card-img-top" src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=600&q=80" alt="Competition artwork" height="300">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <router-link to=""><button class="btn btn-primary m-2">Edit</button></router-link>
-                                <router-link to=""><button class="btn btn-danger m-2">Delete</button></router-link>
-                            </div>
-                        </div>
-                
-                        </div>
-                         
-                    </div>
-  
-                    </div>
-  
-                </div>
-            </div>
+  <div class="container-fluid rounded bg-white mt-5">
+    <div class="row">
+      <div class="col-md-3 border-right sidebar">
+        <div class="d-flex flex-column align-items-center text-center p-3  user-p">
+          <img
+            class="rounded-circle mt-5"
+            width="150px"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80"
+          >
+          <span class="font-weight-bold">Bereket</span>
         </div>
+        <div class="sidebar">
+          <ul class="navbar-list">
+            <li class="nav-item">
+              <router-link
+                to="/"
+                class="nav-link"
+              >
+                Home
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/about"
+                class="nav-link"
+              >
+                About
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/contactUs"
+                class="nav-link"
+              >
+                Contact Us
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/adminPanel"
+                class="nav-link"
+              >
+                Admin
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/adminPanel"
+                class="nav-link"
+              >
+                Account Detail
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/adminPanel"
+                class="nav-link"
+              >
+                Logout
+              </router-link>
+            </li>
+          </ul> 
+        </div>
+      </div>
+      <div class="col-md-8 border-right">
+        <div class="p-3 py-5">
+          <div class="justify-content-between align-items-center mb-3">
+            <h4 class="text-center">
+              MANAGE COMPETITION
+            </h4>
+          </div>
+          <div class="row">
+            <div class="row mt-3">
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80"
+                    alt="Competition artwork"
+                    height="300"
+                  >
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Card title
+                    </h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    </p>
+                    <router-link to="">
+                      <button class="btn btn-primary m-2">
+                        Edit
+                      </button>
+                    </router-link>
+                    <router-link to="">
+                      <button class="btn btn-danger m-2">
+                        Delete
+                      </button>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80"
+                    alt="Competition artwork"
+                    height="300"
+                  >
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Card title
+                    </h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    </p>
+                    <router-link to="">
+                      <button class="btn btn-primary m-2">
+                        Edit
+                      </button>
+                    </router-link>
+                    <router-link to="">
+                      <button class="btn btn-danger m-2">
+                        Delete
+                      </button>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-2">
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=600&q=80"
+                    alt="Competition artwork"
+                    height="300"
+                  >
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Card title
+                    </h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    </p>
+                    <router-link to="">
+                      <button class="btn btn-primary m-2">
+                        Edit
+                      </button>
+                    </router-link>
+                    <router-link to="">
+                      <button class="btn btn-danger m-2">
+                        Delete
+                      </button>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <FooterView/>
-    </template>
+  </div>
+  <FooterView />
+</template>
     
     <script>
     import FooterView from "@/components/FooterView.vue"

@@ -1,8 +1,16 @@
 <template>
   <div>
-    <PageHeader title="My Artworks" subtitle="Manage your portfolio and track verification status" eyebrow="Portfolio">
+    <PageHeader
+      title="My Artworks"
+      subtitle="Manage your portfolio and track verification status"
+      eyebrow="Portfolio"
+    >
       <template #actions>
-        <button type="button" class="btn-primary" @click="$emit('upload')">
+        <button
+          type="button"
+          class="btn-primary"
+          @click="$emit('upload')"
+        >
           <i class="fas fa-plus mr-2" />Upload New
         </button>
       </template>
@@ -16,12 +24,19 @@
       message="Start building your portfolio by uploading your first piece."
       icon="fas fa-palette"
     >
-      <button type="button" class="btn-primary mt-4" @click="$emit('upload')">
+      <button
+        type="button"
+        class="btn-primary mt-4"
+        @click="$emit('upload')"
+      >
         Upload Your First Artwork
       </button>
     </EmptyState>
 
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div
+      v-else
+      class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+    >
       <div
         v-for="artwork in artworks"
         :key="artwork.id"
@@ -32,7 +47,7 @@
             :src="artwork.imageUrl || artwork.image || `https://picsum.photos/seed/${artwork.id}/600/450`"
             :alt="artwork.title || artwork.artworkName"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
+          >
           <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           <span
             class="absolute top-3 right-3 px-2.5 py-1 text-xs font-semibold rounded-full backdrop-blur-sm"
@@ -43,8 +58,12 @@
         </div>
 
         <div class="p-5">
-          <h3 class="font-bold text-gray-900 dark:text-white mb-1 truncate">{{ artwork.title || artwork.artworkName }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">{{ artwork.description || artwork.artworkDescription }}</p>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-1 truncate">
+            {{ artwork.title || artwork.artworkName }}
+          </h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+            {{ artwork.description || artwork.artworkDescription }}
+          </p>
 
           <div class="flex items-center justify-between mb-4">
             <span class="text-lg font-bold text-purple-600 dark:text-purple-400">${{ formatPrice(artwork.price) }}</span>
@@ -55,10 +74,19 @@
           </div>
 
           <div class="flex gap-2">
-            <button type="button" class="btn-outline flex-1" @click="viewArtwork(artwork)">
+            <button
+              type="button"
+              class="btn-outline flex-1"
+              @click="viewArtwork(artwork)"
+            >
               <i class="fas fa-eye mr-1.5" />View
             </button>
-            <button type="button" class="btn-danger-icon" aria-label="Delete" @click="confirmDelete(artwork)">
+            <button
+              type="button"
+              class="btn-danger-icon"
+              aria-label="Delete"
+              @click="confirmDelete(artwork)"
+            >
               <i class="fas fa-trash" />
             </button>
           </div>
@@ -66,11 +94,28 @@
       </div>
     </div>
 
-    <BaseModal v-model="showDeleteModal" title="Delete Artwork" size="sm">
-      <p class="text-gray-700 dark:text-gray-300">Are you sure you want to delete <strong>{{ selectedArtwork?.title || selectedArtwork?.artworkName }}</strong>? This cannot be undone.</p>
+    <BaseModal
+      v-model="showDeleteModal"
+      title="Delete Artwork"
+      size="sm"
+    >
+      <p class="text-gray-700 dark:text-gray-300">
+        Are you sure you want to delete <strong>{{ selectedArtwork?.title || selectedArtwork?.artworkName }}</strong>? This cannot be undone.
+      </p>
       <template #footer>
-        <BaseButton variant="secondary" @click="showDeleteModal = false">Cancel</BaseButton>
-        <BaseButton variant="danger" :loading="deleting" @click="handleDelete">Delete</BaseButton>
+        <BaseButton
+          variant="secondary"
+          @click="showDeleteModal = false"
+        >
+          Cancel
+        </BaseButton>
+        <BaseButton
+          variant="danger"
+          :loading="deleting"
+          @click="handleDelete"
+        >
+          Delete
+        </BaseButton>
       </template>
     </BaseModal>
   </div>

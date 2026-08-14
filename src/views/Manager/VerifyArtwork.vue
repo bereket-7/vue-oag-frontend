@@ -1,19 +1,35 @@
 <template>
   <div>
-    <div v-for="artwork in artworks" :key="artwork.id" class="artwork-card">
-      <img :src="getArtworkImageUrl(artwork.id)" alt="Artwork Image">
+    <div
+      v-for="artwork in artworks"
+      :key="artwork.id"
+      class="artwork-card"
+    >
+      <img
+        :src="getArtworkImageUrl(artwork.id)"
+        alt="Artwork Image"
+      >
       <div class="artwork-description">
         <h3>{{ artwork.description }}</h3>
       </div>
       <div class="buttons">
-        <button @click="acceptArtwork(artwork.id)">Accept</button>
-        <button @click="rejectArtwork(artwork.id)">Reject</button>
+        <button @click="acceptArtwork(artwork.id)">
+          Accept
+        </button>
+        <button @click="rejectArtwork(artwork.id)">
+          Reject
+        </button>
       </div>
     </div>
 
-    <div class="popup" :class="{ 'open-popup': showPopup }">
+    <div
+      class="popup"
+      :class="{ 'open-popup': showPopup }"
+    >
       <h2>{{ popupMessage }}</h2>
-      <button @click="closePopup()">OK</button>
+      <button @click="closePopup()">
+        OK
+      </button>
     </div>
   </div>
 </template>

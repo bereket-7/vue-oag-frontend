@@ -1,10 +1,33 @@
 <template>
-  <form @submit.prevent="submit" class="space-y-3">
+  <form
+    class="space-y-3"
+    @submit.prevent="submit"
+  >
     <div class="flex gap-1">
-      <button v-for="n in 5" :key="n" type="button" @click="rating = n" :class="n <= rating ? 'text-yellow-400' : 'text-gray-300'">★</button>
+      <button
+        v-for="n in 5"
+        :key="n"
+        type="button"
+        :class="n <= rating ? 'text-yellow-400' : 'text-gray-300'"
+        @click="rating = n"
+      >
+        ★
+      </button>
     </div>
-    <textarea v-model="comment" rows="3" placeholder="Write a review..." class="w-full border rounded-lg p-3 text-sm" required />
-    <BaseButton type="submit" size="sm" :loading="loading">Submit Review</BaseButton>
+    <textarea
+      v-model="comment"
+      rows="3"
+      placeholder="Write a review..."
+      class="w-full border rounded-lg p-3 text-sm"
+      required
+    />
+    <BaseButton
+      type="submit"
+      size="sm"
+      :loading="loading"
+    >
+      Submit Review
+    </BaseButton>
   </form>
 </template>
 

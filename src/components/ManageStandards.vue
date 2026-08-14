@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { standardService } from '@/services/standardService';
 export default {
   data() {
     return {
@@ -74,9 +74,9 @@ export default {
   },
   methods: {
     fetchStandards() {
-      axios.get('http://localhost:8081/standards')
-        .then(response => {
-          this.standards = response.data;
+      standardService.getAll()
+        .then(data => {
+          this.standards = data;
         })
         .catch(error => {
           console.log(error);
@@ -93,7 +93,7 @@ export default {
       $('#deleteModal').modal('show');
     },
     confirmDelete() {
-      axios.delete(`/api/standards/${this.deletedStandard.id}`)
+      standardService.delete(this.deletedStandard.id)
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           const index = this.standards.indexOf(this.deletedStandard);

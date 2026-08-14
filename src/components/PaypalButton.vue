@@ -1,14 +1,24 @@
 <template>
   <div class="paypal-button-container">
     <div v-if="isMockMode">
-      <button type="button" class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700" @click="$emit('success')">
+      <button
+        type="button"
+        class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+        @click="$emit('success')"
+      >
         Pay with PayPal (Demo)
       </button>
     </div>
-    <div v-else-if="!clientId" class="text-sm text-gray-500 dark:text-gray-400">
+    <div
+      v-else-if="!clientId"
+      class="text-sm text-gray-500 dark:text-gray-400"
+    >
       PayPal is not configured.
     </div>
-    <div v-else id="paypal-button"></div>
+    <div
+      v-else
+      id="paypal-button"
+    />
   </div>
 </template>
 

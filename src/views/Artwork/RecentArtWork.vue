@@ -2,11 +2,15 @@
   <div class="recent-page">
     <!-- Hero Banner -->
     <div class="recent-hero">
-      <div class="recent-hero__bg"></div>
+      <div class="recent-hero__bg" />
       <div class="recent-hero__content">
-        <span class="recent-hero__badge"><i class="fas fa-fire"></i> Just Arrived</span>
-        <h1 class="recent-hero__title">New Arts</h1>
-        <p class="recent-hero__sub">Fresh works from our artists — added this month</p>
+        <span class="recent-hero__badge"><i class="fas fa-fire" /> Just Arrived</span>
+        <h1 class="recent-hero__title">
+          New Arts
+        </h1>
+        <p class="recent-hero__sub">
+          Fresh works from our artists — added this month
+        </p>
       </div>
     </div>
 
@@ -20,15 +24,28 @@
             class="filter-tab"
             :class="{ active: activeCategory === cat }"
             @click="activeCategory = cat"
-          >{{ cat }}</button>
+          >
+            {{ cat }}
+          </button>
         </div>
         <div class="filter-bar__right">
           <span class="filter-count">{{ filteredArtworks.length }} works</span>
-          <select v-model="sortBy" class="filter-select">
-            <option value="newest">Newest First</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="rating">Top Rated</option>
+          <select
+            v-model="sortBy"
+            class="filter-select"
+          >
+            <option value="newest">
+              Newest First
+            </option>
+            <option value="price-asc">
+              Price: Low to High
+            </option>
+            <option value="price-desc">
+              Price: High to Low
+            </option>
+            <option value="rating">
+              Top Rated
+            </option>
           </select>
         </div>
       </div>
@@ -44,26 +61,43 @@
         @click="openModal(artwork)"
       >
         <div class="art-card__img-wrap">
-          <img :src="artwork.imageUrl" :alt="artwork.artworkName" class="art-card__img" loading="lazy" />
+          <img
+            :src="artwork.imageUrl"
+            :alt="artwork.artworkName"
+            class="art-card__img"
+            loading="lazy"
+          >
           <div class="art-card__overlay">
-            <button class="art-card__view-btn"><i class="fas fa-expand-alt"></i> View</button>
+            <button class="art-card__view-btn">
+              <i class="fas fa-expand-alt" /> View
+            </button>
           </div>
           <span class="art-card__badge">New</span>
           <span class="art-card__category">{{ artwork.artworkCategory }}</span>
         </div>
         <div class="art-card__body">
           <div class="art-card__meta">
-            <span class="art-card__artist"><i class="fas fa-user-circle"></i> {{ artwork.artist }}</span>
+            <span class="art-card__artist"><i class="fas fa-user-circle" /> {{ artwork.artist }}</span>
             <div class="art-card__stars">
-              <i v-for="s in 5" :key="s" class="fas fa-star" :class="{ dim: s > Math.round(artwork.averageRating) }"></i>
+              <i
+                v-for="s in 5"
+                :key="s"
+                class="fas fa-star"
+                :class="{ dim: s > Math.round(artwork.averageRating) }"
+              />
               <span>{{ artwork.averageRating }}</span>
             </div>
           </div>
-          <h3 class="art-card__title">{{ artwork.artworkName }}</h3>
+          <h3 class="art-card__title">
+            {{ artwork.artworkName }}
+          </h3>
           <div class="art-card__footer">
             <span class="art-card__price">{{ artwork.price }}</span>
-            <button class="art-card__cart-btn" @click.stop="addToCart(artwork)">
-              <i class="fas fa-shopping-bag"></i>
+            <button
+              class="art-card__cart-btn"
+              @click.stop="addToCart(artwork)"
+            >
+              <i class="fas fa-shopping-bag" />
             </button>
           </div>
         </div>
@@ -71,39 +105,70 @@
     </div>
 
     <!-- Empty state -->
-    <div v-if="filteredArtworks.length === 0" class="empty-state">
-      <i class="fas fa-palette"></i>
+    <div
+      v-if="filteredArtworks.length === 0"
+      class="empty-state"
+    >
+      <i class="fas fa-palette" />
       <p>No artworks in this category yet.</p>
     </div>
 
     <!-- Modal -->
     <transition name="modal-fade">
-      <div v-if="selectedArtwork" class="modal-backdrop" @click.self="closeModal">
+      <div
+        v-if="selectedArtwork"
+        class="modal-backdrop"
+        @click.self="closeModal"
+      >
         <div class="modal-box">
-          <button class="modal-box__close" @click="closeModal"><i class="fas fa-times"></i></button>
+          <button
+            class="modal-box__close"
+            @click="closeModal"
+          >
+            <i class="fas fa-times" />
+          </button>
           <div class="modal-box__grid">
             <div class="modal-box__img-wrap">
-              <img :src="selectedArtwork.imageUrl" :alt="selectedArtwork.artworkName" />
+              <img
+                :src="selectedArtwork.imageUrl"
+                :alt="selectedArtwork.artworkName"
+              >
             </div>
             <div class="modal-box__info">
               <span class="modal-box__cat">{{ selectedArtwork.artworkCategory }}</span>
-              <h2 class="modal-box__title">{{ selectedArtwork.artworkName }}</h2>
-              <p class="modal-box__artist"><i class="fas fa-user-circle"></i> {{ selectedArtwork.artist }} · {{ selectedArtwork.year }}</p>
-              <p class="modal-box__desc">{{ selectedArtwork.artworkDescription }}</p>
+              <h2 class="modal-box__title">
+                {{ selectedArtwork.artworkName }}
+              </h2>
+              <p class="modal-box__artist">
+                <i class="fas fa-user-circle" /> {{ selectedArtwork.artist }} · {{ selectedArtwork.year }}
+              </p>
+              <p class="modal-box__desc">
+                {{ selectedArtwork.artworkDescription }}
+              </p>
               <div class="modal-box__specs">
-                <div class="spec"><i class="fas fa-ruler-combined"></i><span>{{ selectedArtwork.size }}</span></div>
                 <div class="spec">
-                  <i class="fas fa-star" style="color:#f59e0b"></i>
+                  <i class="fas fa-ruler-combined" /><span>{{ selectedArtwork.size }}</span>
+                </div>
+                <div class="spec">
+                  <i
+                    class="fas fa-star"
+                    style="color:#f59e0b"
+                  />
                   <span>{{ selectedArtwork.averageRating }} / 5</span>
                 </div>
               </div>
-              <div class="modal-box__price">{{ selectedArtwork.price }}</div>
+              <div class="modal-box__price">
+                {{ selectedArtwork.price }}
+              </div>
               <div class="modal-box__actions">
-                <button class="modal-btn modal-btn--primary" @click="addToCart(selectedArtwork); closeModal()">
-                  <i class="fas fa-shopping-bag"></i> Add to Cart
+                <button
+                  class="modal-btn modal-btn--primary"
+                  @click="addToCart(selectedArtwork); closeModal()"
+                >
+                  <i class="fas fa-shopping-bag" /> Add to Cart
                 </button>
                 <button class="modal-btn modal-btn--ghost">
-                  <i class="fas fa-heart"></i> Wishlist
+                  <i class="fas fa-heart" /> Wishlist
                 </button>
               </div>
             </div>

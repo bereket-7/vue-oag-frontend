@@ -1,25 +1,37 @@
 <template>
-    <div class="confirm-container">
-        <div class="form-container">
-        <div class="card">
+  <div class="confirm-container">
+    <div class="form-container">
+      <div class="card">
         <h1>Activate Account</h1>
         <div v-if="!confirmed">
           <p>Please enter the confirmation code you received via email:</p>
           <form class="form-input">
-            <input v-model="confirmationCode" type="text" placeholder="Confirmation Code" class="input">
-            <button class="button" @click="confirmRegistration">Activate</button>
+            <input
+              v-model="confirmationCode"
+              type="text"
+              placeholder="Confirmation Code"
+              class="input"
+            >
+            <button
+              class="button"
+              @click="confirmRegistration"
+            >
+              Activate
+            </button>
           </form>
         </div>
         <div v-else>
           <p>Registration confirmed successfully!</p>
         </div>
         <div v-if="error">
-          <p class="error">Error: {{ error }}</p>
+          <p class="error">
+            Error: {{ error }}
+          </p>
         </div>
       </div>
     </div>
-    </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

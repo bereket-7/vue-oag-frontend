@@ -2,12 +2,21 @@
   <div class="bg-white rounded-xl shadow-md p-6">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-sm text-gray-600 mb-1">{{ title }}</p>
-        <p class="text-3xl font-bold text-gray-900">{{ value }}</p>
-        <p v-if="change" class="text-xs text-green-600 mt-1">{{ change }}</p>
+        <p class="text-sm text-gray-600 mb-1">
+          {{ title }}
+        </p>
+        <p class="text-3xl font-bold text-gray-900">
+          {{ value }}
+        </p>
+        <p
+          v-if="change"
+          class="text-xs text-green-600 mt-1"
+        >
+          {{ change }}
+        </p>
       </div>
       <div :class="['w-12 h-12 rounded-lg flex items-center justify-center', colorClasses[color]]">
-        <i :class="[icon, 'text-xl']"></i>
+        <i :class="[icon, 'text-xl']" />
       </div>
     </div>
   </div>

@@ -1,21 +1,117 @@
 <template>
-    <div class="artwork-gallery">
-      <div v-for="artwork in artworks" :key="artwork.id" class="artwork-card">
-        <div class="artwork-image-container">
-          <img :src="artwork.imageUrl" :alt="artwork.name" class="artwork-image">
-        </div>
-        <div class="artwork-details">
-          <h3 class="artwork-title">{{ artwork.name }}</h3>
-          <p class="artist-name">{{ artwork.artistName }}</p>
-          <p class="artwork-category">{{ artwork.category }}</p>
-          <p class="vote-count">Votes: {{ artwork.voteCount }}</p>
-          <button @click="vote(artwork.id)" class="vote-button">Vote</button>
-        </div>
+  <div class="artwork-gallery">
+    <div
+      v-for="artwork in artworks"
+      :key="artwork.id"
+      class="artwork-card"
+    >
+      <div class="artwork-image-container">
+        <img
+          :src="artwork.imageUrl"
+          :alt="artwork.name"
+          class="artwork-image"
+        >
+      </div>
+      <div class="artwork-details">
+        <h3 class="artwork-title">
+          {{ artwork.name }}
+        </h3>
+        <p class="artist-name">
+          {{ artwork.artistName }}
+        </p>
+        <p class="artwork-category">
+          {{ artwork.category }}
+        </p>
+        <p class="vote-count">
+          Votes: {{ artwork.voteCount }}
+        </p>
+        <button
+          class="vote-button"
+          @click="vote(artwork.id)"
+        >
+          Vote
+        </button>
       </div>
     </div>
+  </div>
 
-    <FooterView />
+  <FooterView />
 </template>
+
+
+<script>
+export default {
+  data() {
+    return {
+      artworks: [
+        {
+          id: 1,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 1",
+          artistName: "Artist 1",
+          category: "Category 1",
+          voteCount: 10
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 2,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 2",
+          artistName: "Artist 2",
+          category: "Category 2",
+          voteCount: 5
+        },
+        {
+          id: 3,
+          imageUrl: "https://via.placeholder.com/400x200",
+          name: "Artwork 3",
+          artistName: "Artist 3",
+          category: "Category 3",
+          voteCount: 8
+        }
+      ]
+    };
+  },
+  mounted() {
+    
+    // Fetch the artworks from the backend API
+    this.fetchArtworks();
+  },
+  created() {
+    // Any additional initialization or setup logic
+  },
+  methods: {
+    // vote(artworkId) {
+      // Logic to handle voting for the artwork with the specified ID
+      // You can make an API request here to update the vote count
+      // and handle any success/error responses
+    // }
+  }
+};
+</script>
 
 
 <style scoped>
@@ -114,78 +210,3 @@
 
 }
 </style>
-
-
-<script>
-export default {
-  data() {
-    return {
-      artworks: [
-        {
-          id: 1,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 1",
-          artistName: "Artist 1",
-          category: "Category 1",
-          voteCount: 10
-        },
-        {
-          id: 2,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 2",
-          artistName: "Artist 2",
-          category: "Category 2",
-          voteCount: 5
-        },
-        {
-          id: 2,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 2",
-          artistName: "Artist 2",
-          category: "Category 2",
-          voteCount: 5
-        },
-        {
-          id: 2,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 2",
-          artistName: "Artist 2",
-          category: "Category 2",
-          voteCount: 5
-        },
-        {
-          id: 2,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 2",
-          artistName: "Artist 2",
-          category: "Category 2",
-          voteCount: 5
-        },
-        {
-          id: 3,
-          imageUrl: "https://via.placeholder.com/400x200",
-          name: "Artwork 3",
-          artistName: "Artist 3",
-          category: "Category 3",
-          voteCount: 8
-        }
-      ]
-    };
-  },
-  methods: {
-    // vote(artworkId) {
-      // Logic to handle voting for the artwork with the specified ID
-      // You can make an API request here to update the vote count
-      // and handle any success/error responses
-    // }
-  },
-  mounted() {
-    
-    // Fetch the artworks from the backend API
-    this.fetchArtworks();
-  },
-  created() {
-    // Any additional initialization or setup logic
-  }
-};
-</script>

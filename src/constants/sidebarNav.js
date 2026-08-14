@@ -50,11 +50,11 @@ const ROLE_SECTIONS = {
   [ROLES.MANAGER]: {
     title: 'Manager',
     items: [
-      { key: 'manager-home', label: 'Dashboard', icon: 'fas fa-tachometer-alt', to: '/managerDashboard' },
-      { key: 'verify', label: 'Verify Artwork', icon: 'fas fa-check-circle', to: '/manager/verify-artwork' },
+      dashTab(ROLES.MANAGER, 'overview', 'Dashboard', 'fas fa-tachometer-alt'),
+      dashTab(ROLES.MANAGER, 'verify', 'Verify Artwork', 'fas fa-check-circle'),
+      dashTab(ROLES.MANAGER, 'competition', 'Competitions', 'fas fa-trophy'),
+      dashTab(ROLES.MANAGER, 'profile', 'Profile', 'fas fa-user-cog'),
       { key: 'moderation', label: 'Moderation', icon: 'fas fa-flag', to: '/admin/moderation' },
-      { key: 'competitions', label: 'Competitions', icon: 'fas fa-trophy', to: '/manager/competitions' },
-      { key: 'profile', label: 'Profile', icon: 'fas fa-user-cog', to: '/managerDashboard' },
     ]
   },
   [ROLES.ADMIN]: {
@@ -75,9 +75,10 @@ const ROLE_SECTIONS = {
   [ROLES.ORGANIZATION]: {
     title: 'Organization',
     items: [
-      { key: 'org-home', label: 'Dashboard', icon: 'fas fa-building', to: '/organizationDashboard' },
-      { key: 'events', label: 'Events', icon: 'fas fa-calendar-alt', to: '/eventDisplay' },
-      { key: 'register-event', label: 'Register Event', icon: 'fas fa-plus-circle', to: '/eventRegister' },
+      dashTab(ROLES.ORGANIZATION, 'overview', 'Dashboard', 'fas fa-building'),
+      dashTab(ROLES.ORGANIZATION, 'events', 'Events', 'fas fa-calendar-alt'),
+      dashTab(ROLES.ORGANIZATION, 'register-event', 'Register Event', 'fas fa-plus-circle'),
+      dashTab(ROLES.ORGANIZATION, 'profile', 'Profile', 'fas fa-user-cog'),
     ]
   }
 };

@@ -2,7 +2,10 @@
   <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="container mx-auto px-4">
       <!-- Section Header -->
-      <div class="text-center mb-16" data-aos="fade-up">
+      <div
+        class="text-center mb-16"
+        data-aos="fade-up"
+      >
         <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Explore <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Collections</span>
         </h2>
@@ -26,19 +29,24 @@
               :src="category.image" 
               :alt="category.name" 
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+            >
             
             <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             <!-- Content Overlay -->
             <div class="absolute inset-0 flex flex-col justify-end p-8 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
               <div class="space-y-4">
                 <div class="flex items-center space-x-3">
                   <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <i :class="getCategoryIcon(category.name)" class="text-xl"></i>
+                    <i
+                      :class="getCategoryIcon(category.name)"
+                      class="text-xl"
+                    />
                   </div>
-                  <h3 class="text-2xl font-bold">{{ category.name }}</h3>
+                  <h3 class="text-2xl font-bold">
+                    {{ category.name }}
+                  </h3>
                 </div>
                 
                 <p class="text-white/90 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
@@ -50,7 +58,7 @@
                   class="inline-flex items-center space-x-2 bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200"
                 >
                   <span>View Collection</span>
-                  <i class="fas fa-arrow-right"></i>
+                  <i class="fas fa-arrow-right" />
                 </router-link>
               </div>
             </div>
@@ -64,13 +72,17 @@
       </div>
 
       <!-- View All Button -->
-      <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="400">
+      <div
+        class="text-center mt-12"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
         <router-link 
           to="/artworkList" 
           class="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl"
         >
           <span>View All Artworks</span>
-          <i class="fas fa-th-large"></i>
+          <i class="fas fa-th-large" />
         </router-link>
       </div>
     </div>

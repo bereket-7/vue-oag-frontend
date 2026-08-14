@@ -1,8 +1,11 @@
 <template>
-    <div>
-      <img :src="imageURL" alt="Artwork Image" />
-    </div>
-  </template>
+  <div>
+    <img
+      :src="imageURL"
+      alt="Artwork Image"
+    >
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

@@ -5,6 +5,11 @@ html, body{
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+html.dark, html.dark body {
+    background-color: #030712;
+    color: #e5e7eb;
+}
+
 a{
     text-decoration: none;
 }

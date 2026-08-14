@@ -1,20 +1,77 @@
 <template>
-    <form class="password-change-form" @submit="changePassword">
-      <div class="form-group">
-        <label for="oldPassword">Old Password</label>
-        <input type="password" id="oldPassword" v-model="oldPassword" required>
-      </div>
-      <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" id="newPassword" v-model="newPassword" required>
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="confirmPassword" required>
-      </div>
-      <button type="submit" class="btn-submit">Change Password</button>
-    </form>
+  <form
+    class="password-change-form"
+    @submit="changePassword"
+  >
+    <div class="form-group">
+      <label for="oldPassword">Old Password</label>
+      <input
+        id="oldPassword"
+        v-model="oldPassword"
+        type="password"
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input
+        id="newPassword"
+        v-model="newPassword"
+        type="password"
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        id="confirmPassword"
+        v-model="confirmPassword"
+        type="password"
+        required
+      >
+    </div>
+    <button
+      type="submit"
+      class="btn-submit"
+    >
+      Change Password
+    </button>
+  </form>
 </template>
+  
+  <script>
+import { useAuthStore } from '@/stores/auth';
+import api from '@/services/api';
+
+export default {
+  data() {
+    return {
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    };
+  },
+  methods: {
+    async changePassword() {
+      const authStore = useAuthStore();
+      if (!authStore.isAuthenticated) return;
+
+      try {
+        await api.post('users/password/change', {
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword,
+          confirmPassword: this.confirmPassword
+        });
+        this.oldPassword = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
+      } catch (error) {
+        console.error(error?.response?.data || error);
+      }
+    }
+  }
+};
+</script>
   
   <style scoped>
   .password-change-form {
@@ -53,37 +110,3 @@
     background-color: #45a049;
   }
   </style>
-  
-  <script>
-import { useAuthStore } from '@/stores/auth';
-import api from '@/services/api';
-
-export default {
-  data() {
-    return {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    };
-  },
-  methods: {
-    async changePassword() {
-      const authStore = useAuthStore();
-      if (!authStore.isAuthenticated) return;
-
-      try {
-        await api.post('users/password/change', {
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword,
-          confirmPassword: this.confirmPassword
-        });
-        this.oldPassword = '';
-        this.newPassword = '';
-        this.confirmPassword = '';
-      } catch (error) {
-        console.error(error?.response?.data || error);
-      }
-    }
-  }
-};
-</script>

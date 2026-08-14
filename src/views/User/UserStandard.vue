@@ -1,6 +1,9 @@
 <template>
   <div>
-    <table v-if="standards.length > 0" class="table">
+    <table
+      v-if="standards.length > 0"
+      class="table"
+    >
       <thead>
         <tr>
           <th>ID</th>
@@ -9,14 +12,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="standard in standards" :key="standard.id">
+        <tr
+          v-for="standard in standards"
+          :key="standard.id"
+        >
           <td>{{ standard.id }}</td>
           <td>{{ standard.standardDescription }}</td>
           <td>{{ standard.standardType }}</td>
         </tr>
       </tbody>
     </table>
-    <p v-else>No standards available.</p>
+    <p v-else>
+      No standards available.
+    </p>
   </div>
 </template>
 

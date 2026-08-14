@@ -1,72 +1,24 @@
 <template>
-  <div class="not-found">
-    <div class="not-found__content">
-      <h1 class="not-found__title">
+  <div class="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4 py-16">
+    <div class="page-card max-w-lg w-full p-10 text-center space-y-5">
+      <p class="text-7xl font-black bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
         404
+      </p>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+        Page not found
       </h1>
-      <p class="not-found__message">
-        Oops! The page you are looking for could not be found.
+      <p class="text-gray-600 dark:text-gray-400">
+        The page you are looking for does not exist or has moved.
       </p>
       <router-link
-        class="not-found__link"
         to="/"
+        class="kelem-btn"
       >
-        Go back to the homepage
+        Back to homepage
       </router-link>
     </div>
   </div>
 </template>
-  
-  <script>
-  export default {
-    name: 'NotFound',
-  }
-  </script>
-  
-  <style scoped>
-  .not-found {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
 
-  :global(html.dark) .not-found {
-    background-color: #030712;
-  }
-
-  :global(html.dark) .not-found__message {
-    color: #d1d5db;
-  }
-  
-  .not-found__content {
-    text-align: center;
-  }
-  
-  .not-found__title {
-    font-size: 10rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: #e74c3c;
-  }
-  
-  .not-found__message {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    color: #2c3e50;
-  }
-  
-  .not-found__link {
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: #3498db;
-    border-bottom: 2px solid #3498db;
-  }
-  
-  .not-found__link:hover {
-    color: #2980b9;
-    border-bottom: 2px solid #2980b9;
-  }
-  </style>
-  
+<script setup>
+</script>

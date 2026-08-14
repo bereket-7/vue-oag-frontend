@@ -1,12 +1,12 @@
 <template>
   <div class="text-center py-12">
-    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center">
       <i class="fas fa-exclamation-triangle text-2xl text-red-500" />
     </div>
-    <h3 class="text-lg font-medium text-gray-900 mb-2">
+    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
       {{ title }}
     </h3>
-    <p class="text-gray-500 mb-6">
+    <p class="text-gray-500 dark:text-gray-400 mb-6">
       {{ message }}
     </p>
     <button

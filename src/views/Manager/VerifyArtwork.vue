@@ -35,7 +35,7 @@
 </template>
   
 <script>
-import axios from 'axios';
+import { artworkService } from '@/services/artworkService';
 
 export default {
   data() {
@@ -69,30 +69,30 @@ export default {
   },
   methods: {
     fetchArtworks() {
-      axios.get('http://localhost:8082/api/artworks/pending')
-        .then(response => {
-          this.artworks = response.data;
+      artworkService.getPending()
+        .then(data => {
+          this.artworks = data;
         })
         .catch(error => {
           console.error(error);
         });
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8082/api/artworks/${artworkId}/image`;
+      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
     acceptArtwork(artworkId) {
-      axios.put(`http://localhost:8082/api/artworks/${artworkId}/accept`)
-        .then(response => {
-          this.showSuccessPopup(response.data);
+      artworkService.accept(artworkId)
+        .then(data => {
+          this.showSuccessPopup(data);
         })
         .catch(error => {
           this.showErrorPopup(error.response.data);
         });
     },
     rejectArtwork(artworkId) {
-      axios.put(`http://localhost:8082/api/artworks/${artworkId}/reject`)
-        .then(response => {
-          this.showSuccessPopup(response.data);
+      artworkService.reject(artworkId)
+        .then(data => {
+          this.showSuccessPopup(data);
         })
         .catch(error => {
           this.showErrorPopup(error.response.data);

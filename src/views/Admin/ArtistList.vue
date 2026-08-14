@@ -1,65 +1,73 @@
 <template>
-<SearchUser/>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Username</th>
-            <th>Address</th>
-            <th>Role</th>
-            <th>Action</th>
+  <SearchUser />
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Username</th>
+          <th>Address</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template v-if="users.length > 0">
+          <tr
+            v-for="user in users"
+            :key="user.id"
+          >
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button @click="editUser(user.id)">
+                <i class="fa fa-edit" />
+              </button>
+            </td>
+            <td>
+              <button @click="confirmDeleteUser(user.id)">
+                <i class="fa fa-trash" />
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <template v-if="users.length > 0">
-            <tr v-for="user in users" :key="user.id">
-              <td>{{ user.id }}</td>
-              <td>{{ user.firstname }}</td>
-              <td>{{ user.lastname }}</td>
-              <td>{{ user.username }}</td>
-              <td>{{ user.address }}</td>
-              <td>{{ user.role }}</td>
-              <td>
-                <button @click="editUser(user.id)">
-                  <i class="fa fa-edit"></i>
-                </button>
-              </td>
-              <td>
-                <button @click="confirmDeleteUser(user.id)">
-                  <i class="fa fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </template>
-          <template v-else>
-            <tr>
-              <td colspan="7">No users available.</td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+        </template>
+        <template v-else>
+          <tr>
+            <td colspan="7">
+              No users available.
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
   
-      <button @click="deleteSelectedUsers" :disabled="selectedUsers.length === 0">
-        Delete Selected
-      </button>
-    </div>
-  </template>
+    <button
+      :disabled="selectedUsers.length === 0"
+      @click="deleteSelectedUsers"
+    >
+      Delete Selected
+    </button>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
   import SearchUser from '@/components/SearchUser.vue'
   export default {
+    components:{
+SearchUser
+    },
     data() {
       return {
         users: [],
         selectedUsers: []
       };
-    },
-    components:{
-SearchUser
     },
     mounted() {
       this.fetchUsers();

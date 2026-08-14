@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden border border-transparent dark:border-gray-800">
     <!-- Header -->
-    <div class="p-6 border-b border-gray-200">
+    <div class="p-6 border-b border-gray-200 dark:border-gray-800">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <h3 class="text-lg font-semibold text-gray-900">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
           {{ title }}
         </h3>
         
@@ -13,7 +13,7 @@
               v-model="searchQuery"
               type="text"
               placeholder="Search..."
-              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
             >
             <i class="fas fa-search absolute left-3 top-3 text-gray-400" />
           </div>
@@ -33,7 +33,7 @@
     <!-- Table -->
     <div class="overflow-x-auto">
       <table class="w-full">
-        <thead class="bg-gray-50 border-b border-gray-200">
+        <thead class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <tr>
             <th
               v-for="column in columns"
@@ -50,7 +50,7 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
           <tr v-if="loading">
             <td
               :colspan="columns.length + (showActions ? 1 : 0)"
@@ -71,12 +71,12 @@
             v-for="row in paginatedData"
             v-else
             :key="row.id"
-            class="hover:bg-gray-50 transition-colors"
+            class="hover:bg-gray-50 dark:hover:bg-gray-800/80 transition-colors"
           >
             <td
               v-for="column in columns"
               :key="column.key"
-              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
             >
               <slot
                 :name="`cell-${column.key}`"

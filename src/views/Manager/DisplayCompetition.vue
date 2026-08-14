@@ -15,7 +15,10 @@
       icon="fas fa-trophy"
     />
 
-    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div
+      v-else
+      class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+    >
       <div
         v-for="comp in competitions"
         :key="comp.id"
@@ -35,19 +38,31 @@
           </span>
         </div>
 
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ comp.title }}</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">{{ comp.description }}</p>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+          {{ comp.title }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">
+          {{ comp.description }}
+        </p>
 
         <div class="grid grid-cols-2 gap-3 mb-5">
           <div class="stat-pill">
             <i class="fas fa-users text-purple-500 mb-1" />
-            <p class="text-xs text-gray-500 dark:text-gray-400">Entries</p>
-            <p class="font-bold text-gray-900 dark:text-white">{{ comp.entries || 0 }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Entries
+            </p>
+            <p class="font-bold text-gray-900 dark:text-white">
+              {{ comp.entries || 0 }}
+            </p>
           </div>
           <div class="stat-pill">
             <i class="fas fa-calendar text-purple-500 mb-1" />
-            <p class="text-xs text-gray-500 dark:text-gray-400">Deadline</p>
-            <p class="font-bold text-gray-900 dark:text-white text-sm">{{ formatDate(comp.endDate) }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Deadline
+            </p>
+            <p class="font-bold text-gray-900 dark:text-white text-sm">
+              {{ formatDate(comp.endDate) }}
+            </p>
           </div>
         </div>
 
@@ -58,7 +73,12 @@
         >
           <i class="fas fa-paper-plane mr-2" />Apply Now
         </router-link>
-        <p v-else class="text-sm text-gray-500 dark:text-gray-400 italic">Registration opens {{ formatDate(comp.startDate) }}</p>
+        <p
+          v-else
+          class="text-sm text-gray-500 dark:text-gray-400 italic"
+        >
+          Registration opens {{ formatDate(comp.startDate) }}
+        </p>
       </div>
     </div>
   </div>

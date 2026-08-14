@@ -1,7 +1,20 @@
 <template>
-  <form @submit.prevent="placeBid" class="flex gap-3">
-    <BaseInput v-model="amount" type="number" :placeholder="`Min ${minBid}`" class="flex-1" />
-    <BaseButton type="submit" :loading="loading">Place Bid</BaseButton>
+  <form
+    class="flex gap-3"
+    @submit.prevent="placeBid"
+  >
+    <BaseInput
+      v-model="amount"
+      type="number"
+      :placeholder="`Min ${minBid}`"
+      class="flex-1"
+    />
+    <BaseButton
+      type="submit"
+      :loading="loading"
+    >
+      Place Bid
+    </BaseButton>
   </form>
 </template>
 

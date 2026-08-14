@@ -5,42 +5,55 @@
         <h3>Admin Dashboard</h3>
       </div>
       <ul class="sidebar-menu">
-        <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">
+        <li
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="sidebar-menu-item"
+          :class="{ active: activeTab === tab }"
+        >
           <a @click="changeTab(tab)">{{ tab }}</a>
         </li>
       </ul>
     </nav>
     <div class="content">
       <div v-if="activeTab === 'Artists'">
-      <ArtistList/>
+        <ArtistList />
         <!-- Your My Art content goes here -->
       </div>
       <div v-else-if="activeTab === 'Customers'">
-        <CustomerList/>
+        <CustomerList />
         <!-- Your Profile content goes here -->
       </div>
       <div v-else-if="activeTab === 'Organization'">
-        <OrganizationList/>
+        <OrganizationList />
       </div>
       <div v-else-if="activeTab === 'Register Organization'">
-        <RegisterOrganization/>
+        <RegisterOrganization />
       </div>
       <div v-else-if="activeTab === 'Managers'">
-        <ManagerList/>
+        <ManagerList />
       </div>
       <div v-else-if="activeTab === 'Contact'">
-        <ContactUser/>
+        <ContactUser />
       </div>
 
       <div v-else-if="activeTab === 'Logout'">
-  <button @click="showConfirmationDialog = true">Logout</button> 
-  <div v-if="showConfirmationDialog" class="confirmation-dialog">
-    <p>Are you sure you want to logout?</p>
-    <button @click="logoutUser">Yes</button>
-    <button @click="cancelLogout">No</button>
-  </div>
-</div>
-
+        <button @click="showConfirmationDialog = true">
+          Logout
+        </button> 
+        <div
+          v-if="showConfirmationDialog"
+          class="confirmation-dialog"
+        >
+          <p>Are you sure you want to logout?</p>
+          <button @click="logoutUser">
+            Yes
+          </button>
+          <button @click="cancelLogout">
+            No
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

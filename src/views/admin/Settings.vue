@@ -1,12 +1,32 @@
 <template>
   <div class="min-h-screen bg-gray-50 pt-20">
     <div class="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 class="text-3xl font-bold mb-8">Platform Settings</h1>
-      <form @submit.prevent="save" class="bg-white rounded-xl shadow-md p-8 space-y-4">
-        <BaseInput v-model="form.heroTitle" label="Homepage Hero Title" />
-        <BaseInput v-model="form.heroSubtitle" label="Homepage Hero Subtitle" />
-        <BaseInput v-model="form.commissionRate" label="Commission Rate (%)" type="number" />
-        <BaseButton type="submit" :loading="loading">Save Settings</BaseButton>
+      <h1 class="text-3xl font-bold mb-8">
+        Platform Settings
+      </h1>
+      <form
+        class="bg-white rounded-xl shadow-md p-8 space-y-4"
+        @submit.prevent="save"
+      >
+        <BaseInput
+          v-model="form.heroTitle"
+          label="Homepage Hero Title"
+        />
+        <BaseInput
+          v-model="form.heroSubtitle"
+          label="Homepage Hero Subtitle"
+        />
+        <BaseInput
+          v-model="form.commissionRate"
+          label="Commission Rate (%)"
+          type="number"
+        />
+        <BaseButton
+          type="submit"
+          :loading="loading"
+        >
+          Save Settings
+        </BaseButton>
       </form>
     </div>
   </div>

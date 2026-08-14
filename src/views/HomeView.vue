@@ -7,16 +7,16 @@
     <ArtworkCategory />
     
     <!-- Featured Artists Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-white dark:bg-gray-900">
       <div class="container mx-auto px-4">
         <div
           class="text-center mb-16"
           data-aos="fade-up"
         >
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
             Featured <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Artists</span>
           </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Meet the talented creators behind our most captivating artworks
           </p>
         </div>
@@ -37,10 +37,10 @@
               >
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">
               {{ artist.name }}
             </h3>
-            <p class="text-gray-600 mb-3">
+            <p class="text-gray-600 dark:text-gray-400 mb-3">
               {{ artist.specialty }}
             </p>
             <div class="flex justify-center space-x-3">
@@ -128,16 +128,16 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-20 bg-gray-50 dark:bg-gray-950">
       <div class="container mx-auto px-4 text-center">
         <h2
-          class="text-4xl font-bold text-gray-800 mb-6"
+          class="text-4xl font-bold text-gray-800 dark:text-white mb-6"
           data-aos="fade-up"
         >
           Ready to Start Your Art Journey?
         </h2>
         <p
-          class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+          class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="100"
         >

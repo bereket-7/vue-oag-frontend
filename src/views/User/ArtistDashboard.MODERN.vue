@@ -1,13 +1,38 @@
 <template>
   <div class="p-4 sm:p-6 lg:p-8">
-    <MyArt v-if="activeTab.key === 'my-art'" @upload="setTab(tabs.find(t => t.key === 'upload'))" />
-    <ProfileSetting v-else-if="activeTab.key === 'profile'" embedded />
-    <DisplayCompetition v-else-if="activeTab.key === 'competition'" embedded />
-    <ArtworkUpload v-else-if="activeTab.key === 'upload'" embedded @uploaded="onUploaded" />
-    <ChangePassword v-else-if="activeTab.key === 'password'" embedded />
-    <EventDisplay v-else-if="activeTab.key === 'events'" embedded />
-    <NotificationList v-else-if="activeTab.key === 'notifications'" embedded />
-    <UserStandard v-else-if="activeTab.key === 'standards'" embedded />
+    <MyArt
+      v-if="activeTab.key === 'my-art'"
+      @upload="setTab(tabs.find(t => t.key === 'upload'))"
+    />
+    <ProfileSetting
+      v-else-if="activeTab.key === 'profile'"
+      embedded
+    />
+    <DisplayCompetition
+      v-else-if="activeTab.key === 'competition'"
+      embedded
+    />
+    <ArtworkUpload
+      v-else-if="activeTab.key === 'upload'"
+      embedded
+      @uploaded="onUploaded"
+    />
+    <ChangePassword
+      v-else-if="activeTab.key === 'password'"
+      embedded
+    />
+    <EventDisplay
+      v-else-if="activeTab.key === 'events'"
+      embedded
+    />
+    <NotificationList
+      v-else-if="activeTab.key === 'notifications'"
+      embedded
+    />
+    <UserStandard
+      v-else-if="activeTab.key === 'standards'"
+      embedded
+    />
   </div>
 </template>
 

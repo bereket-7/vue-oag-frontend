@@ -7,17 +7,28 @@
         eyebrow="Security"
       />
 
-      <form class="page-card p-6 sm:p-8 space-y-5" @submit.prevent="handleSubmit">
-        <div v-if="successMessage" class="alert-success">
+      <form
+        class="page-card p-6 sm:p-8 space-y-5"
+        @submit.prevent="handleSubmit"
+      >
+        <div
+          v-if="successMessage"
+          class="alert-success"
+        >
           <i class="fas fa-check-circle mr-2" />{{ successMessage }}
         </div>
-        <div v-if="errorMessage" class="alert-error">
+        <div
+          v-if="errorMessage"
+          class="alert-error"
+        >
           <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
         </div>
 
         <!-- Password strength hint -->
         <div class="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/50">
-          <p class="text-xs font-semibold text-purple-700 dark:text-purple-300 mb-2">Password tips</p>
+          <p class="text-xs font-semibold text-purple-700 dark:text-purple-300 mb-2">
+            Password tips
+          </p>
           <ul class="text-xs text-purple-600 dark:text-purple-400 space-y-1">
             <li><i class="fas fa-check mr-1.5 opacity-60" />At least 8 characters</li>
             <li><i class="fas fa-check mr-1.5 opacity-60" />Uppercase, lowercase, and a number</li>
@@ -25,12 +36,38 @@
           </ul>
         </div>
 
-        <BaseInput v-model="formData.currentPassword" type="password" label="Current Password" :error="errors.currentPassword" required />
-        <BaseInput v-model="formData.newPassword" type="password" label="New Password" :error="errors.newPassword" hint="At least 8 characters, with upper, lower, and a number" required />
-        <BaseInput v-model="formData.confirmPassword" type="password" label="Confirm New Password" :error="errors.confirmPassword" required />
+        <BaseInput
+          v-model="formData.currentPassword"
+          type="password"
+          label="Current Password"
+          :error="errors.currentPassword"
+          required
+        />
+        <BaseInput
+          v-model="formData.newPassword"
+          type="password"
+          label="New Password"
+          :error="errors.newPassword"
+          hint="At least 8 characters, with upper, lower, and a number"
+          required
+        />
+        <BaseInput
+          v-model="formData.confirmPassword"
+          type="password"
+          label="Confirm New Password"
+          :error="errors.confirmPassword"
+          required
+        />
 
-        <button type="submit" class="btn-primary w-full" :disabled="loading">
-          <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
+        <button
+          type="submit"
+          class="btn-primary w-full"
+          :disabled="loading"
+        >
+          <i
+            v-if="loading"
+            class="fas fa-spinner fa-spin mr-2"
+          />
           Update Password
         </button>
       </form>

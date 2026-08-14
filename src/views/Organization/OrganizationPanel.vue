@@ -1,49 +1,63 @@
 <template>
-    <div class="dashboard">
-      <nav class="sidebar">
-        <div class="sidebar-header">
-          <h3>Organization Dashboard</h3>
-        </div>
-        <ul class="sidebar-menu">
-          <li class="sidebar-menu-item" v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === tab }">
-            <a @click="changeTab(tab)">{{ tab }}</a>
-          </li>
-          <li class="sidebar-menu-item logout">
-            <button @click="showConfirmationDialog = true"><i class="fas fa-sign-out-alt"></i></button>
-            <div v-if="showConfirmationDialog" class="confirmation-dialog">
-              <p>Are you sure you want to logout?</p>
-              <button @click="logoutUser">Yes</button>
-              <button @click="cancelLogout">No</button>
-            </div>
-          </li>
-        </ul>
-      </nav>
-      <div class="content">
-        <div v-if="activeTab === 'Arts'">
-          <MyArt />
-        </div>
-        <div v-else-if="activeTab === 'Profile'">
-          <ProfileSetting />
-        </div>
-        <div v-else-if="activeTab === 'Competition'">
-          <DisplayCompetition />
-        </div>
-        <div v-else-if="activeTab === 'Post Event'">
-          <EventRegister />
-        </div>
-        <div v-else-if="activeTab === 'Contact'">
-          <Contact/>
-        </div>
-        <div v-else-if="activeTab === 'Standard'">
-          <UserStandard />
-        </div>
-        <div v-else-if="activeTab === 'Profile Setting'">
-            <ProfileSetting />
-        </div>
+  <div class="dashboard">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h3>Organization Dashboard</h3>
+      </div>
+      <ul class="sidebar-menu">
+        <li
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="sidebar-menu-item"
+          :class="{ active: activeTab === tab }"
+        >
+          <a @click="changeTab(tab)">{{ tab }}</a>
+        </li>
+        <li class="sidebar-menu-item logout">
+          <button @click="showConfirmationDialog = true">
+            <i class="fas fa-sign-out-alt" />
+          </button>
+          <div
+            v-if="showConfirmationDialog"
+            class="confirmation-dialog"
+          >
+            <p>Are you sure you want to logout?</p>
+            <button @click="logoutUser">
+              Yes
+            </button>
+            <button @click="cancelLogout">
+              No
+            </button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <div v-if="activeTab === 'Arts'">
+        <MyArt />
+      </div>
+      <div v-else-if="activeTab === 'Profile'">
+        <ProfileSetting />
+      </div>
+      <div v-else-if="activeTab === 'Competition'">
+        <DisplayCompetition />
+      </div>
+      <div v-else-if="activeTab === 'Post Event'">
+        <EventRegister />
+      </div>
+      <div v-else-if="activeTab === 'Contact'">
+        <Contact />
+      </div>
+      <div v-else-if="activeTab === 'Standard'">
+        <UserStandard />
+      </div>
+      <div v-else-if="activeTab === 'Profile Setting'">
+        <ProfileSetting />
       </div>
     </div>
-    <FooterView/>
-  </template>
+  </div>
+  <FooterView />
+</template>
   
   <script>
   import EventRegister from '@/views/Organization/EventRegister.vue'

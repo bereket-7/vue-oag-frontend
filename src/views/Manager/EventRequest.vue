@@ -1,33 +1,77 @@
 <template>
   <div class="event-list">
-    <div v-for="event in events" :key="event.id" class="event-card">
+    <div
+      v-for="event in events"
+      :key="event.id"
+      class="event-card"
+    >
       <div class="event-image-container">
-        <img :src="getEventImageUrl(event.id)" alt="Event Image" class="event-image" />
+        <img
+          :src="getEventImageUrl(event.id)"
+          alt="Event Image"
+          class="event-image"
+        >
       </div>
       <div class="event-details">
-        <h1 class="event-name">{{ event.eventName }}</h1>
-        <p class="event-description">{{ event.eventDescription }}</p>
-        <p class="event-description">Ticket Price: {{ event.ticketPrice }}</p>
-        <p class="event-description">Location: {{ event.location }}</p>
-        <p class="event-description">Capacity: {{ event.capacity }}</p>
-        <p class="event-description">Event Date: {{ event.eventDate }}</p>
+        <h1 class="event-name">
+          {{ event.eventName }}
+        </h1>
+        <p class="event-description">
+          {{ event.eventDescription }}
+        </p>
+        <p class="event-description">
+          Ticket Price: {{ event.ticketPrice }}
+        </p>
+        <p class="event-description">
+          Location: {{ event.location }}
+        </p>
+        <p class="event-description">
+          Capacity: {{ event.capacity }}
+        </p>
+        <p class="event-description">
+          Event Date: {{ event.eventDate }}
+        </p>
       </div>
       <div class="button-container">
-        <button type="button" class="btn btn-primary" @click="showConfirmation('accept', event.id)">Accept</button>
-        <button type="button" class="btn btn-danger" @click="showConfirmation('reject', event.id)">Decline</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="showConfirmation('accept', event.id)"
+        >
+          Accept
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          @click="showConfirmation('reject', event.id)"
+        >
+          Decline
+        </button>
       </div>
     </div>
 
-    <div v-if="showPopup" class="popup">
-    <div class="popup-content">
-      <p>Are you sure you want to {{ action }} this event?</p>
-      <div class="popup-buttons">
-        <button class="btn btn-primary" @click="performAction">Yes</button>
-        <button class="btn btn-secondary" @click="cancelAction">No</button>
+    <div
+      v-if="showPopup"
+      class="popup"
+    >
+      <div class="popup-content">
+        <p>Are you sure you want to {{ action }} this event?</p>
+        <div class="popup-buttons">
+          <button
+            class="btn btn-primary"
+            @click="performAction"
+          >
+            Yes
+          </button>
+          <button
+            class="btn btn-secondary"
+            @click="cancelAction"
+          >
+            No
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-
   </div>
 </template>
 

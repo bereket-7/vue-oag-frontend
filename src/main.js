@@ -5,6 +5,7 @@ import router from './router';
 import i18n from './i18n';
 import './assets/tailwind.css';
 import './assets/style.css';
+import './assets/dark-mode.css';
 import '@fortawesome/fontawesome-free/js/all';
 import { initTheme } from '@/composables/useTheme';
 

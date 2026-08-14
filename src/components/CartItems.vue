@@ -11,7 +11,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="cartItem in cartItems" :key="cartItem.id">
+        <tr
+          v-for="cartItem in cartItems"
+          :key="cartItem.id"
+        >
           <td>{{ cartItem.id }}</td>
           <td>{{ cartItem.artworkName }}</td>
           <td>{{ cartItem.quantity }}</td>
@@ -20,14 +23,29 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+          <td
+            colspan="3"
+            class="text-right"
+          >
+            <strong>Total Price:</strong>
+          </td>
           <td>{{ totalPrice }}</td>
         </tr>
       </tfoot>
     </table>
     <div class="checkout-buttons">
-      <button class="btn" @click="checkout">Checkout</button>
-      <button class="btn" @click="cashOnDelivery">Cash on Delivery</button>
+      <button
+        class="btn"
+        @click="checkout"
+      >
+        Checkout
+      </button>
+      <button
+        class="btn"
+        @click="cashOnDelivery"
+      >
+        Cash on Delivery
+      </button>
     </div>
   </div>
 </template>
@@ -45,15 +63,15 @@ export default {
       cartItems: [],
     };
   },
-  mounted() {
-    this.fetchCartItems();
-  },
   computed: {
     totalPrice() {
       return this.cartItems.reduce((total, cartItem) => {
         return total + cartItem.quantity * cartItem.price;
       }, 0);
     }
+  },
+  mounted() {
+    this.fetchCartItems();
   },
   methods: {
     checkout() {

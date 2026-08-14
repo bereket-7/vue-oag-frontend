@@ -1,222 +1,112 @@
 <template>
-  <div class="confirm-container">
-    <div class="form-container">
-      <div class="card">
-        <h1>Activate Account</h1>
-        <div v-if="!confirmed">
-          <p>Please enter the confirmation code you received via email:</p>
-          <form class="form-input">
-            <input
-              v-model="confirmationCode"
-              type="text"
-              placeholder="Confirmation Code"
-              class="input"
-            >
-            <button
-              class="button"
-              @click="confirmRegistration"
-            >
-              Activate
-            </button>
-          </form>
-        </div>
-        <div v-else>
-          <p>Registration confirmed successfully!</p>
-        </div>
-        <div v-if="error">
-          <p class="error">
-            Error: {{ error }}
+  <div class="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-gray-950 transition-colors">
+    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700 py-16 px-4">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+      </div>
+      <div class="relative max-w-xl mx-auto text-center text-white">
+        <p class="text-sm font-semibold uppercase tracking-widest text-white/70 mb-3">
+          Account
+        </p>
+        <h1 class="text-4xl font-bold mb-3">
+          Activate your account
+        </h1>
+        <p class="text-white/80">
+          Enter the confirmation code we sent to your email.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-md mx-auto px-4 py-10 -mt-8">
+      <div class="page-card p-8">
+        <div
+          v-if="confirmed"
+          class="text-center space-y-4"
+        >
+          <div class="w-14 h-14 mx-auto rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center">
+            <i class="fas fa-check text-green-600 dark:text-green-400 text-xl" />
+          </div>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+            Registration confirmed
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Your account is active. You can sign in now.
           </p>
+          <router-link
+            to="/userLogin"
+            class="kelem-btn"
+          >
+            Go to login
+          </router-link>
         </div>
+
+        <form
+          v-else
+          class="space-y-5"
+          @submit.prevent="confirmRegistration"
+        >
+          <div
+            v-if="error"
+            class="alert-error"
+          >
+            <i class="fas fa-exclamation-circle mr-2" />{{ error }}
+          </div>
+          <BaseInput
+            v-model="email"
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            required
+          />
+          <BaseInput
+            v-model="confirmationCode"
+            label="Confirmation code"
+            placeholder="Enter code"
+            required
+          />
+          <button
+            type="submit"
+            class="kelem-btn w-full"
+            :disabled="loading"
+          >
+            <i
+              v-if="loading"
+              class="fas fa-spinner fa-spin mr-2"
+            />
+            Activate
+          </button>
+        </form>
       </div>
     </div>
   </div>
 </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        confirmationCode: '',
-        confirmed: false,
-        error: '',
-      };
-    },
-    methods: {
-      confirmRegistration() {
-        const apiUrl = 'http://localhost:8081/user/confirm-registration';
-  
-        const requestData = {
-          email: 'email@example.com',
-          confirmationCode: this.confirmationCode,
-        };
-  
-        axios
-          .post(apiUrl, requestData)
-          .then(() => {
-            this.confirmed = true;
-          })
-          .catch((error) => {
-            this.error = error.response.data.message;
-          });
-      },
-    },
-  };
-  </script>
 
-<style scoped>
-.confirm-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
-  background-image: url("https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1400&q=80");
-  background-size: cover;
-  background-position: center center;
-}
+<script setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { authService } from '@/services/authService';
+import { BaseInput } from '@/components/common';
 
-.container {
-    display: flex;
-  flex-direction: column;
-  width: 400px;
-  max-width: 500px;
-  align-items: center;
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+const route = useRoute();
+const email = ref(route.query.email || '');
+const confirmationCode = ref('');
+const confirmed = ref(false);
+const error = ref('');
+const loading = ref(false);
 
-.card {
-  width: 500px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-}
-.button {
-  background-color: #08d;
-  padding: 10px 60px;
-  border-radius: 12px;
-  border: 0;
-  color: #eee;
-  cursor: pointer;
-  font-size: 18px;
-  height: 50px;
-  margin-top: 15px;
-  outline: 0;
-  text-align: center;
-  
-}
-
-.input{
-  background-color: #303245;
-  border: 0;
-  box-sizing: border-box;
-  color: #eee;
-  font-size: 18px;
-  height: 100%;
-  outline: 0;
-  padding: 4px 20px 0;
-  width: 100%;
-}
- 
-.button:hover {
-  background-color: #45a049;
-}
-
-@media (max-width: 768px) {
-  .container {
-    max-width: 300px;
+const confirmRegistration = async () => {
+  error.value = '';
+  loading.value = true;
+  try {
+    await authService.confirmRegistration({
+      email: email.value,
+      confirmationCode: confirmationCode.value
+    });
+    confirmed.value = true;
+  } catch (err) {
+    error.value = err.response?.data?.message || err.message || 'Activation failed';
+  } finally {
+    loading.value = false;
   }
-
-}
-</style>
-
-
-  
-  
-<style scoped>
-.forgot-password {
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-background-color: #f5f5f5;
-background-image: url("https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1400&q=80");
-background-size: cover;
-background-position: center center;
-}
-
-.forgot-password__form {
-display: flex;
-flex-direction: column;
-max-width: 500px;
-align-items: center;
-padding: 2rem;
-border-radius: 1rem;
-background-color: #fff;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.forgot-password__title {
-font-size: 2rem;
-margin-bottom: 2rem;
-}
-
-.forgot-password__input-container {
-position: relative;
-width: 100%;
-margin-bottom: 2rem;
-}
-
-.forgot-password__input {
-width: 100%;
-padding: 0.5rem;
-font-size: 1rem;
-border: none;
-border-bottom: 2px solid #ccc;
-background-color: transparent;
-}
-.forgot-password__input:focus {
-outline: none;
-border-bottom-color: #4caf50;
-}
-.forgot-password__input-underline {
-position: absolute;
-bottom: 0;
-left: 0;
-height: 2px;
-width: 0;
-background-color: #4caf50;
-transition: width 0.3s;
-}
-
-.forgot-password__input:focus + .forgot-password__input-underline {
-width: 100%;
-}
-.forgot-password__button {
-background-color: #4caf50;
-color: white;
-padding: 0.5rem 1rem;
-border: none;
-border-radius: 0.5rem;
-cursor: pointer;
-transition: background-color 0.3s;
-}
-.forgot-password__button:hover {
-background-color: #3e8e41;
-}
-@media screen and (max-width: 768px) {
-.forgot-password__form {
-  width: 90%;
-}
-}
-</style>
+};
+</script>

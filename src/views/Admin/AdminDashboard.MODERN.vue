@@ -10,16 +10,33 @@
 
       <!-- KPI cards -->
       <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        <div v-for="kpi in kpis" :key="kpi.label" class="page-card p-5 relative overflow-hidden">
-          <div class="absolute -right-4 -top-4 w-20 h-20 rounded-full opacity-10" :class="kpi.blob" />
+        <div
+          v-for="kpi in kpis"
+          :key="kpi.label"
+          class="page-card p-5 relative overflow-hidden"
+        >
+          <div
+            class="absolute -right-4 -top-4 w-20 h-20 rounded-full opacity-10"
+            :class="kpi.blob"
+          />
           <div class="flex items-start justify-between mb-3">
-            <div class="w-11 h-11 rounded-xl flex items-center justify-center" :class="kpi.iconBg">
+            <div
+              class="w-11 h-11 rounded-xl flex items-center justify-center"
+              :class="kpi.iconBg"
+            >
               <i :class="[kpi.icon, kpi.iconColor]" />
             </div>
-            <span class="text-xs font-semibold px-2 py-1 rounded-full" :class="kpi.trendClass">{{ kpi.trend }}</span>
+            <span
+              class="text-xs font-semibold px-2 py-1 rounded-full"
+              :class="kpi.trendClass"
+            >{{ kpi.trend }}</span>
           </div>
-          <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ kpi.value }}</p>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ kpi.label }}</p>
+          <p class="text-3xl font-bold text-gray-900 dark:text-white">
+            {{ kpi.value }}
+          </p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            {{ kpi.label }}
+          </p>
         </div>
       </div>
 
@@ -29,13 +46,21 @@
         <div class="page-card p-6 lg:col-span-2">
           <div class="flex items-center justify-between mb-6">
             <div>
-              <h3 class="font-bold text-gray-900 dark:text-white">Monthly GMV</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Gross merchandise value (ETB k)</p>
+              <h3 class="font-bold text-gray-900 dark:text-white">
+                Monthly GMV
+              </h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Gross merchandise value (ETB k)
+              </p>
             </div>
             <span class="text-sm font-semibold text-purple-600 dark:text-purple-400">+18% vs last period</span>
           </div>
           <div class="flex items-end gap-2 sm:gap-3 h-48">
-            <div v-for="bar in monthlyGmv" :key="bar.month" class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+            <div
+              v-for="bar in monthlyGmv"
+              :key="bar.month"
+              class="flex-1 flex flex-col items-center gap-2 h-full justify-end"
+            >
               <span class="text-[10px] text-gray-400 font-medium">{{ bar.value }}</span>
               <div
                 class="w-full rounded-t-lg bg-gradient-to-t from-purple-600 to-indigo-400 dark:from-purple-500 dark:to-indigo-400 opacity-90 hover:opacity-100 transition-all"
@@ -48,16 +73,27 @@
 
         <!-- Role distribution -->
         <div class="page-card p-6">
-          <h3 class="font-bold text-gray-900 dark:text-white mb-1">User mix</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Share by role</p>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+            User mix
+          </h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
+            Share by role
+          </p>
           <div class="space-y-4">
-            <div v-for="seg in roleMix" :key="seg.label">
+            <div
+              v-for="seg in roleMix"
+              :key="seg.label"
+            >
               <div class="flex justify-between text-sm mb-1.5">
                 <span class="text-gray-700 dark:text-gray-300 font-medium">{{ seg.label }}</span>
                 <span class="text-gray-500">{{ seg.count }} · {{ seg.pct }}%</span>
               </div>
               <div class="h-2.5 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                <div class="h-full rounded-full transition-all" :class="seg.color" :style="{ width: `${seg.pct}%` }" />
+                <div
+                  class="h-full rounded-full transition-all"
+                  :class="seg.color"
+                  :style="{ width: `${seg.pct}%` }"
+                />
               </div>
             </div>
           </div>
@@ -67,9 +103,15 @@
       <!-- Secondary metrics + activity -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="page-card p-6">
-          <h3 class="font-bold text-gray-900 dark:text-white mb-4">Platform pulse</h3>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-4">
+            Platform pulse
+          </h3>
           <div class="space-y-4">
-            <div v-for="metric in pulse" :key="metric.label" class="flex items-center justify-between">
+            <div
+              v-for="metric in pulse"
+              :key="metric.label"
+              class="flex items-center justify-between"
+            >
               <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
                   <i :class="[metric.icon, 'text-purple-600 dark:text-purple-400 text-sm']" />
@@ -83,8 +125,14 @@
 
         <div class="page-card p-6 lg:col-span-2">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="font-bold text-gray-900 dark:text-white">Recent registrations</h3>
-            <button type="button" class="text-sm font-medium text-purple-600 dark:text-purple-400" @click="setTab(tabs.find(t => t.key === 'artists'))">
+            <h3 class="font-bold text-gray-900 dark:text-white">
+              Recent registrations
+            </h3>
+            <button
+              type="button"
+              class="text-sm font-medium text-purple-600 dark:text-purple-400"
+              @click="setTab(tabs.find(t => t.key === 'artists'))"
+            >
               View all
             </button>
           </div>
@@ -98,8 +146,12 @@
                 {{ (user.firstName || '?')[0] }}{{ (user.lastName || '')[0] || '' }}
               </div>
               <div class="flex-1 min-w-0">
-                <p class="font-medium text-gray-900 dark:text-white truncate">{{ user.firstName }} {{ user.lastName }}</p>
-                <p class="text-xs text-gray-500 truncate">{{ user.email }}</p>
+                <p class="font-medium text-gray-900 dark:text-white truncate">
+                  {{ user.firstName }} {{ user.lastName }}
+                </p>
+                <p class="text-xs text-gray-500 truncate">
+                  {{ user.email }}
+                </p>
               </div>
               <span class="hidden sm:inline-flex px-2 py-0.5 text-xs font-semibold rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 capitalize">
                 {{ String(user.role).toLowerCase() }}
@@ -112,7 +164,9 @@
 
       <!-- Quick actions -->
       <div class="page-card p-6">
-        <h3 class="font-bold text-gray-900 dark:text-white mb-4">Quick actions</h3>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-4">
+          Quick actions
+        </h3>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           <button
             v-for="action in quickActions"
@@ -128,12 +182,38 @@
       </div>
     </template>
 
-    <RoleUserList v-else-if="activeTab.key === 'artists'" role="ARTIST" title="Artists" subtitle="Manage artist accounts and verification status" />
-    <RoleUserList v-else-if="activeTab.key === 'customers'" role="CUSTOMER" title="Customers" subtitle="Collectors and buyers on the platform" />
-    <RoleUserList v-else-if="activeTab.key === 'organizations'" role="ORGANIZATION" title="Organizations" subtitle="Galleries and partner organizations" />
-    <RoleUserList v-else-if="activeTab.key === 'managers'" role="MANAGER" title="Managers" subtitle="Platform managers and moderators" />
-    <RegisterOrganization v-else-if="activeTab.key === 'register-org'" embedded />
-    <ContactUser v-else-if="activeTab.key === 'contact'" embedded />
+    <RoleUserList
+      v-else-if="activeTab.key === 'artists'"
+      role="ARTIST"
+      title="Artists"
+      subtitle="Manage artist accounts and verification status"
+    />
+    <RoleUserList
+      v-else-if="activeTab.key === 'customers'"
+      role="CUSTOMER"
+      title="Customers"
+      subtitle="Collectors and buyers on the platform"
+    />
+    <RoleUserList
+      v-else-if="activeTab.key === 'organizations'"
+      role="ORGANIZATION"
+      title="Organizations"
+      subtitle="Galleries and partner organizations"
+    />
+    <RoleUserList
+      v-else-if="activeTab.key === 'managers'"
+      role="MANAGER"
+      title="Managers"
+      subtitle="Platform managers and moderators"
+    />
+    <RegisterOrganization
+      v-else-if="activeTab.key === 'register-org'"
+      embedded
+    />
+    <ContactUser
+      v-else-if="activeTab.key === 'contact'"
+      embedded
+    />
   </div>
 </template>
 

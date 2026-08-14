@@ -1,18 +1,37 @@
 <template>
   <div>
     <label for="category">Select Category:</label>
-    <select id="category" v-model="selectedCategory" @change="searchByCategory">
-      <option value="">All Categories</option>
-      <option value="Painting">Painting</option>
-      <option value="Mixed Media">Mixed Media</option>
-      <option value="Photography">Photography</option>
-      <option value="Sculpture">Sculpture</option>
+    <select
+      id="category"
+      v-model="selectedCategory"
+      @change="searchByCategory"
+    >
+      <option value="">
+        All Categories
+      </option>
+      <option value="Painting">
+        Painting
+      </option>
+      <option value="Mixed Media">
+        Mixed Media
+      </option>
+      <option value="Photography">
+        Photography
+      </option>
+      <option value="Sculpture">
+        Sculpture
+      </option>
     </select>
 
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading">
+      Loading...
+    </div>
 
     <div v-else>
-      <div v-for="artwork in artworks" :key="artwork.id">
+      <div
+        v-for="artwork in artworks"
+        :key="artwork.id"
+      >
         <h3>{{ artwork.artworkName }}</h3>
         <p>{{ artwork.artworkDescription }}</p>
         <p>{{ artwork.price }}</p>

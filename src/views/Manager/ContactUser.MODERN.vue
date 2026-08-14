@@ -7,16 +7,38 @@
     />
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-      <form class="page-card p-6 sm:p-8 space-y-5 lg:col-span-3" @submit.prevent="handleSubmit">
-        <div v-if="successMessage" class="alert-success">
+      <form
+        class="page-card p-6 sm:p-8 space-y-5 lg:col-span-3"
+        @submit.prevent="handleSubmit"
+      >
+        <div
+          v-if="successMessage"
+          class="alert-success"
+        >
           <i class="fas fa-check-circle mr-2" />{{ successMessage }}
         </div>
-        <div v-if="errorMessage" class="alert-error">
+        <div
+          v-if="errorMessage"
+          class="alert-error"
+        >
           <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
         </div>
 
-        <BaseInput v-model="form.recipient" type="email" label="Recipient email" placeholder="user@example.com" :error="errors.recipient" required />
-        <BaseInput v-model="form.subject" label="Subject" placeholder="Platform update" :error="errors.subject" required />
+        <BaseInput
+          v-model="form.recipient"
+          type="email"
+          label="Recipient email"
+          placeholder="user@example.com"
+          :error="errors.recipient"
+          required
+        />
+        <BaseInput
+          v-model="form.subject"
+          label="Subject"
+          placeholder="Platform update"
+          :error="errors.subject"
+          required
+        />
 
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Message <span class="text-red-500">*</span></label>
@@ -27,19 +49,36 @@
             placeholder="Write your message..."
             required
           />
-          <p v-if="errors.message" class="mt-1 text-sm text-red-600">{{ errors.message }}</p>
+          <p
+            v-if="errors.message"
+            class="mt-1 text-sm text-red-600"
+          >
+            {{ errors.message }}
+          </p>
         </div>
 
-        <button type="submit" class="btn-primary" :disabled="loading">
-          <i v-if="loading" class="fas fa-spinner fa-spin mr-2" />
-          <i v-else class="fas fa-paper-plane mr-2" />
+        <button
+          type="submit"
+          class="btn-primary"
+          :disabled="loading"
+        >
+          <i
+            v-if="loading"
+            class="fas fa-spinner fa-spin mr-2"
+          />
+          <i
+            v-else
+            class="fas fa-paper-plane mr-2"
+          />
           Send Message
         </button>
       </form>
 
       <div class="lg:col-span-2 space-y-4">
         <div class="page-card p-5">
-          <h3 class="font-bold text-gray-900 dark:text-white mb-3">Quick recipients</h3>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-3">
+            Quick recipients
+          </h3>
           <button
             v-for="user in quickRecipients"
             :key="user.email"
@@ -51,16 +90,24 @@
               {{ user.label[0] }}
             </div>
             <div class="min-w-0">
-              <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ user.label }}</p>
-              <p class="text-xs text-gray-500 truncate">{{ user.email }}</p>
+              <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                {{ user.label }}
+              </p>
+              <p class="text-xs text-gray-500 truncate">
+                {{ user.email }}
+              </p>
             </div>
           </button>
         </div>
 
         <div class="page-card p-5 bg-gradient-to-br from-purple-600 to-indigo-600 border-0 text-white">
           <i class="fas fa-bullhorn text-xl mb-2 opacity-80" />
-          <p class="font-semibold mb-1">Broadcast tip</p>
-          <p class="text-sm text-white/80">Use clear subjects and keep messages under a few paragraphs for higher open rates.</p>
+          <p class="font-semibold mb-1">
+            Broadcast tip
+          </p>
+          <p class="text-sm text-white/80">
+            Use clear subjects and keep messages under a few paragraphs for higher open rates.
+          </p>
         </div>
       </div>
     </div>

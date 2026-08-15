@@ -7,5 +7,6 @@ export const authService = {
   register: (userData) => adapter().register(userData),
   logout: () => adapter().logout(),
   forgotPassword: (email) => adapter().forgotPassword(email),
-  changePassword: (data) => adapter().changePassword(data)
+  changePassword: (data) => adapter().changePassword(data),
+  confirmRegistration: (data) => adapter().confirmRegistration(data)
 };

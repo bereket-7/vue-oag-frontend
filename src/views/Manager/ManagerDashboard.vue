@@ -1,233 +1,154 @@
 <template>
-  <div class="dashboard">
-    <nav class="sidebar">
-      <div class="sidebar-header">
-        <h3>Manager Dashboard</h3>
+  <div class="p-4 sm:p-6 lg:p-8">
+    <div
+      v-if="activeTab.key === 'overview'"
+      class="space-y-6"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatCard
+          title="Pending Artworks"
+          :value="stats.pendingArtworks"
+          icon="fas fa-clock"
+          color="yellow"
+        />
+        <StatCard
+          title="Active Competitions"
+          :value="stats.activeCompetitions"
+          icon="fas fa-trophy"
+          color="blue"
+        />
+        <StatCard
+          title="Event Requests"
+          :value="stats.eventRequests"
+          icon="fas fa-calendar"
+          color="green"
+        />
+        <StatCard
+          title="Total Users"
+          :value="stats.totalUsers"
+          icon="fas fa-users"
+          color="purple"
+        />
       </div>
-      <ul class="sidebar-menu">
-        <li
-          v-for="(tab, index) in tabs"
-          :key="index"
-          class="sidebar-menu-item"
-          :class="{ active: activeTab === tab }"
-        >
-          <a @click="changeTab(tab)">{{ tab }}</a>
-        </li>
-        <li class="sidebar-menu-item logout">
-          <button @click="showConfirmationDialog = true">
-            <i class="fas fa-sign-out-alt" />
-          </button>
-          <div
-            v-if="showConfirmationDialog"
-            class="confirmation-dialog"
-          >
-            <p>Are you sure you want to logout?</p>
-            <button @click="logoutUser">
-              Yes
-            </button>
-            <button @click="cancelLogout">
-              No
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <BaseCard title="Recent Activities">
+          <div class="space-y-3">
+            <div
+              v-for="activity in recentActivities"
+              :key="activity.id"
+              class="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+            >
+              <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                <i
+                  :class="activity.icon"
+                  class="text-blue-600 dark:text-blue-400"
+                />
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {{ activity.title }}
+                </p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  {{ activity.time }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </BaseCard>
+
+        <BaseCard title="Quick Actions">
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              v-for="action in quickActions"
+              :key="action.key"
+              type="button"
+              class="p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all"
+              @click="setTab(tabs.find((t) => t.key === action.key))"
+            >
+              <i
+                :class="action.icon"
+                class="text-2xl text-gray-600 dark:text-gray-300 mb-2"
+              />
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                {{ action.label }}
+              </p>
             </button>
           </div>
-        </li>
-      </ul>
-    </nav>
-    <div class="content">
-      <div v-if="activeTab === 'Art Request'">
-        <VerifyArtwork />
-      </div>
-      <div v-else-if="activeTab === 'Profile'">
-        <ProfileSetting />
-      </div>
-      <div v-else-if="activeTab === 'Competition'">
-        <DisplayCompetition />
-      </div>
-      <div v-else-if="activeTab === 'Create Competition'">
-        <CreateCompetition />
-      </div>
-      <div v-else-if="activeTab === 'Send Notification'">
-        <SendNotification />
-      </div>
-      <div v-else-if="activeTab === 'Manage Standard'">
-        <ManageStandards />
-      </div>
-      <div v-else-if="activeTab === 'Event Request'">
-        <EventDisplay />
+        </BaseCard>
       </div>
     </div>
+
+    <VerifyArtwork v-else-if="activeTab.key === 'verify'" />
+    <ProfileSetting
+      v-else-if="activeTab.key === 'profile'"
+      embedded
+    />
+    <DisplayCompetition
+      v-else-if="activeTab.key === 'competition'"
+      embedded
+    />
+    <CreateCompetition v-else-if="activeTab.key === 'create-competition'" />
+    <SendNotification v-else-if="activeTab.key === 'notifications'" />
+    <ManageStandards v-else-if="activeTab.key === 'standards'" />
+    <EventDisplay
+      v-else-if="activeTab.key === 'events'"
+      embedded
+    />
   </div>
 </template>
 
-<script>
-import EventDisplay from '@/views/Organization/EventDisplay.vue'
-import ProfileSetting from '@/views/User/ProfileSetting.vue'
+<script setup>
+import { ref, onMounted } from 'vue';
+import { BaseCard, StatCard } from '@/components/common';
+import EventDisplay from '@/views/Organization/EventDisplay.vue';
+import ProfileSetting from '@/views/User/ProfileSetting.vue';
 import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
-import VerifyArtwork from '@/views/Manager/VerifyArtwork.vue';
+import VerifyArtwork from '@/views/admin/VerifyArtworkPage.vue';
 import ManageStandards from '@/components/ManageStandards.vue';
 import SendNotification from '@/components/SendNotification.vue';
 import CreateCompetition from '@/views/Manager/CreateCompetition.vue';
-import axios from 'axios';
+import { useDashboardRoute } from '@/composables/useDashboardRoute';
 
-export default {
-  components: {
-    CreateCompetition,
-    DisplayCompetition,
-    ProfileSetting,
-    EventDisplay,
-    VerifyArtwork,
-     SendNotification,
-     ManageStandards
-},
-  data() {
-    return {
-      activeTab: 'Profile',
-      tabs: ['Art Request', 'Profile', 'Competition', 'Verify Artwork', 'Event Request','Send Notification','Create Competition', 'Manage Standard'],
-      showConfirmationDialog: false,
-    };
-  },
-  methods: {
-    changeTab(tab) {
-      this.activeTab = tab;
-    },
-    logoutUser() {
-      axios
-        .get('http://localhost:8082/api/logout')
-        .then(response => {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('userInfo');
-          this.$router.push('/userLogin');
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    cancelLogout() {
-      this.showConfirmationDialog = false;
-    },
-  },
-};
+const tabs = [
+  { key: 'overview', label: 'Overview', icon: 'fas fa-tachometer-alt' },
+  { key: 'verify', label: 'Art Request', icon: 'fas fa-check-circle' },
+  { key: 'profile', label: 'Profile', icon: 'fas fa-user-cog' },
+  { key: 'competition', label: 'Competition', icon: 'fas fa-trophy' },
+  { key: 'create-competition', label: 'Create Competition', icon: 'fas fa-plus-circle' },
+  { key: 'events', label: 'Event Request', icon: 'fas fa-calendar' },
+  { key: 'notifications', label: 'Send Notification', icon: 'fas fa-bell' },
+  { key: 'standards', label: 'Manage Standard', icon: 'fas fa-cog' }
+];
+
+const { activeTab, setTab } = useDashboardRoute(tabs, 'overview');
+
+const stats = ref({
+  pendingArtworks: 0,
+  activeCompetitions: 0,
+  eventRequests: 0,
+  totalUsers: 0
+});
+
+const recentActivities = ref([
+  { id: 1, title: 'New artwork submitted', icon: 'fas fa-image', time: '2 hours ago' },
+  { id: 2, title: 'Competition created', icon: 'fas fa-trophy', time: '5 hours ago' },
+  { id: 3, title: 'Event request received', icon: 'fas fa-calendar', time: '1 day ago' }
+]);
+
+const quickActions = [
+  { key: 'verify', label: 'Verify Art', icon: 'fas fa-check-circle' },
+  { key: 'create-competition', label: 'New Competition', icon: 'fas fa-plus-circle' },
+  { key: 'notifications', label: 'Send Alert', icon: 'fas fa-bell' },
+  { key: 'standards', label: 'Standards', icon: 'fas fa-cog' }
+];
+
+onMounted(() => {
+  stats.value = {
+    pendingArtworks: 12,
+    activeCompetitions: 3,
+    eventRequests: 5,
+    totalUsers: 248
+  };
+});
 </script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <style scoped>
-  .dashboard {
-    display: flex;
-    flex-direction: row;
-    margin-top: 70px;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .sidebar-header {
-    padding: 20px;
-    background-color: #222;
-  }
-  
-  .sidebar-header h3 {
-    margin: 0;
-    font-size: 20px;
-  }
-  
-  .sidebar-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar-menu-item {
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .sidebar-menu-item a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .sidebar-menu-item.active {
-    background-color: #555;
-  }
-  .sidebar-menu-item.logout {
-  position: relative;
-}
-
-.sidebar-menu-item.logout button {
-  border: none;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-  padding: 0;
-}
-
-.confirmation-dialog {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #555;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.confirmation-dialog p {
-  color: #fff;
-  margin: 0 0 10px;
-}
-
-.confirmation-dialog button {
-  margin: 5px;
-  padding: 5px 10px;
-}
-  
-.sidebar-menu-item.logout {
-  display: flex;
-  transition: background-color 0.3s ease;
-}
-
-.sidebar-menu-item.logout button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: #da0b0b;
-  font-size: 20px;
-}
-
-.sidebar-menu-item.logout button:hover {
-  color: #ccc;
-}
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .dashboard {
-      flex-direction: column;
-    }
-  
-    .sidebar {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  }
-  </style>
-  

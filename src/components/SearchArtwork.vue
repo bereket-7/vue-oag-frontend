@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import { artworkService } from '@/services/artworkService';
 
 export default {
   name:'SearchArtwork',
@@ -54,15 +54,13 @@ export default {
   methods: {
     searchByCategory() {
       this.isLoading = true;
-      let url = 'http://localhost:8081/artworks';
-      if (this.selectedCategory) {
-        url += '/category/' + this.selectedCategory;
-      }
+      const request = this.selectedCategory
+        ? artworkService.getByCategory(this.selectedCategory)
+        : artworkService.getAll();
 
-      axios
-        .get(url)
-        .then((response) => {
-          this.artworks = response.data;
+      request
+        .then((data) => {
+          this.artworks = data;
           this.isLoading = false;
         })
         .catch((error) => {

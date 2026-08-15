@@ -1,266 +1,302 @@
 <template>
-  <div class="register-form">
-    <h2>Apply for competition</h2>
-    <form @submit.prevent="registerCompetitor">
-      <div>
-        <input
-          id="firstName"
-          v-model="competitor.firstName"
-          type="text"
-          placeholder="First Name"
-          required
-        >
+  <div class="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto">
+    <PageHeader
+      title="Apply for Competition"
+      subtitle="Submit your artwork to compete in the current KELEM art challenge"
+      eyebrow="Competition Entry"
+    />
+
+    <div
+      v-if="competition"
+      class="page-card p-5 mb-6 border-l-4 border-l-purple-500"
+    >
+      <p class="text-xs font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+        Entering
+      </p>
+      <h3 class="font-bold text-gray-900 dark:text-white">
+        {{ competition.title }}
+      </h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        {{ competition.description }}
+      </p>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
+        <i class="fas fa-calendar mr-1" />Deadline: {{ formatDate(competition.endDate) }}
+      </p>
+    </div>
+
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="handleSubmit"
+    >
+      <div
+        v-if="successMessage"
+        class="alert-success"
+      >
+        <i class="fas fa-check-circle mr-2" />{{ successMessage }}
       </div>
-      <div>
-        <input
-          id="lastName"
-          v-model="competitor.lastName"
-          type="text"
-          placeholder="Last Name"
-          required
-        >
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
+        <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
       </div>
-      <div>
-        <input
-          id="phone"
-          v-model="competitor.phone"
-          type="text"
-          placeholder="Phone"
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <BaseInput
+          v-model="form.firstName"
+          label="First Name"
+          placeholder="John"
+          :error="errors.firstName"
           required
-        >
+        />
+        <BaseInput
+          v-model="form.lastName"
+          label="Last Name"
+          placeholder="Doe"
+          :error="errors.lastName"
+          required
+        />
       </div>
-      <div>
-        <input
-          id="email"
-          v-model="competitor.email"
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <BaseInput
+          v-model="form.email"
           type="email"
-          placeholder="Email"
+          label="Email"
+          placeholder="you@example.com"
+          :error="errors.email"
           required
-        >
-      </div>
-
-      <div>
-        <div>
-          <label for="category">Category</label> 
-          <div>
-            <select
-              id="category"
-              v-model="competitor.category"
-              type="text"
-              placeholder="First Name"
-              required
-            >
-              <option value="painting">
-                Painting
-              </option>
-              <option value="sculpture">
-                Sculpture
-              </option>
-              <option value="mixed-media">
-                Mixed Media
-              </option>
-            </select>
-          </div>
-        </div>
-      </div><br><br>
-
-      <div>
-        <textarea
-          id="artDescription"
-          v-model="competitor.artDescription"
-          placeholder="Artwork Description"
+        />
+        <BaseInput
+          v-model="form.phone"
+          type="tel"
+          label="Phone"
+          placeholder="0912345678"
+          :error="errors.phone"
           required
         />
       </div>
 
       <div>
-        <label for="image">Artwork Image</label>
-        <input
-          id="image"
-          type="file"
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category <span class="text-red-500">*</span></label>
+        <select
+          v-model="form.category"
+          class="form-select"
           required
-          @change="onFileChange"
         >
+          <option value="">
+            Select category
+          </option>
+          <option
+            v-for="cat in categories"
+            :key="cat.value"
+            :value="cat.value"
+          >
+            {{ cat.label }}
+          </option>
+        </select>
+        <p
+          v-if="errors.category"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.category }}
+        </p>
       </div>
-      <button type="submit">
-        Register
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Artwork Description <span class="text-red-500">*</span></label>
+        <textarea
+          v-model="form.artDescription"
+          rows="4"
+          class="form-textarea"
+          placeholder="Describe your submission — concept, medium, dimensions..."
+          required
+        />
+        <p
+          v-if="errors.artDescription"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.artDescription }}
+        </p>
+      </div>
+
+      <!-- Image upload -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Artwork Image <span class="text-red-500">*</span></label>
+        <div
+          class="border-2 border-dashed rounded-2xl p-6 text-center transition-all cursor-pointer border-gray-200 dark:border-gray-700 hover:border-purple-400"
+          @click="!imagePreview && fileInput?.click()"
+        >
+          <div v-if="!imagePreview">
+            <i class="fas fa-image text-3xl text-gray-400 mb-2" />
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Click to upload your artwork image
+            </p>
+            <input
+              ref="fileInput"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              @change="onFileChange"
+            >
+          </div>
+          <div
+            v-else
+            class="relative inline-block"
+          >
+            <img
+              :src="imagePreview"
+              alt="Preview"
+              class="max-h-48 rounded-xl"
+            >
+            <button
+              type="button"
+              class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-red-500 text-white text-xs"
+              @click.stop="clearImage"
+            >
+              <i class="fas fa-times" />
+            </button>
+          </div>
+        </div>
+        <p
+          v-if="errors.image"
+          class="mt-1 text-sm text-red-600"
+        >
+          {{ errors.image }}
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary w-full sm:w-auto"
+        :disabled="loading"
+      >
+        <i
+          v-if="loading"
+          class="fas fa-spinner fa-spin mr-2"
+        />
+        <i
+          v-else
+          class="fas fa-paper-plane mr-2"
+        />
+        Submit Application
       </button>
     </form>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      competitor: {
-        firstName: '',
-        lastName: '',
-        artDescription: '',
-        phone: '',
-        email: '',
-        category: '',
-        image: null,
-      },
-    };
-  },
-  methods: {
-    registerCompetitor() {
-      const formData = new FormData();
-      formData.append('firstName', this.competitor.firstName);
-      formData.append('lastName', this.competitor.lastName);
-      formData.append('artDescription', this.competitor.artDescription);
-      formData.append('phone', this.competitor.phone);
-      formData.append('email', this.competitor.email);
-      formData.append('category', this.competitor.category);
-      formData.append('image', this.competitor.image);
+<script setup>
+import { ref, reactive, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { competitionService } from '@/services/competitionService';
+import { useAuthStore } from '@/stores/auth';
+import { useNotification } from '@/composables/useNotification';
+import { BaseInput, PageHeader } from '@/components/common';
 
-      fetch('http://localhost:8082/api/competitors/register', {
-        method: 'POST',
-        body: formData,
-      })
-        .then(response => response.text())
-        .then(data => {
-          console.log(data); 
-          this.$router.push('/signupSuccess');
-        })
-        .catch(error => {
-          console.error(error);
-          this.errorMessage = 'An error occurred while registering.';
-        });
-    },
-    onFileChange(event) {
-      this.competitor.image = event.target.files[0];
-    },
+const router = useRouter();
+const authStore = useAuthStore();
+const { success, error: showError } = useNotification();
 
-    validateForm() {
-      this.errors = {};
-      const ethiopiaCode = '+251';
-      if (!this.firstname) {
-        this.errors.firstname = 'First name is required.';
-      }
-      if (!this.lastname) {
-        this.errors.lastname = 'Last name is required.';
-      }
-      if (!this.email) {
-        this.errors.email = 'Email is required.';
-      }else if (!this.validEmail(this.email)) {
-    this.errors.email = 'Please enter a valid email address.';
+const fileInput = ref(null);
+const imageFile = ref(null);
+const imagePreview = ref(null);
+const competition = ref(null);
+const loading = ref(false);
+const successMessage = ref('');
+const errorMessage = ref('');
+const errors = ref({});
+
+const categories = [
+  { value: 'painting', label: 'Painting' },
+  { value: 'sculpture', label: 'Sculpture' },
+  { value: 'mixed-media', label: 'Mixed Media' },
+  { value: 'digital-art', label: 'Digital Art' },
+];
+
+const form = reactive({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  category: '',
+  artDescription: '',
+});
+
+const formatDate = (date) => {
+  if (!date) return '—';
+  return new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+};
+
+onMounted(async () => {
+  const u = authStore.user;
+  if (u) {
+    form.firstName = u.firstName || u.firstname || '';
+    form.lastName = u.lastName || u.lastname || '';
+    form.email = u.email || '';
+    form.phone = u.phone || '';
   }
-      if (!this.phone) {
-        this.errors.phone = 'Phone number is required.';
-      }else if (
-    !(
-      (this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 10
-      || this.phone.startsWith(ethiopiaCode + '9') && this.phone.length === 13
-      || this.phone.startsWith(ethiopiaCode + '7') && this.phone.length === 13
-    )
-  ) {
-    this.errors.phone = 'Invalid phone number format.';
+  try {
+    const list = await competitionService.getAll();
+    competition.value = list.find((c) => c.status === 'active') || list[0] || null;
+  } catch { /* ignore */ }
+});
+
+const onFileChange = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) {
+    errors.value.image = 'Image must be under 10MB';
+    return;
   }
-      return Object.keys(this.errors).length === 0;
-    },
-    validEmail(email) {
-  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(String(email).toLowerCase());
-}
-  },
+  imageFile.value = file;
+  const reader = new FileReader();
+  reader.onload = (ev) => { imagePreview.value = ev.target.result; };
+  reader.readAsDataURL(file);
+  errors.value.image = '';
+};
+
+const clearImage = () => {
+  imageFile.value = null;
+  imagePreview.value = null;
+  if (fileInput.value) fileInput.value.value = '';
+};
+
+const validate = () => {
+  errors.value = {};
+  if (!form.firstName) errors.value.firstName = 'Required';
+  if (!form.lastName) errors.value.lastName = 'Required';
+  if (!form.email) errors.value.email = 'Required';
+  if (!form.phone) errors.value.phone = 'Required';
+  if (!form.category) errors.value.category = 'Required';
+  if (!form.artDescription) errors.value.artDescription = 'Required';
+  if (!imageFile.value) errors.value.image = 'Please upload an image';
+  return Object.keys(errors.value).length === 0;
+};
+
+const handleSubmit = async () => {
+  if (!validate()) return;
+  loading.value = true;
+  errorMessage.value = '';
+  successMessage.value = '';
+  try {
+    await competitionService.register(competition.value?.id || 1, null);
+    successMessage.value = 'Your application has been submitted successfully!';
+    success('Application submitted!');
+    setTimeout(() => router.push({ path: '/artistDashboard', query: { tab: 'competition' } }), 1500);
+  } catch (err) {
+    errorMessage.value = err.message || 'Registration failed. Please try again.';
+    showError(errorMessage.value);
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
-
 <style scoped>
-   .register-form {
-    margin-top: 100px;
-    margin-bottom: 50px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-h2 {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: dodgerblue;
-}
-  .register-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .register-form input[type="text"],
-  .register-form input[type="email"],
-  .register-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
-  }
-
-  .register-form input[type="file"] {
-    margin-bottom: 15px;
-  }
-
-  .register-form button[type="submit"] {
-    padding: 12px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .register-form button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-
-  .register-form input[type="text"]:hover,
-  .register-form input[type="email"]:hover,
-  .register-form textarea:hover {
-    border-color: #999;
-  }
-  @media only screen and (max-width: 600px) {
-    .register-form {
-      margin: 10px;
-      padding: 15px;
-    }
-
-    .register-form input[type="text"],
-    .register-form input[type="email"],
-    .register-form textarea {
-      width: 100%;
-      padding: 8px;
-    }
-
-    .register-form button[type="submit"] {
-      padding: 10px 16px;
-    }
-  }
-  .register-form h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .register-form input[type="text"],
-  .register-form input[type="email"],
-  .register-form textarea {
-    background-color: #fff;
-    color: #333;
-    font-size: 16px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-
+.page-card { @apply bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm; }
+.form-textarea { @apply w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 outline-none resize-none transition-all; }
+.form-select { @apply w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none; }
+.btn-primary { @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-60 shadow-lg shadow-purple-500/20 transition-all; }
+.alert-success { @apply flex items-center p-3 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm; }
+.alert-error { @apply flex items-center p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm; }
 </style>

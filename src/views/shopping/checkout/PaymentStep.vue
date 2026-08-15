@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
-    <h2 class="text-xl font-bold">
-      Payment
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+      {{ $t('checkout.payment') }}
     </h2>
     <OrderSummary
       :subtotal="subtotal"
@@ -21,7 +21,7 @@
         :loading="loading"
         @click="$emit('pay')"
       >
-        <i class="fas fa-credit-card mr-2" /> Pay Now (Demo)
+        <i class="fas fa-credit-card mr-2" /> {{ $t('checkout.placeOrder') }}
       </BaseButton>
       <p class="text-xs text-gray-500 text-center">
         Mock mode — no real charge will be made.

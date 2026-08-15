@@ -77,6 +77,8 @@
 
 
 <script>
+import { eventService } from '@/services/eventService';
+
 export default{
 data(){
     return{
@@ -128,19 +130,7 @@ methods: {
       this.showPopup = false;
     },
     fetchAllEvents() {
-      fetch('http://localhost:8082/api/events/pending', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Failed to fetch events');
-          }
-        })
+      eventService.getPending()
         .then(data => {
           this.events = data;
           this.fetchEventImages();
@@ -151,19 +141,7 @@ methods: {
     },
     fetchEventImages() {
       this.events.forEach(event => {
-        fetch(`http://localhost:8082/api/events/${event.id}/image`, {
-          method: 'GET',
-          headers: {
-            Accept: 'image/png',
-          },
-        })
-          .then(response => {
-            if (response.ok) {
-              return response.blob();
-            } else {
-              throw new Error(`Failed to fetch image for event ${event.id}`);
-            }
-          })
+        eventService.getImage(event.id)
           .then(imageBlob => {
             event.imageUrl = URL.createObjectURL(imageBlob);
           })
@@ -177,43 +155,18 @@ methods: {
       return event ? event.imageUrl : null;
     },
     acceptEvent(eventId) {
-      fetch(`http://localhost:8082/api/events/${eventId}/accept`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.text();
-          } else {
-            throw new Error(`Failed to accept event with ID ${eventId}`);
-          }
-        })
-        .then(data => {
-          console.log(data);
-          // Refresh the event list or update the event's status in the local data
+      eventService.accept(eventId)
+        .then(() => {
+          this.fetchAllEvents();
         })
         .catch(error => {
           console.error(error);
         });
     },
     rejectEvent(eventId) {
-      fetch(`http://localhost:8082/api/events/${eventId}/reject`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.text();
-          } else {
-            throw new Error(`Failed to reject event with ID ${eventId}`);
-          }
-        })
-        .then(data => {
-          console.log(data);
+      eventService.reject(eventId)
+        .then(() => {
+          this.fetchAllEvents();
         })
         .catch(error => {
           console.error(error);

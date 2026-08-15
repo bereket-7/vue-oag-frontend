@@ -1,234 +1,82 @@
 <template>
-  <div class="container-fluid rounded bg-white mt-5">
-    <div class="row">
-      <div class="col-md-3 border-right sidebar">
-        <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-          <img
-            class="rounded-circle mt-5"
-            width="150px"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80"
-          >
-          <span class="font-weight-bold">Bereket</span>
-        </div>
-        <div class="sidebar">
-          <ul class="navbar-list">
-            <li class="nav-item">
-              <router-link
-                to="/"
-                class="nav-link"
-              >
-                Home
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/about"
-                class="nav-link"
-              >
-                About
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/contactUs"
-                class="nav-link"
-              >
-                Contact Us
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Admin
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Account Detail
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Logout
-              </router-link>
-            </li>
-          </ul> 
-        </div>
-      </div>
-      <div class="col-md-8 border-right">
-        <div class="p-3 py-5">
-          <div class="justify-content-between align-items-center mb-3">
-            <h4 class="text-center">
-              MANAGE COMPETITION
-            </h4>
+  <div class="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
+    <PageHeader
+      title="Manage competitions"
+      subtitle="Review open challenges and create a new one"
+      eyebrow="Manager"
+    >
+      <template #actions>
+        <router-link
+          to="/createCompetition"
+          class="kelem-btn"
+        >
+          <i class="fas fa-plus mr-2" />
+          New competition
+        </router-link>
+      </template>
+    </PageHeader>
+
+    <div
+      v-if="loading"
+      class="text-center py-16 text-gray-500 dark:text-gray-400"
+    >
+      Loading competitions...
+    </div>
+    <div
+      v-else-if="competitions.length === 0"
+      class="page-card p-10 text-center text-gray-500 dark:text-gray-400"
+    >
+      No competitions yet.
+    </div>
+    <div
+      v-else
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      <article
+        v-for="competition in competitions"
+        :key="competition.id"
+        class="page-card overflow-hidden"
+      >
+        <img
+          :src="competition.imageUrl || 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80'"
+          :alt="competition.title"
+          class="w-full h-44 object-cover"
+        >
+        <div class="p-5 space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <h2 class="font-bold text-gray-900 dark:text-white">
+              {{ competition.title }}
+            </h2>
+            <span class="badge bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300">
+              {{ competition.status || 'active' }}
+            </span>
           </div>
-          <div class="row">
-            <div class="row mt-3">
-              <div class="col-md-4 mb-3">
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80"
-                    alt="Competition artwork"
-                    height="300"
-                  >
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Card title
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-                    <router-link to="">
-                      <button class="btn btn-primary m-2">
-                        Edit
-                      </button>
-                    </router-link>
-                    <router-link to="">
-                      <button class="btn btn-danger m-2">
-                        Delete
-                      </button>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80"
-                    alt="Competition artwork"
-                    height="300"
-                  >
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Card title
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-                    <router-link to="">
-                      <button class="btn btn-primary m-2">
-                        Edit
-                      </button>
-                    </router-link>
-                    <router-link to="">
-                      <button class="btn btn-danger m-2">
-                        Delete
-                      </button>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 mb-2">
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=600&q=80"
-                    alt="Competition artwork"
-                    height="300"
-                  >
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Card title
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-                    <router-link to="">
-                      <button class="btn btn-primary m-2">
-                        Edit
-                      </button>
-                    </router-link>
-                    <router-link to="">
-                      <button class="btn btn-danger m-2">
-                        Delete
-                      </button>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
+            {{ competition.description }}
+          </p>
+          <p class="text-xs text-gray-400">
+            {{ competition.entries || 0 }} entries
+          </p>
         </div>
-      </div>
+      </article>
     </div>
   </div>
-  <FooterView />
 </template>
-    
-    <script>
-    import FooterView from "@/components/FooterView.vue"
-    export default{
-        name:'AccountDetail',
-        components:{
-            FooterView
-        }
-    }
-    </script>
-    
-    <style scoped>
 
-    .btn{
-        align-items: center;
-    }
-    .form-control:focus {
-        box-shadow: none;
-        border-color: black
-    }
-    
-    .profile-button {
-        box-shadow: none;
-        border: none
-    }
-    .profile-button:active {
-        background: #682773;
-        box-shadow: none
-    }
-    .back:hover {
-        color: #682773;
-        cursor: pointer
-    }
-    
-    .labels {
-        font-size: 11px
-    }
-    
-    .add-experience:hover {
-        background: #BA68C8;
-        color: #fff;
-        cursor: pointer;
-        border: solid 1px #BA68C8
-    }
-  
-    .sidebar{
-        background-color: #f1f1f1;
-        color:black;
-    }
-    .user-p img{
-    width: 50%;
-    border-radius: 50%;
+<script setup>
+import { onMounted, ref } from 'vue';
+import { competitionService } from '@/services/competitionService';
+import { PageHeader } from '@/components/common';
+
+const competitions = ref([]);
+const loading = ref(false);
+
+onMounted(async () => {
+  loading.value = true;
+  try {
+    competitions.value = await competitionService.getAll();
+  } finally {
+    loading.value = false;
   }
-  .navbar-list{
-    text-align: center;
-    list-style-type: none;
-  }
-  .nav-item{
-    margin: 5px;
-  }
-  .navbar-list{
-    text-decoration: none;
-  }
-  .nav-item:hover{
-    background-color: rgb(74, 73, 72);
-  color: white;
-  }
-  </style>
+});
+</script>

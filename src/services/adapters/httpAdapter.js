@@ -14,7 +14,8 @@ export const httpAdapter = {
     logout: wrap(() => api.post('/auth/logout')),
     forgotPassword: wrap((email) => api.post('/auth/forgot-password', { email })),
     confirmEmail: wrap((token) => api.get(`/auth/confirm/${token}`)),
-    changePassword: wrap((data) => api.post('/auth/change-password', data))
+    changePassword: wrap((data) => api.post('/auth/change-password', data)),
+    confirmRegistration: wrap((data) => api.post('/auth/confirm-registration', data))
   },
   artwork: {
     getAll: wrap((params) => api.get('/artworks', { params })),
@@ -28,7 +29,10 @@ export const httpAdapter = {
     rate: wrap((id, rating) => api.post(`/artworks/${id}/rate`, { rating })),
     getPending: wrap(() => api.get('/artworks/pending')),
     accept: wrap((id) => api.put(`/artworks/${id}/accept`)),
-    reject: wrap((id) => api.put(`/artworks/${id}/reject`))
+    reject: wrap((id) => api.put(`/artworks/${id}/reject`)),
+    getByPriceRange: wrap((minPrice, maxPrice) => api.get('/artworks/priceRange', { params: { minPrice, maxPrice } })),
+    sort: wrap((sortOption) => api.get('/artworks/sort', { params: { sortOption } })),
+    getImage: wrap((id) => api.get(`/artworks/${id}/image`, { responseType: 'blob' }))
   },
   cart: {
     getAll: wrap(() => api.get('/cart')),
@@ -68,12 +72,17 @@ export const httpAdapter = {
     getAll: wrap(() => api.get('/competitions')),
     create: wrap((data) => api.post('/competitions', data)),
     register: wrap((competitionId, artworkId) => api.post(`/competitions/${competitionId}/register`, { artworkId })),
-    vote: wrap((competitionId, artworkId) => api.post(`/competitions/${competitionId}/vote`, { artworkId }))
+    vote: wrap((competitionId, artworkId) => api.post(`/competitions/${competitionId}/vote`, { artworkId })),
+    getCompetitors: wrap(() => api.get('/competition-competitor-data'))
   },
   event: {
     getAll: wrap(() => api.get('/events')),
     create: wrap((data) => api.post('/events', data)),
-    update: wrap((id, data) => api.put(`/events/${id}`, data))
+    update: wrap((id, data) => api.put(`/events/${id}`, data)),
+    getPending: wrap(() => api.get('/events/pending')),
+    accept: wrap((id) => api.put(`/events/${id}/accept`)),
+    reject: wrap((id) => api.put(`/events/${id}/reject`)),
+    getImage: wrap((id) => api.get(`/events/${id}/image`, { responseType: 'blob' }))
   },
   user: {
     getProfile: wrap(() => api.get('/user/profile')),
@@ -81,7 +90,12 @@ export const httpAdapter = {
     getNotifications: wrap(() => api.get('/user/notifications')),
     markNotificationRead: wrap((id) => api.put(`/user/notifications/${id}/read`)),
     getAllUsers: wrap(() => api.get('/users/all')),
-    deleteUser: wrap((id) => api.delete(`/users/${id}`))
+    deleteUser: wrap((id) => api.delete(`/users/${id}`)),
+    getByRole: wrap((role) => api.get(`/users/${role}-list`)),
+    deleteMany: wrap((ids) => api.delete('/users', { data: { ids } })),
+    uploadPhoto: wrap((formData) => api.post('/users/profile/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } })),
+    getPhoto: wrap(() => api.get('/users/profile/photo', { responseType: 'arraybuffer' })),
+    sendNotification: wrap((data) => api.post('/notifications/send', data))
   },
   message: {
     getThreads: wrap(() => api.get('/messages/threads')),
@@ -108,6 +122,22 @@ export const httpAdapter = {
   },
   cms: {
     getConfig: wrap(() => api.get('/cms/config')),
-    updateConfig: wrap((data) => api.put('/cms/config', data))
+    updateConfig: wrap((data) => api.put('/cms/config', data)),
+    sendContact: wrap((data) => api.post('/contact', data))
+  },
+  report: {
+    create: wrap((data) => api.post('/report/create', data)),
+    getAll: wrap(() => api.get('/report/all'))
+  },
+  standard: {
+    getAll: wrap(() => api.get('/standards')),
+    create: wrap((data) => api.post('/standard/add', data)),
+    delete: wrap((id) => api.delete(`/standards/${id}`))
+  },
+  bid: {
+    create: wrap((data) => api.post('/bid/saveBidArt', data))
+  },
+  payment: {
+    paypalPay: wrap((data) => api.post('/paypal/pay', data))
   }
 };

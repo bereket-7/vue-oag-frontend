@@ -27,7 +27,7 @@
 </template>
   
 <script>
-import axios from 'axios';
+import { userService } from '@/services/userService';
 
 export default {
   data() {
@@ -48,8 +48,8 @@ export default {
       formData.append('file', this.selectedFile);
 
       try {
-        const response = await axios.post('http://localhost:8082/api/users/profile/upload', formData);
-        if (response.status === 200) {
+        const response = await userService.uploadPhoto(formData);
+        if (response) {
           this.selectedFile = null;
           this.getProfilePhoto();
         }
@@ -59,10 +59,10 @@ export default {
     },
     async getProfilePhoto() {
       try {
-        const response = await axios.get('http://localhost:8082/api/users/profile/photo', { responseType: 'arraybuffer' });
+        const data = await userService.getPhoto();
         const base64Image = btoa(
-          new Uint8Array(response.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
+          new Uint8Array(data).reduce(
+            (acc, byte) => acc + String.fromCharCode(byte),
             ''
           )
         );

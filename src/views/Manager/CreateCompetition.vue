@@ -1,271 +1,108 @@
 <template>
-  <div class="container">
-    <div class="image-container">
-      <img
-        src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=900&q=80"
-        alt="Competition image"
+  <div class="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+    <PageHeader
+      title="Create competition"
+      subtitle="Launch a new challenge for artists"
+      eyebrow="Manager"
+    />
+
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="addCompetition"
+    >
+      <div
+        v-if="successMessage"
+        class="alert-success"
       >
-    </div>
-    <div class="form-container">
-      <form
-        class="form"
-        @submit.prevent="addCompetition"
+        <i class="fas fa-check-circle mr-2" />{{ successMessage }}
+      </div>
+      <div
+        v-if="errorMessage"
+        class="alert-error"
       >
-        <h1>Add Competition</h1>
-        <label for="title">Title</label>
-        <input
-          id="title"
-          v-model="competition.competitionTitle"
-          type="text"
-          required
-        ><br><br>
+        <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
+      </div>
 
-        <label for="description">Description</label>
-        <input
-          id="description"
-          v-model="competition.competitionDescription"
-          type="text"
+      <BaseInput
+        v-model="competition.title"
+        label="Title"
+        required
+      />
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+          Description <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          v-model="competition.description"
+          rows="4"
+          class="form-textarea"
           required
-        ><br><br>
+        />
+      </div>
+      <BaseInput
+        v-model="competition.numberOfCompetitor"
+        type="number"
+        label="Number of competitors"
+        required
+      />
+      <BaseInput
+        v-model="competition.expiryDate"
+        type="date"
+        label="Expiry date"
+        required
+      />
 
-        <label for="numberOfCompetitor">Number of Competitors</label>
-        <input
-          id="numberOfCompetitor"
-          v-model="competition.numberOfCompetitor"
-          type="number"
-          required
-        ><br><br>
-
-        <label for="expiryDate">Expiry Date</label>
-        <input
-          id="expiryDate"
-          v-model="competition.expiryDate"
-          type="date"
-          required
-        ><br><br>
-        <!-- <button type="submit">Add Competition</button>
-      <button type="button" class="btn btn-secondary">Manage Competition</button> -->
+      <div class="flex flex-wrap gap-3">
         <button
           type="submit"
-          class="btn btn-success"
+          class="kelem-btn"
+          :disabled="loading"
         >
-          Add Competition
+          Add competition
         </button>
-        <router-link to="/manageCompetition">
-          <p>Manage Competition</p>
+        <router-link
+          to="/manager/competitions"
+          class="inline-flex items-center px-6 py-3 rounded-xl font-semibold border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          Manage competitions
         </router-link>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
+<script setup>
+import { reactive, ref } from 'vue';
+import { competitionService } from '@/services/competitionService';
+import { BaseInput, PageHeader } from '@/components/common';
 
+const competition = reactive({
+  title: '',
+  description: '',
+  numberOfCompetitor: '',
+  expiryDate: ''
+});
+const loading = ref(false);
+const successMessage = ref('');
+const errorMessage = ref('');
 
-<script>
-import api from '@/services/api';
-
-export default {
-  name: 'AddCompetition',
-  data() {
-    return {
-      competition: {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      },
-      success: false
-    }
-  },
-  methods: {
-    async addCompetition() {
-      try {
-        await api.post('/competition/add', this.competition);
-        alert("successfully registered");
-        this.resetForm();
-      } catch (error) {
-        console.error(error);
-        alert('Failed to add competition.');
-      }
-    },
-    resetForm() {
-      this.competition = {
-        competitionTitle: '',
-        competitionDescription: '',
-        numberOfCompetitor: '',
-        expiryDate: ''
-      };
-    }
+const addCompetition = async () => {
+  loading.value = true;
+  successMessage.value = '';
+  errorMessage.value = '';
+  try {
+    await competitionService.create({ ...competition });
+    successMessage.value = 'Competition created.';
+    Object.assign(competition, {
+      title: '',
+      description: '',
+      numberOfCompetitor: '',
+      expiryDate: ''
+    });
+  } catch {
+    errorMessage.value = 'Failed to add competition.';
+  } finally {
+    loading.value = false;
   }
-}
+};
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 5px;
-}
-
-.image-container {
-  flex-basis: 40%;
-  margin-bottom: 30px;
-  width: 400px;
-}
-
-/* .image-container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-} */
-.image-container img {
-  width: 100%;
-  /* max-height: 100%;  */
-  object-fit: cover;
-  height: auto;
-}
-
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 600px;
-  margin-top:150px;
-  margin: 0 auto;
-  flex-basis: 40%;
-  margin-bottom: 30px;
-  padding-left: 20px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin-top:100px;
-  margin-bottom: 30px;
-  width:500px;
-}
-
-.form input[type="text"],
-.form input[type="email"],
-.form input[type="password"],
-.form input[type="date"] {
-  width: 100%;
-  padding: 12px 10px;
-  margin: 3px 0;
-  border: none;
-  border-radius: 2px;
-  box-sizing: border-box;
-  background-color: #f8f8f8;
-  margin-bottom: 10px; 
-}
-
-.form input[type="text"]:hover,
-.form input[type="email"]:hover,
-.form input[type="password"]:hover,
-.form input[type="date"]:hover {
-  background-color: #e8e8e8;
-}
-
-.form button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.form button:hover {
-  background-color: #3e8e41;
-}
-
-.form button[type="reset"] {
-  background-color: #f44336;
-}
-
-.form button[type="reset"]:hover {
-  background-color: #d32f2f;
-}
-
-.success-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 255, 0, 0.5);
-  font-size: 2em;
-  font-weight: bold;
-  z-index: 500;
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .image-container,
-  .form-container {
-    flex-basis: 100%;
-    padding-left: 0;
-  }
-  .form-container {
-    max-width: 90%;
-  }
-}
-@media screen and (max-width: 480px) {
-  .form-container {
-    max-width: 90%;
-  }
-  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
-    padding: 10px;
-  }
-  
-  input[type="submit"], button {
-    padding: 10px;
-    font-size: 16px;
-  }
-}
-@media screen and (max-width: 330px) {
-  .form-container {
-    max-width: 90%;
-  }
-}
-
-input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-}
-
-input[type="submit"], button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-input[type="submit"]:hover, button:hover {
-  background-color: #3e8e41;
-}
-</style>

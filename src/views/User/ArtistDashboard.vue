@@ -1,247 +1,63 @@
 <template>
-  <div class="container-fluid rounded bg-white mt-5">
-    <div class="row">
-      <div class="col-md-3 border-right sidebar">
-        <div class="d-flex flex-column align-items-center text-center p-3  user-p">
-          <img
-            class="rounded-circle mt-5"
-            width="150px"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80"
-          >
-          <span class="font-weight-bold">Bereket</span>
-        </div>
-        <div class="sidebar">
-          <ul class="navbar-list">
-            <li class="nav-item">
-              <router-link
-                to="/"
-                class="nav-link"
-              >
-                Home
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/about"
-                class="nav-link"
-              >
-                About
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/contactUs"
-                class="nav-link"
-              >
-                Contact Us
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Admin
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Account Detail
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/adminPanel"
-                class="nav-link"
-              >
-                Logout
-              </router-link>
-            </li>
-          </ul> 
-        </div>
-      </div>
-      <div class="col-md-8 border-right">
-        <div class="p-3 py-5">
-          <div class="justify-content-between align-items-center mb-3 myaccount">
-            <h2 class="text-center">
-              MY ACCOUNT
-            </h2>
-            <h5 class="text-center">
-              DASHBOARD
-            </h5>
-          </div>
-          <div class="row">
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <router-link to="/">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Home
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="/about">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    About
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="/contactUs">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Contact Us
-                  </button>
-                </router-link>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <router-link to="/edit-account">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Account Detail
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Notification
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="/uploadArtwork">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Upload Artwork
-                  </button>
-                </router-link>
-              </div>  
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <router-link to="">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Home
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    About
-                  </button>
-                </router-link>
-              </div>
-              <div class="col-md-4">
-                <router-link to="">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary w-100 h-10 m-1"
-                  >
-                    Contact Us
-                  </button>
-                </router-link>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="p-4 sm:p-6 lg:p-8">
+    <MyArt
+      v-if="activeTab.key === 'my-art'"
+      @upload="setTab(tabs.find(t => t.key === 'upload'))"
+    />
+    <ProfileSetting
+      v-else-if="activeTab.key === 'profile'"
+      embedded
+    />
+    <DisplayCompetition
+      v-else-if="activeTab.key === 'competition'"
+      embedded
+    />
+    <ArtworkUpload
+      v-else-if="activeTab.key === 'upload'"
+      embedded
+      @uploaded="onUploaded"
+    />
+    <ChangePassword
+      v-else-if="activeTab.key === 'password'"
+      embedded
+    />
+    <EventDisplay
+      v-else-if="activeTab.key === 'events'"
+      embedded
+    />
+    <NotificationList
+      v-else-if="activeTab.key === 'notifications'"
+      embedded
+    />
+    <UserStandard
+      v-else-if="activeTab.key === 'standards'"
+      embedded
+    />
   </div>
-  <FooterView />
 </template>
-    
-    <script>
-    import FooterView from "@/components/FooterView.vue"
-    export default{
-        name:'AccountDetail',
-        components:{
-            FooterView
-        }
-    }
-    </script>
-    
-    <style scoped>
-    .form-control:focus {
-        box-shadow: none;
-        border-color: black
-    }
-    
-    .profile-button {
-        box-shadow: none;
-        border: none
-    }
-    .profile-button:active {
-        background: #682773;
-        box-shadow: none
-    }
-    .back:hover {
-        color: #682773;
-        cursor: pointer
-    }
-    
-    .labels {
-        font-size: 11px
-    }
-    
-    .add-experience:hover {
-        background: #BA68C8;
-        color: #fff;
-        cursor: pointer;
-        border: solid 1px #BA68C8
-    }
-  
-    .sidebar{
-        background-color: #f1f1f1;
-        color:black;
-    }
-    .user-p img{
-    width: 50%;
-    border-radius: 50%;
-  }
-  .navbar-list{
-    text-align: center;
-    list-style-type: none;
-  }
-  .nav-item{
-    margin: 5px;
-  }
-  .navbar-list{
-    text-decoration: none;
-  }
-  .nav-item:hover{
-    background-color: rgb(74, 73, 72);
-  color: white;
-  }
-  .myaccount{
-    background-color:rgb(65, 74, 48) ;
-    color: white;
-  }
-  </style>
+
+<script setup>
+import NotificationList from '@/views/User/NotificationList.vue';
+import EventDisplay from '@/views/Organization/EventDisplay.vue';
+import ProfileSetting from '@/views/User/ProfileSetting.vue';
+import MyArt from '@/views/Artwork/MyArt.vue';
+import ArtworkUpload from '@/views/Artwork/ArtworkUpload.vue';
+import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
+import UserStandard from '@/views/User/UserStandard.vue';
+import ChangePassword from '@/components/ChangePassword.vue';
+import { useDashboardRoute } from '@/composables/useDashboardRoute';
+
+const tabs = [
+  { key: 'my-art', label: 'My Artworks', icon: 'fas fa-palette' },
+  { key: 'upload', label: 'Upload Artwork', icon: 'fas fa-cloud-upload-alt' },
+  { key: 'profile', label: 'Profile Settings', icon: 'fas fa-user-cog' },
+  { key: 'competition', label: 'Competitions', icon: 'fas fa-trophy' },
+  { key: 'password', label: 'Change Password', icon: 'fas fa-lock' },
+  { key: 'events', label: 'Events', icon: 'fas fa-calendar-alt' },
+  { key: 'notifications', label: 'Notifications', icon: 'fas fa-bell' },
+  { key: 'standards', label: 'Standards', icon: 'fas fa-book' },
+];
+
+const { activeTab, setTab } = useDashboardRoute(tabs, 'my-art');
+const onUploaded = () => setTab(tabs.find((t) => t.key === 'my-art'));
+</script>

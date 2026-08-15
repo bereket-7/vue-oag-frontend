@@ -21,6 +21,10 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 defineProps({ step: { type: Number, default: 1 } });
-const steps = ['Cart', 'Shipping', 'Payment', 'Done'];
+const { t } = useI18n();
+const steps = computed(() => [t('checkout.cart'), t('checkout.shipping'), t('checkout.payment'), t('checkout.done')]);
 </script>

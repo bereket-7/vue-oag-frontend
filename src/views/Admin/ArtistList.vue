@@ -57,7 +57,7 @@
 </template>
   
   <script>
-  import axios from 'axios';
+  import { userService } from '@/services/userService';
   import SearchUser from '@/components/SearchUser.vue'
   export default {
     components:{
@@ -74,17 +74,17 @@ SearchUser
     },
     methods: {
       fetchUsers() {
-        axios
-          .get('http://localhost:8082/api/users/artist-list')
-          .then((response) => {
-            this.users = response.data;
+        userService
+          .getByRole('artist')
+          .then((data) => {
+            this.users = data;
           })
           .catch((error) => {
             console.error(error);
           });
       },
-      editUser(userId) {
-        this.$router.push(`http://localhost:8082/api/users/edit-user/${userId}`);
+      editUser() {
+        this.$router.push('/edit-account');
       },
       confirmDeleteUser(userId) {
         if (confirm('Are you sure you want to delete this user?')) {
@@ -92,8 +92,8 @@ SearchUser
         }
       },
       deleteUser(userId) {
-        axios
-          .delete(`http://localhost:8082/api/users/${userId}`)
+        userService
+          .deleteUser(userId)
           .then(() => {
             this.fetchUsers();
           })
@@ -111,8 +111,8 @@ SearchUser
       },
       deleteSelectedUsers() {
         if (confirm('Are you sure you want to delete the selected users?')) {
-          axios
-            .delete('http://localhost:8082/api/users', { data: { ids: this.selectedUsers } })
+          userService
+            .deleteMany(this.selectedUsers)
             .then(() => {
               this.fetchUsers();
               this.selectedUsers = [];

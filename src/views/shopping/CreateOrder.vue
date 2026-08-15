@@ -52,7 +52,7 @@
 </template>
   
   <script>
-import axios from 'axios';
+import { orderService } from '@/services/orderService';
 
 export default {
   data() {
@@ -89,7 +89,7 @@ export default {
         address: this.address,
       };
 
-      axios.post('http://localhost:8082/api/order/create', payload)
+      orderService.create(payload)
         .then(response => {
           console.log(response.data);
           this.successMessage = "Order created successfully.";

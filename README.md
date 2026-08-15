@@ -8,7 +8,6 @@
 [![Pinia](https://img.shields.io/badge/Pinia-2.1-F7D336?style=flat-square&logo=pinia&logoColor=black)](https://pinia.vuejs.org/)
 [![Vue Router](https://img.shields.io/badge/Vue_Router-4.0-4FC08D?style=flat-square&logo=vue.js&logoColor=white)](https://router.vuejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.3-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2-7952B3?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 [![Axios](https://img.shields.io/badge/Axios-1.4-5A29E4?style=flat-square&logo=axios&logoColor=white)](https://axios-http.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
@@ -93,7 +92,7 @@ The UI is built with a modern glassmorphism-inspired design system, responsive a
 | State Management | Pinia 2 |
 | Routing | Vue Router 4 |
 | HTTP Client | Axios |
-| CSS Framework | Tailwind CSS 3 + Bootstrap 5 |
+| CSS Framework | Tailwind CSS 3 |
 | Icons | Font Awesome 6 |
 | Payments | PayPal JS SDK |
 | Real-time | Socket.IO Client |
@@ -117,7 +116,7 @@ src/
 │   ├── admin/                # Admin-specific components
 │   ├── artwork/              # ArtworkCard
 │   ├── cart/                 # ShoppingCart
-│   ├── layout/               # DashboardLayout
+│   ├── layout/               # AuthenticatedShell, AppLayout
 │   ├── CardSlider.vue        # Hero image slider
 │   ├── ArtworkCategory.vue   # Category showcase
 │   ├── FooterView.vue        # Global footer

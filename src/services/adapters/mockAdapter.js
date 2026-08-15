@@ -109,6 +109,10 @@ export const mockAdapter = {
       }
       account.password = newPassword;
       return { success: true, message: 'Password updated successfully' };
+    },
+    async confirmRegistration() {
+      await delay(300);
+      return { success: true };
     }
   },
 
@@ -168,6 +172,18 @@ export const mockAdapter = {
     },
     async reject(id) {
       return mockAdapter.artwork.update(id, { status: 'rejected' });
+    },
+    async getByPriceRange(minPrice, maxPrice) {
+      await delay(250);
+      return filterArtworks({ minPrice, maxPrice });
+    },
+    async sort(sortOption) {
+      await delay(250);
+      return filterArtworks({ sort: sortOption });
+    },
+    async getImage() {
+      await delay(100);
+      return new Blob();
     }
   },
 
@@ -390,6 +406,10 @@ export const mockAdapter = {
       void _competitionId;
       void _artworkId;
       return { success: true };
+    },
+    async getCompetitors() {
+      await delay(200);
+      return artworks.slice(0, 6).map((a) => ({ id: a.id, artworkName: a.title, votes: 0 }));
     }
   },
 
@@ -409,6 +429,20 @@ export const mockAdapter = {
       const idx = events.findIndex((e) => e.id === Number(id));
       if (idx !== -1) events[idx] = { ...events[idx], ...data };
       return events[idx];
+    },
+    async getPending() {
+      await delay(200);
+      return events.filter((e) => e.status === 'pending');
+    },
+    async accept(id) {
+      return mockAdapter.event.update(id, { status: 'accepted' });
+    },
+    async reject(id) {
+      return mockAdapter.event.update(id, { status: 'rejected' });
+    },
+    async getImage() {
+      await delay(100);
+      return new Blob();
     }
   },
 
@@ -447,6 +481,31 @@ export const mockAdapter = {
       await delay(200);
       void _id;
       return { success: true };
+    },
+    async getByRole(role) {
+      await delay(250);
+      return MOCK_USERS.filter((u) => u.role === role.toUpperCase()).map((u) => {
+        const { password: _p, ...safe } = u;
+        void _p;
+        return normalizeUser(safe);
+      });
+    },
+    async deleteMany(_ids) {
+      await delay(200);
+      void _ids;
+      return { success: true };
+    },
+    async uploadPhoto() {
+      await delay(300);
+      return { url: '/placeholder.jpg' };
+    },
+    async getPhoto() {
+      await delay(150);
+      return new ArrayBuffer(0);
+    },
+    async sendNotification(data) {
+      await delay(300);
+      return { success: true, ...data };
     }
   },
 
@@ -550,6 +609,55 @@ export const mockAdapter = {
       const config = { ...(await mockAdapter.cms.getConfig()), ...data };
       saveToStorage(STORAGE_KEYS.cms, config);
       return config;
+    },
+    async sendContact(data) {
+      await delay(400);
+      void data;
+      return { success: true };
+    }
+  },
+
+  report: {
+    async create(data) {
+      await delay(300);
+      void data;
+      return { success: true };
+    },
+    async getAll() {
+      await delay(200);
+      return [];
+    }
+  },
+
+  standard: {
+    async getAll() {
+      await delay(200);
+      return [];
+    },
+    async create(data) {
+      await delay(300);
+      return { id: Date.now(), ...data };
+    },
+    async delete(_id) {
+      await delay(200);
+      void _id;
+      return { success: true };
+    }
+  },
+
+  bid: {
+    async create(data) {
+      await delay(300);
+      void data;
+      return { success: true };
+    }
+  },
+
+  payment: {
+    async paypalPay(data) {
+      await delay(400);
+      void data;
+      return { approvalUrl: null };
     }
   }
 };

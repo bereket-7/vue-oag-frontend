@@ -1,208 +1,122 @@
 <template>
-  <div class="form-container">
-    <h1>Create Event</h1>
-    <hr class="mx-n3">
-    <br>
+  <div class="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+    <PageHeader
+      title="Create event"
+      subtitle="Submit a gallery event for manager review"
+      eyebrow="Organization"
+    />
+
     <form
-      enctype="multipart/form-data"
-      @submit="saveEvent"
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="saveEvent"
     >
-      <div class="form-group">
-        <label for="eventName">Event Name</label>
-        <input
-          id="eventName"
-          v-model="eventName"
-          type="text"
-          placeholder="Enter event title"
-          required
-        >
+      <div
+        v-if="showSuccess"
+        class="alert-success"
+      >
+        <i class="fas fa-check-circle mr-2" />Event created successfully.
       </div>
-      <div class="form-group">
-        <label for="ticketPrice">Ticket Price</label>
-        <input
-          id="ticketPrice"
-          v-model="ticketPrice"
-          type="number"
-          placeholder="Enter price for event, if needed"
-        >
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
+        <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
       </div>
-      <div class="form-group">
-        <label for="capacity">Capacity</label>
-        <input
-          id="capacity"
-          v-model="capacity"
-          type="number"
-          placeholder="Maximum number participant"
-        >
-      </div>
-      <div class="form-group">
-        <label for="eventDescription">Event Description</label>
+
+      <BaseInput
+        v-model="eventName"
+        label="Event name"
+        placeholder="Enter event title"
+        required
+      />
+      <BaseInput
+        v-model="ticketPrice"
+        type="number"
+        label="Ticket price"
+      />
+      <BaseInput
+        v-model="capacity"
+        type="number"
+        label="Capacity"
+      />
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+          Description <span class="text-red-500">*</span>
+        </label>
         <textarea
-          id="eventDescription"
           v-model="eventDescription"
-          type="text"
-          placeholder="Enter Short description about the event"
+          rows="4"
+          class="form-textarea"
           required
         />
       </div>
-
-      <div class="form-group">
-        <label for="location">Location</label>
+      <BaseInput
+        v-model="location"
+        label="Location"
+        required
+      />
+      <BaseInput
+        v-model="eventDate"
+        type="date"
+        label="Event date"
+        required
+      />
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Image</label>
         <input
-          id="location"
-          v-model="location"
-          type="text"
-          placeholder="Jimma"
-          required
-        >
-      </div>
-      <div class="form-group">
-        <label for="eventDate">Event Date</label>
-        <input
-          id="eventDate"
-          v-model="eventDate"
-          type="text"
-          placeholder="2023-10-05"
-          required
-        >
-      </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input
-          id="image"
           ref="fileInput"
           type="file"
-          required
+          accept="image/*"
+          class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-50 dark:file:bg-purple-900/30 file:text-purple-700 dark:file:text-purple-300"
         >
       </div>
-      <br>
-      <hr class="mx-n3">
       <button
         type="submit"
-        class="btn btn-primary"
+        class="kelem-btn"
+        :disabled="loading"
       >
         Submit
       </button>
     </form>
   </div>
-
-  <div
-    v-if="showSuccessPopup"
-    class="popup"
-  >
-    <div class="popup-content">
-      <p>Event created successfully!</p>
-      <button
-        class="btn btn-primary"
-        @click="closeSuccessPopup"
-      >
-        OK
-      </button>
-    </div>
-  </div><br><br>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
+import { ref } from 'vue';
+import { eventService } from '@/services/eventService';
+import { BaseInput, PageHeader } from '@/components/common';
 
-export default {
-   data() {
-    return {
-      eventName: '',
-      ticketPrice: 0,
-      capacity: 0,
-      eventDescription: '',
-      location: '',
-      eventDate: '',
-      showSuccessPopup: false,
-    };
-  },
-  methods: {
-    saveEvent(event) {
-      event.preventDefault();
-      const formData = new FormData();
-      formData.append('eventName', this.eventName);
-      formData.append('ticketPrice', this.ticketPrice);
-      formData.append('capacity', this.capacity);
-      formData.append('eventDescription', this.eventDescription);
-      formData.append('location', this.location);
-      formData.append('eventDate', this.eventDate);
-      formData.append('image', this.$refs.fileInput.files[0]);
-      axios
-        .post('http://localhost:8081/api/events/saveEvent', formData)
-        .then((response) => {
-          console.log(response.data);
-          this.showSuccessPopup = true; 
-        })
-        .catch((error) => {
-          console.error(error);
-          this.errorMessage = 'An error occurred while creating the event.';
-        });
-    },
-    closeSuccessPopup() {
-      this.showSuccessPopup = false; 
-    },
-  },
+const eventName = ref('');
+const ticketPrice = ref(0);
+const capacity = ref(0);
+const eventDescription = ref('');
+const location = ref('');
+const eventDate = ref('');
+const fileInput = ref(null);
+const showSuccess = ref(false);
+const errorMessage = ref('');
+const loading = ref(false);
+
+const saveEvent = async () => {
+  loading.value = true;
+  showSuccess.value = false;
+  errorMessage.value = '';
+  const formData = new FormData();
+  formData.append('eventName', eventName.value);
+  formData.append('ticketPrice', ticketPrice.value);
+  formData.append('capacity', capacity.value);
+  formData.append('eventDescription', eventDescription.value);
+  formData.append('location', location.value);
+  formData.append('eventDate', eventDate.value);
+  const file = fileInput.value?.files?.[0];
+  if (file) formData.append('image', file);
+  try {
+    await eventService.create(formData);
+    showSuccess.value = true;
+  } catch {
+    errorMessage.value = 'An error occurred while creating the event.';
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
-
-
-<style scoped>
-.form-container {
-  margin-top: 10px !important;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-textarea[type="text"],
-textarea[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-button {
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-label {
-  font-weight:600;
-  text-align: left;
-}
-h1 {
-  color:black;
-}
-
-.form-container:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-@media screen and (max-width: 600px) {
-  .form-container {
-    max-width: 100%;
-  }
-}
-</style>

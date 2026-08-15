@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-4">
-    <h2 class="text-xl font-bold mb-4">
-      Shipping Address
+    <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+      {{ $t('checkout.shipping') }}
     </h2>
     <div class="grid grid-cols-2 gap-4">
       <BaseInput

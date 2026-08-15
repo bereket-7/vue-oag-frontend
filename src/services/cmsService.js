@@ -4,5 +4,6 @@ const adapter = () => getAdapter('cms');
 
 export const cmsService = {
   getConfig: () => adapter().getConfig(),
-  updateConfig: (data) => adapter().updateConfig(data)
+  updateConfig: (data) => adapter().updateConfig(data),
+  sendContact: (data) => adapter().sendContact(data)
 };

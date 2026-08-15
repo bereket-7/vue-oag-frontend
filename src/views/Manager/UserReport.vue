@@ -34,7 +34,7 @@
 </template>
   
   <script>
-  import axios from 'axios';
+  import { reportService } from '@/services/reportService';
   export default {
     data() {
       return {
@@ -46,9 +46,9 @@
   },
     methods: {
     fetchReports() {
-      axios.get('http://localhost:8082/api/report/all')
-        .then(response => {
-          this.reports = response.data;
+      reportService.getAll()
+        .then(data => {
+          this.reports = data;
         })
         .catch(error => {
           console.log(error);

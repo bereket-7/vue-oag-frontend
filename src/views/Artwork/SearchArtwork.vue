@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { artworkService } from '@/services/artworkService';
 
 export default {
   data() {
@@ -53,22 +53,16 @@ export default {
   },
   methods: {
     searchArtwork() {
-      axios.get('http://localhost:8082/api/artworks/search', {
-        params: {
-          keyword: this.keyword,
-          page: 0,
-          size: 10,
-        },
-      })
-      .then(response => {
-        this.artworkList = response.data;
+      artworkService.search(this.keyword)
+      .then(data => {
+        this.artworkList = data;
       })
       .catch(error => {
         console.error(error);
       });
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8082/api/artworks/${artworkId}/image`;
+      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
   },
 };

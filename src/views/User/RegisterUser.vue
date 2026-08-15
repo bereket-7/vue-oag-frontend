@@ -1,832 +1,371 @@
 <template>
-  <div class="auth-page">
-    <!-- Left art panel -->
-    <div
-      class="auth-panel auth-panel--art"
-      aria-hidden="true"
-    >
-      <div class="art-overlay" />
-      <div class="art-content">
-        <div class="art-logo">
-          <div class="auth-brand">
-            <span class="auth-brand__kelem">KELEM</span>
-            <span class="auth-brand__sub">Online Art Gallery</span>
-          </div>
-        </div>
-        <div class="art-tagline">
-          <h2>Join Kelem</h2>
-          <p>Discover, collect, and showcase extraordinary art from talented artists around the world.</p>
-        </div>
-        <div class="art-swatches">
-          <span style="background:#815A8F" />
-          <span style="background:#6730EC" />
-          <span style="background:#9ED763" />
-          <span style="background:#FBD400" />
-          <span style="background:#FF9000" />
-          <span style="background:#F73F52" />
-        </div>
+  <div class="min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)] flex">
+    <!-- Brand panel -->
+    <div class="hidden lg:flex lg:w-2/5 relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-32 -left-20 w-80 h-80 bg-yellow-200 rounded-full blur-3xl" />
+        <div class="absolute bottom-10 right-0 w-72 h-72 bg-pink-400 rounded-full blur-3xl" />
+      </div>
+      <div class="relative z-10 flex flex-col justify-center p-12 text-white">
+        <router-link
+          to="/"
+          class="absolute top-12 left-12 inline-flex flex-col leading-none no-underline group"
+        >
+          <span class="text-2xl font-black tracking-[0.15em]">KELEM</span>
+          <span class="text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-white/70">Online Art Gallery</span>
+        </router-link>
+
+        <h1 class="text-3xl xl:text-4xl font-bold leading-tight mb-4">
+          Join our creative community
+        </h1>
+        <p class="text-white/80 leading-relaxed mb-8">
+          Whether you're collecting masterpieces or showcasing your own work, KELEM is your home for art.
+        </p>
+
+        <ul class="space-y-4">
+          <li
+            v-for="feature in features"
+            :key="feature"
+            class="flex items-center gap-3 text-white/90"
+          >
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 shrink-0">
+              <i class="fas fa-check text-xs" />
+            </span>
+            {{ feature }}
+          </li>
+        </ul>
       </div>
     </div>
 
-    <!-- Right form panel -->
-    <div class="auth-panel auth-panel--form">
-      <div class="auth-form-wrap">
-        <div class="auth-header">
-          <h1 class="auth-title">
-            Create account
-          </h1>
-          <p class="auth-subtitle">
-            Start your art journey today
-          </p>
+    <!-- Form panel -->
+    <div class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950 px-4 py-10 sm:px-8">
+      <div class="max-w-2xl mx-auto">
+        <div class="lg:hidden text-center mb-8">
+          <router-link
+            to="/"
+            class="inline-flex flex-col leading-none no-underline"
+          >
+            <span class="text-2xl font-black tracking-[0.15em] bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">KELEM</span>
+          </router-link>
         </div>
 
-        <transition name="fade">
-          <div
-            v-if="errorMessage"
-            class="auth-alert auth-alert--error"
+        <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl shadow-purple-500/5 dark:shadow-none border border-gray-100 dark:border-gray-800 p-8 sm:p-10">
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+              Create your account
+            </h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              Start your art journey in minutes
+            </p>
+          </div>
+
+          <form
+            class="space-y-6"
+            @submit.prevent="handleRegister"
           >
-            <i class="fas fa-exclamation-circle" /> {{ errorMessage }}
-          </div>
-        </transition>
-
-        <form
-          class="auth-form"
-          novalidate
-          @submit.prevent="submitForm"
-        >
-          <!-- Row: First + Last name -->
-          <div class="form-row">
             <div
-              class="field"
-              :class="{ 'field--error': errors.firstname }"
+              v-if="errorMessage"
+              class="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm"
             >
-              <label class="field__label">First Name</label>
-              <div class="field__input-wrap">
-                <i class="fas fa-user field__icon" />
-                <input
-                  v-model="firstname"
-                  type="text"
-                  class="field__input"
-                  placeholder="John"
-                  autocomplete="given-name"
+              <i class="fas fa-exclamation-circle shrink-0" />
+              {{ errorMessage }}
+            </div>
+
+            <!-- Role selection -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">I want to join as</label>
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  v-for="role in roleOptions"
+                  :key="role.value"
+                  type="button"
+                  class="relative flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all"
+                  :class="formData.role === role.value
+                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-700'"
+                  @click="formData.role = role.value"
                 >
+                  <i
+                    :class="role.icon"
+                    class="text-2xl"
+                    :style="{ color: formData.role === role.value ? '#9333ea' : '#9ca3af' }"
+                  />
+                  <span class="font-semibold text-sm text-gray-900 dark:text-white">{{ role.label }}</span>
+                  <span class="text-xs text-gray-500 dark:text-gray-400 text-center">{{ role.desc }}</span>
+                </button>
               </div>
-              <span
-                v-if="errors.firstname"
-                class="field__error"
-              >{{ errors.firstname }}</span>
             </div>
-            <div
-              class="field"
-              :class="{ 'field--error': errors.lastname }"
-            >
-              <label class="field__label">Last Name</label>
-              <div class="field__input-wrap">
-                <i class="fas fa-user field__icon" />
-                <input
-                  v-model="lastname"
-                  type="text"
-                  class="field__input"
-                  placeholder="Doe"
-                  autocomplete="family-name"
-                >
-              </div>
-              <span
-                v-if="errors.lastname"
-                class="field__error"
-              >{{ errors.lastname }}</span>
-            </div>
-          </div>
 
-          <!-- Email -->
-          <div
-            class="field"
-            :class="{ 'field--error': errors.email }"
-          >
-            <label class="field__label">Email</label>
-            <div class="field__input-wrap">
-              <i class="fas fa-envelope field__icon" />
-              <input
-                v-model="email"
-                type="email"
-                class="field__input"
-                placeholder="you@example.com"
-                autocomplete="email"
-              >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <BaseInput
+                v-model="formData.firstname"
+                label="First Name"
+                placeholder="John"
+                :error="errors.firstname"
+                required
+              />
+              <BaseInput
+                v-model="formData.lastname"
+                label="Last Name"
+                placeholder="Doe"
+                :error="errors.lastname"
+                required
+              />
             </div>
-            <span
-              v-if="errors.email"
-              class="field__error"
-            >{{ errors.email }}</span>
-          </div>
 
-          <!-- Row: Phone + Age -->
-          <div class="form-row">
-            <div
-              class="field"
-              :class="{ 'field--error': errors.phone }"
-            >
-              <label class="field__label">Phone</label>
-              <div class="field__input-wrap">
-                <i class="fas fa-phone field__icon" />
-                <input
-                  v-model="phone"
-                  type="tel"
-                  class="field__input"
-                  placeholder="09xxxxxxxx"
-                  autocomplete="tel"
-                >
-              </div>
-              <span
-                v-if="errors.phone"
-                class="field__error"
-              >{{ errors.phone }}</span>
-            </div>
-            <div
-              class="field"
-              :class="{ 'field--error': errors.age }"
-            >
-              <label class="field__label">Age</label>
-              <div class="field__input-wrap">
-                <i class="fas fa-calendar field__icon" />
-                <input
-                  v-model="age"
-                  type="number"
-                  class="field__input"
-                  placeholder="25"
-                  min="18"
-                >
-              </div>
-              <span
-                v-if="errors.age"
-                class="field__error"
-              >{{ errors.age }}</span>
-            </div>
-          </div>
+            <BaseInput
+              v-model="formData.email"
+              type="email"
+              label="Email Address"
+              placeholder="you@example.com"
+              :error="errors.email"
+              required
+            />
 
-          <!-- Address -->
-          <div
-            class="field"
-            :class="{ 'field--error': errors.address }"
-          >
-            <label class="field__label">Address</label>
-            <div class="field__input-wrap">
-              <i class="fas fa-map-marker-alt field__icon" />
-              <input
-                v-model="address"
-                type="text"
-                class="field__input"
-                placeholder="Addis Ababa, Ethiopia"
-                autocomplete="street-address"
-              >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <BaseInput
+                v-model="formData.phone"
+                type="tel"
+                label="Phone Number"
+                placeholder="0912345678"
+                :error="errors.phone"
+                required
+              />
+              <BaseInput
+                v-model="formData.age"
+                type="number"
+                label="Age"
+                placeholder="18"
+                :error="errors.age"
+                required
+              />
             </div>
-            <span
-              v-if="errors.address"
-              class="field__error"
-            >{{ errors.address }}</span>
-          </div>
 
-          <!-- Row: Gender + Role -->
-          <div class="form-row">
-            <div
-              class="field"
-              :class="{ 'field--error': errors.sex }"
-            >
-              <label class="field__label">Gender</label>
-              <div class="radio-group">
+            <BaseInput
+              v-model="formData.address"
+              label="Address"
+              placeholder="Your address"
+              :error="errors.address"
+              required
+            />
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gender</label>
+              <div class="flex gap-4">
                 <label
-                  class="radio-option"
-                  :class="{ active: sex === 'female' }"
+                  v-for="option in ['female', 'male']"
+                  :key="option"
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border cursor-pointer transition-all capitalize"
+                  :class="formData.sex === option
+                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300'
+                    : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-purple-300'"
                 >
                   <input
-                    v-model="sex"
+                    v-model="formData.sex"
                     type="radio"
-                    value="female"
-                  > Female
-                </label>
-                <label
-                  class="radio-option"
-                  :class="{ active: sex === 'male' }"
-                >
-                  <input
-                    v-model="sex"
-                    type="radio"
-                    value="male"
-                  > Male
-                </label>
-              </div>
-              <span
-                v-if="errors.sex"
-                class="field__error"
-              >{{ errors.sex }}</span>
-            </div>
-            <div
-              class="field"
-              :class="{ 'field--error': errors.role }"
-            >
-              <label class="field__label">I am a</label>
-              <div class="field__input-wrap">
-                <i class="fas fa-id-badge field__icon" />
-                <select
-                  v-model="role"
-                  class="field__input field__select"
-                >
-                  <option
-                    value=""
-                    disabled
+                    :value="option"
+                    class="sr-only"
                   >
-                    Select role
-                  </option>
-                  <option value="CUSTOMER">
-                    Art Collector
-                  </option>
-                  <option value="ARTIST">
-                    Artist
-                  </option>
-                </select>
+                  {{ option }}
+                </label>
               </div>
-              <span
-                v-if="errors.role"
-                class="field__error"
-              >{{ errors.role }}</span>
+              <p
+                v-if="errors.sex"
+                class="mt-1 text-sm text-red-600"
+              >
+                {{ errors.sex }}
+              </p>
             </div>
-          </div>
 
-          <!-- Username -->
-          <div
-            class="field"
-            :class="{ 'field--error': errors.username }"
-          >
-            <label class="field__label">Username</label>
-            <div class="field__input-wrap">
-              <i class="fas fa-at field__icon" />
-              <input
-                v-model="username"
-                type="text"
-                class="field__input"
-                placeholder="johndoe"
-                autocomplete="username"
-              >
-            </div>
-            <span
-              v-if="errors.username"
-              class="field__error"
-            >{{ errors.username }}</span>
-          </div>
+            <BaseInput
+              v-model="formData.username"
+              label="Username"
+              placeholder="Choose a username"
+              :error="errors.username"
+              required
+            />
 
-          <!-- Password -->
-          <div
-            class="field"
-            :class="{ 'field--error': errors.password }"
-          >
-            <label class="field__label">Password</label>
-            <div class="field__input-wrap">
-              <i class="fas fa-lock field__icon" />
-              <input
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
-                class="field__input"
-                placeholder="Min. 6 characters"
-                autocomplete="new-password"
-              >
-              <button
-                type="button"
-                class="field__toggle"
-                @click="showPassword = !showPassword"
-              >
-                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" />
-              </button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <BaseInput
+                v-model="formData.password"
+                type="password"
+                label="Password"
+                placeholder="••••••••"
+                :error="errors.password"
+                hint="At least 8 characters, with upper, lower, and a number"
+                required
+              />
+              <BaseInput
+                v-model="formData.confirmPassword"
+                type="password"
+                label="Confirm Password"
+                placeholder="••••••••"
+                :error="errors.confirmPassword"
+                required
+              />
             </div>
-            <div
-              v-if="password"
-              class="password-strength"
+
+            <p class="text-xs text-center text-gray-500 dark:text-gray-400">
+              By creating an account you agree to our
+              <router-link
+                to="/terms"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:underline"
+              >Terms</router-link>
+              and
+              <router-link
+                to="/privacy"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:underline"
+              >Privacy Policy</router-link>.
+            </p>
+
+            <button
+              type="submit"
+              :disabled="loading"
+              class="w-full py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-60 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
             >
-              <div class="password-strength__bar">
-                <div
-                  class="password-strength__fill"
-                  :style="{ width: strengthPercent + '%', background: strengthColor }"
-                />
-              </div>
               <span
-                class="password-strength__label"
-                :style="{ color: strengthColor }"
-              >{{ strengthLabel }}</span>
-            </div>
-            <span
-              v-if="errors.password"
-              class="field__error"
-            >{{ errors.password }}</span>
-          </div>
-
-          <!-- Confirm Password -->
-          <div
-            class="field"
-            :class="{ 'field--error': errors.confirmPassword || passwordError }"
-          >
-            <label class="field__label">Confirm Password</label>
-            <div class="field__input-wrap">
-              <i class="fas fa-lock field__icon" />
-              <input
-                v-model="confirmPassword"
-                :type="showConfirm ? 'text' : 'password'"
-                class="field__input"
-                placeholder="Repeat password"
-                autocomplete="new-password"
+                v-if="loading"
+                class="inline-flex items-center gap-2"
               >
-              <button
-                type="button"
-                class="field__toggle"
-                @click="showConfirm = !showConfirm"
+                <svg
+                  class="animate-spin h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  />
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Creating account...
+              </span>
+              <span v-else>Create account</span>
+            </button>
+
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+              Already have an account?
+              <router-link
+                to="/userLogin"
+                class="font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700"
               >
-                <i :class="showConfirm ? 'fas fa-eye-slash' : 'fas fa-eye'" />
-              </button>
-            </div>
-            <span
-              v-if="errors.confirmPassword"
-              class="field__error"
-            >{{ errors.confirmPassword }}</span>
-            <span
-              v-if="passwordError"
-              class="field__error"
-            >{{ passwordError }}</span>
-          </div>
-
-          <button
-            type="submit"
-            class="auth-btn"
-            :disabled="loading"
-          >
-            <span v-if="!loading">Create Account</span>
-            <span
-              v-else
-              class="auth-btn__spinner"
-            ><i class="fas fa-circle-notch fa-spin" /> Creating...</span>
-          </button>
-        </form>
-
-        <p class="auth-switch">
-          Already have an account?
-          <router-link
-            to="/userlogin"
-            class="auth-link auth-link--bold"
-          >
-            Sign in
-          </router-link>
-        </p>
+                Sign in
+              </router-link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { authService } from '@/services/authService';
+import { useNotification } from '@/composables/useNotification';
+import { BaseInput } from '@/components/common';
+import { isStrongPassword } from '@/utils/security';
 
-export default {
-  name: 'RegisterUser',
-  components: {},
-  data() {
-    return {
-      firstname: '', lastname: '', email: '', phone: '',
-      address: '', sex: '', age: '', username: '',
-      password: '', confirmPassword: '', role: '',
-      errors: {}, passwordError: '', errorMessage: '',
-      loading: false, showPassword: false, showConfirm: false,
-    };
-  },
-  computed: {
-    strengthScore() {
-      const p = this.password;
-      if (!p) return 0;
-      let score = 0;
-      if (p.length >= 6) score++;
-      if (p.length >= 10) score++;
-      if (/[A-Z]/.test(p)) score++;
-      if (/[0-9]/.test(p)) score++;
-      if (/[^A-Za-z0-9]/.test(p)) score++;
-      return score;
-    },
-    strengthPercent() { return (this.strengthScore / 5) * 100; },
-    strengthColor() {
-      const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#16a34a'];
-      return colors[Math.min(this.strengthScore - 1, 4)] || '#ef4444';
-    },
-    strengthLabel() {
-      const labels = ['Very Weak', 'Weak', 'Fair', 'Strong', 'Very Strong'];
-      return labels[Math.min(this.strengthScore - 1, 4)] || 'Very Weak';
-    },
-  },
-  methods: {
-    async register() {
-      this.loading = true;
-      try {
-        await axios.post('http://localhost:8082/api/v1/registration/register', {
-          firstname: this.firstname, lastname: this.lastname,
-          email: this.email, phone: this.phone,
-          address: this.address, sex: this.sex,
-          age: this.age, username: this.username,
-          password: this.password, role: this.role,
-        });
-        this.$router.push('/signupSuccess');
-      } catch (error) {
-        this.errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
-      } finally {
-        this.loading = false;
-      }
-    },
-    submitForm() {
-      this.errors = {};
-      this.passwordError = '';
-      if (!this.validateForm()) return;
-      this.register();
-    },
-    validateForm() {
-      const e = this.errors;
-      const ethiopiaCode = '+251';
-      if (!this.firstname.trim()) e.firstname = 'First name is required.';
-      if (!this.lastname.trim()) e.lastname = 'Last name is required.';
-      if (!this.email.trim()) {
-        e.email = 'Email is required.';
-      } else if (!this.validEmail(this.email)) {
-        e.email = 'Enter a valid email address.';
-      }
-      if (!this.phone) {
-        e.phone = 'Phone number is required.';
-      } else if (
-        !(
-          ((this.phone.startsWith('09') || this.phone.startsWith('07')) && this.phone.length === 10) ||
-          ((this.phone.startsWith(ethiopiaCode + '9') || this.phone.startsWith(ethiopiaCode + '7')) && this.phone.length === 13)
-        )
-      ) {
-        e.phone = 'Invalid phone number format.';
-      }
-      if (!this.address.trim()) e.address = 'Address is required.';
-      if (!this.age) {
-        e.age = 'Age is required.';
-      } else if (this.age < 18) {
-        e.age = 'Must be at least 18 years old.';
-      }
-      if (!this.sex) e.sex = 'Gender is required.';
-      if (!this.role) e.role = 'Please select a role.';
-      if (!this.username.trim()) e.username = 'Username is required.';
-      if (!this.password) {
-        e.password = 'Password is required.';
-      } else if (this.password.length < 6) {
-        e.password = 'Password must be at least 6 characters.';
-      }
-      if (!this.confirmPassword) {
-        e.confirmPassword = 'Please confirm your password.';
-      } else if (this.password !== this.confirmPassword) {
-        this.passwordError = 'Passwords do not match.';
-      }
-      return Object.keys(e).length === 0 && !this.passwordError;
-    },
-    validEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    },
-  },
+const router = useRouter();
+const { success, error: showError } = useNotification();
+
+const roleOptions = [
+  { value: 'CUSTOMER', label: 'Collector', desc: 'Browse & purchase art', icon: 'fas fa-heart' },
+  { value: 'ARTIST', label: 'Artist', desc: 'Sell & showcase work', icon: 'fas fa-palette' },
+];
+
+const features = [
+  'Access exclusive auctions & collections',
+  'Connect directly with artists',
+  'Secure checkout & order tracking',
+];
+
+const formData = reactive({
+  firstname: '',
+  lastname: '',
+  email: '',
+  phone: '',
+  address: '',
+  sex: 'female',
+  age: '',
+  username: '',
+  password: '',
+  confirmPassword: '',
+  role: 'CUSTOMER'
+});
+
+const errors = ref({});
+const errorMessage = ref('');
+const loading = ref(false);
+
+const validateForm = () => {
+  errors.value = {};
+
+  if (!formData.firstname) errors.value.firstname = 'First name is required';
+  if (!formData.lastname) errors.value.lastname = 'Last name is required';
+
+  if (!formData.email) {
+    errors.value.email = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    errors.value.email = 'Invalid email address';
+  }
+
+  if (!formData.phone) {
+    errors.value.phone = 'Phone number is required';
+  } else if (!/^(09|07)\d{8}$/.test(formData.phone) && !/^\+2519\d{8}$/.test(formData.phone)) {
+    errors.value.phone = 'Invalid phone number format';
+  }
+
+  if (!formData.address) errors.value.address = 'Address is required';
+
+  if (!formData.age) {
+    errors.value.age = 'Age is required';
+  } else if (formData.age < 18) {
+    errors.value.age = 'You must be at least 18 years old';
+  }
+
+  if (!formData.sex) errors.value.sex = 'Gender is required';
+  if (!formData.username) errors.value.username = 'Username is required';
+
+  if (!formData.password) {
+    errors.value.password = 'Password is required';
+  } else if (!isStrongPassword(formData.password)) {
+    errors.value.password = 'Use 8+ characters with upper, lower, and a number';
+  }
+
+  if (!formData.confirmPassword) {
+    errors.value.confirmPassword = 'Please confirm your password';
+  } else if (formData.password !== formData.confirmPassword) {
+    errors.value.confirmPassword = 'Passwords do not match';
+  }
+
+  return Object.keys(errors.value).length === 0;
+};
+
+const handleRegister = async () => {
+  if (!validateForm()) return;
+
+  loading.value = true;
+  errorMessage.value = '';
+
+  try {
+    await authService.register(formData);
+    success('Registration successful! Please check your email.');
+    router.push('/signupSuccess');
+  } catch (err) {
+    errorMessage.value = err.response?.data?.message || err.message || 'Registration failed';
+    showError(errorMessage.value);
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
-
-<style scoped>
-/* ── Layout ── */
-.auth-page {
-  display: flex;
-  min-height: 100vh;
-}
-
-.auth-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── Art Panel ── */
-.auth-panel--art {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  flex: 0 0 380px;
-  background: url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&q=80') center/cover no-repeat;
-}
-
-.art-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgba(99,102,241,0.88) 0%, rgba(139,92,246,0.8) 40%, rgba(17,24,39,0.9) 100%);
-}
-
-.art-content {
-  position: relative;
-  z-index: 1;
-  padding: 3rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-  justify-content: center;
-}
-
-.art-logo img {
-  height: 52px;
-  filter: brightness(0) invert(1);
-}
-
-.auth-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.auth-brand__kelem {
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-  color: #fff;
-  line-height: 1;
-}
-.auth-brand__sub {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-}
-
-.art-tagline h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #fff;
-  margin: 0 0 0.75rem;
-  letter-spacing: -0.5px;
-}
-.art-tagline p {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
-  margin: 0;
-}
-
-.art-swatches {
-  display: flex;
-  gap: 10px;
-}
-.art-swatches span {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  display: block;
-}
-
-/* ── Form Panel ── */
-.auth-panel--form {
-  flex: 1;
-  background: #f9fafb;
-  padding: 2rem;
-  align-items: flex-start;
-  overflow-y: auto;
-}
-
-.auth-form-wrap {
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: 2rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.auth-header { text-align: left; }
-
-.auth-title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #111827;
-  margin: 0 0 0.35rem;
-  letter-spacing: -0.5px;
-}
-.auth-subtitle {
-  font-size: 0.95rem;
-  color: #6b7280;
-  margin: 0;
-}
-
-/* ── Alert ── */
-.auth-alert {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.85rem 1rem;
-  border-radius: 10px;
-  font-size: 0.875rem;
-}
-.auth-alert--error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #dc2626;
-}
-
-/* ── Form ── */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-/* ── Field ── */
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.field__label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #374151;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.field__input-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.field__icon {
-  position: absolute;
-  left: 0.9rem;
-  color: #9ca3af;
-  font-size: 0.85rem;
-  pointer-events: none;
-  transition: color 0.2s;
-}
-
-.field__input {
-  width: 100%;
-  padding: 0.7rem 2.5rem 0.7rem 2.4rem;
-  font-size: 0.9rem;
-  color: #111827;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  appearance: none;
-}
-.field__input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
-}
-.field__input-wrap:focus-within .field__icon { color: #6366f1; }
-
-.field--error .field__input {
-  border-color: #ef4444;
-}
-.field--error .field__input:focus {
-  box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
-}
-
-.field__select {
-  padding-right: 1rem;
-  cursor: pointer;
-}
-
-.field__toggle {
-  position: absolute;
-  right: 0.9rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #9ca3af;
-  font-size: 0.85rem;
-  padding: 0;
-  transition: color 0.2s;
-}
-.field__toggle:hover { color: #6366f1; }
-
-.field__error {
-  font-size: 0.78rem;
-  color: #ef4444;
-}
-
-/* ── Radio Group ── */
-.radio-group {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.radio-option {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.65rem 0.5rem;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.radio-option input[type="radio"] { display: none; }
-.radio-option.active {
-  border-color: #6366f1;
-  background: rgba(99,102,241,0.07);
-  color: #6366f1;
-  font-weight: 600;
-}
-
-/* ── Password Strength ── */
-.password-strength {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.25rem;
-}
-.password-strength__bar {
-  flex: 1;
-  height: 4px;
-  background: #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.password-strength__fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.3s ease, background 0.3s ease;
-}
-.password-strength__label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* ── Submit ── */
-.auth-btn {
-  width: 100%;
-  padding: 0.85rem;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(99,102,241,0.4);
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-  margin-top: 0.5rem;
-}
-.auth-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99,102,241,0.5);
-}
-.auth-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-.auth-btn__spinner { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-
-/* ── Links ── */
-.auth-link {
-  font-size: 0.875rem;
-  color: #6366f1;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.auth-link:hover { color: #4f46e5; text-decoration: underline; }
-.auth-link--bold { font-weight: 700; }
-
-.auth-switch {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin: 0;
-}
-
-/* ── Transition ── */
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .auth-panel--art { display: none; }
-}
-
-@media (max-width: 768px) {
-  .auth-panel--form {
-    background: #fff;
-    padding: 1.5rem;
-    padding-top: 5rem;
-  }
-  .form-row { grid-template-columns: 1fr; }
-  .auth-title { font-size: 1.75rem; }
-}
-</style>

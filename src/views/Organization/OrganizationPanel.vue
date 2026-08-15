@@ -1,219 +1,122 @@
 <template>
-  <div class="dashboard">
-    <nav class="sidebar">
-      <div class="sidebar-header">
-        <h3>Organization Dashboard</h3>
-      </div>
-      <ul class="sidebar-menu">
-        <li
-          v-for="(tab, index) in tabs"
-          :key="index"
-          class="sidebar-menu-item"
-          :class="{ active: activeTab === tab }"
-        >
-          <a @click="changeTab(tab)">{{ tab }}</a>
-        </li>
-        <li class="sidebar-menu-item logout">
-          <button @click="showConfirmationDialog = true">
-            <i class="fas fa-sign-out-alt" />
-          </button>
-          <div
-            v-if="showConfirmationDialog"
-            class="confirmation-dialog"
-          >
-            <p>Are you sure you want to logout?</p>
-            <button @click="logoutUser">
-              Yes
-            </button>
-            <button @click="cancelLogout">
-              No
-            </button>
+  <div class="p-4 sm:p-6 lg:p-8">
+    <div
+      v-if="activeTab.key === 'overview'"
+      class="space-y-6"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 border border-transparent dark:border-gray-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                Total Events
+              </p>
+              <p class="text-3xl font-bold text-gray-900 dark:text-white">
+                {{ stats.totalEvents }}
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center">
+              <i class="fas fa-calendar text-xl text-blue-600 dark:text-blue-400" />
+            </div>
           </div>
-        </li>
-      </ul>
-    </nav>
-    <div class="content">
-      <div v-if="activeTab === 'Arts'">
-        <MyArt />
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 border border-transparent dark:border-gray-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                Upcoming Events
+              </p>
+              <p class="text-3xl font-bold text-gray-900 dark:text-white">
+                {{ stats.upcomingEvents }}
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-lg flex items-center justify-center">
+              <i class="fas fa-clock text-xl text-green-600 dark:text-green-400" />
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 border border-transparent dark:border-gray-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                Registrations
+              </p>
+              <p class="text-3xl font-bold text-gray-900 dark:text-white">
+                {{ stats.registrations }}
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
+              <i class="fas fa-users text-xl text-purple-600 dark:text-purple-400" />
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-else-if="activeTab === 'Profile'">
-        <ProfileSetting />
-      </div>
-      <div v-else-if="activeTab === 'Competition'">
-        <DisplayCompetition />
-      </div>
-      <div v-else-if="activeTab === 'Post Event'">
-        <EventRegister />
-      </div>
-      <div v-else-if="activeTab === 'Contact'">
-        <Contact />
-      </div>
-      <div v-else-if="activeTab === 'Standard'">
-        <UserStandard />
-      </div>
-      <div v-else-if="activeTab === 'Profile Setting'">
-        <ProfileSetting />
-      </div>
+
+      <BaseCard title="Quick Actions">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <button
+            v-for="action in quickActions"
+            :key="action.key"
+            type="button"
+            class="p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all text-center"
+            @click="setTab(tabs.find((t) => t.key === action.key))"
+          >
+            <i
+              :class="action.icon"
+              class="text-3xl text-gray-600 dark:text-gray-300 mb-2"
+            />
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+              {{ action.label }}
+            </p>
+          </button>
+        </div>
+      </BaseCard>
     </div>
+
+    <EventDisplay
+      v-else-if="activeTab.key === 'events'"
+      embedded
+    />
+    <EventRegister v-else-if="activeTab.key === 'register-event'" />
+    <UpdateEvent v-else-if="activeTab.key === 'update-event'" />
+    <ProfileSetting
+      v-else-if="activeTab.key === 'profile'"
+      embedded
+    />
   </div>
-  <FooterView />
 </template>
-  
-  <script>
-  import EventRegister from '@/views/Organization/EventRegister.vue'
-  import MyArt from '@/views/Artwork/MyArt.vue';
-  import DisplayCompetition from '@/views/Manager/DisplayCompetition.vue';
-  import FooterView from '@/components/FooterView.vue';
-  import Contact from '@/views/Organization/ContactUser.vue'
-  import ProfileSetting from '@/views/User/ProfileSetting.vue'
-  
-  import axios from 'axios';
-  
-  export default {
-    components: {
-      MyArt,
-      DisplayCompetition,
-      ProfileSetting,
-      FooterView,
-      Contact,
-      EventRegister
-    },
-    data() {
-      return {
-        activeTab: 'Profile',
-        tabs: ['Arts','Post Event','Profile', 'Competition','Contact','Standard','Profile Setting'],
-        showConfirmationDialog: false,
-      };
-    },
-    methods: {
-      changeTab(tab) {
-        this.activeTab = tab;
-      },
-      logoutUser() {
-        axios
-          .get('http://localhost:8082/api/logout')
-          .then(response => {
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('userInfo');
-            this.$router.push('/userLogin');
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      cancelLogout() {
-        this.showConfirmationDialog = false;
-      },
-    },
-  };
-  </script>
-    
-    <style scoped>
-    .dashboard {
-      display: flex;
-      flex-direction: row;
-      margin-top: 70px;
-    }
-    
-    .sidebar {
-      width: 250px;
-      background-color: #333;
-      color: #fff;
-    }
-    
-    .sidebar-header {
-      padding: 20px;
-      background-color: #222;
-    }
-    
-    .sidebar-header h3 {
-      margin: 0;
-      font-size: 20px;
-    }
-    
-    .sidebar-menu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .sidebar-menu-item {
-      padding: 10px 20px;
-      transition: background-color 0.3s ease;
-    }
-    
-    .sidebar-menu-item a {
-      color: #fff;
-      text-decoration: none;
-    }
-    
-    .sidebar-menu-item.active {
-      background-color: #555;
-    }
-    .sidebar-menu-item.logout {
-    position: relative;
-  }
-  
-  .sidebar-menu-item.logout button {
-    border: none;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .confirmation-dialog {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #555;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .confirmation-dialog p {
-    color: #fff;
-    margin: 0 0 10px;
-  }
-  
-  .confirmation-dialog button {
-    margin: 5px;
-    padding: 5px 10px;
-  }
-    
-  .sidebar-menu-item.logout {
-    display: flex;
-    transition: background-color 0.3s ease;
-  }
-  
-  .sidebar-menu-item.logout button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: #da0b0b;
-    font-size: 20px;
-  }
-  
-  .sidebar-menu-item.logout button:hover {
-    color: #ccc;
-  }
-    .content {
-      flex: 1;
-      padding: 20px;
-    }
-    @media screen and (max-width: 768px) {
-      .dashboard {
-        flex-direction: column;
-      }
-    
-      .sidebar {
-        width: 100%;
-        margin-bottom: 20px;
-      }
-    }
-    </style>
-    
+
+<script setup>
+import { ref } from 'vue';
+import { BaseCard } from '@/components/common';
+import EventDisplay from '@/views/Organization/EventDisplay.vue';
+import EventRegister from '@/views/Organization/EventRegister.vue';
+import UpdateEvent from '@/views/Organization/UpdateEvent.vue';
+import ProfileSetting from '@/views/User/ProfileSetting.vue';
+import { useDashboardRoute } from '@/composables/useDashboardRoute';
+
+const tabs = [
+  { key: 'overview', label: 'Overview', icon: 'fas fa-building' },
+  { key: 'events', label: 'Events', icon: 'fas fa-calendar-alt' },
+  { key: 'register-event', label: 'Register Event', icon: 'fas fa-plus-circle' },
+  { key: 'update-event', label: 'Update Event', icon: 'fas fa-edit' },
+  { key: 'profile', label: 'Profile', icon: 'fas fa-user' }
+];
+
+const { activeTab, setTab } = useDashboardRoute(tabs, 'overview');
+
+const stats = ref({
+  totalEvents: 12,
+  upcomingEvents: 5,
+  registrations: 248
+});
+
+const quickActions = [
+  { key: 'register-event', label: 'New Event', icon: 'fas fa-plus-circle' },
+  { key: 'events', label: 'View Events', icon: 'fas fa-calendar-alt' },
+  { key: 'update-event', label: 'Update Event', icon: 'fas fa-edit' },
+  { key: 'profile', label: 'Profile', icon: 'fas fa-user' }
+];
+</script>

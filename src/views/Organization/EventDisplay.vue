@@ -1,166 +1,195 @@
 <template>
-  <div class="event-list">
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Events
+    </h2>
+
+    <LoadingSpinner
+      v-if="loading"
+      size="lg"
+    />
+
     <div
-      v-for="event in events"
-      :key="event.id"
-      class="event-card"
+      v-else-if="events.length === 0"
+      class="text-center py-12"
     >
-      <div class="event-image-container">
-        <img
-          :src="getEventImageUrl(event.id)"
-          alt="Event picture"
-          class="event-image"
-        >
-      </div>
-      <div class="event-details">
-        <h1 class="event-name">
-          {{ event.eventName }}
-        </h1>
-        <p class="event-description">
-          {{ event.eventDescription }}
-        </p>
-        <p class="event-description">
-          Ticket Price: {{ event.ticketPrice }}
-        </p>
-        <p class="event-description">
-          Location: {{ event.location }}
-        </p>
-        <p class="event-description">
-          Capacity: {{ event.capacity }}
-        </p>
-        <p class="event-description">
-          Event Date: {{ event.eventDate }}
-        </p>
-        <router-link
-          :to="'/registerCompetitor?id=' + event.id"
-          class="register-button"
-        >
-          Register
-        </router-link>
+      <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4" />
+      <p class="text-gray-500">
+        No events available
+      </p>
+    </div>
+
+    <div
+      v-else
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      <div
+        v-for="event in events"
+        :key="event.id"
+        class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+      >
+        <div class="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <i class="fas fa-calendar-alt text-6xl text-white opacity-20" />
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="px-3 py-1 bg-white text-blue-600 text-xs font-bold rounded-full">
+              {{ event.status || 'Upcoming' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">
+            {{ event.eventTitle }}
+          </h3>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+            {{ event.eventDescription }}
+          </p>
+
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-calendar w-5" />
+              <span>{{ formatDate(event.eventDate) }}</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-clock w-5" />
+              <span>{{ event.eventTime }}</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-map-marker-alt w-5" />
+              <span>{{ event.location }}</span>
+            </div>
+          </div>
+
+          <BaseButton
+            variant="primary"
+            size="sm"
+            full-width
+            @click="viewDetails(event)"
+          >
+            View Details
+          </BaseButton>
+        </div>
       </div>
     </div>
+
+    <BaseModal
+      v-model="showDetailsModal"
+      :title="selectedEvent?.eventTitle"
+      size="lg"
+    >
+      <div
+        v-if="selectedEvent"
+        class="space-y-4"
+      >
+        <p class="text-gray-700">
+          {{ selectedEvent.eventDescription }}
+        </p>
+        
+        <div class="grid grid-cols-2 gap-4 py-4 border-t border-b">
+          <div>
+            <p class="text-sm text-gray-600">
+              Date
+            </p>
+            <p class="font-semibold">
+              {{ formatDate(selectedEvent.eventDate) }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">
+              Time
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.eventTime }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">
+              Location
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.location }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">
+              Organizer
+            </p>
+            <p class="font-semibold">
+              {{ selectedEvent.organizerName }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <template #footer>
+        <BaseButton
+          variant="secondary"
+          @click="showDetailsModal = false"
+        >
+          Close
+        </BaseButton>
+        <BaseButton
+          variant="primary"
+          @click="registerForEvent"
+        >
+          Register
+        </BaseButton>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useNotification } from '@/composables/useNotification';
+import { BaseButton, BaseModal, LoadingSpinner } from '@/components/common';
+import api from '@/services/api';
 
-<script>
-export default {
-  data() {
-    return {
-      events: [],
-    };
-  },
-  mounted() {
-    this.fetchAllEvents();
-  },
-  methods: {
-    fetchAllEvents() {
-      fetch('http://localhost:8082/api/events', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Failed to fetch events');
-          }
-        })
-        .then(data => {
-          this.events = data;
-          this.fetchEventImages();
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    fetchEventImages() {
-      this.events.forEach(event => {
-        fetch(`http://localhost:8082/api/events/${event.id}/image`, {
-          method: 'GET',
-          headers: {
-            Accept: 'image/png',
-          },
-        })
-          .then(response => {
-            if (response.ok) {
-              return response.blob();
-            } else {
-              throw new Error(`Failed to fetch image for event ${event.id}`);
-            }
-          })
-          .then(imageBlob => {
-            event.imageUrl = URL.createObjectURL(imageBlob);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
-    },
-    getEventImageUrl(eventId) {
-      const event = this.events.find(event => event.id === eventId);
-      return event ? event.imageUrl : null;
-    },
-  },
+const { success, error: showError } = useNotification();
+
+const events = ref([]);
+const loading = ref(false);
+const showDetailsModal = ref(false);
+const selectedEvent = ref(null);
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 };
-</script>
 
-<style scoped>
-.event-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.event-card {
-  width: 500px;
-  margin: 20px;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.event-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: scale(1.2); 
-}
-
-.event-image-container {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 5px;
-}
-
-.event-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.event-details {
-  margin-top: 10px;
-}
-
-.event-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.event-description {
-  margin-bottom: 6px;
-}
-
-@media (max-width: 768px) {
-  .event-card {
-    width: 100%;
+const fetchEvents = async () => {
+  loading.value = true;
+  try {
+    const response = await api.get('/events');
+    events.value = response.data;
+  } catch (err) {
+    showError('Failed to load events');
+  } finally {
+    loading.value = false;
   }
-}
-</style>
+};
 
+const viewDetails = (event) => {
+  selectedEvent.value = event;
+  showDetailsModal.value = true;
+};
+
+const registerForEvent = async () => {
+  try {
+    await api.post(`/events/${selectedEvent.value.id}/register`);
+    success('Successfully registered for event!');
+    showDetailsModal.value = false;
+  } catch (err) {
+    showError('Failed to register for event');
+  }
+};
+
+onMounted(() => {
+  fetchEvents();
+});
+</script>

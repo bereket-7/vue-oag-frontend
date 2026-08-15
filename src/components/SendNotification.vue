@@ -1,97 +1,88 @@
 <template>
-  <div class="container-fluid rounded bg-white mt-0">
-    <h1 class="Heading">
-      Send Notification
-    </h1>
-    <div class="row">
-      <div class="col-md-8 border-right">
-        <div class="p-3 py-5">
-          <form class="form-container">
-            <label for="Email">Email</label>
-            <input
-              id="Email"
-              type="text"
-              name="firstname"
-              placeholder="Your Email"
-            >
+  <div class="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto">
+    <PageHeader
+      title="Send notification"
+      subtitle="Email a user with an update or announcement"
+      eyebrow="Communication"
+    />
 
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="subject"
-              placeholder="Write something.."
-              style="height:200px"
-            />
-
-            <input
-              type="submit"
-              value="Send"
-            >
-          </form>          
-        </div>
+    <form
+      class="page-card p-6 sm:p-8 space-y-5"
+      @submit.prevent="handleSubmit"
+    >
+      <div
+        v-if="successMessage"
+        class="alert-success"
+      >
+        <i class="fas fa-check-circle mr-2" />{{ successMessage }}
       </div>
-    </div>
+      <div
+        v-if="errorMessage"
+        class="alert-error"
+      >
+        <i class="fas fa-exclamation-circle mr-2" />{{ errorMessage }}
+      </div>
+
+      <BaseInput
+        v-model="form.email"
+        type="email"
+        label="Recipient email"
+        placeholder="user@example.com"
+        required
+      />
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+          Message <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          v-model="form.message"
+          rows="6"
+          class="form-textarea"
+          placeholder="Write something..."
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        class="kelem-btn"
+        :disabled="loading"
+      >
+        <i
+          v-if="loading"
+          class="fas fa-spinner fa-spin mr-2"
+        />
+        <i
+          v-else
+          class="fas fa-paper-plane mr-2"
+        />
+        Send
+      </button>
+    </form>
   </div>
 </template>
 
-<script>
+<script setup>
+import { reactive, ref } from 'vue';
+import { userService } from '@/services/userService';
+import { BaseInput, PageHeader } from '@/components/common';
 
+const form = reactive({ email: '', message: '' });
+const loading = ref(false);
+const successMessage = ref('');
+const errorMessage = ref('');
+
+const handleSubmit = async () => {
+  loading.value = true;
+  successMessage.value = '';
+  errorMessage.value = '';
+  try {
+    await userService.sendNotification({ ...form });
+    successMessage.value = 'Notification sent.';
+    Object.assign(form, { email: '', message: '' });
+  } catch {
+    errorMessage.value = 'Failed to send notification.';
+  } finally {
+    loading.value = false;
+  }
+};
 </script>
-
-
-<style scoped>
-input[type=text],textarea {
-  width: 100%; 
-  padding: 12px; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-  box-sizing: border-box; 
-  margin-top: 6px; 
-  margin-bottom: 16px; 
-  resize: vertical
-}
-.form-container{
-  margin-left: 150px;
-}
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.Heading{
-  margin-left: 150px;
-}
-
-/* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-.form-control:focus {
-      box-shadow: none;
-      border-color: black
-  }
-  .back:hover {
-      color: #682773;
-      cursor: pointer
-  }
-  
-  .labels {
-      font-size: 11px
-  }
-  
-  .add-experience:hover {
-      background: #BA68C8;
-      color: #fff;
-      cursor: pointer;
-      border: solid 1px #BA68C8
-  }
-  
-</style>

@@ -1,34 +1,32 @@
 <template>
-  <div class="success-page">
-    <h1>Payment Successful!</h1>
-    <p>Thank you for your payment. Your transaction has been successfully processed.</p>
+  <div class="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4 py-16">
+    <div class="page-card max-w-lg w-full p-10 text-center space-y-5">
+      <div class="w-16 h-16 mx-auto rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center">
+        <i class="fas fa-check text-2xl text-green-600 dark:text-green-400" />
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+        Payment successful
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Thank you. Your transaction has been processed and a receipt is available in your orders.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <router-link
+          to="/account/orders"
+          class="kelem-btn"
+        >
+          View orders
+        </router-link>
+        <router-link
+          to="/"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          Back home
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
-  <script>
-     export default {
 
-     }
+<script setup>
 </script>
-  <style scoped>
-  .success-page {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .success-page h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color:#5c9be5;
-    font-weight:bold;
-  }
-  
-  .success-page p {
-    font-size: 16px;
-  }
-  </style>
-  

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { artworkService } from '@/services/artworkService';
 
 export default {
   data() {
@@ -56,10 +56,10 @@ export default {
   methods: {
     fetchSortedArtworks() {
       if (this.selectedSortOption) {
-        axios
-          .get(`http://localhost:8082/artworks/sort?sortOption=${this.selectedSortOption}`)
-          .then(response => {
-            this.sortedArtworks = response.data;
+        artworkService
+          .sort(this.selectedSortOption)
+          .then(data => {
+            this.sortedArtworks = data;
           })
           .catch(error => {
             console.error(error);
@@ -69,7 +69,7 @@ export default {
       }
     },
     getArtworkImageUrl(artworkId) {
-      return `http://localhost:8082/artworks/${artworkId}/image`;
+      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
   },
 };

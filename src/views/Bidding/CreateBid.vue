@@ -95,7 +95,7 @@
 </template>
   
 <script>
-import axios from 'axios'
+import { bidService } from '@/services/bidService'
 
 export default {
   name: 'CreateBid',
@@ -123,11 +123,11 @@ export default {
       formData.append('startingTime', this.startingTime)
       formData.append('image', this.$refs.fileInput.files[0])
 
-      axios
-        .post('http://localhost:8081/bid/saveBidArt', formData)
-        .then((response) => {
-          console.log(response.data)
-          this.successMessage = response.data
+      bidService
+        .create(formData)
+        .then((data) => {
+          console.log(data)
+          this.successMessage = data
           this.errorMessage = ''
         })
         .catch((error) => {

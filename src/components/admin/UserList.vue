@@ -128,7 +128,7 @@ import { ref, onMounted } from 'vue';
 import { useNotification } from '@/composables/useNotification';
 import DataTable from '@/components/common/DataTable.vue';
 import { BaseModal, BaseButton, BaseInput } from '@/components/common';
-import api from '@/services/api';
+import { userService } from '@/services/userService';
 
 const props = defineProps({
   userType: {
@@ -171,8 +171,7 @@ const editForm = ref({
 const fetchUsers = async () => {
   loading.value = true;
   try {
-    const response = await api.get(props.endpoint);
-    users.value = response.data;
+    users.value = await userService.getByRole(props.userType);
   } catch (err) {
     showError('Failed to load users');
   } finally {
@@ -189,7 +188,7 @@ const handleEdit = (user) => {
 const handleUpdate = async () => {
   updating.value = true;
   try {
-    await api.put(`${props.endpoint}/${selectedUser.value.id}`, editForm.value);
+    await userService.updateProfile(editForm.value);
     success('User updated successfully');
     showEditModal.value = false;
     await fetchUsers();
@@ -208,7 +207,7 @@ const handleDelete = (user) => {
 const confirmDelete = async () => {
   deleting.value = true;
   try {
-    await api.delete(`${props.endpoint}/${selectedUser.value.id}`);
+    await userService.deleteUser(selectedUser.value.id);
     success('User deleted successfully');
     showDeleteModal.value = false;
     await fetchUsers();

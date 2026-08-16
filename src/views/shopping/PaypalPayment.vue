@@ -99,7 +99,7 @@
 
 
 <script>
-import { paymentService } from '@/services/paymentService';
+import { checkoutService } from '@/services/checkoutService';
 import { isSafeExternalUrl } from '@/utils/security';
 
 export default {
@@ -114,18 +114,18 @@ export default {
   },
   methods: {
     makePayment() {
-      paymentService
-      .paypalPay({
-        total: this.total,
-        currency: this.currency,
-        method: this.method,
-        intent: this.intent,
-        description: this.description
+      checkoutService
+      .initiate({
+        firstname: 'Guest',
+        lastname: 'Buyer',
+        email: 'buyer@example.com',
+        phone: '0911223344',
+        address: { street: '', city: '', state: '', country: 'ET', postalCode: '' }
       })
       .then(response => {
-        const approvalUrl = response?.approvalUrl;
-        if (approvalUrl && isSafeExternalUrl(approvalUrl) && /^https:\/\/(www\.)?(sandbox\.)?paypal\.com\//i.test(approvalUrl)) {
-          window.location.href = approvalUrl;
+        const url = response?.checkOutUrl;
+        if (url && isSafeExternalUrl(url)) {
+          window.location.href = url;
         }
       })
       .catch(error => {

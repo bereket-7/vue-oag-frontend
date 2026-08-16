@@ -99,8 +99,9 @@ const confirmRegistration = async () => {
   loading.value = true;
   try {
     await authService.confirmRegistration({
-      email: email.value,
-      confirmationCode: confirmationCode.value
+      username: email.value,
+      otp: confirmationCode.value,
+      medium: 'EMAIL'
     });
     confirmed.value = true;
   } catch (err) {

@@ -38,9 +38,26 @@ Never show these on the login page or ship them in a production build.
 - [x] Phase 5: Admin/manager ops
 - [x] Phase 6: Growth and production readiness
 
+## API contract (frozen v1.0)
+
+Canonical paths, DTOs, and mappings: [`../../online-art-gallery-springboot/docs/api-contract.md`](../../online-art-gallery-springboot/docs/api-contract.md).
+
+Frontend unwrap, env, and adapter signatures: [`api-contract.md`](./api-contract.md).
+
+Live mode:
+
+```env
+VUE_APP_USE_MOCK=false
+VUE_APP_API_BASE_URL=http://localhost:8088/api/v1
+VUE_APP_SOCKET_URL=http://localhost:8088
+```
+
+`httpAdapter` must unwrap `GenericResponse.content`, call Chapa `POST /checkout` (not PayPal), and use STOMP at `/ws/notifications`. See contract section F for every current adapter path → canonical path.
+
 ## API Swap Instructions
 
-1. Implement `httpAdapter[resource]` methods matching mock responses
-2. Add response mappers in `src/utils/normalizers.js` if needed
-3. Set `VUE_APP_USE_MOCK=false`
-4. Test each resource independently
+1. Implement `httpAdapter[resource]` methods against the frozen contract (not ad-hoc backend URLs)
+2. Unwrap `{ status, message, content }` in `httpAdapter.wrap()`; keep mock responses unwrapped
+3. Add response mappers in `src/utils/normalizers.js` using contract field aliases
+4. Set `VUE_APP_USE_MOCK=false`
+5. Test each resource independently against `http://localhost:8088/v3/api-docs`

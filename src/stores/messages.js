@@ -27,8 +27,8 @@ export const useMessageStore = defineStore('messages', () => {
     }
   };
 
-  const sendMessage = async (threadId, senderId, senderName, body) => {
-    const msg = await messageService.send(threadId, senderId, senderName, body);
+  const sendMessage = async (threadId, body) => {
+    const msg = await messageService.send(threadId, body);
     currentThread.value.push(msg);
     return msg;
   };

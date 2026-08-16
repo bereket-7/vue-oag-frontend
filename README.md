@@ -172,7 +172,7 @@ src/
 
 - **Node.js** >= 14.x
 - **npm** >= 6.x
-- A running backend API (default: `http://localhost:8082`)
+- A running backend API (default: `http://localhost:8088`, contract `/api/v1`)
 
 ### Installation
 
@@ -285,11 +285,11 @@ Copy `.env.example` to `.env.development` and configure:
 
 ```env
 VUE_APP_USE_MOCK=true
-VUE_APP_API_BASE_URL=http://localhost:8082/api
-VUE_APP_PAYPAL_CLIENT_ID=your_paypal_client_id
+VUE_APP_API_BASE_URL=http://localhost:8088/api/v1
+VUE_APP_SOCKET_URL=http://localhost:8088
 ```
 
-Set `VUE_APP_USE_MOCK=false` when connecting to a live backend. See `docs/IMPLEMENTATION.md` for mock credentials and API swap instructions.
+Set `VUE_APP_USE_MOCK=false` when connecting to a live backend. Frozen API contract: [`docs/api-contract.md`](docs/api-contract.md) (canonical: `online-art-gallery-springboot/docs/api-contract.md`). See `docs/IMPLEMENTATION.md` for mock credentials and API swap instructions. Payment is Chapa (`POST /checkout`), not PayPal.
 
 ---
 

@@ -80,7 +80,7 @@
 
           <form
             class="space-y-5"
-            @submit.prevent="handleLogin"
+            @submit.prevent="handleSubmit"
           >
             <div
               v-if="error"
@@ -90,6 +90,46 @@
               {{ error }}
             </div>
 
+            <div
+              v-if="step === 'otp'"
+              class="space-y-5"
+            >
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Enter the verification code sent to {{ credentials.email }}.
+              </p>
+              <div>
+                <label
+                  for="otp"
+                  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
+                >Verification code</label>
+                <input
+                  id="otp"
+                  v-model="otp"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="one-time-code"
+                  placeholder="123456"
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                >
+              </div>
+              <button
+                type="submit"
+                :disabled="loading"
+                class="w-full py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-60"
+              >
+                {{ loading ? 'Verifying...' : 'Verify and sign in' }}
+              </button>
+              <button
+                type="button"
+                class="w-full text-sm text-purple-600"
+                @click="step = 'credentials'; error = ''"
+              >
+                Back to login
+              </button>
+            </div>
+
+            <template v-else>
             <div>
               <label
                 for="email"
@@ -179,6 +219,7 @@
               </span>
               <span v-else>{{ t('auth.login') }}</span>
             </button>
+            </template>
           </form>
 
           <p class="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -207,28 +248,54 @@ import { getSafeInternalPath } from '@/utils/security';
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
-const { login, redirectByRole } = useAuth();
+const { login, verifyLogin, redirectByRole } = useAuth();
 
 const credentials = ref({ email: '', password: '' });
+const otp = ref('');
+const step = ref('credentials');
 const loading = ref(false);
 const error = ref('');
 const showPassword = ref(false);
 const isMock = isMockMode();
 
-const handleLogin = async () => {
+const finishLogin = () => {
+  const redirect = getSafeInternalPath(route.query.redirect, '');
+  if (redirect) {
+    router.replace(redirect);
+  } else {
+    redirectByRole();
+  }
+};
+
+const handleSubmit = async () => {
   loading.value = true;
   error.value = '';
+  if (step.value === 'otp') {
+    const result = await verifyLogin({
+      username: credentials.value.email,
+      otp: otp.value,
+      medium: 'EMAIL'
+    });
+    if (result.success && !result.requiresOtp) {
+      finishLogin();
+    } else if (result.requiresOtp) {
+      error.value = result.data?.message || 'Enter the verification code';
+    } else {
+      error.value = result.error || 'Verification failed';
+    }
+    loading.value = false;
+    return;
+  }
+
   const result = await login({
     username: credentials.value.email,
-    password: credentials.value.password
+    password: credentials.value.password,
+    channel: 'EMAIL'
   });
-  if (result.success) {
-    const redirect = getSafeInternalPath(route.query.redirect, '');
-    if (redirect) {
-      router.replace(redirect);
-    } else {
-      redirectByRole();
-    }
+  if (result.success && result.requiresOtp) {
+    step.value = 'otp';
+  } else if (result.success) {
+    finishLogin();
   } else {
     error.value = result.error || 'Invalid email or password';
   }

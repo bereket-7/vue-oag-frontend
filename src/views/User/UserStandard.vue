@@ -95,7 +95,7 @@
 import { ref, onMounted } from 'vue';
 import { useNotification } from '@/composables/useNotification';
 import { BaseCard, LoadingSpinner } from '@/components/common';
-import api from '@/services/api';
+import { standardService } from '@/services/standardService';
 
 const { error: showError } = useNotification();
 
@@ -134,8 +134,7 @@ const toggleRules = (id) => {
 const fetchStandards = async () => {
   loading.value = true;
   try {
-    const response = await api.get('/standards');
-    standards.value = response.data;
+    standards.value = await standardService.getAll();
   } catch (err) {
     showError('Failed to load standards');
   } finally {

@@ -14,8 +14,7 @@ export const artworkService = {
   rate: (id, rating) => adapter().rate(id, rating),
   getPending: () => adapter().getPending(),
   accept: (id) => adapter().accept(id),
-  reject: (id) => adapter().reject(id),
+  reject: (id, reason) => adapter().reject(id, reason),
   getByPriceRange: (minPrice, maxPrice) => adapter().getByPriceRange(minPrice, maxPrice),
-  sort: (sortOption) => adapter().sort(sortOption),
-  getImage: (id) => adapter().getImage(id)
+  sort: (sortOption) => adapter().sort(sortOption)
 };

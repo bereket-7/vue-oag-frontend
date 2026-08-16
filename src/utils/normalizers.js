@@ -1,30 +1,11 @@
 import { parsePrice } from './currency';
+import { resolveMediaUrl } from './unwrap';
 
-const ARTIST_SLUG_MAP = {
-  'Elena Rodriguez': { id: 1, slug: 'elena-rodriguez' },
-  'Marcus Chen': { id: 2, slug: 'marcus-chen' },
-  'Sophie Laurent': { id: 3, slug: 'sophie-laurent' },
-  'James Mitchell': { id: 4, slug: 'james-mitchell' },
-  'Amara Diallo': { id: 5, slug: 'amara-diallo' },
-  'Yuki Tanaka': { id: 6, slug: 'yuki-tanaka' },
-  'Lena Müller': { id: 7, slug: 'lena-muller' },
-  'Carlos Vega': { id: 8, slug: 'carlos-vega' },
-  'Fatima Al-Hassan': { id: 9, slug: 'fatima-al-hassan' },
-  'Noah Williams': { id: 10, slug: 'noah-williams' },
-  'Priya Sharma': { id: 11, slug: 'priya-sharma' },
-  'Kwame Asante': { id: 12, slug: 'kwame-asante' },
-  'Zara Okonkwo': { id: 13, slug: 'zara-okonkwo' },
-  'Hana Kobayashi': { id: 14, slug: 'hana-kobayashi' },
-  'Ivan Petrov': { id: 15, slug: 'ivan-petrov' }
-};
-
-function resolveArtist(artistName) {
-  const mapped = ARTIST_SLUG_MAP[artistName];
-  return {
-    artistId: mapped?.id || null,
-    artistName: artistName || 'Unknown Artist',
-    artistSlug: mapped?.slug || null
-  };
+function firstImage(raw) {
+  if (raw.imageUrl) return resolveMediaUrl(raw.imageUrl);
+  if (Array.isArray(raw.imageUrls) && raw.imageUrls.length) return resolveMediaUrl(raw.imageUrls[0]);
+  if (raw.image) return resolveMediaUrl(raw.image);
+  return '';
 }
 
 export function normalizeArtwork(raw) {
@@ -35,25 +16,27 @@ export function normalizeArtwork(raw) {
     : parsePrice(raw.price);
 
   const artistName = raw.artistName || raw.artist || 'Unknown Artist';
-  const artistInfo = resolveArtist(artistName);
 
   return {
     id: raw.id,
+    slug: raw.slug || null,
     title: raw.title || raw.artworkName || '',
+    artworkName: raw.artworkName || raw.title || '',
     description: raw.description || raw.artworkDescription || '',
     price,
-    currency: raw.currency || 'USD',
+    currency: raw.currency || 'ETB',
     size: raw.size || '',
     category: raw.category || raw.artworkCategory || 'Other',
     medium: raw.medium || raw.artworkCategory || 'Mixed',
-    artistId: raw.artistId || artistInfo.artistId,
-    artistName: artistInfo.artistName,
-    artistSlug: raw.artistSlug || artistInfo.artistSlug,
-    imageUrl: raw.imageUrl || '',
+    artistId: raw.artistId || null,
+    artistName,
+    artistSlug: raw.artistSlug || raw.slug || null,
+    imageUrl: firstImage(raw),
+    imageUrls: Array.isArray(raw.imageUrls) ? raw.imageUrls.map(resolveMediaUrl) : (raw.imageUrl ? [resolveMediaUrl(raw.imageUrl)] : []),
     rating: raw.rating ?? raw.averageRating ?? 0,
     verified: raw.verified ?? true,
     status: raw.status || 'published',
-    allowOffers: raw.allowOffers ?? price >= 2000,
+    allowOffers: raw.allowOffers ?? false,
     isNew: raw.isNew ?? false,
     year: raw.year || new Date().getFullYear(),
     createdAt: raw.createdAt || new Date().toISOString()
@@ -69,7 +52,9 @@ export function normalizeUser(raw) {
     firstName: raw.firstName || raw.firstname || '',
     lastName: raw.lastName || raw.lastname || '',
     role: String(raw.role || '').toUpperCase(),
-    avatar: raw.avatar || raw.profilePicture || null,
+    avatar: resolveMediaUrl(raw.avatar || raw.avatarUrl || raw.profilePicture || ''),
+    avatarUrl: resolveMediaUrl(raw.avatarUrl || raw.avatar || raw.profilePicture || ''),
+    fullName: raw.fullName || [raw.firstName || raw.firstname, raw.lastName || raw.lastname].filter(Boolean).join(' '),
     phone: raw.phone || '',
     address: raw.address || '',
     status: raw.status || 'active',
@@ -116,9 +101,11 @@ export function normalizeOrder(raw) {
     shipping: raw.shipping || 0,
     tax: raw.tax || 0,
     total: raw.total || 0,
-    currency: raw.currency || 'USD',
+    currency: raw.currency || 'ETB',
     status: raw.status || 'pending',
-    shippingAddress: raw.shippingAddress || {},
+    shippingAddress: raw.shippingAddress || raw.address || {},
+    firstname: raw.firstname || raw.firstName || raw.shippingAddress?.firstName,
+    lastname: raw.lastname || raw.lastName || raw.shippingAddress?.lastName,
     createdAt: raw.createdAt || new Date().toISOString(),
     updatedAt: raw.updatedAt || new Date().toISOString()
   };
@@ -131,7 +118,7 @@ export function normalizeArtist(raw) {
     slug: raw.slug,
     name: raw.name,
     bio: raw.bio || '',
-    avatar: raw.avatar || '',
+    avatar: resolveMediaUrl(raw.avatar || raw.avatarUrl || ''),
     specialty: raw.specialty || '',
     socialLinks: raw.socialLinks || {},
     verified: raw.verified ?? false,

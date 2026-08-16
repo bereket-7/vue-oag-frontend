@@ -9,5 +9,5 @@ export const eventService = {
   getPending: () => adapter().getPending(),
   accept: (id) => adapter().accept(id),
   reject: (id) => adapter().reject(id),
-  getImage: (id) => adapter().getImage(id)
+  purchaseTicket: (eventId) => adapter().purchaseTicket(eventId)
 };

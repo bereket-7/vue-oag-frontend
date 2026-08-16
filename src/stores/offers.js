@@ -17,8 +17,8 @@ export const useOfferStore = defineStore('offers', () => {
     return offer;
   };
 
-  const fetchPendingForArtist = async (artistId) => {
-    offers.value = await offerService.getPendingForArtist(artistId);
+  const fetchPendingForArtist = async () => {
+    offers.value = await offerService.getPendingForArtist();
     return offers.value;
   };
 

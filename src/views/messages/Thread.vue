@@ -54,7 +54,7 @@ const { currentThread: messages } = storeToRefs(messageStore);
 const body = ref('');
 
 const send = async () => {
-  await messageStore.sendMessage(route.params.threadId, authStore.user?.id, authStore.user?.firstName || 'You', body.value);
+  await messageStore.sendMessage(route.params.threadId, body.value);
   body.value = '';
 };
 

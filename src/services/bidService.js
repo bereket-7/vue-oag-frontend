@@ -1,7 +1,5 @@
-import { getAdapter } from '@/services/adapters';
-
-const adapter = () => getAdapter('bid');
+import { auctionService } from '@/services/auctionService';
 
 export const bidService = {
-  create: (data) => adapter().create(data)
+  create: (data) => auctionService.placeBid(data.auctionId, data.amount)
 };

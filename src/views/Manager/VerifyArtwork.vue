@@ -6,7 +6,7 @@
       class="artwork-card"
     >
       <img
-        :src="getArtworkImageUrl(artwork.id)"
+        :src="artwork.imageUrl"
         alt="Artwork Image"
       >
       <div class="artwork-description">
@@ -76,9 +76,6 @@ export default {
         .catch(error => {
           console.error(error);
         });
-    },
-    getArtworkImageUrl(artworkId) {
-      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
     acceptArtwork(artworkId) {
       artworkService.accept(artworkId)

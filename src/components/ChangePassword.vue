@@ -118,7 +118,8 @@ const handleSubmit = async () => {
   try {
     await authService.changePassword({
       currentPassword: formData.currentPassword,
-      newPassword: formData.newPassword
+      password: formData.newPassword,
+      confirmPassword: formData.confirmPassword
     });
     successMessage.value = 'Password updated successfully!';
     success('Password updated!');

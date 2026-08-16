@@ -5,7 +5,7 @@ export function parsePrice(value) {
   return parseFloat(cleaned) || 0;
 }
 
-export function formatPrice(amount, currency = 'USD') {
+export function formatPrice(amount, currency = 'ETB') {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency

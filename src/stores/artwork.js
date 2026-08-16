@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { artworkService } from '@/services/artworkService';
+import { asList } from '@/utils/unwrap';
 
 export const useArtworkStore = defineStore('artwork', () => {
   const artworks = ref([]);
@@ -18,7 +19,7 @@ export const useArtworkStore = defineStore('artwork', () => {
     loading.value = true;
     try {
       const merged = { ...filters.value, ...params };
-      artworks.value = await artworkService.getAll(merged);
+      artworks.value = asList(await artworkService.getAll(merged));
       return artworks.value;
     } finally {
       loading.value = false;
@@ -38,7 +39,7 @@ export const useArtworkStore = defineStore('artwork', () => {
   const searchArtworks = async (query) => {
     loading.value = true;
     try {
-      artworks.value = await artworkService.search(query);
+      artworks.value = asList(await artworkService.search(query));
       return artworks.value;
     } finally {
       loading.value = false;

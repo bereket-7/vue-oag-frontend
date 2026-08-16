@@ -3,7 +3,10 @@ import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cart';
 import { useOrderStore } from '@/stores/orders';
 import { useAuthStore } from '@/stores/auth';
+import { checkoutService } from '@/services/checkoutService';
+import { isMockMode } from '@/services/adapters';
 import { calculateShipping, calculateTax } from '@/utils/currency';
+import { isSafeExternalUrl } from '@/utils/security';
 
 export function useCheckout() {
   const router = useRouter();
@@ -33,6 +36,23 @@ export function useCheckout() {
   const nextStep = () => { if (step.value < 4) step.value++; };
   const prevStep = () => { if (step.value > 1) step.value--; };
 
+  const toOrderRequest = () => {
+    const ship = shippingAddress.value;
+    return {
+      firstname: ship.firstName,
+      lastname: ship.lastName,
+      email: ship.email,
+      phone: ship.phone,
+      address: {
+        street: ship.address,
+        city: ship.city,
+        state: ship.state,
+        country: 'ET',
+        postalCode: ship.zip
+      }
+    };
+  };
+
   const placeOrder = async (paymentMethod = 'mock') => {
     loading.value = true;
     error.value = null;
@@ -54,6 +74,28 @@ export function useCheckout() {
     }
   };
 
+  const payWithChapa = async () => {
+    if (isMockMode()) {
+      return placeOrder('mock');
+    }
+    loading.value = true;
+    error.value = null;
+    try {
+      const result = await checkoutService.initiate(toOrderRequest());
+      const url = result?.checkOutUrl;
+      if (url && isSafeExternalUrl(url)) {
+        window.location.assign(url);
+        return result;
+      }
+      throw new Error('Checkout did not return a payment URL');
+    } catch (e) {
+      error.value = e.message || 'Checkout failed';
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     step,
     loading,
@@ -65,6 +107,7 @@ export function useCheckout() {
     total,
     nextStep,
     prevStep,
-    placeOrder
+    placeOrder,
+    payWithChapa
   };
 }

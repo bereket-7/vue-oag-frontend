@@ -29,14 +29,14 @@
       >
         <div class="artwork-image">
           <img
-            :src="getArtworkImageUrl(artwork.id)"
+            :src="artwork.imageUrl"
             alt="Artwork Image"
           >
         </div>
         <div class="artwork-details">
-          <h3><b>{{ artwork.artworkName }}</b></h3>
+          <h3><b>{{ artwork.title || artwork.artworkName }}</b></h3>
           <p><b>Price: {{ artwork.price }}</b></p>
-          <p>Category: {{ artwork.artworkCategory }}</p>
+          <p>Category: {{ artwork.category || artwork.artworkCategory }}</p>
         </div>
       </div>
     </div>
@@ -67,9 +67,6 @@ export default {
       } else {
         this.sortedArtworks = [];
       }
-    },
-    getArtworkImageUrl(artworkId) {
-      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
   },
 };

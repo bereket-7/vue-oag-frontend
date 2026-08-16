@@ -1,7 +1,5 @@
-import { getAdapter } from '@/services/adapters';
-
-const adapter = () => getAdapter('payment');
+import { checkoutService } from '@/services/checkoutService';
 
 export const paymentService = {
-  paypalPay: (data) => adapter().paypalPay(data)
+  checkout: (data) => checkoutService.initiate(data)
 };

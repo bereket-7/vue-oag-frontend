@@ -32,7 +32,7 @@
         class="gallery-item"
       >
         <img
-          :src="getArtworkImageUrl(artwork.id)"
+          :src="artwork.imageUrl"
           alt="Artwork"
           class="artwork-image"
         >
@@ -60,9 +60,6 @@ export default {
       .catch(error => {
         console.error(error);
       });
-    },
-    getArtworkImageUrl(artworkId) {
-      return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
     },
   },
 };

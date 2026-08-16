@@ -145,7 +145,7 @@
 import { ref, onMounted } from 'vue';
 import { useNotification } from '@/composables/useNotification';
 import { BaseButton, BaseModal, LoadingSpinner } from '@/components/common';
-import api from '@/services/api';
+import { eventService } from '@/services/eventService';
 
 const { success, error: showError } = useNotification();
 
@@ -165,8 +165,7 @@ const formatDate = (date) => {
 const fetchEvents = async () => {
   loading.value = true;
   try {
-    const response = await api.get('/events');
-    events.value = response.data;
+    events.value = await eventService.getAll();
   } catch (err) {
     showError('Failed to load events');
   } finally {
@@ -181,7 +180,7 @@ const viewDetails = (event) => {
 
 const registerForEvent = async () => {
   try {
-    await api.post(`/events/${selectedEvent.value.id}/register`);
+    await eventService.purchaseTicket(selectedEvent.value.id);
     success('Successfully registered for event!');
     showDetailsModal.value = false;
   } catch (err) {

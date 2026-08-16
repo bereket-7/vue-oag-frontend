@@ -90,9 +90,9 @@ import OrderSummary from './checkout/OrderSummary.vue';
 
 const { t } = useI18n();
 const cartStore = useCartStore();
-const { step, loading, shippingAddress, subtotal, shipping, tax, total, nextStep, prevStep, placeOrder } = useCheckout();
+const { step, loading, shippingAddress, subtotal, shipping, tax, total, nextStep, prevStep, payWithChapa } = useCheckout();
 
-const handlePay = async () => { await placeOrder('mock'); };
+const handlePay = async () => { await payWithChapa(); };
 
 onMounted(() => cartStore.fetchCart());
 </script>

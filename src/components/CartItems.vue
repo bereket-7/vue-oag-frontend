@@ -52,9 +52,11 @@
 
 
 <script>
-import { isAuthenticated } from '@/utils/auth';
-import api from '@/utils/api';
+import { cartService } from '@/services/cartService';
+import { checkoutService } from '@/services/checkoutService';
+import { isSafeExternalUrl } from '@/utils/security';
 import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 export default {
   name: 'CartItems',
@@ -75,77 +77,71 @@ export default {
   },
   methods: {
     checkout() {
-      api
-      .post('payment/initialize')
-        .then(response => {
-          const checkoutUrl = response.data?.checkOutUrl;
-          if (typeof checkoutUrl === 'string' && checkoutUrl.startsWith('/') && !checkoutUrl.startsWith('//')) {
-            router.push(checkoutUrl);
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      checkoutService.initiate({
+        firstname: 'Guest',
+        lastname: 'Buyer',
+        email: 'buyer@example.com',
+        phone: '0911223344',
+        address: { street: '', city: '', state: '', country: 'ET', postalCode: '' }
+      }).then((response) => {
+        const url = response?.checkOutUrl;
+        if (url && isSafeExternalUrl(url)) {
+          window.location.href = url;
+        } else {
+          router.push('/checkout');
+        }
+      }).catch((error) => {
+        console.error(error);
+        router.push('/checkout');
+      });
     },
     removeFromCart(cartItemId) {
-      if (!isAuthenticated()) {
+      if (!useAuthStore().isAuthenticated) {
         router.push('/userLogin');
         return;
       }
-
-      api
-        .delete(`/cart/remove/${cartItemId}`)
-        .then((response) => {
-          console.log(response);
-          console.log('Item removed from cart successfully!');
-          this.fetchCartItems();
+      cartService.remove(cartItemId)
+        .then((items) => {
+          this.cartItems = Array.isArray(items) ? items : this.cartItems.filter((i) => i.id !== cartItemId);
         })
         .catch((error) => {
           console.error('Failed to remove item from cart:', error);
         });
     },
     clearCart() {
-      if (!isAuthenticated()) {
+      if (!useAuthStore().isAuthenticated) {
         router.push('/userLogin');
         return;
       }
-
-      api
-        .delete(`/cart/clear`)
-        .then((response) => {
-          console.log(response);
-          console.log('Cart cleared successfully!');
-          this.fetchCartItems();
+      cartService.clear()
+        .then(() => {
+          this.cartItems = [];
         })
         .catch((error) => {
           console.error('Failed to clear cart:', error);
         });
     },
     fetchCartItems() {
-  api
-    .get(`/cart`)
-    .then((response) => {
-      this.cartItems = response.data; 
-    })
-    .catch((error) => {
-      console.error('Failed to fetch cart items:', error);
-    });
-},
+      cartService.getAll()
+        .then((items) => {
+          this.cartItems = items || [];
+        })
+        .catch((error) => {
+          console.error('Failed to fetch cart items:', error);
+        });
+    },
     calculateTotalPrice() {
       let totalPrice = 0;
       for (const cartItem of this.cartItems) {
         totalPrice += cartItem.price * cartItem.quantity;
       }
       return totalPrice;
-   },
-  },
+    }
+  }
 };
 </script>
 
-
-  
-
-  <style scoped>
+<style scoped>
   .cart-items-container {
     /* margin-top: 150px; */
     max-width: 900px; 

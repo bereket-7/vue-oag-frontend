@@ -2,13 +2,13 @@
   <div class="min-h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-10">
     <form
       class="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-5"
-      @submit.prevent="requestPasswordReset"
+      @submit.prevent="handleSubmit"
     >
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-        Forgot password
+        {{ step === 'otp' ? 'Reset password' : 'Forgot password' }}
       </h2>
       <p class="text-sm text-gray-500 dark:text-gray-400">
-        Enter your email and we’ll send a reset link.
+        {{ step === 'otp' ? 'Enter the OTP sent to your email and choose a new password.' : 'Enter your email and we will send a verification code.' }}
       </p>
 
       <p
@@ -27,12 +27,36 @@
         class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
       >
 
+      <template v-if="step === 'otp'">
+        <input
+          v-model="otp"
+          type="text"
+          required
+          placeholder="OTP code"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
+        >
+        <input
+          v-model="password"
+          type="password"
+          required
+          placeholder="New password"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
+        >
+        <input
+          v-model="confirmPassword"
+          type="password"
+          required
+          placeholder="Confirm new password"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
+        >
+      </template>
+
       <button
         type="submit"
         :disabled="loading"
         class="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 disabled:opacity-60"
       >
-        {{ loading ? 'Sending...' : 'Send reset link' }}
+        {{ loading ? 'Please wait...' : (step === 'otp' ? 'Reset password' : 'Send verification code') }}
       </button>
 
       <router-link
@@ -47,23 +71,48 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { authService } from '@/services/authService';
+import { isStrongPassword } from '@/utils/security';
 
+const router = useRouter();
 const email = ref('');
+const otp = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+const step = ref('email');
 const message = ref('');
 const error = ref(false);
 const loading = ref(false);
 
-const requestPasswordReset = async () => {
+const handleSubmit = async () => {
   loading.value = true;
   error.value = false;
   message.value = '';
   try {
-    await authService.forgotPassword(email.value);
-    message.value = 'If that email exists, a reset link has been sent.';
+    if (step.value === 'email') {
+      await authService.forgotPassword(email.value);
+      step.value = 'otp';
+      message.value = 'If that email exists, a verification code has been sent.';
+    } else {
+      if (password.value !== confirmPassword.value) {
+        throw new Error('Passwords do not match');
+      }
+      if (!isStrongPassword(password.value)) {
+        throw new Error('Use 8+ characters with upper, lower, a number, and a special character');
+      }
+      await authService.resetPassword({
+        email: email.value,
+        otp: otp.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value
+      });
+      message.value = 'Password reset. You can sign in now.';
+      router.push('/userLogin');
+    }
   } catch (err) {
     error.value = true;
-    message.value = err.message || 'Unable to send reset email.';
+    message.value = err.message || 'Unable to complete password reset.';
   } finally {
     loading.value = false;
   }

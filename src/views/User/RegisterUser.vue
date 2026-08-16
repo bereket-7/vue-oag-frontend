@@ -192,7 +192,7 @@
                 label="Password"
                 placeholder="••••••••"
                 :error="errors.password"
-                hint="At least 8 characters, with upper, lower, and a number"
+                hint="At least 8 characters, with upper, lower, a number, and a special character"
                 required
               />
               <BaseInput
@@ -339,7 +339,7 @@ const validateForm = () => {
   if (!formData.password) {
     errors.value.password = 'Password is required';
   } else if (!isStrongPassword(formData.password)) {
-    errors.value.password = 'Use 8+ characters with upper, lower, and a number';
+    errors.value.password = 'Use 8+ characters with upper, lower, a number, and a special character';
   }
 
   if (!formData.confirmPassword) {
@@ -358,9 +358,20 @@ const handleRegister = async () => {
   errorMessage.value = '';
 
   try {
-    await authService.register(formData);
-    success('Registration successful! Please check your email.');
-    router.push('/signupSuccess');
+    await authService.register({
+      firstName: formData.firstname,
+      lastName: formData.lastname,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      phone: formData.phone,
+      channel: 'EMAIL',
+      role: formData.role,
+      sex: formData.sex,
+      age: Number(formData.age)
+    });
+    success('Registration successful! Enter the code sent to your email.');
+    router.push({ path: '/activateAccount', query: { email: formData.email } });
   } catch (err) {
     errorMessage.value = err.response?.data?.message || err.message || 'Registration failed';
     showError(errorMessage.value);

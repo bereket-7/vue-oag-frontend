@@ -74,6 +74,7 @@ export const mockAdapter = {
       return {
         token: `mock-jwt-${user.id}`,
         accessToken: `mock-jwt-${user.id}`,
+        refreshToken: 'mock-refresh',
         user: normalizeUser(safeUser),
         role: user.role
       };
@@ -82,6 +83,33 @@ export const mockAdapter = {
       await delay(500);
       void userData;
       return { success: true, message: 'Registration successful. Please confirm your email.' };
+    },
+    async verifyLogin(data) {
+      await delay(300);
+      const user = MOCK_USERS.find((u) => u.username === data.username || u.email === data.username);
+      if (!user) throw new Error('Invalid credentials');
+      const { password: _pw, ...safeUser } = user;
+      return {
+        token: `mock-jwt-${user.id}`,
+        accessToken: `mock-jwt-${user.id}`,
+        refreshToken: 'mock-refresh',
+        user: normalizeUser(safeUser),
+        role: user.role
+      };
+    },
+    async verifyRegister() {
+      await delay(300);
+      return { success: true, message: 'Account activated' };
+    },
+    async resetPassword() {
+      await delay(300);
+      return { success: true };
+    },
+    async refreshToken() {
+      await delay(200);
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const token = localStorage.getItem('token') || 'mock-jwt-2';
+      return { token, refreshToken: 'mock-refresh', user: stored };
     },
     async logout() {
       await delay(200);
@@ -95,8 +123,9 @@ export const mockAdapter = {
       await delay(300);
       return { success: true };
     },
-    async changePassword({ currentPassword, newPassword }) {
+    async changePassword({ currentPassword, newPassword, password }) {
       await delay(400);
+      const next = newPassword || password;
       const stored = JSON.parse(localStorage.getItem('user') || 'null');
       const account = MOCK_USERS.find(
         (u) => u.id === stored?.id || u.username === stored?.username || u.email === stored?.email
@@ -104,10 +133,10 @@ export const mockAdapter = {
       if (!account || account.password !== currentPassword) {
         throw new Error('Current password is incorrect');
       }
-      if (!newPassword || newPassword.length < 8) {
+      if (!next || next.length < 8) {
         throw new Error('New password does not meet requirements');
       }
-      account.password = newPassword;
+      account.password = next;
       return { success: true, message: 'Password updated successfully' };
     },
     async confirmRegistration() {
@@ -180,10 +209,6 @@ export const mockAdapter = {
     async sort(sortOption) {
       await delay(250);
       return filterArtworks({ sort: sortOption });
-    },
-    async getImage() {
-      await delay(100);
-      return new Blob();
     }
   },
 
@@ -261,10 +286,11 @@ export const mockAdapter = {
   },
 
   order: {
-    async getAll(userId) {
+    async getAll() {
       await delay(300);
+      const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
       const stored = loadFromStorage(STORAGE_KEYS.orders, orders);
-      return stored.filter((o) => !userId || o.userId === userId).map(normalizeOrder);
+      return stored.filter((o) => !storedUser?.id || o.userId === storedUser.id).map(normalizeOrder);
     },
     async getById(id) {
       await delay(200);
@@ -306,6 +332,19 @@ export const mockAdapter = {
       }
       saveToStorage(STORAGE_KEYS.orders, stored);
       return normalizeOrder(order);
+    }
+  },
+
+  checkout: {
+    async initiate(orderRequest) {
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const order = await mockAdapter.order.create({
+        userId: stored?.id,
+        items: getCart(),
+        shippingAddress: orderRequest,
+        paymentMethod: 'chapa'
+      });
+      return { checkOutUrl: null, txRef: order.id, order };
     }
   },
 
@@ -359,15 +398,22 @@ export const mockAdapter = {
       auctions.unshift(newAuction);
       return newAuction;
     },
-    async placeBid(auctionId, userId, userName, amount) {
+    async placeBid(auctionId, amount) {
       await delay(300);
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
       const auction = auctions.find((a) => a.id === auctionId);
       if (!auction) throw new Error('Auction not found');
       if (amount < auction.currentBid + auction.minIncrement) {
         throw new Error(`Bid must be at least ${auction.currentBid + auction.minIncrement}`);
       }
       auction.currentBid = amount;
-      auction.bidHistory.unshift({ id: `bid-${Date.now()}`, userId, userName, amount, createdAt: new Date().toISOString() });
+      auction.bidHistory.unshift({
+        id: `bid-${Date.now()}`,
+        userId: stored?.id,
+        userName: stored?.firstName || stored?.fullName || 'Bidder',
+        amount,
+        createdAt: new Date().toISOString()
+      });
       return normalizeAuction(auction);
     },
     async watch(auctionId, userId) {
@@ -440,24 +486,26 @@ export const mockAdapter = {
     async reject(id) {
       return mockAdapter.event.update(id, { status: 'rejected' });
     },
-    async getImage() {
-      await delay(100);
-      return new Blob();
+    async purchaseTicket(eventId) {
+      await delay(200);
+      return { success: true, eventId };
     }
   },
 
   user: {
-    async getProfile(userId) {
+    async getProfile() {
       await delay(200);
-      const user = MOCK_USERS.find((u) => u.id === userId);
-      if (!user) throw new Error('User not found');
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const user = MOCK_USERS.find((u) => u.id === stored?.id || u.username === stored?.username || u.email === stored?.email) || MOCK_USERS[1];
       const { password: _pwd, ...safe } = user;
       void _pwd;
       return normalizeUser(safe);
     },
-    async updateProfile(userId, data) {
+    async updateProfile(data) {
       await delay(300);
-      return normalizeUser({ ...MOCK_USERS.find((u) => u.id === userId), ...data });
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const user = MOCK_USERS.find((u) => u.id === stored?.id || u.username === stored?.username) || MOCK_USERS[1];
+      return normalizeUser({ ...user, ...data });
     },
     async getNotifications() {
       await delay(200);
@@ -522,9 +570,17 @@ export const mockAdapter = {
       await delay(200);
       return messages.filter((m) => m.threadId === threadId).map(normalizeMessage);
     },
-    async send(threadId, senderId, senderName, body) {
+    async send(threadId, body) {
       await delay(300);
-      const msg = normalizeMessage({ id: messages.length + 1, threadId, senderId, senderName, body, read: false });
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const msg = normalizeMessage({
+        id: messages.length + 1,
+        threadId,
+        senderId: stored?.id,
+        senderName: stored?.firstName || stored?.fullName || 'You',
+        body,
+        read: false
+      });
       messages.push(msg);
       return msg;
     }
@@ -555,9 +611,11 @@ export const mockAdapter = {
       saveToStorage(STORAGE_KEYS.offers, offers);
       return offer;
     },
-    async getPendingForArtist(artistId) {
+    async getPendingForArtist() {
       await delay(200);
-      const artistArtworkIds = artworks.filter((a) => a.artistId === artistId).map((a) => a.id);
+      const stored = JSON.parse(localStorage.getItem('user') || 'null');
+      const artistArtworkIds = artworks.filter((a) => a.artistId === stored?.id).map((a) => a.id);
+      if (!artistArtworkIds.length) return offers.filter((o) => o.status === 'pending');
       return offers.filter((o) => artistArtworkIds.includes(o.artworkId) && o.status === 'pending');
     }
   },
@@ -642,22 +700,6 @@ export const mockAdapter = {
       await delay(200);
       void _id;
       return { success: true };
-    }
-  },
-
-  bid: {
-    async create(data) {
-      await delay(300);
-      void data;
-      return { success: true };
-    }
-  },
-
-  payment: {
-    async paypalPay(data) {
-      await delay(400);
-      void data;
-      return { approvalUrl: null };
     }
   }
 };

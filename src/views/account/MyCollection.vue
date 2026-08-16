@@ -38,15 +38,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useOrderStore } from '@/stores/orders';
-import { useAuthStore } from '@/stores/auth';
 import { EmptyState } from '@/components/common';
 
 const owned = ref([]);
 const orderStore = useOrderStore();
-const authStore = useAuthStore();
 
 onMounted(async () => {
-  const orders = await orderStore.fetchOrders(authStore.user?.id);
+  const orders = await orderStore.fetchOrders();
   owned.value = orders.filter((o) => o.status === 'delivered' || o.status === 'paid').flatMap((o) =>
     o.items.map((i) => ({ ...i, purchasedAt: new Date(o.createdAt).toLocaleDateString() }))
   );

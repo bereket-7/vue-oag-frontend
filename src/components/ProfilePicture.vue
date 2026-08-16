@@ -25,9 +25,10 @@
     </button>
   </div>
 </template>
-  
+
 <script>
 import { userService } from '@/services/userService';
+import { resolveMediaUrl } from '@/utils/unwrap';
 
 export default {
   data() {
@@ -46,27 +47,18 @@ export default {
     async uploadProfilePhoto() {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-
       try {
-        const response = await userService.uploadPhoto(formData);
-        if (response) {
-          this.selectedFile = null;
-          this.getProfilePhoto();
-        }
+        const profile = await userService.uploadPhoto(formData);
+        this.selectedFile = null;
+        this.profilePhotoUrl = resolveMediaUrl(profile?.avatar || profile?.avatarUrl);
       } catch (error) {
         console.error('Error uploading profile photo:', error);
       }
     },
     async getProfilePhoto() {
       try {
-        const data = await userService.getPhoto();
-        const base64Image = btoa(
-          new Uint8Array(data).reduce(
-            (acc, byte) => acc + String.fromCharCode(byte),
-            ''
-          )
-        );
-        this.profilePhotoUrl = `data:image/jpeg;base64,${base64Image}`;
+        const profile = await userService.getProfile();
+        this.profilePhotoUrl = resolveMediaUrl(profile?.avatar || profile?.avatarUrl);
       } catch (error) {
         console.error('Error getting profile photo:', error);
       }
@@ -100,7 +92,7 @@ export default {
 .profile-photo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-cover: cover;
 }
 
 .placeholder {
@@ -126,17 +118,5 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #0069d9;
-}
-
-@media screen and (max-width: 768px) {
-  .profile-card {
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 90px;
-  }
 }
 </style>

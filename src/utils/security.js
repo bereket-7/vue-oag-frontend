@@ -73,7 +73,8 @@ export function isStrongPassword(password) {
   if (!/[A-Z]/.test(password)) return false;
   if (!/[a-z]/.test(password)) return false;
   if (!/\d/.test(password)) return false;
+  if (!/[@$!%*?&]/.test(password)) return false;
   return true;
 }
 
-export const PASSWORD_HINT = 'At least 8 characters, with upper, lower, and a number';
+export const PASSWORD_HINT = 'At least 8 characters, with upper, lower, a number, and a special character (@$!%*?&)';

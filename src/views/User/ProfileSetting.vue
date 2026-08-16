@@ -209,8 +209,15 @@ const loadProfile = async () => {
     await userStore.fetchProfile();
     const profile = userStore.profile;
     if (profile) {
-      Object.assign(formData, profile);
-      profileImage.value = profile.profileImage;
+      formData.firstname = profile.firstName || profile.firstname || '';
+      formData.lastname = profile.lastName || profile.lastname || '';
+      formData.email = profile.email || profile.username || '';
+      formData.phone = profile.phone || '';
+      formData.address = profile.address || '';
+      formData.age = profile.age || '';
+      formData.sex = profile.sex || formData.sex;
+      formData.bio = profile.bio || '';
+      profileImage.value = profile.avatar || profile.avatarUrl || profile.profileImage;
     } else if (authStore.user) {
       Object.assign(formData, authStore.user);
     }

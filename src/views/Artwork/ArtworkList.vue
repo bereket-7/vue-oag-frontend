@@ -49,7 +49,7 @@
       >
         <div>
           <img
-            :src="getArtworkImageUrl(selectedArtwork.id)"
+            :src="selectedArtwork.imageUrl"
             :alt="selectedArtwork.artworkName"
             class="w-full h-auto rounded-lg"
           >
@@ -140,15 +140,11 @@ const formatArtwork = (artwork) => ({
   title: artwork.artworkName || artwork.title,
   description: artwork.artworkDescription || artwork.description,
   price: artwork.price,
-  imageUrl: artwork.imageUrl || getArtworkImageUrl(artwork.id),
+  imageUrl: artwork.imageUrl,
   artistName: artwork.artistName || 'Unknown Artist',
   rating: artwork.averageRating || artwork.rating,
   verified: artwork.verified
 });
-
-const getArtworkImageUrl = (artworkId) => {
-  return `${process.env.VUE_APP_API_BASE_URL}/artworks/${artworkId}/image`;
-};
 
 const openModal = (artwork) => {
   selectedArtwork.value = artworks.value.find(a => a.id === artwork.id);

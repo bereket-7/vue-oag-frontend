@@ -7,10 +7,10 @@ export const useOrderStore = defineStore('orders', () => {
   const currentOrder = ref(null);
   const loading = ref(false);
 
-  const fetchOrders = async (userId) => {
+  const fetchOrders = async () => {
     loading.value = true;
     try {
-      orders.value = await orderService.getAll(userId);
+      orders.value = await orderService.getAll();
       return orders.value;
     } finally {
       loading.value = false;

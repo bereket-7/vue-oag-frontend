@@ -58,15 +58,13 @@
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useOrderStore } from '@/stores/orders';
-import { useAuthStore } from '@/stores/auth';
 import { formatPrice } from '@/utils/currency';
 import { PageLoader, EmptyState } from '@/components/common';
 
 const orderStore = useOrderStore();
-const authStore = useAuthStore();
 const { orders, loading } = storeToRefs(orderStore);
 
 const statusClass = (s) => ({ paid: 'bg-green-100 text-green-700', shipped: 'bg-blue-100 text-blue-700', delivered: 'bg-purple-100 text-purple-700', pending: 'bg-yellow-100 text-yellow-700' }[s] || 'bg-gray-100 text-gray-700');
 
-onMounted(() => orderStore.fetchOrders(authStore.user?.id));
+onMounted(() => orderStore.fetchOrders());
 </script>

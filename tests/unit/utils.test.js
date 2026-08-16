@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { normalizeArtwork } from '@/utils/normalizers';
 import { parsePrice, formatPrice, calculateTax, calculateShipping } from '@/utils/currency';
+import { unwrapEnvelope, isOtpEnvelope, asList, mapUserInfo, resolveMediaUrl } from '@/utils/unwrap';
 import { normalizeRole } from '@/constants/roles';
 import { getSafeInternalPath, isStrongPassword, isSafeExternalUrl } from '@/utils/security';
 import { useAuthStore } from '@/stores/auth';
@@ -23,6 +24,18 @@ vi.mock('@/services/api', () => ({
   }
 }));
 
+vi.mock('@/services/socket', () => ({
+  connectNotifications: () => null,
+  disconnectNotifications: () => {},
+  getSocket: () => null
+}));
+
+vi.mock('@/services/socket', () => ({
+  connectNotifications: () => null,
+  disconnectNotifications: () => {},
+  getSocket: () => null
+}));
+
 const memory = {};
 const localStorageMock = {
   getItem: (key) => (Object.prototype.hasOwnProperty.call(memory, key) ? memory[key] : null),
@@ -30,7 +43,7 @@ const localStorageMock = {
   removeItem: (key) => { delete memory[key]; },
   clear: () => { Object.keys(memory).forEach((key) => delete memory[key]); }
 };
-globalThis.localStorage = localStorageMock;
+global.localStorage = localStorageMock;
 
 describe('normalizers', () => {
   it('normalizes legacy artwork shape', () => {
@@ -46,6 +59,68 @@ describe('normalizers', () => {
     expect(result.price).toBe(2500);
     expect(result.artistName).toBe('Jane Doe');
     expect(result.rating).toBe(4.5);
+  });
+
+  it('maps imageUrls and slug from the live catalog DTO', () => {
+    const result = normalizeArtwork({
+      id: 9,
+      artworkName: 'Lake',
+      price: 1200,
+      artistSlug: 'elena-rodriguez',
+      imageUrls: ['/upload/images/lake.jpg'],
+      status: 'ACCEPTED'
+    });
+    expect(result.title).toBe('Lake');
+    expect(result.artistSlug).toBe('elena-rodriguez');
+    expect(result.imageUrl).toContain('/upload/images/lake.jpg');
+    expect(result.currency).toBe('ETB');
+    expect(result.status).toBe('ACCEPTED');
+  });
+});
+
+describe('unwrap', () => {
+  it('returns content from a GenericResponse envelope', () => {
+    expect(unwrapEnvelope({ status: 200, message: 'ok', content: { id: 1 } })).toEqual({ id: 1 });
+  });
+
+  it('returns items plus pageable when paging metadata is present', () => {
+    const result = unwrapEnvelope({
+      status: 200,
+      message: 'ok',
+      content: [{ id: 1 }],
+      pageable: { totalPages: 1, totalElements: 1 }
+    });
+    expect(result.items).toEqual([{ id: 1 }]);
+    expect(result.pageable.totalElements).toBe(1);
+  });
+
+  it('detects OTP envelopes with empty content', () => {
+    expect(isOtpEnvelope({ message: 'Otp sent' }, [])).toBe(true);
+    expect(isOtpEnvelope({ message: 'ok' }, { token: 'abc' })).toBe(false);
+  });
+
+  it('flattens pageable objects via asList', () => {
+    expect(asList({ items: [1, 2] })).toEqual([1, 2]);
+  });
+
+  it('maps UserInfo after unwrap', () => {
+    const mapped = mapUserInfo({
+      uuid: 'u1',
+      token: 'jwt',
+      refreshToken: 'r',
+      username: 'ada@email',
+      fullName: 'Ada Kebede',
+      avatarUrl: '/upload/images/a.jpg',
+      role: 'CUSTOMER',
+      permissions: ['USER_MODIFY_CART']
+    });
+    expect(mapped.accessToken).toBe('jwt');
+    expect(mapped.user.firstName).toBe('Ada');
+    expect(mapped.user.email).toBe('ada@email');
+  });
+
+  it('prefixes relative media URLs with the API origin', () => {
+    expect(resolveMediaUrl('/upload/images/a.jpg')).toBe('http://localhost:8088/upload/images/a.jpg');
   });
 });
 
@@ -87,7 +162,8 @@ describe('security', () => {
 
   it('requires a stronger password', () => {
     expect(isStrongPassword('admin123')).toBe(false);
-    expect(isStrongPassword('Password1')).toBe(true);
+    expect(isStrongPassword('Password1')).toBe(false);
+    expect(isStrongPassword('Password1!')).toBe(true);
   });
 
   it('accepts only http(s) external urls', () => {

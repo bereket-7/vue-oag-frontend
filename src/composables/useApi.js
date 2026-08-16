@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { unwrapEnvelope, envelopeMessage } from '@/utils/unwrap';
 
 export function useApi(apiFunction) {
   const data = ref(null);
@@ -8,13 +9,14 @@ export function useApi(apiFunction) {
   const execute = async (...args) => {
     loading.value = true;
     error.value = null;
-    
+
     try {
       const response = await apiFunction(...args);
-      data.value = response.data;
-      return { success: true, data: response.data };
+      const unwrapped = response?.data !== undefined ? unwrapEnvelope(response.data) : response;
+      data.value = unwrapped;
+      return { success: true, data: unwrapped };
     } catch (err) {
-      error.value = err.response?.data?.message || err.message || 'An error occurred';
+      error.value = envelopeMessage(err);
       return { success: false, error: error.value };
     } finally {
       loading.value = false;

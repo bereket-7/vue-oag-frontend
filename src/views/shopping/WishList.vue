@@ -38,7 +38,7 @@
       >
         <div class="relative aspect-square">
           <img
-            :src="item.imageUrl || getImageUrl(item.artworkId)"
+            :src="item.imageUrl"
             :alt="item.artworkName"
             class="w-full h-full object-cover"
           >
@@ -99,8 +99,6 @@ const wishlistStore = useWishlistStore();
 const { success, error: showError } = useNotification();
 
 const loading = ref(false);
-
-const getImageUrl = (_artworkId) => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80';
 
 const fetchWishlist = async () => {
   loading.value = true;

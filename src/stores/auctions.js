@@ -33,19 +33,19 @@ export const useAuctionStore = defineStore('auctions', () => {
     return auction;
   };
 
-  const placeBid = async (auctionId, userId, userName, amount) => {
-    currentAuction.value = await auctionService.placeBid(auctionId, userId, userName, amount);
+  const placeBid = async (auctionId, amount) => {
+    currentAuction.value = await auctionService.placeBid(auctionId, amount);
     const idx = auctions.value.findIndex((a) => a.id === auctionId);
     if (idx !== -1) auctions.value[idx] = currentAuction.value;
     return currentAuction.value;
   };
 
-  const watchAuction = async (auctionId, userId) => {
-    return auctionService.watch(auctionId, userId);
+  const watchAuction = async (auctionId) => {
+    return auctionService.watch(auctionId);
   };
 
-  const unwatchAuction = async (auctionId, userId) => {
-    return auctionService.unwatch(auctionId, userId);
+  const unwatchAuction = async (auctionId) => {
+    return auctionService.unwatch(auctionId);
   };
 
   return { auctions, currentAuction, loading, fetchAuctions, fetchAuctionById, createAuction, placeBid, watchAuction, unwatchAuction };

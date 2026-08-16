@@ -15,11 +15,29 @@ export function useAuth() {
   const login = async (credentials) => {
     try {
       const response = await authStore.login(credentials);
+      if (response?.requiresOtp) {
+        return { success: true, requiresOtp: true, data: response };
+      }
       return { success: true, data: response };
     } catch (error) {
       return {
         success: false,
         error: error.message || error.response?.data?.message || 'Login failed'
+      };
+    }
+  };
+
+  const verifyLogin = async (data) => {
+    try {
+      const response = await authStore.verifyLogin(data);
+      if (response?.requiresOtp) {
+        return { success: true, requiresOtp: true, data: response };
+      }
+      return { success: true, data: response };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || error.response?.data?.message || 'Verification failed'
       };
     }
   };
@@ -43,6 +61,7 @@ export function useAuth() {
     user,
     role,
     login,
+    verifyLogin,
     logout,
     hasRole,
     hasAnyRole,

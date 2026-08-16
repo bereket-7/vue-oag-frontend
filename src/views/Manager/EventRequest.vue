@@ -7,7 +7,7 @@
     >
       <div class="event-image-container">
         <img
-          :src="getEventImageUrl(event.id)"
+          :src="event.imageUrl"
           alt="Event Image"
           class="event-image"
         >
@@ -78,6 +78,7 @@
 
 <script>
 import { eventService } from '@/services/eventService';
+import { resolveMediaUrl } from '@/utils/unwrap';
 
 export default{
 data(){
@@ -132,27 +133,14 @@ methods: {
     fetchAllEvents() {
       eventService.getPending()
         .then(data => {
-          this.events = data;
-          this.fetchEventImages();
+          this.events = (data || []).map((event) => ({
+            ...event,
+            imageUrl: resolveMediaUrl(event.imageUrl || event.image)
+          }));
         })
         .catch(error => {
           console.error(error);
         });
-    },
-    fetchEventImages() {
-      this.events.forEach(event => {
-        eventService.getImage(event.id)
-          .then(imageBlob => {
-            event.imageUrl = URL.createObjectURL(imageBlob);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
-    },
-    getEventImageUrl(eventId) {
-      const event = this.events.find(event => event.id === eventId);
-      return event ? event.imageUrl : null;
     },
     acceptEvent(eventId) {
       eventService.accept(eventId)

@@ -52,7 +52,8 @@
 </template>
   
   <script>
-import { orderService } from '@/services/orderService';
+import { checkoutService } from '@/services/checkoutService';
+import { isSafeExternalUrl } from '@/utils/security';
 
 export default {
   data() {
@@ -83,20 +84,31 @@ export default {
     },
     createOrder() {
       const payload = {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        firstname: this.firstName,
+        lastname: this.lastName,
+        email: '',
         phone: this.phone,
-        address: this.address,
+        address: {
+          street: this.address,
+          city: '',
+          state: '',
+          country: 'ET',
+          postalCode: ''
+        }
       };
 
-      orderService.create(payload)
+      checkoutService.initiate(payload)
         .then(response => {
-          console.log(response.data);
+          const url = response?.checkOutUrl;
+          if (url && isSafeExternalUrl(url)) {
+            window.location.href = url;
+            return;
+          }
           this.successMessage = "Order created successfully.";
         })
         .catch(error => {
-          console.error(error); 
-          this.errorMessage = "Error creating order. Please try again."; 
+          console.error(error);
+          this.errorMessage = "Error creating order. Please try again.";
         });
     },
   },
